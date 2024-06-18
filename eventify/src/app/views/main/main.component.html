@@ -1,1 +1,33 @@
-<p>main works!</p>
+<div class="main-root root">
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col-3 sidenav">
+                <div class="row p-4">
+                    <div class="col-4 d-flex mb-4 sidenav-title-div">
+                        <img src="assets/img/img-sidenav.svg" alt="Logo do eventify" width="100" height="100">
+                        <p>Eventify</p>
+                    </div>
+                    <div class="anchor-container text-start">
+                        <a href="#" class="p-2 first-anchor"> <img class="anchor-img" src="assets/img/bell-fill.svg"
+                                alt="Descrição do SVG"> Notification center</a>
+                        <a href="#" class="p-2"> <img class="anchor-img" src="assets/img/clipboard-data-fill.svg"
+                                alt="Descrição do SVG">Dashboard</a>
+                        <a href="#" class="p-2"> <img class="anchor-img" src="assets/img/filter-square-fill.svg"
+                                alt="Descrição do SVG">My plans</a>
+                        <a href="#" class="p-2"> <img class="anchor-img" src="assets/img/currency-dollar.svg"
+                                alt="Descrição do SVG">My expenses</a>
+                        <div class="bottom-buttons">
+                            <a href="#" class="p-2"> <img class="anchor-img" src="assets/img/gear-fill.svg"
+                                    alt="Descrição do SVG">Settings</a>
+                            <a href="#" class="p-2"> <img class="anchor-img" src="assets/img/box-arrow-left.svg"
+                                    alt="Descrição do SVG">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
