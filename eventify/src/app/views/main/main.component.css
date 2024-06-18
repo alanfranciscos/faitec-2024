@@ -1,10 +1,10 @@
 .root {
     background-color: #F5F5DC;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .sidenav-title-div{
-    height: 15vh;
+    /* height: 15vh; */
 }
 
 .sidenav-title-div > p{

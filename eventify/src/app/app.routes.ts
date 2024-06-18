@@ -27,22 +27,23 @@ export const routes: Routes = [
         canActivate: [authenticationGuard],
         children: [
             {
-                path: '',
-                component: MainComponent
-            },
-            {
-                path: 'my-events',
-                component: MyEventsComponent,
-            },
-            {
-                path: 'create-events',
-                component: CreateEventsComponent,
-            },
-            {
-                path: 'edit-events',
-                component: EditEventsComponent,
-            },
+                path: 'events',
+                children: [
+                    {
+                        path: 'my-events',
+                        component: MyEventsComponent,
+                    },
+                    {
+                        path: 'create-events',
+                        component: CreateEventsComponent,
+                    },
+                    {
+                        path: 'edit-events',
+                        component: EditEventsComponent,
+                    },
 
+                ],
+            },
         ]
     }
 ];
