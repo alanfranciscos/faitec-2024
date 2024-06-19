@@ -7,6 +7,9 @@ import { MyProfileComponent } from './views/account/my-profile/my-profile.compon
 import { MyEventsComponent } from './views/events/my-events/my-events.component';
 import { CreateEventsComponent } from './views/events/create-events/create-events.component';
 import { EditEventsComponent } from './views/events/edit-events/edit-events.component';
+import { MyExpensesComponent } from './views/my-expenses/my-expenses.component';
+import { NotificationCenterComponent } from './views/notification-center/notification-center.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -16,10 +19,6 @@ export const routes: Routes = [
     {
         path: 'account/sign-up',
         component: SignUpComponent
-    },
-    {
-        path: 'account/my-profile',
-        component: MyProfileComponent
     },
     {
         path: '',
@@ -41,9 +40,41 @@ export const routes: Routes = [
                         path: 'edit-events',
                         component: EditEventsComponent,
                     },
-
                 ],
             },
-        ]
-    }
-];
+            {
+                path: 'expenses',
+                children: [{
+                    path: '',
+                    component: MyExpensesComponent,
+                },
+                ],
+            },
+            {
+                path: 'notification',
+                children: [{
+                    path: '',
+                    component: NotificationCenterComponent,
+                },
+                ],
+            },
+            {
+                path: 'dashboard',
+                children: [{
+                    path: '',
+                    component: DashboardComponent,
+                },
+                ],
+            },
+            {
+                path: 'account/my-profile',
+                component: MyProfileComponent
+            },
+
+        ],
+    },
+]
+
+
+
+
