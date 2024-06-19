@@ -1,0 +1,28 @@
+{
+    "user": [
+      {
+        "id": "1",
+        "fullName": "Carlos Eduardo",
+        "email": "carlos.eduardo@gmail.com",
+        "password": "123456"
+      },
+      {
+        "id": "2",
+        "fullName": "tiburssinho tiburssius",
+        "email": "tiburssinho@gmail.com",
+        "password": "123456"
+      }
+    ],
+    "events": [
+      {
+        "id": "1",
+        "name": "Viagem para praia",
+        "price": 123.22
+      },
+      {
+        "id": "2",
+        "name": "Aquisição de um carro",
+        "price": 200000
+      }
+    ]
+  }
