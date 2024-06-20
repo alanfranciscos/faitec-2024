@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { User } from '../../../domain/model/user';
+import { UserCreateService } from '../../../services/user/user-create.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -27,7 +28,9 @@ export class SignUpComponent implements OnInit {
   passwordMaxLength: number = 10;
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private userCreateService: UserCreateService
+  ) {
     this.initializeForm();
   }
 
@@ -80,6 +83,14 @@ export class SignUpComponent implements OnInit {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value
     }
-    console.log(user);
+
+    this.userCreateService.create(user).subscribe({
+      next: value => {
+        this.router.navigate(['account/sign-in']);
+      },
+      error: err => {
+        console.error('Erro inesperado');
+      }
+    })
   }
 }
