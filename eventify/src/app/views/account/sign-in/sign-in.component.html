@@ -13,7 +13,7 @@
                     <label for="inputPassword6" class="col-form-label">Password</label>
                 </div>
                 <div class="col-auto input-area">
-                    <input type="password" id="inputPassword6" class="form-control"
+                    <input type="password" id="inputPassword6" class="form-control" placeholder="Type your password"
                         aria-describedby="passwordHelpInline" [formControl]="password">
                 </div>
                 <div class="col-auto">
@@ -21,9 +21,14 @@
                         Must be 8-20 characters long.
                     </span>
                 </div>
-                <button type="button" class="btn credentials-btn-color" (click)="login()">
+                <button type="button" class="btn credentials-btn-color" (click)="login()" [disabled] = "isFormInvalid()">
                     Login now
                 </button>
+
+                @if(isLoginIncorrect){
+                    <p class="text-danger mt-2">Incorrect email and/or password.</p>
+                }
+
                 <button type="button" class="btn credentials-btn-color">
                     Sign-up
                 </button>
