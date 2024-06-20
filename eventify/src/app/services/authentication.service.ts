@@ -11,19 +11,12 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  // async authenticate(credential: UserCredential) {
-  //   // console.log('trying to authenticate...');
-  //   // console.log(credential);
-
-  //   let apiResponse = await firstValueFrom(this.http.get<UserCredential[]>(`http://localhost:3000/user?email=${credential.email}&password=${credential.password}`));
-  //   console.log(apiResponse);
-  //   if (apiResponse == null || apiResponse.length != 1) {
-  //     throw new Error('dados invalidos');
-  //   }
-  //   return true;
-  // }
-
-
+  /**
+   * Método responsável por fazer a consulta no json-server com as credenciais
+   * de email e password.
+   * @param credential 
+   * @returns boolean
+   */
   async authenticate(credential: UserCredential) {
     try {
       const apiResponse = await firstValueFrom(this.http.get<UserCredential[]>(`http://localhost:3000/user?email=${credential.email}`));
@@ -45,13 +38,21 @@ export class AuthenticationService {
     }
   }
   
-
-
-
+  /**
+   * Método responsável por apagar as credenciais de 
+   * email e password do localStorage
+   */
   logout() {
     localStorage.clear();
   }
 
+  /**
+   * Método responsável por verificar o token
+   * no localStorage, Se houver token salvo
+   * no localStorage retorna true, caso contrário
+   * retorna false
+   * @returns boolean
+   */
   isAuthenticated(): boolean {
     let token = localStorage.getItem('token');
 
@@ -61,6 +62,11 @@ export class AuthenticationService {
     return false;
   }
 
+  /**
+   * Método responsável por salvar as credenciais
+   * no localStorage
+   * @param email 
+   */
   addCredentialsToLocalStorage(email: string) {
     localStorage.setItem('email', email);
     localStorage.setItem('token', new Date().toLocaleTimeString());

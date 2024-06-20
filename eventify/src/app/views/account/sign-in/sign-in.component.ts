@@ -23,12 +23,24 @@ export class SignInComponent implements OnInit {
 
   isLoginIncorrect = false;
 
+  /**
+   * Método responsável por solocitar a veerificação se existe
+   * um usuário salvo no localStorage. Caso exista, a aplicação
+   * é direcionada para a tela home
+   */
   ngOnInit(): void {
     if( this.authenticationService.isAuthenticated()){
-      this.router.navigate(['account/sign-in']);
+      this.router.navigate(['/']);
     }
   }
 
+  /**
+   * Método responsável por enviar email e password
+   * para authenticationService fazer a validação
+   * no json-server. Caso os dados estejam corretos
+   * isLoginIncorrect recebe salse, se os dados
+   * estiverem incorretos isLoginIncorrect recebe true
+   */
   async login(){
     let credential: UserCredential = {
       email: this.email.value!,
@@ -40,14 +52,18 @@ export class SignInComponent implements OnInit {
       await this.router.navigate(['/']);
       this.isLoginIncorrect = false;
     } catch (e: any) {
-      // console.error(`erro: ${e}`);
-      // this.toastrService.error(e.message);
       this.email.setValue(null);
       this.password.setValue(null);
       this.isLoginIncorrect = true;
     }
   }
 
+  /**
+   * Método responsável pela validação do botão de login
+   * Se false o botão fica desabilidato
+   * Se true o botão fica habilitado
+   * @returns {isValid}
+   */
   isFormInvalid(){
     let isValid = this.email.valid && this.password.valid;
     return isValid ? false : true;
