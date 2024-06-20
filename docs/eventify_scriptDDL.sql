@@ -6,16 +6,16 @@ create database eventify;
 begin;
 
 -- verification code is 6 but we are using 100 to make it more secure (hashed)
-CREATE TABLE account ( --Changed
+CREATE TABLE account ( 
     id SERIAL PRIMARY KEY,
-    username VARCHAR(150) NOT NULL, --CHANGED
+    username VARCHAR(150) NOT NULL, 
     email VARCHAR(200) NOT NULL UNIQUE,
-    hashed_password VARCHAR(1024) NOT NULL,  --CHANGED
-    image_data BYTEA,  --CHANGED
-    nickname VARCHAR(100) NOT NULL UNIQUE,  --CHANGED
-    verification_code VARCHAR(100) NOT NULL,  --CHANGED
-    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,  --CHANGED
-    is_verified BOOLEAN DEFAULT FALSE  --CHANGED
+    hashed_password VARCHAR(1024) NOT NULL,  
+    image_data BYTEA,  
+    nickname VARCHAR(100) NOT NULL UNIQUE,  
+    verification_code VARCHAR(100) NOT NULL,  
+    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,  
+    is_verified BOOLEAN DEFAULT FALSE  
 );
 
 CREATE TABLE FRIEND (
@@ -29,24 +29,26 @@ CREATE TABLE FRIEND (
     UNIQUE(account_id, friend_id)
 );
 
--- parece ter duas linhas mas é uma só
--- name changed
+
 CREATE TABLE meetup (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL, --CHANGED
-    information TEXT NOT NULL, --CHANGED(DESCRIPTION)
+    title VARCHAR(200) NOT NULL, 
+    information TEXT NOT NULL, (DESCRIPTION)
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 
-    cep_address VARCHAR(9), --CHANGED
-    state_address VARCHAR(200), --CHANGED
-    city_address VARCHAR(200), --CHANGED
-    neighborhood_address VARCHAR(200), --CHANGED
-    number_address VARCHAR(200), --CHANGED
-    street_address VARCHAR(200), --CHANGED
+    cep_address VARCHAR(9), 
+    state_address VARCHAR(200), 
+    city_address VARCHAR(200), 
+    neighborhood_address VARCHAR(200), 
+    number_address VARCHAR(200), 
+    street_address VARCHAR(200), 
 
-    date_start TIMESTAMP WITH TIME ZONE NOT NULL, --CHANGED
-    date_end TIMESTAMP WITH TIME ZONE NOT NULL, --CHANGED
-    pix_key VARCHAR(200), --CHANGED
+    date_start TIMESTAMP WITH TIME ZONE NOT NULL, 
+    date_end TIMESTAMP WITH TIME ZONE NOT NULL, 
+    stage VARCHAR(200) NOT NULL
+        CHECK (stage in ('created', 'started', 'finished', 'canceled')
+    ),
+    pix_key VARCHAR(200),
     UNIQUE(title, information, created_at)
 );
 
@@ -62,7 +64,10 @@ CREATE TABLE participate (
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL,
     meetup_id INTEGER NOT NULL,
-    active BOOLEAN DEFAULT TRUE,
+    role_participant VARCHAR(200) NOT NULL
+        CHECK (role_participant in ('organizer', 'participant')
+    ), 
+    active BOOLEAN DEFAULT FALSE,
     sended_at TIMESTAMP WITH TIME ZONE NOT NULL,
     acepted_at TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE NO ACTION,
@@ -73,17 +78,17 @@ CREATE TABLE participate (
 CREATE TABLE management (
     id SERIAL PRIMARY KEY,
     participate_id INTEGER NOT NULL,
-    managment_at TIMESTAMP WITH TIME ZONE NOT NULL, --CHANGED (DATE)
+    managment_at TIMESTAMP WITH TIME ZONE NOT NULL,  (DATE)
     type_action VARCHAR(200) NOT NULL
         CHECK (type_action in ('create', 'modify', 'delete', 'add_participant', 'remove_participant')
-    ), --CHANGED
+    ), 
     UNIQUE(participate_id, managment_at)
 );
 
 CREATE TABLE expanses (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
-    cost NUMERIC(7, 2) NOT NULL, --CHANGED
+    cost NUMERIC(7, 2) NOT NULL, 
     about TEXT NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, cost, about)
@@ -93,12 +98,12 @@ CREATE TABLE payment (
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL,
     expanse_id INTEGER NOT NULL,
-    paid_at TIMESTAMP WITH TIME ZONE NOT NULL, --CHANGED
-    value_pay NUMERIC(7, 2) NOT NULL, --CHANGED
+    paid_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+    value_pay NUMERIC(7, 2) NOT NULL, 
     about VARCHAR(100) NOT NULL,
     type_payment VARCHAR(200) NOT NULL
         CHECK (type_payment in ('credit_card', 'debit_card', 'pix', 'cash')
-    ), --CHANGED
+    ), 
     FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
     FOREIGN KEY (expanse_id) REFERENCES expanses(id) ON DELETE CASCADE,
     UNIQUE(account_id, expanse_id)
