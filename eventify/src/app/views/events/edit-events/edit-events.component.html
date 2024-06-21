@@ -74,15 +74,18 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="eventImage">Adicionar imagem:</label>
+                        <label for="eventImage">Alterar imagem:</label>
                         <input type="file" file-model="event.image" id="eventImage">
+                        <label for="complement">Adicionar chave pix:</label>
+                        <input type="text" id="complement" ng-model="event.complement" class="form-control">
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center">
                 <!-- Botão de Cancelar -->
-                <button type="button" class="btn btn-secondary mr-2" ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-secondary mr-2" [routerLink]="
+                    ['/events/my-events']">Cancelar</button>
                 <!-- Botão de Atualizar Evento -->
                 <button type="submit" ng-click="updateEvent()" class="btn btn-primary">Atualizar Evento</button>
             </div>

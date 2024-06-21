@@ -10,7 +10,7 @@ describe('NotificationCenterComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NotificationCenterComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NotificationCenterComponent);
     component = fixture.componentInstance;

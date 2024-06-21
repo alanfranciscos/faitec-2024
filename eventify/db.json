@@ -17,6 +17,12 @@
       "fullName": "Rosana de Almeida Rosa",
       "email": "rosana@gmail.com",
       "password": "abc123"
+    },
+    {
+      "id": "504a",
+      "fullName": "",
+      "email": "",
+      "password": ""
     }
   ],
   "events": [

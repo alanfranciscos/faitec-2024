@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UserCredential } from '../domain/dto/user-credential';
@@ -20,7 +20,7 @@ export class AuthenticationService {
   async authenticate(credential: UserCredential) {
     try {
       const apiResponse = await firstValueFrom(this.http.get<UserCredential[]>(`http://localhost:3000/user?email=${credential.email}`));
-  
+
       if (apiResponse && apiResponse.length === 1) {
         const user = apiResponse[0];
         // Compare a senha fornecida com a senha armazenada no banco de dados (usando bcrypt ou outra biblioteca).
@@ -37,7 +37,7 @@ export class AuthenticationService {
       throw new Error('Erro ao autenticar');
     }
   }
-  
+
   /**
    * Método responsável por apagar as credenciais de 
    * email e password do localStorage
