@@ -11,6 +11,7 @@ import { MyExpensesComponent } from './views/my-expenses/my-expenses.component';
 import { NotificationCenterComponent } from './views/notification-center/notification-center.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { ForgotPasswordComponent } from './views/account/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
     {
         path: 'account/sign-up',
         component: SignUpComponent
+    },
+    {
+        path: 'account/forgot-password',
+        component: ForgotPasswordComponent
     },
     {
         path: '',

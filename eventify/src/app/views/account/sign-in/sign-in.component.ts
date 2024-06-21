@@ -31,7 +31,7 @@ export class SignInComponent implements OnInit {
    */
   ngOnInit(): void {
     if (this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/events/my-events']);
     }
   }
 
@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit {
     try {
       await this.authenticationService.authenticate(credential);
       this.authenticationService.addCredentialsToLocalStorage(credential.email);
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/events/my-events']);
       this.isLoginIncorrect = false;
     } catch (e: any) {
       this.email.setValue(null);
