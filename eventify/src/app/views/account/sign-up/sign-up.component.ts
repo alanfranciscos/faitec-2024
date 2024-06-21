@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { User } from '../../../domain/model/user';
 import { UserCreateService } from '../../../services/user/user-create.service';
 
@@ -14,6 +14,7 @@ import { UserCreateService } from '../../../services/user/user-create.service';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
@@ -77,7 +78,7 @@ export class SignUpComponent implements OnInit {
     return isValid ? false : true;
   };
 
-  createAccount(){
+  createAccount() {
     let user: User = {
       fullName: this.form.controls['fullName'].value,
       email: this.form.controls['email'].value,

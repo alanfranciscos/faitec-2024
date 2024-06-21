@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { Router } from '@angular/router';
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserCredential } from '../../../domain/dto/user-credential';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,12 +11,13 @@ import { ToastrService } from 'ngx-toastr';
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
 export class SignInComponent implements OnInit {
-  constructor(private router: Router, private authenticationService: AuthenticationService, private toastrService: ToastrService) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService, private toastrService: ToastrService) { }
 
   email = new FormControl(null);
   password = new FormControl(null, [Validators.minLength(1), Validators.maxLength(10)])
@@ -29,7 +30,7 @@ export class SignInComponent implements OnInit {
    * é direcionada para a tela home
    */
   ngOnInit(): void {
-    if( this.authenticationService.isAuthenticated()){
+    if (this.authenticationService.isAuthenticated()) {
       this.router.navigate(['/']);
     }
   }
@@ -41,7 +42,7 @@ export class SignInComponent implements OnInit {
    * isLoginIncorrect recebe salse, se os dados
    * estiverem incorretos isLoginIncorrect recebe true
    */
-  async login(){
+  async login() {
     let credential: UserCredential = {
       email: this.email.value!,
       password: this.password.value!
@@ -64,7 +65,7 @@ export class SignInComponent implements OnInit {
    * Se true o botão fica habilitado
    * @returns {isValid}
    */
-  isFormInvalid(){
+  isFormInvalid() {
     let isValid = this.email.valid && this.password.valid;
     return isValid ? false : true;
   }
