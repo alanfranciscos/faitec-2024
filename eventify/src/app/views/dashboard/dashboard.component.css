@@ -6,5 +6,9 @@
 
 .card-width {
     width: 33%;
+}
 
+.chart-title {
+    display: flex;
+    margin-left: 30px;
 }
