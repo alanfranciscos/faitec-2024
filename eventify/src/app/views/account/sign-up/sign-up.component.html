@@ -16,7 +16,7 @@
                         <div class="mb-3 col-6">
                             <label for="FormControlInput2" class="form-label">Nickname</label>
                             <input type="text" class="form-control" id="FormControlInput2"
-                                placeholder="Type your nickname">
+                                placeholder="Type your nickname" formControlName="nickname">
                         </div>
                     </div>
                     <div class="row">
@@ -43,16 +43,22 @@
                     <div class="row">
                         <div class="mb-3 col-9">
                             <label for="FormControlInput6" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="FormControlInput6" placeholder="Type your city">
+                            <input type="text" class="form-control" id="FormControlInput6" placeholder="Type your city"
+                                formControlName="city">
                         </div>
                         <div class="mb-3 col-3">
-                            <label for="FormControlInput7" class="form-label">Estado - UF</label>
+                            <!-- <label for="FormControlInput7" class="form-label" formControlName="state">Estado -
+                                UF</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Select your state</option>
                                 <option value="1">Minas Gerais</option>
                                 <option value="2">São Paulo</option>
                                 <option value="3">Rio de Janeiro</option>
-                            </select>
+                            </select> -->
+                            <label for="FormControlInput7" class="form-label">State</label>
+                            <input type="state" id="FormControlInput7" class="form-control"
+                                aria-describedby="passwordHelpBlock" placeholder="State" required=""
+                                formControlName="state">
                         </div>
                     </div>
                     <div class=" div-picture">

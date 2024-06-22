@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UserCredential } from '../domain/dto/user-credential';
+import { UserProfile } from '../domain/dto/user-profile';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+
 
   constructor(private http: HttpClient) { }
 
@@ -30,13 +32,18 @@ export class AuthenticationService {
           throw new Error('Senha incorreta');
         }
       } else {
+        console.log(apiResponse)
+        console.log(apiResponse.length)
+
         throw new Error('Usuário não encontrado');
+
       }
     } catch (error) {
       console.error('Erro ao autenticar:', error);
       throw new Error('Erro ao autenticar');
     }
   }
+
 
   /**
    * Método responsável por apagar as credenciais de 
@@ -71,4 +78,6 @@ export class AuthenticationService {
     localStorage.setItem('email', email);
     localStorage.setItem('token', new Date().toLocaleTimeString());
   }
+
 }
+

@@ -2,33 +2,12 @@
   "user": [
     {
       "id": "1",
-      "fullName": "Carlos Eduardo",
-      "email": "carlos.eduardo@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "2",
-      "fullName": "tiburssinho tiburssius",
-      "email": "tiburssinho@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "5061",
-      "fullName": "Rosana de Almeida Rosa",
-      "email": "rosana@gmail.com",
-      "password": "abc123"
-    },
-    {
-      "id": "504a",
-      "fullName": "",
-      "email": "",
-      "password": ""
-    },
-    {
-      "id": "9fc5",
-      "fullName": "",
-      "email": "",
-      "password": ""
+      "name": "leandro",
+      "email": "leandro@admin",
+      "password": "123456",
+      "nickname": "leandro",
+      "city": "santa rita",
+      "state": "PB"
     }
   ],
   "events": [

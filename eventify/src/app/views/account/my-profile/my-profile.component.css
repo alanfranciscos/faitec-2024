@@ -2,6 +2,10 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    height: 100%;
+    /* Definir altura total */
+    display: flex;
+    flex-direction: column;
 }
 
 .card-header {
@@ -10,8 +14,43 @@
     padding: 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    text-align: center;
+    /* Centralizar texto do cabeçalho */
 }
 
 .card-body {
     padding: 20px;
+    flex-grow: 1;
+    /* Ocupar espaço restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centralizar conteúdo verticalmente */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    /* Espaçamento entre os campos */
+}
+
+.form-group label {
+    text-align: left;
+    /* Alinhar texto dos rótulos à esquerda */
+}
+
+.btn-container {
+    text-align: center;
+    /* Centralizar botões */
+    margin-top: 20px;
+    /* Espaçamento acima dos botões */
+    text-align: center;
+    /* Centralizar botões horizontalmente */
+    margin-top: 20px;
+    /* Espaçamento acima dos botões */
+
+}
+
+.btn-container button {
+    margin-left: 10px;
+    /* Espaçamento entre os botões */
 }

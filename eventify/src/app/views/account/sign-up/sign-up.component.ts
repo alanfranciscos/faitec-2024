@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../../../domain/model/user';
 import { UserCreateService } from '../../../services/user/user-create.service';
+import { UserProfile } from '../../../domain/dto/user-profile';
+import { state } from '@angular/animations';
+import { UserCredential } from '../../../domain/dto/user-credential';
 
 @Component({
   selector: 'app-sign-up',
@@ -59,7 +61,16 @@ export class SignUpComponent implements OnInit {
         Validators.required,
         Validators.minLength(this.passwordMinLength),
         Validators.maxLength(this.passwordMaxLength)
-      ]]
+      ]],
+      nickname: ['', [
+        Validators.required,
+      ]],
+      city: ['', [
+        Validators.required,
+      ]],
+      state: ['', [
+        Validators.required,
+      ]],
     });
   }
 
@@ -68,7 +79,10 @@ export class SignUpComponent implements OnInit {
     let isValid = this.form.controls['fullName'].valid
       && this.form.controls['email'].valid
       && this.form.controls['password'].valid
-      && this.form.controls['repeatPassword'].valid;
+      && this.form.controls['repeatPassword'].valid
+      && this.form.controls['nickname'].valid
+      && this.form.controls['city'].valid
+      && this.form.controls['state'].valid;
 
     if (this.form.controls['password'] != null
       && this.form.controls['repeatPassword'] != null
@@ -79,11 +93,16 @@ export class SignUpComponent implements OnInit {
   };
 
   createAccount() {
-    let user: User = {
-      fullName: this.form.controls['fullName'].value,
+    let user: UserCredential = {
+      name: this.form.controls['fullName'].value,
       email: this.form.controls['email'].value,
-      password: this.form.controls['password'].value
+      password: this.form.controls['password'].value,
+      nickname: this.form.controls['nickname'].value,
+      city: this.form.controls['city'].value,
+      state: this.form.controls['state'].value,
+
     }
+
 
     this.userCreateService.create(user).subscribe({
       next: value => {
