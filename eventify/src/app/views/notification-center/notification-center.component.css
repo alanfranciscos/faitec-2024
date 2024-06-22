@@ -1,0 +1,92 @@
+body {
+    background: #FFF;
+}
+
+span {
+    font-size: 15px;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000;
+}
+
+.box {
+    padding: 60px 0px;
+}
+
+.box-part {
+    border-radius: 0;
+    margin: 30px 0px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.text {
+    margin: 20px 0px;
+}
+
+.fa {
+    color: #4183D7;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    background-color: #68C7C1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-custom {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    background-color: #68C7C1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.event-card {
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    max-width: 300px;
+}
+
+.search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.search-bar button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.fa-search {
+    color: #333;
+}

@@ -4,69 +4,78 @@
             <img class="mb-4 img-logo" src="assets/img/Logo-background-none.svg" alt="">
         </div>
         <div class="col-9 background-for-credentials p-4">
-            <h1>Sign Up</h1>
-            <div class="row g-3 align-items-center p-4">
-                <div class="row">
-                    <div class="mb-3 col-6">
-                        <label for="exampleFormControlInput1" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Type your name">
+            <form class="form mat-elevation-z4" [formGroup]="form">
+                <h1>Sign Up</h1>
+                <div class="row g-3 align-items-center p-4">
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="FormControlInput1" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="FormControlInput1" placeholder="Type your name"
+                                required="" formControlName="fullName">
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="FormControlInput2" class="form-label">Nickname</label>
+                            <input type="text" class="form-control" id="FormControlInput2"
+                                placeholder="Type your nickname" formControlName="nickname">
+                        </div>
                     </div>
-                    <div class="mb-3 col-6">
-                        <label for="exampleFormControlInput1" class="form-label">Nickname</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Type your nickname">
+                    <div class="row">
+                        <div class="mb-3 col-12">
+                            <label for="FormControlInput3" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="FormControlInput3"
+                                placeholder="name@example.com" required="" formControlName="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="FormControlInput4" class="form-label">Password</label>
+                            <input type="password" id="FormControlInput4" class="form-control"
+                                aria-describedby="passwordHelpBlock" placeholder="Type your password" required=""
+                                formControlName="password">
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="FormControlInput5" class="form-label">Repeat password</label>
+                            <input type="password" id="FormControlInput5" class="form-control"
+                                aria-describedby="passwordHelpBlock" placeholder="Confirm your password" required=""
+                                formControlName="repeatPassword">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-9">
+                            <label for="FormControlInput6" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="FormControlInput6" placeholder="Type your city"
+                                formControlName="city">
+                        </div>
+                        <div class="mb-3 col-3">
+                            <!-- <label for="FormControlInput7" class="form-label" formControlName="state">Estado -
+                                UF</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Select your state</option>
+                                <option value="1">Minas Gerais</option>
+                                <option value="2">São Paulo</option>
+                                <option value="3">Rio de Janeiro</option>
+                            </select> -->
+                            <label for="FormControlInput7" class="form-label">State</label>
+                            <input type="state" id="FormControlInput7" class="form-control"
+                                aria-describedby="passwordHelpBlock" placeholder="State" required=""
+                                formControlName="state">
+                        </div>
+                    </div>
+                    <div class=" div-picture">
+                        <p class="p-3">Add picture</p>
+                        <a href="" class=""> <img src="assets/img/btn-picture.svg" alt="picture button">
+                        </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-12">
-                        <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1"
-                            placeholder="name@example.com">
-                    </div>
+                <div class="col-12 div-button">
+                    <button type="button" class="btn credentials-btn-color" [routerLink]="['/account/sign-in']">
+                        Return
+                    </button>
+                    <button type="button" class="btn credentials-btn-color" (click)="createAccount()">
+                        Sign-up
+                    </button>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-6">
-                        <label for="exampleFormControlInput1" class="form-label">Password</label>
-                        <input type="password" id="inputPassword5" class="form-control"
-                            aria-describedby="passwordHelpBlock" placeholder="Type your password">
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="exampleFormControlInput1" class="form-label">Repeat password</label>
-                        <input type="password" id="inputPassword5" class="form-control"
-                            aria-describedby="passwordHelpBlock" placeholder="Confirm your password">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-9">
-                        <label for="exampleFormControlInput1" class="form-label">Cidade</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Type your city">
-                    </div>
-                    <div class="mb-3 col-3">
-                        <label for="exampleFormControlInput1" class="form-label">Estado - UF</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Select your state</option>
-                            <option value="1">Minas Gerais</option>
-                            <option value="2">São Paulo</option>
-                            <option value="3">Rio de Janeiro</option>
-                        </select>
-                    </div>
-                </div>
-                <div class=" div-picture">
-                    <p class="p-3">Add picture</p>
-                    <a href="" class=""> <img src="assets/img/btn-picture.svg" alt="picture button">
-                    </a>
-                </div>
-            </div>
-            <div class="col-12 div-button">
-                <button type="button" class="btn credentials-btn-color">
-                    Return
-                </button>
-                <button type="button" class="btn credentials-btn-color">
-                    Sign-up
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
