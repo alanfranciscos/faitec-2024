@@ -1,0 +1,3 @@
+- As telas marcadas com a cor azul são as telas cujo front-end foi implementado.
+- Ao acessar o arquivo .simp (do ideas) será possível ver as telas implementadas, adicionamos o diagrama web nos casos.
+- Portanto, optamos por usar o Ideas Modeles ao invés do Figma nesta entrega.
