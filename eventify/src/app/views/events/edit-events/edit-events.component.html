@@ -1,30 +1,30 @@
 <div class="container d-flex justify-content-center p-4">
     <div class="col-md-9">
         <div class="form-group">
-            <h2 class="text-center">Editar Evento</h2>
+            <h2 class="text-center">Edit event</h2>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="eventName">Nome do evento:</label>
+                        <label for="eventName">Event name:</label>
                         <input type="text" id="eventName" ng-model="event.name" required class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="eventDescription">Descrição:</label>
+                        <label for="eventDescription">Description:</label>
                         <textarea id="eventDescription" ng-model="event.description" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="startDate">Data de início:</label>
+                        <label for="startDate">Start date:</label>
                         <input type="date" id="startDate" ng-model="event.startDate" required class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="endDate">Data de fim:</label>
+                        <label for="endDate">End date:</label>
                         <input type="date" id="endDate" ng-model="event.endDate" required class="form-control">
                     </div>
 
                     <hr>
 
                     <div class="form-group">
-                        <label for="locationName">Nome do local:</label>
+                        <label for="locationName">Local name:</label>
                         <input type="text" id="locationName" ng-model="event.locationName" required
                             class="form-control">
                     </div>
@@ -36,13 +36,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="state">Estado:</label>
+                                <label for="state">State:</label>
                                 <input type="text" id="state" ng-model="event.state" required class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="city">Cidade:</label>
+                                <label for="city">City:</label>
                                 <input type="text" id="city" ng-model="event.city" required class="form-control">
                             </div>
                         </div>
@@ -51,32 +51,32 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="street">Rua/Avenida:</label>
+                                <label for="street">Street/Avenue:</label>
                                 <input type="text" id="street" ng-model="event.street" required class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="number">Número:</label>
+                                <label for="number">Number:</label>
                                 <input type="text" id="number" ng-model="event.number" required class="form-control">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="district">Bairro:</label>
+                        <label for="district">Neighborhood:</label>
                         <input type="text" id="district" ng-model="event.district" required class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="complement">Complemento:</label>
+                        <label for="complement">Complement:</label>
                         <input type="text" id="complement" ng-model="event.complement" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="eventImage">Alterar imagem:</label>
+                        <label for="eventImage">Change photo:</label>
                         <input type="file" file-model="event.image" id="eventImage">
-                        <label for="complement">Adicionar chave pix:</label>
+                        <label for="complement">Add pix key:</label>
                         <input type="text" id="complement" ng-model="event.complement" class="form-control">
                     </div>
                 </div>
@@ -85,9 +85,9 @@
             <div class="d-flex justify-content-center">
                 <!-- Botão de Cancelar -->
                 <button type="button" class="btn btn-secondary mr-2" [routerLink]="
-                    ['/events/my-events']">Cancelar</button>
+                    ['/events/my-events']">Cancel</button>
                 <!-- Botão de Atualizar Evento -->
-                <button type="submit" ng-click="updateEvent()" class="btn btn-primary">Atualizar Evento</button>
+                <button type="submit" ng-click="updateEvent()" class="btn btn-primary">Update event</button>
             </div>
         </div>
     </div>

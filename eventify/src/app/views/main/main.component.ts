@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, RouterOutlet, } from '@angular/router';
+import { Router, RouterModule, RouterOutlet, } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-main',
@@ -15,5 +16,13 @@ import { RouterModule, RouterOutlet, } from '@angular/router';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
+
+  constructor(private router: Router,
+    private authenticationService: AuthenticationService){}
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['account/sign-in']);
+  }
 
 }
