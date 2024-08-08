@@ -1,5 +1,5 @@
-drop database if exists eventify;
-create database eventify;
+-- drop database if exists eventify;
+-- create database eventify;
 
 \c eventify;
 
@@ -8,17 +8,26 @@ begin;
 -- verification code is 6 but we are using 100 to make it more secure (hashed)
 CREATE TABLE account ( 
     id SERIAL PRIMARY KEY,
-    username VARCHAR(150) NOT NULL, 
+    username VARCHAR(150) NOT NULL UNIQUE, 
     email VARCHAR(200) NOT NULL UNIQUE,
-    hashed_password VARCHAR(1024) NOT NULL,  
-    image_data BYTEA,  
-    nickname VARCHAR(100) NOT NULL UNIQUE,  
-    verification_code VARCHAR(100) NOT NULL,  
-    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,  
+    image_data BYTEA,
     is_verified BOOLEAN DEFAULT FALSE  
 );
 
-CREATE TABLE FRIEND (
+CREATE TABLE account_password(
+    id SERIAL PRIMARY KEY,
+    account_id INTEGER NOT NULL,
+    user_password VARCHAR(1024) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT FALSE,
+    staging BOOLEAN NOT NULL DEFAULT TRUE,
+    verification_code VARCHAR(100) NOT NULL,  
+    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,  
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
+    UNIQUE(account_id, user_password)
+);
+
+CREATE TABLE friend (
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL,
     friend_id INTEGER NOT NULL,
@@ -32,8 +41,8 @@ CREATE TABLE FRIEND (
 
 CREATE TABLE meetup (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL, 
-    information TEXT NOT NULL, (DESCRIPTION)
+    title VARCHAR(50) NOT NULL, 
+    information VARCHAR(200) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 
     cep_address VARCHAR(9), 
@@ -78,7 +87,7 @@ CREATE TABLE participate (
 CREATE TABLE management (
     id SERIAL PRIMARY KEY,
     participate_id INTEGER NOT NULL,
-    managment_at TIMESTAMP WITH TIME ZONE NOT NULL,  (DATE)
+    managment_at TIMESTAMP WITH TIME ZONE NOT NULL,
     type_action VARCHAR(200) NOT NULL
         CHECK (type_action in ('create', 'modify', 'delete', 'add_participant', 'remove_participant')
     ), 
@@ -110,3 +119,7 @@ CREATE TABLE payment (
 );
 
 COMMIT;
+
+-- password123
+-- INSERT INTO account (username, email, user_password, verification_code, code_valid_until, is_verified)
+-- VALUES ('john_doe', 'john.doe@example.com', '$2a$12$oNXqL2Zi2lNqujv.W0oCdOgGGNiWXlsD8LosX1y/eVGw8UARpevfe', 376358, '2024-07-09 01:06:25.847', TRUE);
