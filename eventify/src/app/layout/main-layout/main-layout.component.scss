@@ -25,14 +25,12 @@
 }
 
 .container {
-  
   width: 15.625rem;
   height: 100%;
   opacity: var(--sds-size-stroke-border);
   background: #FFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  padding-bottom: 10px;
   transition: colapseSidebar 1s ease-in-out;
 }
 
@@ -99,7 +97,7 @@
   padding: 0.5rem;
   background-color: #f1f0f0;
   border: none;
-  cursor: pointer; 
+  cursor: pointer;
   box-shadow: 0px 0.625rem 0.625rem 0px #00000040;
   // div {
   //   margin-right: 5px;

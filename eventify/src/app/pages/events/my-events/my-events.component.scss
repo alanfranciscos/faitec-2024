@@ -1,27 +1,28 @@
-  
+
   .container {
     display: flex;
     flex-direction: column;
-    
-  }
 
+  }
 
   .search-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5rem; /* Espaçamento interno em relação às bordas da tela */
+    margin-bottom: 3rem;
+    margin-top: 1rem;
   }
-  
+
   .search {
     display: flex;
     width: 18.875rem;
-    height: 2.125rem; 
-    border-radius: 0.3125rem; 
+    height: 2.125rem;
+    border-radius: 0.3125rem;
     overflow: hidden;
     border: 1px solid #D9D9D9;
   }
-  
+
   .search input[type="text"] {
     width: 100%;
     height: 100%;
@@ -30,37 +31,37 @@
     font-size: 1rem;
     border-radius: 0.3125rem 0 0 0.3125rem;
   }
-  
+
   .search input[type="text"]:focus {
     outline: none;
   }
-  
+
   .search-button {
-    width: 3.125rem; 
+    width: 3.125rem;
     height: 100%;
-    background-color: #D9D9D9; 
+    background-color: #D9D9D9;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    border-radius: 0 0.3125rem 0.3125rem 0; 
+    border-radius: 0 0.3125rem 0.3125rem 0;
   }
-  
+
   .search-button i {
     font-size: 1.5rem; /* Ajuste o tamanho do ícone */
   }
-  
+
   .search-button:focus {
     outline: none;
   }
-  
+
   .create-button {
-    width: 5rem; 
-    height:2.5rem;   
+    width: 5rem;
+    height:2.5rem;
     margin-left: auto;
-    border-radius: 0.3125rem; 
+    border-radius: 0.3125rem;
     background-color: #28a745;
     color: white;
     border: none;
@@ -71,37 +72,33 @@
     text-decoration: none;
     font-size: 1rem;
     opacity: 1;
-    gap: 0; 
+    gap: 0;
   }
-  
-  
-  
-  
 
-  
   .cards ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .cards li {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 10px;
-    flex: 1 1 calc(33.333% - 20px);
     box-sizing: border-box;
+
   }
-  
+
   .cards {
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 20px;
   }
   .pagination {
     display: flex;
@@ -109,7 +106,7 @@
     justify-content: center;
     margin-top: 20px;
   }
-  
+
   .pagination button {
     background: transparent;
     border: none;
@@ -118,27 +115,26 @@
     color: #000;
     margin: 0 10px;
   }
-  
+
   .pagination button:disabled {
     color: #ccc;
     cursor: not-allowed;
   }
-  
+
   .pagination-numbers {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .pagination-numbers li {
     margin: 0 5px;
     cursor: pointer;
     font-size: 16px;
   }
-  
+
   .pagination-numbers li.active {
     font-weight: bold;
     color: #000;
   }
-  
