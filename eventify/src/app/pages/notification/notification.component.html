@@ -6,12 +6,8 @@
         <div class="cards">
           <ul>
             <li *ngFor="let item of paginatedItems; let i = index">
-              <app-notification-card
-                [title]="item.title"
-                [description]="item.description"
-                [dateNotification]="item.dateNotification"
-                [image]="item.image"
-              >
+              <app-notification-card [title]="item.title" [description]="item.description"
+                [dateNotification]="item.dateNotification" [image]="item.image">
               </app-notification-card>
             </li>
           </ul>
@@ -24,11 +20,7 @@
         </button>
 
         <ul class="pagination-numbers">
-          <li
-            *ngFor="let page of pageNumbers"
-            (click)="goToPage(page)"
-            [class.active]="currentPage === page"
-          >
+          <li *ngFor="let page of pageNumbers" (click)="goToPage(page)" [class.active]="currentPage === page">
             {{ page }}
           </li>
         </ul>
