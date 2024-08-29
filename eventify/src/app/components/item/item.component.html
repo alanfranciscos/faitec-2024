@@ -1,0 +1,27 @@
+@if (selected) {
+<div class="button-wrapper button-selected">
+  <div class="button-background"></div>
+  <div class="button-foreground" [ngClass]="{'centralize-icon': isCollapsed}">
+    <a routerLink={{routerLink}} [ngClass]="{'centralize-icon': isCollapsed, 'selected': !isCollapsed}">
+      <i class={{icon}}></i>
+      @if (!isCollapsed) {
+      &nbsp;
+      <span>{{text}}</span>
+      }
+    </a>
+  </div>
+</div>
+}
+@else {
+<div class="button-wrapper">
+  <div class="button-unselected" [ngClass]="{'centralize-icon': isCollapsed}">
+    <a routerLink={{routerLink}} [ngClass]="{'centralize-icon': isCollapsed}">
+      <i class={{icon}}></i>
+      @if (!isCollapsed) {
+      &nbsp;
+      <span>{{text}}</span>
+      }
+    </a>
+  </div>
+</div>
+}

@@ -1,0 +1,89 @@
+.button-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  opacity: var(--sds-size-stroke-border);
+}
+
+.button-selected {
+  background: #F1F0F0;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.button-unselected,
+.button-background,
+.button-foreground {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.button-background {
+  background-color: #14AD47;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.button-foreground {
+  background-color: #F1F0F0;
+  position: relative;
+  left: 5px;
+  z-index: 2;
+}
+.button-unselected {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  z-index: 1;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.centralize-icon {
+  color: unset;
+  text-decoration: none;
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a.selected {
+  color: #14AD47;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  line-height: 50px;
+}
+a.collapsed{
+  color: #14AD47;
+  transform: scale(1.6);
+}
+
+a span {
+  display: inline;
+  font-family: 'Inter', sans-serif; /* Fonte Inter */
+  font-size: 1.3125rem; /* 21px converted to rem */
+  font-weight: 500; /* Peso da fonte */
+  line-height: 1.5875rem; /* 25.41px converted to rem */
+  text-align: left; /* Alinhamento do texto à esquerda */
+}
+
+a.collapsed span {
+  display: none;
+}
+
+
