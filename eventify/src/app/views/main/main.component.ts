@@ -1,28 +1,19 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule, RouterOutlet, } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { MyEventsComponent } from '../events/my-events/my-events.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { RouterOutlet } from '@angular/router';
+import { MainLayoutComponent } from '../../Layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
+    MainLayoutComponent,
+    MyEventsComponent,
+    FooterComponent,
     RouterOutlet,
-    RouterModule,
-    ReactiveFormsModule
-
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  styleUrl: './main.component.scss',
 })
-export class MainComponent {
-
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService){}
-
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['account/sign-in']);
-  }
-
-}
+export class MainComponent {}
