@@ -1,0 +1,131 @@
+.info-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start; /* Alinha os cards no topo */
+    padding: 3rem;
+    gap: 2rem; /* Espaçamento entre os cards */
+    margin-bottom: 2rem; /* Espaçamento inferior para separar dos conteúdos abaixo */
+  }
+  
+  /* Estilo dos cartões */
+  .card {
+    min-width: 20rem;
+    max-width: 30rem;
+    min-height: 10rem;
+    max-height: 30rem;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid #00000033 0.1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1); /* Sombra leve */
+  }
+  
+  /* Título do cartão */
+  .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .title-text {
+    color: #939598;
+    font-size: 1.2em;
+  }
+  
+  i {
+    color: #14ad47;
+    font-size: 2.3rem;
+  }
+  
+  /* Conteúdo do cartão */
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem 1rem 1rem;
+  }
+  
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .large-text {
+    font-size: 2rem;
+  }
+  
+  .info-line {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .label {
+    color: #49454f;
+    font-weight: bold;
+  }
+  
+  .value {
+    color: black;
+  }
+  
+  /* Estilo do contêiner de localização */
+  .content-container {
+    border: solid #00000033 0.1rem;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Título do contêiner de localização */
+  .content-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Estilo do formulário */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Espaçamento entre as linhas do formulário */
+    color: #939598;
+  }
+  
+  /* Linha do formulário */
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Três colunas */
+    gap: 1.5rem; /* Espaçamento entre os campos da mesma linha */
+  }
+  
+  /* Grupo do formulário */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Controle de formulário */
+  .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  .map {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  

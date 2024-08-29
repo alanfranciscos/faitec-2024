@@ -1,0 +1,21 @@
+<div class="container">
+  <header class="topbar">
+    <img src="/assets/svg/logo-max.svg" alt="logo expanded" />
+    <div class="user-profile">
+      <span class="custom-span">User name</span>
+      <img src="/assets/svg/logo.svg" alt="Avatar" class="user-avatar" />
+    </div>
+  </header>
+
+  <main class="main-container">
+    <app-event-layout></app-event-layout>
+    <div class="content-container">
+      <content>
+        <router-outlet />
+      </content>
+    </div>
+  </main>
+  <footer class="footer">
+    <app-footer></app-footer>
+  </footer>
+</div>
