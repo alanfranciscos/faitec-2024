@@ -1,0 +1,70 @@
+<div class="container">
+  <app-header [ComponentName]="'CREATE EVENT'"></app-header>
+  <section class="progress">
+    <ul>
+      <li>
+        <img src="assets/svg/1-green.svg" alt="Descrição da imagem" /><span
+          >basic information</span
+        >
+      </li>
+      <li>
+        <img src="assets/svg/2-gray.svg" alt="Descrição da imagem" /><span
+          >event address</span
+        >
+      </li>
+      <li>
+        <img src="assets/svg/3-gray.svg" alt="Descrição da imagem" /><span
+          >payment</span
+        >
+      </li>
+    </ul>
+  </section>
+
+  <section class="content">
+    <div class="header-content">
+      <span class="event-title">CREATE EVENT</span>
+      <span class="event-description"
+        >Enter the event image information, name and description.</span
+      >
+    </div>
+
+    <div class="body-content">
+      <div class="image-section">
+        <div class="image">
+          <img src="assets/svg/logo.svg" alt="Descrição da imagem" />
+        </div>
+        <div class="image-buttons">
+          <button class="btn-edit">Edit</button>
+          <button class="btn-remove">Remove</button>
+        </div>
+      </div>
+
+      <div class="name-description">
+        <div class="form-group">
+          <label for="event-name">Event Name</label>
+          <input
+            type="text"
+            id="event-name"
+            placeholder="Enter event name"
+            class="input-name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="event-description">Event Description</label>
+          <textarea
+            id="event-description"
+            placeholder="Enter event description"
+            class="input-description"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-content">
+      <button routerLink="/" class="btn-back">< Back</button>
+      <button routerLink="/create-event/address-info" class="btn-add-address">
+        Add adress
+      </button>
+    </div>
+  </section>
+</div>

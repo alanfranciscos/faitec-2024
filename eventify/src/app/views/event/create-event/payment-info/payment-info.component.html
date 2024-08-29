@@ -1,0 +1,57 @@
+<div class="container">
+  <app-header [ComponentName]="'CREATE EVENT'"></app-header>
+  <section class="progress">
+    <ul>
+      <li>
+        <img src="assets/svg/1-gray.svg" alt="Descrição da imagem" /><span
+          >basic information</span
+        >
+      </li>
+      <li>
+        <img src="assets/svg/2-gray.svg" alt="Descrição da imagem" /><span
+          >event address</span
+        >
+      </li>
+      <li>
+        <img src="assets/svg/3-green.svg" alt="Descrição da imagem" /><span
+          >payment</span
+        >
+      </li>
+    </ul>
+  </section>
+
+  <section class="content">
+    <div class="header-content">
+      <div>
+        <span class="event-title">CREATE EVENT</span>
+        <span class="event-description">
+          Enter the pix key here if you want other members to make payments,
+          otherwise you can now complete your event.<br />
+          Note: This information can be changed if you wish.
+        </span>
+      </div>
+      <div>
+        <button routerLink="/create-event/payment-info" class="btn-next">
+          Skip payment and conclue
+        </button>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <img src="assets/svg/pix.svg" alt="Pix image" />
+      <div class="form-group">
+        <label for="payment">Pix Key:</label>
+        <input type="text" id="payment" placeholder="Pix key" />
+      </div>
+    </div>
+
+    <div class="footer-content">
+      <button routerLink="/create-event/address-info" class="btn-back">
+        < Back
+      </button>
+      <button routerLink="/create-event/payment-info" class="btn-next">
+        Conclue
+      </button>
+    </div>
+  </section>
+</div>
