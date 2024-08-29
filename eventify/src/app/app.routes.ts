@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainComponent } from './views/main/main.component';
 import { authenticationGuard } from './services/security/guard/authentication.guard';
-import { MyEventsComponent } from './views/events/my-events/my-events.component';
-import { CreateEventsComponent } from './views/events/create-events/create-events.component';
-import { EditEventsComponent } from './views/events/edit-events/edit-events.component';
 import { MyExpensesComponent } from './views/my-expenses/my-expenses.component';
 import { NotificationCenterComponent } from './views/notification-center/notification-center.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
@@ -11,6 +8,8 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 import { LoginComponent } from './views/authentication/login/login.component';
 import { RegisterComponent } from './views/authentication/register/register.component';
 import { ForgetPasswordComponent } from './views/authentication/forget-password/forget-password.component';
+import { NotificationComponent } from './views/notification/notification.component';
+import { FriendsComponent } from './views/friends/friends.component';
 
 export const routes: Routes = [
   {
@@ -33,21 +32,15 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'events',
-        children: [
-          {
-            path: 'my-events',
-            component: MyEventsComponent,
-          },
-          {
-            path: 'create-events',
-            component: CreateEventsComponent,
-          },
-          {
-            path: 'edit-events',
-            component: EditEventsComponent,
-          },
-        ],
+        path: 'notification',
+
+        component: NotificationComponent,
+      },
+
+      {
+        path: 'friends',
+
+        component: FriendsComponent,
       },
       {
         path: 'expenses',
