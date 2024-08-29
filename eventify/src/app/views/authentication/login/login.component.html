@@ -1,0 +1,40 @@
+<app-authentication-layout title="Login">
+  <div class="content">
+    <form [formGroup]="loginForm">
+      <div class="input-container">
+        <div class="input-item">
+          <app-primary-input
+            formControlName="email"
+            inputName="email"
+            type="email"
+            label="Email"
+            placeholder="yourmail@domain.com"
+          >
+          </app-primary-input>
+        </div>
+        <div class="input-item">
+          <app-primary-input
+            formControlName="password"
+            inputName="password"
+            type="password"
+            label="Password"
+            placeholder="Your Password"
+          >
+          </app-primary-input>
+        </div>
+        <div class="forgot-span">
+          <span (click)="navigateToForgotPassword()">Forgot password?</span>
+        </div>
+      </div>
+    </form>
+    <div class="container-button">
+      <app-button class="primary-button" text="Sign In" (click)="login()">
+      </app-button>
+    </div>
+    <div class="create-account-container">
+      <div>
+        <span (click)="navigateToSignup()">Create account</span>
+      </div>
+    </div>
+  </div>
+</app-authentication-layout>

@@ -12,74 +12,83 @@ import { NotificationCenterComponent } from './views/notification-center/notific
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { ForgotPasswordComponent } from './views/account/forgot-password/forgot-password.component';
+import { LoginComponent } from './views/authentication/login/login.component';
+import { RegisterComponent } from './views/authentication/register/register.component';
+import { ForgetPasswordComponent } from './views/authentication/forget-password/forget-password.component';
 
 export const routes: Routes = [
-    {
-        path: 'account/sign-in',
-        component: SignInComponent
-    },
-    {
-        path: 'account/sign-up',
-        component: SignUpComponent
-    },
-    {
-        path: 'account/forgot-password',
-        component: ForgotPasswordComponent
-    },
-    {
-        path: '',
-        component: MainComponent,
-        canActivate: [authenticationGuard],
+  {
+    path: 'account/login',
+
+    component: LoginComponent,
+  },
+  {
+    path: 'account/register',
+
+    component: RegisterComponent,
+  },
+  {
+    path: 'account/forget-password',
+
+    component: ForgetPasswordComponent,
+  },
+  {
+    path: '',
+    component: MainComponent,
+    canActivate: [authenticationGuard],
+    children: [
+      {
+        path: 'events',
         children: [
-            {
-                path: 'events',
-                children: [
-                    {
-                        path: 'my-events',
-                        component: MyEventsComponent,
-                    },
-                    {
-                        path: 'create-events',
-                        component: CreateEventsComponent,
-                    },
-                    {
-                        path: 'edit-events',
-                        component: EditEventsComponent,
-                    },
-                ],
-            },
-            {
-                path: 'expenses',
-                children: [{
-                    path: '',
-                    component: MyExpensesComponent,
-                },
-                ],
-            },
-            {
-                path: 'notification',
-                children: [{
-                    path: '',
-                    component: NotificationCenterComponent,
-                },
-                ],
-            },
-            {
-                path: 'dashboard',
-                children: [{
-                    path: '',
-                    component: DashboardComponent,
-                },
-                ],
-            },
-            {
-                path: 'account/my-profile',
-                component: MyProfileComponent
-            },
-            {
-                path: '**',
-                component: NotFoundComponent,
-            }
+          {
+            path: 'my-events',
+            component: MyEventsComponent,
+          },
+          {
+            path: 'create-events',
+            component: CreateEventsComponent,
+          },
+          {
+            path: 'edit-events',
+            component: EditEventsComponent,
+          },
         ],
-    },
-]
+      },
+      {
+        path: 'expenses',
+        children: [
+          {
+            path: '',
+            component: MyExpensesComponent,
+          },
+        ],
+      },
+      {
+        path: 'notification',
+        children: [
+          {
+            path: '',
+            component: NotificationCenterComponent,
+          },
+        ],
+      },
+      {
+        path: 'dashboard',
+        children: [
+          {
+            path: '',
+            component: DashboardComponent,
+          },
+        ],
+      },
+      {
+        path: 'account/my-profile',
+        component: MyProfileComponent,
+      },
+      {
+        path: '**',
+        component: NotFoundComponent,
+      },
+    ],
+  },
+];
