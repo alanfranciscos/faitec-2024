@@ -1,0 +1,67 @@
+main {
+  width: 100vw;
+  height: 100vh;
+
+  background: linear-gradient(270deg, #69AC7F -0.44%, #FFF 100%);
+  opacity: var(--sds-size-stroke-border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Previne o scroll */
+}
+
+.form-section {
+  width: 90%; /* Ajusta a largura para telas pequenas */
+  max-width: 30.75rem; /* Mantém o tamanho máximo */
+  height: auto; /* Permite que a altura se ajuste ao conteúdo */
+  max-height: 90vh; /* Limita a altura máxima */
+  
+  border-radius: 0.625rem;
+  border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.20);
+  background: #FFF;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  opacity: var(--sds-size-stroke-border);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ajusta o espaçamento interno */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 2rem 0; /* Ajusta as margens para uma melhor adaptação */
+  
+  h2 {
+    color: #14AD47;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+}
+
+img {
+  margin-top: 1.5rem; /* Ajusta a margem para evitar excesso de espaço */
+}
+
+@media (max-width: 600px) {
+  .form-section {
+    width: 100%;
+    height: auto;
+    max-height: none; /* Remove o limite de altura para telas pequenas */
+    margin: 1rem; /* Adiciona margem para evitar que o formulário encoste nas bordas da tela */
+  }
+
+  .header {
+    margin: 1rem 0; /* Reduz as margens em telas menores */
+    h2 {
+      font-size: 1.5rem; /* Reduz o tamanho do texto em telas menores */
+    }
+  }
+}
+  
