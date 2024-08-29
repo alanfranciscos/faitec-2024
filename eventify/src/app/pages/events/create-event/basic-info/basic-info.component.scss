@@ -1,188 +1,186 @@
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // justify-content: center;
-  }
-  
-  .topbar {
-    width: 90%;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .progress {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-   }
-.progress ul{
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 8rem 1rem 8rem;
-    border:solid #00000033 0.10rem;
-    
-    border-radius: 2rem;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.progress li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.topbar {
+  width: 90%;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.progress {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.progress ul {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem 8rem 1rem 8rem;
+  border: solid #00000033 0.1rem;
+
+  border-radius: 2rem;
+}
+
+.progress li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .progress ul li img {
-    margin-right: 1.5rem; /* ou qualquer valor que você desejar */
-    vertical-align: middle; /* para alinhar verticalmente a imagem com o texto */
-  }
-
-.content{
-    margin-top: 3rem;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 8rem 1rem 8rem;
-    border:solid #00000033 0.10rem;    
-    border-radius: 2rem;
-}
-.header-content{
-    width: 100%;
-}
-.header-content{
-    display: flex;
-    flex-direction: column;
+  margin-right: 1.5rem; /* ou qualquer valor que você desejar */
+  vertical-align: middle; /* para alinhar verticalmente a imagem com o texto */
 }
 
-.header-content span{
-    padding: 0.5rem;
+.content {
+  margin-top: 3rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 8rem 1rem 8rem;
+  border: solid #00000033 0.1rem;
+  border-radius: 2rem;
+}
+.header-content {
+  width: 100%;
+}
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-content span {
+  padding: 0.5rem;
 }
 
 .event-title {
-   
-    font-size: 27px;
-    font-weight: 500;
-    line-height: 32.68px;
-    color: #525252;
-    text-align: left;
-    display: block;
-  }
-  .event-description {
-   
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 32.68px;
-    color: #AFAEAE;
-    text-align: left;
-    display: block;
-  }  
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 32.68px;
+  color: #525252;
+  text-align: left;
+  display: block;
+}
+.event-description {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32.68px;
+  color: #afaeae;
+  text-align: left;
+  display: block;
+}
 
-  .body-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .image-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .image {
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
-    background-color: #f0f0f0; /* Cor de fundo para representar a imagem */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .image img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  
-  .image-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .btn-edit, .btn-remove, .btn-add-address {
-    padding: 10px 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .btn-back{
-    background:none;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .btn-edit, .btn-add-address {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .btn-remove {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .name-description {
-    width: 100%;
-    max-width: 600px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: #525252;
-  }
-  
-  .input-name, .input-description {
-    width: 100%;
-    padding: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .input-name {
-    height: 40px;
-  }
-  
-  .input-description {
-    height: 100px;
-    resize: vertical;
-  }
-.footer-content{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.body-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.image {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  background-color: #f0f0f0; /* Cor de fundo para representar a imagem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-edit,
+.btn-remove,
+.btn-add-address {
+  padding: 10px 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.btn-edit,
+.btn-add-address {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-remove {
+  background-color: #f44336;
+  color: white;
+}
+
+.name-description {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #525252;
+}
+
+.input-name,
+.input-description {
+  width: 100%;
+  padding: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-name {
+  height: 40px;
+}
+
+.input-description {
+  height: 100px;
+  resize: vertical;
+}
+.footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
