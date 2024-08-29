@@ -7,12 +7,11 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
-
+import { PrimaryInputComponent } from '../../../components/primary-input/primary-input.component';
+import { ButtonComponent } from '../../../components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../../../components/button/button.component';
-import { AuthenticationLayoutComponent } from '../../../Layout/authentication-layout/authentication-layout.component';
-import { PrimaryInputComponent } from '../../../components/primary-input/primary-input.component';
+import { AuthenticationLayoutComponent } from '../../../layout/authentication-layout/authentication-layout.component';
 interface RegisterForm {
   name: FormControl<string | null>;
   nickname: FormControl<string | null>;

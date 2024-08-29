@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
+import { MyEventsComponent } from '../events/my-events/my-events.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
-import { MainLayoutComponent } from '../../Layout/main-layout/main-layout.component';
-import { MyEventsComponent } from '../event/my-events/my-events.component';
 
 @Component({
   selector: 'app-main',

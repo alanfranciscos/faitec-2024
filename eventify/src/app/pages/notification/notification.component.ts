@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NotificationCardComponent } from '../../components/notification-card/notification-card.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
-import { MainLayoutComponent } from '../../Layout/main-layout/main-layout.component';
 
 interface CardItensType {
   title: string;

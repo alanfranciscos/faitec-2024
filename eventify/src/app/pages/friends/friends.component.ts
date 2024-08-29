@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
+import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import { MainLayoutComponent } from '../../Layout/main-layout/main-layout.component';
 
 interface CardItensType {
   name: string;

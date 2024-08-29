@@ -6,9 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrimaryInputComponent } from '../../../components/primary-input/primary-input.component';
+import { AuthenticationLayoutComponent } from '../../../layout/authentication-layout/authentication-layout.component';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { AuthenticationLayoutComponent } from '../../../Layout/authentication-layout/authentication-layout.component';
 
 interface LoginForm {
   email: FormControl<string | null>;

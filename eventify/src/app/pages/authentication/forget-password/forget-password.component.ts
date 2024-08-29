@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { PrimaryInputComponent } from '../../../components/primary-input/primary-input.component';
+
+import { AuthenticationLayoutComponent } from '../../../layout/authentication-layout/authentication-layout.component';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { AuthenticationLayoutComponent } from '../../../Layout/authentication-layout/authentication-layout.component';
 
 @Component({
   selector: 'app-forget-password',
@@ -10,6 +11,7 @@ import { AuthenticationLayoutComponent } from '../../../Layout/authentication-la
     PrimaryInputComponent,
     ButtonComponent,
     AuthenticationLayoutComponent,
+    ButtonComponent,
   ],
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.scss',
