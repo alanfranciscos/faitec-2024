@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-authentication-layout',
@@ -9,4 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AuthenticationLayoutComponent {
   @Input() title: string = '';
+  @Input() image: string = '/assets/svg/logo.svg';
 }
