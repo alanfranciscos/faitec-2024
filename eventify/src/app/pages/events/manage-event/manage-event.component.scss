@@ -12,9 +12,9 @@
   .user-profile {
     display: flex;
     align-items: center;
-    
+
   }
-  
+
   .custom-span {
     font-family: Inter;
     font-size: 30px;
@@ -25,12 +25,13 @@
     color: #7D7D7D;
   }
   .user-avatar {
-    width: 2.5rem; 
+    width: 2.5rem;
     height: 2.5rem;
+    border-radius: 2rem;
   }
-  
 
-  
+
+
   .topbar {
     width: 100%;
     padding: 1.25rem;
@@ -42,7 +43,7 @@
   }
   .topbar img{
     margin-right: 2rem;
-   
+
   }
 
 

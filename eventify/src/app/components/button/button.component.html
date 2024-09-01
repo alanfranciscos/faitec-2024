@@ -1,1 +1,2 @@
-<button class="primary-button" (click)="onClicked">{{text}}</button>
+<button [ngClass]="{ 'primary-button': isPrimary, 'secondary-button': !isPrimary }"
+  (click)="onClicked">{{text}}</button>

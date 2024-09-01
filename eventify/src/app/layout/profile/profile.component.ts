@@ -1,3 +1,4 @@
+import { CancelButton } from './types.d';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import {
@@ -44,6 +45,13 @@ export class ProfileComponent implements OnInit {
   @Input() userCity: string = '';
   @Input() userState: string = '';
   @Input() userImage: string = '/assets/svg/avatar.svg';
+  @Input() cancelButton: CancelButton = {
+    text: 'Cancelar',
+    onClick: () => null,
+    // onClick: () => {
+    //   this.router.navigate(['/home']);
+    // },
+  };
 
   registerForm: FormGroup<RegisterForm>;
   passwordStrength: 'weak' | 'medium' | 'strong' = 'weak';
