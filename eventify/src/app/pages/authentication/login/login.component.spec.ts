@@ -26,7 +26,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('O botao deve ser habilitado somente quando digitar algum texto', async () => {
+  it('O botao deve ser habilitado somente quando digitar alguma coisa no input de email', async () => {
     //No momento ainda não existe o service para autenticacao, portanto esta parte permanecerá comentada
     //await render (LoginComponent, {providers: [servico de autenticacao], imports: [FormsModule]});
     expect(getSubmitButton().disabled).toBe(true);
