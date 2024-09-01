@@ -1,0 +1,62 @@
+/* Ensure that the main container takes up at least the full viewport height */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+  }
+
+  /* Content container should fill the remaining height and allow the footer to be at the bottom */
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .cards {
+    padding: 2rem;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  .pagination button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #000;
+    margin: 0 10px;
+  }
+
+  .pagination button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .pagination-numbers {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pagination-numbers li {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .pagination-numbers li.active {
+    font-weight: bold;
+    color: #000;
+  }
+

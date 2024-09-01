@@ -1,0 +1,56 @@
+<aside
+  class="container"
+  [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }"
+>
+  <div class="logo-container">
+    @if (!isCollapsed) {
+    <img src="/assets/svg/logo-max.svg" alt="logo expanded" />
+    } @else {
+    <img src="/assets/svg/logo-min.svg" alt="logo expanded" />
+    }
+  </div>
+  <nav class="content">
+    <ul>
+      @for (item of sidebarItens ; track $index) {
+      <li>
+        <app-item
+          routerLink="{{ item.routerLink }}"
+          icon="{{ item.icon }}"
+          text="{{ item.title }}"
+          [selected]="item.isSelected"
+          [isCollapsed]="isCollapsed"
+          (click)="ToogleSelected($event, item)"
+        >
+        </app-item>
+      </li>
+      }
+    </ul>
+  </nav>
+  <div
+    class="exit-container"
+    [ngClass]="{
+      'exit-collapsed': isCollapsed,
+      'exit-not-collapsed': !isCollapsed
+    }"
+  >
+    <button class="exit-button" (click)="logout()">
+      <div>
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </div>
+      @if(!isCollapsed) { &nbsp;
+      <span>Exit</span>
+      }
+    </button>
+  </div>
+
+  <button
+    class="toggle-sidebar"
+    (click)="toggleSidebar()"
+    [ngClass]="{
+      'toggle-sidebar-open': !isCollapsed,
+      'toggle-sidebar-closed': isCollapsed
+    }"
+  >
+    <img src="/assets/svg/navbutton.svg" alt="->" />
+  </button>
+</aside>

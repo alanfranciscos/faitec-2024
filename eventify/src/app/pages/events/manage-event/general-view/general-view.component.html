@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="info-cards">
+    <div class="card">
+      <div class="card-title">
+        <span class="title-text">Organization</span>
+        <i class="fas fa-th-large"></i>
+      </div>
+      <div class="card-content">
+        <div class="info-line">
+          <span class="label">Created on: </span>
+          <span class="value">{{ generalViewExample.createDate }}</span>
+        </div>
+        <div class="info-line">
+          <span class="label">Created by: </span>
+          <span class="value">{{ generalViewExample.userName }}</span>
+        </div>
+        <div class="info-line">
+          <span class="label">Number of participants: </span>
+          <span class="value">{{ generalViewExample.participantsNumber }}</span>
+        </div>
+        <div class="info-line">
+          <span class="label">Status: </span>
+          <span class="value">{{ generalViewExample.status }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <span class="title-text">Current expense</span>
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="card-content centered-content">
+        <span class="value large-text"
+          >R${{ generalViewExample.currentExpense }}</span
+        >
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <span class="title-text">Dates</span>
+        <i class="fas fa-calendar-alt"></i>
+      </div>
+      <div class="card-content">
+        <div class="info-line">
+          <span class="label">Start:</span>
+          <span class="value">{{ generalViewExample.startDate }}</span>
+        </div>
+        <div class="info-line">
+          <span class="label">End:</span>
+          <span class="value">{{ generalViewExample.endDate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="content-container">
+      <div class="content-title">
+        <span class="title-text">Location</span>
+      </div>
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="locationName">Location Name</label>
+            <input
+              type="text"
+              id="locationName"
+              name="locationName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="zipCode">ZIP Code</label>
+            <input
+              type="text"
+              id="zipCode"
+              name="zipCode"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" class="form-control" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="neighborhood">Neighborhood</label>
+            <input
+              type="text"
+              id="neighborhood"
+              name="neighborhood"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="street">Street/Avenue</label>
+            <input type="text" id="street" name="street" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="number">Number</label>
+            <input type="text" id="number" name="number" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="complement">Complement</label>
+            <input
+              type="text"
+              id="complement"
+              name="complement"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </form>
+      <div class="map">
+        <app-map width="800" height="500"></app-map>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,85 +1,94 @@
 import { Routes } from '@angular/router';
-import { SignInComponent } from './views/account/sign-in/sign-in.component';
-import { SignUpComponent } from './views/account/sign-up/sign-up.component';
-import { MainComponent } from './views/main/main.component';
-import { authenticationGuard } from './services/security/guard/authentication.guard';
-import { MyProfileComponent } from './views/account/my-profile/my-profile.component';
-import { MyEventsComponent } from './views/events/my-events/my-events.component';
-import { CreateEventsComponent } from './views/events/create-events/create-events.component';
-import { EditEventsComponent } from './views/events/edit-events/edit-events.component';
-import { MyExpensesComponent } from './views/my-expenses/my-expenses.component';
-import { NotificationCenterComponent } from './views/notification-center/notification-center.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { NotFoundComponent } from './views/not-found/not-found.component';
-import { ForgotPasswordComponent } from './views/account/forgot-password/forgot-password.component';
+
+import { LoginComponent } from './pages/authentication/login/login.component';
+
+import { MainComponent } from './pages/main/main.component';
+
+import { BasicInfoComponent } from './pages/events/create-event/basic-info/basic-info.component';
+
+import { AddressInfoComponent } from './pages/events/create-event/address-info/address-info.component';
+
+import { PaymentInfoComponent } from './pages/events/create-event/payment-info/payment-info.component';
+
+import { NotificationComponent } from './pages/notification/notification.component';
+
+import { FriendsComponent } from './pages/friends/friends.component';
+
+import { ManageEventComponent } from './pages/events/manage-event/manage-event.component';
+import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
+import { MembersComponent } from './pages/events/manage-event/members/members.component';
+import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
+import { MyEventsComponent } from './pages/events/my-events/my-events.component';
+import { RegisterComponent } from './pages/authentication/register/register.component';
+import { ForgetPasswordComponent } from './pages/authentication/forget-password/forget-password.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { authGuard } from './services/security/guard/auth.guard';
 
 export const routes: Routes = [
-    {
-        path: 'account/sign-in',
-        component: SignInComponent
-    },
-    {
-        path: 'account/sign-up',
-        component: SignUpComponent
-    },
-    {
-        path: 'account/forgot-password',
-        component: ForgotPasswordComponent
-    },
-    {
+  {
+    path: 'account/login',
+
+    component: LoginComponent,
+  },
+  {
+    path: 'account/register',
+
+    component: RegisterComponent,
+  },
+  {
+    path: 'account/forget-password',
+
+    component: ForgetPasswordComponent,
+  },
+
+  {
+    path: 'my-profile',
+    component: MyProfileComponent,
+  },
+
+  {
+    path: '',
+    component: MainComponent,
+    canActivate: [authGuard], // Protegendo a rota principal
+    children: [
+      {
         path: '',
-        component: MainComponent,
-        canActivate: [authenticationGuard],
-        children: [
-            {
-                path: 'events',
-                children: [
-                    {
-                        path: 'my-events',
-                        component: MyEventsComponent,
-                    },
-                    {
-                        path: 'create-events',
-                        component: CreateEventsComponent,
-                    },
-                    {
-                        path: 'edit-events',
-                        component: EditEventsComponent,
-                    },
-                ],
-            },
-            {
-                path: 'expenses',
-                children: [{
-                    path: '',
-                    component: MyExpensesComponent,
-                },
-                ],
-            },
-            {
-                path: 'notification',
-                children: [{
-                    path: '',
-                    component: NotificationCenterComponent,
-                },
-                ],
-            },
-            {
-                path: 'dashboard',
-                children: [{
-                    path: '',
-                    component: DashboardComponent,
-                },
-                ],
-            },
-            {
-                path: 'account/my-profile',
-                component: MyProfileComponent
-            },
-            {
-                path: '**',
-                component: NotFoundComponent,
-            }
-        ],
-    },
-]
+        component: MyEventsComponent,
+        canActivate: [authGuard], // Protegendo a rota de eventos
+      },
+      {
+        path: 'notification',
+        component: NotificationComponent,
+        canActivate: [authGuard], // Protegendo a rota de notificações
+      },
+
+      {
+        path: 'friends',
+        component: FriendsComponent,
+        canActivate: [authGuard], // Protegendo a rota de amigos
+      },
+    ],
+  },
+
+  {
+    path: 'create-event',
+
+    children: [
+      { path: 'basic-info', component: BasicInfoComponent },
+
+      { path: 'address-info', component: AddressInfoComponent },
+
+      { path: 'payment-info', component: PaymentInfoComponent },
+    ],
+  },
+
+  {
+    path: 'manage-event',
+    component: ManageEventComponent,
+    children: [
+      { path: 'general-view', component: GeneralViewComponent },
+      { path: 'expenses', component: ExpensesComponent },
+      { path: 'members', component: MembersComponent },
+    ],
+  },
+];

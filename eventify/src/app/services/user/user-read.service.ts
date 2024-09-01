@@ -1,12 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserCredential } from '../../domain/dto/user-credential';
-import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserReadService {
+
   constructor(private http: HttpClient) { }
   // CRUD - create - read - update - delete
 

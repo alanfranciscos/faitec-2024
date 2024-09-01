@@ -1,0 +1,35 @@
+<main class="main-container">
+  <div class="content-container">
+    <content>
+      <app-header [ComponentName]="'Notifications'"></app-header>
+      <div>
+        <div class="cards">
+          <ul>
+            <li *ngFor="let item of paginatedItems; let i = index">
+              <app-notification-card [title]="item.title" [description]="item.description"
+                [dateNotification]="item.dateNotification" [image]="item.image">
+              </app-notification-card>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">
+          <i class="fas fa-arrow-left"></i>
+          <span>Previous</span>
+        </button>
+
+        <ul class="pagination-numbers">
+          <li *ngFor="let page of pageNumbers" (click)="goToPage(page)" [class.active]="currentPage === page">
+            {{ page }}
+          </li>
+        </ul>
+
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          <span>Next</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </content>
+  </div>
+</main>

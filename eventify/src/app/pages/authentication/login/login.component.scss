@@ -1,0 +1,50 @@
+span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.content {
+  width: 100%;
+  padding: 0.5rem; /* 8px / 16 = 0.5rem */
+  padding-bottom: 3rem;
+}
+
+.input-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 18rem; /* 400px / 16 = 25rem */
+}
+
+.input-item:first-child {
+  margin-bottom: 1rem; /* 16px / 16 = 1rem */
+}
+
+.forgot-span {
+  width: 100%;
+  text-align: right;
+  margin-top: 0.5rem; /* 8px / 16 = 0.5rem */
+}
+
+.container-button {
+  margin-top: 1rem; /* 16px / 16 = 1rem */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.create-account-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem; /* 8px / 16 = 0.5rem */
+
+  div {
+    width: 100%;
+    max-width: 25rem; /* 400px / 16 = 25rem */
+    text-align: center;
+  }
+
+  span {
+    margin-top: 0.5rem; /* 8px / 16 = 0.5rem */
+  }
+}

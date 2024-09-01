@@ -1,0 +1,43 @@
+main {
+  width: 100vw;
+  height: 100vh;
+
+  background: linear-gradient(270deg, #69ac7f -0.44%, #fff 100%);
+  opacity: var(--sds-size-stroke-border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-section {
+  width: 30.75rem;
+
+  border-radius: 0.625rem;
+  border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  opacity: var(--sds-size-stroke-border);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  h2 {
+    color: #14ad47;
+
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+}
+
+img {
+  margin-top: 2.5rem;
+}

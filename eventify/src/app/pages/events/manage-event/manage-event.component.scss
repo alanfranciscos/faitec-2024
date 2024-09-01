@@ -1,0 +1,55 @@
+.container{
+  display: flex;
+  flex-direction: column;
+}
+/* Ensure that the main container takes up at least the full viewport height */
+.main-container {
+    display: flex;
+    flex-direction: row; /* Keep the main container as a row */
+    min-height: 100vh; /* 100% of the viewport height */
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .custom-span {
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 36.31px;
+    text-align: left;
+    margin-right: 20px;
+    color: #7D7D7D;
+  }
+  .user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 2rem;
+  }
+
+
+
+  .topbar {
+    width: 100%;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #D9D9D9;
+  }
+  .topbar img{
+    margin-right: 2rem;
+
+  }
+
+
+  /* Content container should fill the remaining height and allow the footer to be at the bottom */
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* This allows the content to take up all the available space in the column */
+  }

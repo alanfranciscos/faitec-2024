@@ -1,0 +1,206 @@
+
+.custom-span-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 36.31px;
+  text-align: left;
+  margin-right: 20px;
+  color: #7D7D7D;
+}
+.custom-span-text{
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1rem;
+  text-align: left;
+  color: #555555;
+}
+
+
+@keyframes expandSidebar {
+    from {
+      width: 5rem; /* Largura mínima quando colapsada */
+    }
+    to {
+      width: 15.625rem; /* Largura completa quando aberta */
+    }
+  }
+  
+  @keyframes collapseSidebar {
+    from {
+      width: 15.625rem; /* Largura completa quando aberta */
+    }
+    to {
+      width: 5rem; /* Largura mínima quando colapsada */
+    }
+  }
+  .event-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+  }
+  .sidebar-open {
+    animation: expandSidebar 0.8s forwards;
+  }
+  
+  .sidebar-closed {
+    animation: collapseSidebar 0.8s forwards;
+  }
+  .collapsed-card .event-info {
+    display: none;
+  }
+  
+  .event-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .event-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sidebar-open .event-image {
+    margin-right: 1rem;
+  }
+  
+  .sidebar-closed .event-card {
+    justify-content: center;
+  }
+  
+  .container {
+    
+    width: 15.625rem;
+    height: 100%;
+    opacity: var(--sds-size-stroke-border);
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    padding-bottom: 10px;
+    transition: colapseSidebar 1s ease-in-out;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 5rem;
+    width: 100%;
+  }
+  
+  .content {
+    margin-top: 7.5rem;
+  }
+  
+  .toggle-sidebar {
+    all: unset;
+    position: absolute;
+    top: 5rem;
+    cursor: pointer;
+  }
+  
+  @keyframes expandSidebarButton {
+    from {
+      left: 3.9rem; /* Largura mínima quando colapsada */
+      transform: rotate(180deg);
+    }
+    to {
+      left: 14.5rem; /* Largura completa quando aberta */
+      transform: rotate(0deg);
+    }
+  }
+  
+  @keyframes collapseSidebarButton {
+    from {
+      left: 14.5rem; /* Largura completa quando aberta */
+      transform: rotate(0deg);
+    }
+    to {
+      left: 3.9rem; /* Largura mínima quando colapsada */
+      transform: rotate(180deg);
+    }
+  }
+  
+  .toggle-sidebar-open {
+    animation: expandSidebarButton 0.8s forwards;
+  }
+  
+  .toggle-sidebar-closed {
+    animation: collapseSidebarButton 0.8s forwards;
+  }
+  
+  .exit-container{
+    position: absolute;
+    bottom: 3rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .exit-button {
+    border-radius: 0.625rem; /* 10px converted to rem */
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #f1f0f0;
+    border: none;
+    cursor: pointer; 
+    box-shadow: 0px 0.625rem 0.625rem 0px #00000040;
+    // div {
+    //   margin-right: 5px;
+    // }
+  }
+  
+  .exit-button div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .exit-button i {
+    color: #14ad47; /* Cor do ícone */
+    font-size: 1.3125rem; /* Tamanho ajustado para o ícone */
+  }
+  
+  .exit-button span {
+    font-family: 'Inter', sans-serif; /* Fonte Inter */
+    font-size: 1.3125rem; /* 21px converted to rem */
+    font-weight: 700; /* Peso da fonte */
+    color: #14ad47; /* Cor do texto */
+    line-height: 1.5875rem; /* 25.41px converted to rem */
+    text-align: left; /* Alinhamento do texto à esquerda */
+  }
+  
+  
+  
+  
+  
+  @keyframes expandExitButton {
+    from {
+      left: 1.1rem; /* Largura completa quando aberta */
+    }
+    to {
+      left: 5.5rem; /* Largura mínima quando colapsada */
+    }
+  }
+  
+  @keyframes collapseExitButton {
+    from {
+      left: 5.5rem; /* Largura completa quando aberta */
+    }
+    to {
+      left: 1.1rem; /* Largura mínima quando colapsada */
+    }
+  }
+  
+  .exit-collapsed {
+    animation: collapseExitButton 0.8s forwards;
+  }
+  
+  .exit-not-collapsed {
+    animation: expandExitButton 0.8s forwards;
+  }
+  
+  

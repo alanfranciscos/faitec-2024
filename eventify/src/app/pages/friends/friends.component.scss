@@ -1,0 +1,128 @@
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.search {
+  display: flex;
+  height: 2.125rem;
+  border-radius: 0.3125rem;
+  overflow: hidden;
+  border: 1px solid #D9D9D9;
+  width: 50%;
+}
+
+.search input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.3125rem 0 0 0.3125rem;
+}
+
+.search input[type="text"]:focus {
+  outline: none;
+}
+
+.search-button {
+  width: 3.125rem;
+  height: 100%;
+  background-color: #D9D9D9;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 0 0.3125rem 0.3125rem 0;
+}
+
+.search-button i {
+  font-size: 1.5rem; /* Ajuste o tamanho do ícone */
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.add-friend-button {
+  width: 10rem;
+  height:2.5rem;
+  margin-left: auto;
+  border-radius: 0.3125rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1rem;
+  opacity: 1;
+  gap: 0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cards {
+  padding: 2rem;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #000;
+  margin: 0 10px;
+}
+
+.pagination button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-numbers {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-numbers li {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pagination-numbers li.active {
+  font-weight: bold;
+  color: #000;
+}
