@@ -3,7 +3,7 @@
     <form [formGroup]="loginForm">
       <div class="input-container">
         <div class="input-item">
-          <app-primary-input
+          <app-primary-input data-testid="input"
             formControlName="email"
             inputName="email"
             type="email"
@@ -28,7 +28,7 @@
       </div>
     </form>
     <div class="container-button">
-      <app-button class="primary-button" text="Sign In" (click)="login()">
+      <app-button data-testid="submit" class="primary-button" text="Sign In" (click)="login()">
       </app-button>
     </div>
     <div class="create-account-container">
