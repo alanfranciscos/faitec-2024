@@ -22,6 +22,7 @@ import { MyEventsComponent } from './pages/events/my-events/my-events.component'
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { ForgetPasswordComponent } from './pages/authentication/forget-password/forget-password.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { authGuard } from './services/security/guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -47,23 +48,24 @@ export const routes: Routes = [
 
   {
     path: '',
-
     component: MainComponent,
+    canActivate: [authGuard],  // Protegendo a rota principal
     children: [
       {
-        path: '',
+        path: 'events',
         component: MyEventsComponent,
+        canActivate: [authGuard],  // Protegendo a rota de eventos
       },
       {
         path: 'notification',
-
         component: NotificationComponent,
+        canActivate: [authGuard],  // Protegendo a rota de notificações
       },
 
       {
         path: 'friends',
-
         component: FriendsComponent,
+        canActivate: [authGuard],  // Protegendo a rota de amigos
       },
     ],
   },
