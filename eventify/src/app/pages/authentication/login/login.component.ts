@@ -62,25 +62,24 @@ export class LoginComponent implements OnInit {
       this.toastrService.error('Please fill in all fields correctly.');
       return;
     }
-  
+
     const credential: UserCredential = {
       email: this.loginForm.get('email')?.value!,
       password: this.loginForm.get('password')?.value!,
     };
-  
+
     try {
       await this.authenticationService.authenticate(credential);
       this.authenticationService.addCredentialsToLocalStorage(credential.email);
-      
+
       // Redireciona para a página inicial ou uma página padrão
-      await this.router.navigate(['/events']); // Alterar para a rota desejada após login
+      await this.router.navigate(['/']); // Alterar para a rota desejada após login
     } catch (e: any) {
       console.error(`erro: ${e}`);
       this.toastrService.error(e.message);
       this.loginForm.get('password')?.setValue(null);
     }
   }
-  
 
   ngOnInit(): void {
     this.loginIfCredentialsIsValid();
