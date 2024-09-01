@@ -27,7 +27,7 @@ import { authGuard } from './services/security/guard/auth.guard';
 export const routes: Routes = [
   {
     path: 'account/login',
-    
+
     component: LoginComponent,
   },
   {
@@ -49,23 +49,23 @@ export const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [authGuard],  // Protegendo a rota principal
+    canActivate: [authGuard], // Protegendo a rota principal
     children: [
       {
-        path: 'events',
+        path: '',
         component: MyEventsComponent,
-        canActivate: [authGuard],  // Protegendo a rota de eventos
+        canActivate: [authGuard], // Protegendo a rota de eventos
       },
       {
         path: 'notification',
         component: NotificationComponent,
-        canActivate: [authGuard],  // Protegendo a rota de notificações
+        canActivate: [authGuard], // Protegendo a rota de notificações
       },
 
       {
         path: 'friends',
         component: FriendsComponent,
-        canActivate: [authGuard],  // Protegendo a rota de amigos
+        canActivate: [authGuard], // Protegendo a rota de amigos
       },
     ],
   },
