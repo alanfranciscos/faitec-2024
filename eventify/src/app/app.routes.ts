@@ -26,7 +26,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 export const routes: Routes = [
   {
     path: 'account/login',
-
+    
     component: LoginComponent,
   },
   {
