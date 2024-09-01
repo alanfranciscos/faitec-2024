@@ -69,6 +69,10 @@
 
       <div class="form-row button">
         <div class="form-item">
+          <app-button [isPrimary]="false" text="{{cancelButton.text}}" (click)="cancelButton.onClick">
+          </app-button>
+        </div>
+        <div class="form-item">
           <app-button class="primary-button" text="Register" type="submit">
           </app-button>
         </div>

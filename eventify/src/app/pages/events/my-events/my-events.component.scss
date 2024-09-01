@@ -75,12 +75,20 @@
     gap: 0;
   }
 
+  .cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: center; /* Center items horizontally */
+    gap: 0.625rem; /* 10px converted to rem */
+    width: 100%;
+  }
+
   .cards ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 3rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -88,18 +96,27 @@
 
   .cards li {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 10px;
+    flex: 1 0 12.5rem; /* 200px converted to rem */
     box-sizing: border-box;
-
+    margin: 0.3125rem; /* 5px converted to rem */
+    min-width: 30%; /* 300px converted to rem */
+    width: 30%;
+    max-width: 30%; /* 300px converted to rem */
   }
 
-  .cards {
-    width: 100%;
+  .card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    width: 100%; /* Ensure the card takes up full width of the li */
+    height: 12.5rem; /* 200px converted to rem */
+    box-sizing: border-box;
+    background-color: lightgray; /* For visual clarity */
+    text-align: center; /* Center text inside card */
   }
+
+
   .pagination {
     display: flex;
     align-items: center;
