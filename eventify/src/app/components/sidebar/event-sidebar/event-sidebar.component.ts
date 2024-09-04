@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ItemComponent } from '../../components/sidebar/item/item.component';
+import { ItemComponent } from '../item/item.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SideBarItensType } from './types';
@@ -7,8 +7,8 @@ import { SideBarItensType } from './types';
   selector: 'app-event-layout',
   standalone: true,
   imports: [CommonModule, ItemComponent, RouterLink],
-  templateUrl: './event-layout.component.html',
-  styleUrl: './event-layout.component.scss',
+  templateUrl: './event-sidebar.component.html',
+  styleUrl: './event-sidebar.component.scss',
 })
 export class EventLayoutComponent {
   @Input() eventName: string = 'Event Name';

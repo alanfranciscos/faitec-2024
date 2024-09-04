@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
+import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main-sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
@@ -16,7 +16,7 @@ interface CardItensType {
   selector: 'app-friend',
   standalone: true,
   imports: [
-    MainLayoutComponent,
+    MainSidebarComponent,
     FooterComponent,
     FriendCardComponent,
     CommonModule,

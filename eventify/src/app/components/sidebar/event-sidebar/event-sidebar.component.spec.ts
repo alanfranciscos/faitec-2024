@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventLayoutComponent } from './event-layout.component';
+import { EventLayoutComponent } from './event-sidebar.component';
 
 describe('EventLayoutComponent', () => {
   let component: EventLayoutComponent;
@@ -8,10 +8,9 @@ describe('EventLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventLayoutComponent]
-    })
-    .compileComponents();
-    
+      imports: [EventLayoutComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EventLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

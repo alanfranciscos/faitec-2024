@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
+import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main-sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NotificationCardComponent } from '../../components/notification-card/notification-card.component';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ interface CardItensType {
   selector: 'app-notification',
   standalone: true,
   imports: [
-    MainLayoutComponent,
+    MainSidebarComponent,
     FooterComponent,
     NotificationCardComponent,
     CommonModule,

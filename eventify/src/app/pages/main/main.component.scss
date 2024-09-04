@@ -1,21 +1,30 @@
-/* Ensure that the main container takes up at least the full viewport height */
 .main-container {
   display: flex;
-  flex-direction: row; /* Keep the main container as a row */
-  min-height: 100vh; /* 100% of the viewport height */
+  flex-direction: row;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-/* Content container should fill the remaining height and allow the footer to be at the bottom */
+.sidebar {
+  flex: 0 0 250px;
+  position: fixed;
+  height: 100vh;
+  overflow: visible;
+}
+
 .content-container {
+  margin-left: 250px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1; /* This allows the content to take up all the available space in the column */
 }
 
-/* Footer styling */
+content {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .footer {
   text-align: center;
-
   font-size: 0.9em;
-  margin-top: auto; /* Pushes the footer to the bottom of the content container */
 }

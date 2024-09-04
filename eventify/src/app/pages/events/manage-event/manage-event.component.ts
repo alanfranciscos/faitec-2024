@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EventLayoutComponent } from '../../../layout/event-layout/event-layout.component';
+import { EventLayoutComponent } from '../../../components/sidebar/event-sidebar/event-sidebar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { GeneralViewComponent } from './general-view/general-view.component';

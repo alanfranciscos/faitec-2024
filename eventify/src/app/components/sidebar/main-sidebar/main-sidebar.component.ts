@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
-import { ItemComponent } from '../../components/sidebar/item/item.component';
+import { ItemComponent } from '../item/item.component';
 import { SideBarItensType } from './types';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationLayoutComponent } from '../authentication-layout/authentication-layout.component';
+import { AuthenticationLayoutComponent } from '../../../layout/authentication-layout/authentication-layout.component';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, ItemComponent, RouterLink, AuthenticationLayoutComponent],
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss',
+  imports: [
+    CommonModule,
+    ItemComponent,
+    RouterLink,
+    AuthenticationLayoutComponent,
+  ],
+  templateUrl: './main-sidebar.component.html',
+  styleUrl: './main-sidebar.component.scss',
 })
-export class MainLayoutComponent {
-
-  constructor(private router: Router) { }
+export class MainSidebarComponent {
+  constructor(private router: Router) {}
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['/account/login']);  // Redireciona para a tela de login
+    this.router.navigate(['/account/login']); // Redireciona para a tela de login
   }
 
   isCollapsed = false;

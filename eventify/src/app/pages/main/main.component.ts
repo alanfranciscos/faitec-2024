@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
+import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main-sidebar.component';
 import { MyEventsComponent } from '../events/my-events/my-events.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-main',
   standalone: true,
   imports: [
-    MainLayoutComponent,
+    MainSidebarComponent,
     MyEventsComponent,
     FooterComponent,
     RouterOutlet,
