@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="14.30" multi-file="no" uid="simp15c1abd38297482aa702b32c6282cd09" creation-date="09/05/2024 20:57:30">
+  <meta>
+    <name>Eventify-diagrama-componente</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type stereotype="component" type-id="component" type="Component" />
+        <value>3</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="component" type="Component" />
+        <value>4</value>
+      </counter>
+      <counter>
+        <item-type type-id="text" type="Text" />
+        <value>2</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlComponentDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields />
+  </counters>
+  <alias-groups />
+  <management uid="md-770709e2efd04885bce7970b98925f14" name="" task-id-sequence="0">
+    <working-schedule uid="ws-b4cfcfa11c9d4995b1aaca6a08d6ce9c" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+    <persons>
+      <person id="">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+        <working-schedule uid="ws-c5c8b3e22eca498889c1c782a0193405" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
+    </persons>
+    <teams />
+    <sprints />
+    <projects />
+    <modules />
+    <tasks />
+    <to-dos />
+  </management>
+  <glossary id="glsr-bfda9592259b4a8c8c9fe5bf04ea49fa" name="" order-index="-1" />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types>
+      <parameters />
+      <types />
+    </custom-types>
+  </types>
+  <items>
+    <item id="91eb2e4dcc264f4483d75e06ef06294f" cid="CPT002" type="component" name="GeolocationApiClient.java" owner="7c97f7220fc0413eafc54558931fd4f2" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="3752a2061dfc48cbac9a10655aa9bcb2" cid="CPT002" type="component" name="CrudRepository.java" owner="afa27b795b2746609a207c6ded3a1c94" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="dc9d34728cec4f03ad7814290b6434c4" cid="CPT002" type="component" name="PostgresConfig.java" owner="c82497192f9e44febd66886bdb87f645" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="37ec30203187491ab262f392bce4c295" cid="CPT002" type="component" name="Organizer.java" owner="676e661707144ba7b4faba58d01ec548" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="afa27b795b2746609a207c6ded3a1c94" cid="CPT001" type="component" name="CRUDController" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="7a8f610b9e53479b852cb4bbb8451327" cid="CPT002" type="component" name="Location.java" owner="e5b2c9f42ee04ca89609027314d32cbd" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="9a2456f09f7f48aeb03f6ef1842b6ef7" cid="CPT001" type="component" name="Frontend (Interface Angular)" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="c82497192f9e44febd66886bdb87f645" cid="CPT001" type="component" name="DatabaseService" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="62cf441a05774882886d55d98d53aae0" cid="CPT002" type="component" name="AppModule.ts" owner="9a2456f09f7f48aeb03f6ef1842b6ef7" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="598ef9cef0dc475b93f863a58b13a711" cid="CPT002" type="component" name="PostgresDockerConfig.java" owner="d7ade7e73d9244b8b85b3de9a709628f" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="dfaeb0e66cc1411a85ea47e17546e449" cid="CPT002" type="component" name="EventController.java" owner="e5b2c9f42ee04ca89609027314d32cbd" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="1ee6e4fc9a0644ee9d6113b1632647a0" cid="CPT002" type="component" name="docker-compose.yml" owner="d7ade7e73d9244b8b85b3de9a709628f" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="f5543333ebd74cf191e79e65e32d6e59" cid="CPT002" type="component" name="Participant.java" owner="676e661707144ba7b4faba58d01ec548" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="e73d2b9d084346c28405204b186df4a6" cid="CPT002" type="component" name="Location.java" owner="dfb33b2f8a834a0f9b73378f2327b0b9" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="7b9b8b360a6c47bdb251b6c57dd63a2e" cid="CPT002" type="component" name="Event.java" owner="dfb33b2f8a834a0f9b73378f2327b0b9" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="bd865b28b63f490abd6e818ab42c866f" cid="CPT002" type="component" name="IBGEApiClient.java" owner="dfb33b2f8a834a0f9b73378f2327b0b9" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="cc9e79ff92b94feea39eef6dcf5cac3b" cid="CPT002" type="component" name="GeolocationService.java" owner="7c97f7220fc0413eafc54558931fd4f2" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="863f56f1965a4b2c80eb87f2ac496aa4" cid="CPT002" type="component" name="Location.java" owner="7c97f7220fc0413eafc54558931fd4f2" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="e5b2c9f42ee04ca89609027314d32cbd" cid="CPT001" type="component" name="EventManagement" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="041f05fd629e4ebf8c293f44a6d91ec7" cid="CPT002" type="component" name="DatabaseMigration.java" owner="c82497192f9e44febd66886bdb87f645" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="5928964ec5de431c82a1d9c40768925a" cid="CPT002" type="component" name="IBGEApiController.java" owner="dfb33b2f8a834a0f9b73378f2327b0b9" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="9656c4c8b18e4768a44434d466988a52" cid="CPT002" type="component" name="Dockerfile" owner="d7ade7e73d9244b8b85b3de9a709628f" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="7c97f7220fc0413eafc54558931fd4f2" cid="CPT001" type="component" name="GeolocationService" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="d7ade7e73d9244b8b85b3de9a709628f" cid="CPT001" type="component" name="DockerConfig" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="1cdf1835be5044f589531d20d6f8c3a1" cid="CPT002" type="component" name="GeolocationController.java" owner="7c97f7220fc0413eafc54558931fd4f2" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="68aa5c84e14c4e3497738c17ae6fab93" cid="CPT002" type="component" name="EventComponent.ts" owner="9a2456f09f7f48aeb03f6ef1842b6ef7" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="37b0c1453bac4cb98f0648aaeb6a4a95" cid="CPT002" type="component" name="Event.java" owner="7c97f7220fc0413eafc54558931fd4f2" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="57fcba5c2d31411a8dab0ee89c24998b" cid="CPT002" type="component" name="IBGEApiService.java" owner="dfb33b2f8a834a0f9b73378f2327b0b9" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="00719902432343f5bc3d11b7f37653a9" cid="CPT002" type="component" name="LocationComponent.ts" owner="d7ade7e73d9244b8b85b3de9a709628f" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="01199dba9e824bbab1cdb3c924d5f73b" cid="CPT002" type="component" name="AppComponent.ts" owner="9a2456f09f7f48aeb03f6ef1842b6ef7" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="dfb33b2f8a834a0f9b73378f2327b0b9" cid="CPT001" type="component" name="IBGEApiService" owner="627d3bfef6ef4ad1b7375a5c3854242b" creation-date="09/05/2024 20:57:58" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+      </stereotype-instances>
+      <owned-items />
+      <component />
+    </item>
+    <item id="916d0573bfc7414b99322f1550bf5683" cid="CPT002" type="component" name="AppModule.ts" owner="d7ade7e73d9244b8b85b3de9a709628f" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="8bf3591312994a319ff36254c7a8bdf8" cid="CPT002" type="component" name="EventService.java" owner="e5b2c9f42ee04ca89609027314d32cbd" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="3afb51107cba42219ed32a486ccda27c" cid="CPT002" type="component" name="DatabaseConnection.java" owner="c82497192f9e44febd66886bdb87f645" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="3727005e0f0049bfbcd789cc3d62bb8b" cid="CPT002" type="component" name="UserService.java" owner="676e661707144ba7b4faba58d01ec548" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="04ffe0048d3642dbab010248fb35063b" cid="CPT002" type="component" name="EventRepository.java" owner="e5b2c9f42ee04ca89609027314d32cbd" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="f14a6ed80385469f8eaddac384667d52" cid="CPT002" type="component" name="UserComponent.ts" owner="9a2456f09f7f48aeb03f6ef1842b6ef7" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="2e8b91b932f54dec8c4d648ebc5d63f6" cid="CPT002" type="component" name="CrudService.java" owner="afa27b795b2746609a207c6ded3a1c94" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="6b73db2cb2014cb78d7ed71f0d4545a6" cid="CPT002" type="component" name="CrudController.java" owner="afa27b795b2746609a207c6ded3a1c94" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="706fae5a6b124ed59fb465aa55abff1e" cid="CPT002" type="component" name="UserRepository.java" owner="676e661707144ba7b4faba58d01ec548" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="3b619270acf4474b9f5ef25533e0c1b6" cid="CPT002" type="component" name="LocationComponent.ts" owner="9a2456f09f7f48aeb03f6ef1842b6ef7" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="f3416840cd76431ebb60a5c5245cb07a" cid="CPT002" type="component" name="Organizer.java" owner="676e661707144ba7b4faba58d01ec548" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+    <item id="b080219de21144e58d1505a803d92e98" cid="CPT002" type="component" name="Event.java" owner="e5b2c9f42ee04ca89609027314d32cbd" creation-date="09/05/2024 20:58:22" visibility="undefined">
+      <stereotypes>
+        <stereotype name="component" />
+      </stereotypes>
+      <stereotype-instances>
+        <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+      </stereotype-instances>
+      <component />
+    </item>
+  </items>
+  <models>
+    <model id="p760045997b034e099b2bcc113da44935_719631450" name="diagrama-componente" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>09/05/2024 20:57:51</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-component" id="pcfd0d11f3f3a4d1791a733733661dbba_142657631" name="Eventify" order-index="1" uid="" name-style="" auto-routed-paths="false" default-line-style="default" view-location="317,191" zoom="0.5">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>09/05/2024 20:57:51</creation-date>
+          <change-date>09/05/2024 21:19:02</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="e66abfb028134bf5b6a510acbfa4a8d9" cid="CPT002" type="component" name="UserController.java" owner="676e661707144ba7b4faba58d01ec548" creator="" creation-date="09/05/2024 20:58:22" visibility="undefined">
+            <stereotypes>
+              <stereotype name="component" />
+            </stereotypes>
+            <stereotype-instances>
+              <stereotype id="e66abfb028134bf5b6a510acbfa4a8d9_component_c" type="component" creation-date="09/05/2024 20:58:22" ref="" />
+            </stereotype-instances>
+            <component />
+          </item>
+          <item id="676e661707144ba7b4faba58d01ec548" cid="CPT001" type="component" name="UserManagement" owner="627d3bfef6ef4ad1b7375a5c3854242b" creator="" creation-date="09/05/2024 20:57:58" visibility="undefined">
+            <stereotypes>
+              <stereotype name="component" />
+            </stereotypes>
+            <stereotype-instances>
+              <stereotype id="676e661707144ba7b4faba58d01ec548_component_c" type="component" creation-date="09/05/2024 20:57:58" ref="" />
+            </stereotype-instances>
+            <owned-items />
+            <component />
+          </item>
+          <item id="627d3bfef6ef4ad1b7375a5c3854242b" cid="CPT003" type="component" name="Eventify" creator="" creation-date="09/05/2024 21:19:02" visibility="undefined">
+            <stereotypes>
+              <stereotype name="component" />
+            </stereotypes>
+            <stereotype-instances>
+              <stereotype id="627d3bfef6ef4ad1b7375a5c3854242b_component_c" type="component" creation-date="09/05/2024 21:19:02" ref="" />
+            </stereotype-instances>
+            <owned-items />
+            <component />
+          </item>
+        </abstract-items>
+        <layer id="09afdebecfa64400b9936434c2a392c1" name="Default" visible="true" enabled="true" locked="false">
+          <item id="627d3bfef6ef4ad1b7375a5c3854242b" iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 21:19:02" order-index="6" type="entity">
+            <layout ax="1009" ay="590" awidth="1680" aheight="1292" x="1009" y="590" width="1680" height="1292" expanded="48,290,1680,1292" collapsed="0,0,0,0" />
+          </item>
+          <item id="676e661707144ba7b4faba58d01ec548" iid="3b0ee82260a34f678bc9a0e4b9177abb" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1145" ay="703" awidth="270" aheight="551" x="1145" y="703" width="270" height="551" expanded="184,403,270,551" collapsed="0,0,0,0" />
+          </item>
+          <item id="e5b2c9f42ee04ca89609027314d32cbd" iid="f54ed8ffbe424eeba775cc4b7e27f267" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1535" ay="703" awidth="270" aheight="551" x="1535" y="703" width="270" height="551" expanded="574,403,270,551" collapsed="0,0,0,0" />
+          </item>
+          <item id="7c97f7220fc0413eafc54558931fd4f2" iid="a0ef2e15ba3e4d21a065f6f269fb159b" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1925" ay="765.5" awidth="270" aheight="364" x="1925" y="765.5" width="270" height="364" expanded="964,465.5,270,364" collapsed="0,0,0,0" />
+          </item>
+          <item id="dfb33b2f8a834a0f9b73378f2327b0b9" iid="bcfcac111cd6402891495f71385186ea" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="2315" ay="775.5" awidth="280" aheight="381" x="2315" y="775.5" width="270" height="381" expanded="1354,475.5,280,381" collapsed="0,0,0,0" />
+          </item>
+          <item id="afa27b795b2746609a207c6ded3a1c94" iid="a3e93903a2004791b13fc41dd0f8d517" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1142.3125" ay="1443" awidth="280" aheight="381" x="1142.3125" y="1443" width="270" height="381" expanded="181.3125,1143,280,381" collapsed="0,0,0,0" />
+          </item>
+          <item id="c82497192f9e44febd66886bdb87f645" iid="7a0492b2eb4045c6939e7dfa0ac5fa72" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1535" ay="1443" awidth="276" aheight="381" x="1535" y="1443" width="276" height="381" expanded="574,1143,276,381" collapsed="0,0,0,0" />
+          </item>
+          <item id="9a2456f09f7f48aeb03f6ef1842b6ef7" iid="af88ed073432410c8df2a0d2bfee71a6" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="1925" ay="1183" awidth="280" aheight="641" x="1925" y="1183" width="270" height="641" expanded="964,883,280,641" collapsed="0,0,0,0" />
+          </item>
+          <item id="d7ade7e73d9244b8b85b3de9a709628f" iid="e63a5ddffb0f49498c24537d1453af56" container="627d3bfef6ef4ad1b7375a5c3854242b" container-iid="bd79964182474f8c8249248754cae8fc" show-fields="false" creation-date="09/05/2024 20:57:58" order-index="0" type="entity">
+            <layout ax="2315" ay="1254" awidth="280" aheight="428" x="2315" y="1254" width="280" height="428" expanded="1354,954,280,428" collapsed="0,0,0,0" />
+          </item>
+          <item id="9656c4c8b18e4768a44434d466988a52" iid="922e035f250041bfada6d9ec94bdde9b" container="d7ade7e73d9244b8b85b3de9a709628f" container-iid="e63a5ddffb0f49498c24537d1453af56" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="2370" ay="1325" awidth="160" aheight="84" x="1956" y="1795" width="140" height="64" expanded="1409,1025,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="1ee6e4fc9a0644ee9d6113b1632647a0" iid="0c2ebdcec23d44198598aa51c6e550b9" container="d7ade7e73d9244b8b85b3de9a709628f" container-iid="e63a5ddffb0f49498c24537d1453af56" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="2370" ay="1421" awidth="160" aheight="96" x="2370" y="1891" width="160" height="96" expanded="1409,1121,160,96" collapsed="0,0,0,0" />
+          </item>
+          <item id="598ef9cef0dc475b93f863a58b13a711" iid="1d2361be758a4d918dbfda2ceb47d84a" container="d7ade7e73d9244b8b85b3de9a709628f" container-iid="e63a5ddffb0f49498c24537d1453af56" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="5" type="entity">
+            <layout ax="2370" ay="1527.5" awidth="160" aheight="94" x="2370" y="1527.5" width="160" height="74" expanded="1409,1227.5,160,94" collapsed="0,0,0,0" />
+          </item>
+          <item id="01199dba9e824bbab1cdb3c924d5f73b" iid="5c7c39be96b4424696d8b71e681e89fe" container="9a2456f09f7f48aeb03f6ef1842b6ef7" container-iid="af88ed073432410c8df2a0d2bfee71a6" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1980" ay="1254" awidth="160" aheight="84" x="1566" y="1724" width="140" height="64" expanded="1019,954,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="68aa5c84e14c4e3497738c17ae6fab93" iid="3dabd003723746939d860d63f8c8f290" container="9a2456f09f7f48aeb03f6ef1842b6ef7" container-iid="af88ed073432410c8df2a0d2bfee71a6" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="1980" ay="1350" awidth="160" aheight="84" x="1980" y="1820" width="160" height="74" expanded="1019,1050,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="f14a6ed80385469f8eaddac384667d52" iid="2f13a81a2ad94de8bc8bfd90019c897f" container="9a2456f09f7f48aeb03f6ef1842b6ef7" container-iid="af88ed073432410c8df2a0d2bfee71a6" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="1980" ay="1446" awidth="160" aheight="94" x="1566" y="1916" width="160" height="94" expanded="1019,1146,160,94" collapsed="0,0,0,0" />
+          </item>
+          <item id="3b619270acf4474b9f5ef25533e0c1b6" iid="44b38319ccbf4c1eb279e811b40a1fd5" container="9a2456f09f7f48aeb03f6ef1842b6ef7" container-iid="af88ed073432410c8df2a0d2bfee71a6" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1980" ay="1564" awidth="160" aheight="94" x="1980" y="1564" width="160" height="74" expanded="1019,1264,160,94" collapsed="0,0,0,0" />
+          </item>
+          <item id="62cf441a05774882886d55d98d53aae0" iid="c19420908e0449a799dcc2cb10189af7" container="9a2456f09f7f48aeb03f6ef1842b6ef7" container-iid="af88ed073432410c8df2a0d2bfee71a6" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1980" ay="1682" awidth="160" aheight="84" x="1980" y="1682" width="160" height="74" expanded="1019,1382,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="dc9d34728cec4f03ad7814290b6434c4" iid="4582152fb2c042f48e827b79e6e9898c" container="c82497192f9e44febd66886bdb87f645" container-iid="7a0492b2eb4045c6939e7dfa0ac5fa72" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1590" ay="1514" awidth="158" aheight="84" x="1172" y="1984" width="158" height="64" expanded="629,1214,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="3afb51107cba42219ed32a486ccda27c" iid="531e7b06cdae41af928ea5681a811a2c" container="c82497192f9e44febd66886bdb87f645" container-iid="7a0492b2eb4045c6939e7dfa0ac5fa72" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="1590" ay="1610" awidth="158" aheight="84" x="1586" y="2080" width="158" height="74" expanded="629,1310,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="041f05fd629e4ebf8c293f44a6d91ec7" iid="7cfd966bcbc8404396c12b6ef298188d" container="c82497192f9e44febd66886bdb87f645" container-iid="7a0492b2eb4045c6939e7dfa0ac5fa72" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="1590" ay="1706" awidth="158" aheight="84" x="1172" y="2176" width="158" height="84" expanded="629,1406,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="6b73db2cb2014cb78d7ed71f0d4545a6" iid="1c755d1ddb7342c7823740fe2100307e" container="afa27b795b2746609a207c6ded3a1c94" container-iid="a3e93903a2004791b13fc41dd0f8d517" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1197.3125" ay="1514" awidth="158" aheight="84" x="783.3125" y="1984" width="158" height="64" expanded="236.3125,1214,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="2e8b91b932f54dec8c4d648ebc5d63f6" iid="f279c2b4a3474e7d936a6a77e92b21f5" container="afa27b795b2746609a207c6ded3a1c94" container-iid="a3e93903a2004791b13fc41dd0f8d517" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="1197.3125" ay="1610" awidth="158" aheight="84" x="1197.3125" y="2080" width="158" height="74" expanded="236.3125,1310,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="3752a2061dfc48cbac9a10655aa9bcb2" iid="43c81c9cdc0f4c219cccfd24a3076fb8" container="afa27b795b2746609a207c6ded3a1c94" container-iid="a3e93903a2004791b13fc41dd0f8d517" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="1197.3125" ay="1706" awidth="158" aheight="84" x="783.3125" y="2176" width="158" height="84" expanded="236.3125,1406,158,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="5928964ec5de431c82a1d9c40768925a" iid="8f59afa4bf6b458792a4c66fa255ed57" container="dfb33b2f8a834a0f9b73378f2327b0b9" container-iid="bcfcac111cd6402891495f71385186ea" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="2370" ay="846.5" awidth="160" aheight="84" x="1956" y="1316.5" width="140" height="64" expanded="1409,546.5,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="57fcba5c2d31411a8dab0ee89c24998b" iid="076b5a6ef9a0487ba19766391581ca18" container="dfb33b2f8a834a0f9b73378f2327b0b9" container-iid="bcfcac111cd6402891495f71385186ea" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="2370" ay="942.5" awidth="160" aheight="84" x="2370" y="1412.5" width="160" height="74" expanded="1409,642.5,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="bd865b28b63f490abd6e818ab42c866f" iid="6a0ce395a4d74bc3955dbb380655266d" container="dfb33b2f8a834a0f9b73378f2327b0b9" container-iid="bcfcac111cd6402891495f71385186ea" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="2370" ay="1038.5" awidth="160" aheight="84" x="1956" y="1508.5" width="160" height="84" expanded="1409,738.5,160,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="1cdf1835be5044f589531d20d6f8c3a1" iid="139b44bf2eb74e7595afa263c8084841" container="7c97f7220fc0413eafc54558931fd4f2" container-iid="a0ef2e15ba3e4d21a065f6f269fb159b" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1985" ay="841.5" awidth="150" aheight="74" x="1264" y="1323.5" width="140" height="64" expanded="1024,541.5,150,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="cc9e79ff92b94feea39eef6dcf5cac3b" iid="bc2e92652d21490e8a57d1ff71e8b776" container="7c97f7220fc0413eafc54558931fd4f2" container-iid="a0ef2e15ba3e4d21a065f6f269fb159b" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="1988" ay="937.5" awidth="145" aheight="74" x="1266.5" y="1419.5" width="145" height="74" expanded="1027,637.5,145,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="91eb2e4dcc264f4483d75e06ef06294f" iid="dc98e3e226b44cb98b7ea624cc7ece14" container="7c97f7220fc0413eafc54558931fd4f2" container-iid="a0ef2e15ba3e4d21a065f6f269fb159b" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="1985" ay="1033.5" awidth="150" aheight="74" x="1264" y="1515.5" width="150" height="74" expanded="1024,733.5,150,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="dfaeb0e66cc1411a85ea47e17546e449" iid="0246b6f2ae274686979c82a43111a435" container="e5b2c9f42ee04ca89609027314d32cbd" container-iid="f54ed8ffbe424eeba775cc4b7e27f267" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1595" ay="779" awidth="150" aheight="74" x="1171" y="1239" width="140" height="64" expanded="634,479,150,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="8bf3591312994a319ff36254c7a8bdf8" iid="d9dfa7a242e7470b8fa0ab8586d3df9e" container="e5b2c9f42ee04ca89609027314d32cbd" container-iid="f54ed8ffbe424eeba775cc4b7e27f267" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="2" type="entity">
+            <layout ax="1597" ay="875" awidth="146" aheight="74" x="1597" y="1335" width="146" height="74" expanded="636,575,146,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="04ffe0048d3642dbab010248fb35063b" iid="1dc3bc06908d44f19ec02d0ce25c1d4a" container="e5b2c9f42ee04ca89609027314d32cbd" container-iid="f54ed8ffbe424eeba775cc4b7e27f267" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="3" type="entity">
+            <layout ax="1597" ay="971" awidth="148" aheight="74" x="1597" y="1431" width="148" height="74" expanded="636,671,148,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="b080219de21144e58d1505a803d92e98" iid="467462c661354853bb755a8f8903dd77" container="e5b2c9f42ee04ca89609027314d32cbd" container-iid="f54ed8ffbe424eeba775cc4b7e27f267" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="4" type="entity">
+            <layout ax="1597" ay="1067" awidth="146" aheight="74" x="1597" y="1527" width="146" height="74" expanded="636,767,146,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="7a8f610b9e53479b852cb4bbb8451327" iid="65a4eef1c6644e1ab55dba5437dbcf05" container="e5b2c9f42ee04ca89609027314d32cbd" container-iid="f54ed8ffbe424eeba775cc4b7e27f267" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="5" type="entity">
+            <layout ax="1595" ay="1163" awidth="150" aheight="76" x="1595" y="1623" width="150" height="76" expanded="634,863,150,76" collapsed="0,0,0,0" />
+          </item>
+          <item id="f5543333ebd74cf191e79e65e32d6e59" iid="4ba0fc2447fa4afc8e25f47c8f28268e" container="676e661707144ba7b4faba58d01ec548" container-iid="3b0ee82260a34f678bc9a0e4b9177abb" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1206.75" ay="1067" awidth="151.125" aheight="84" x="1206.75" y="1067" width="151.125" height="74" expanded="245.75,767,151.125,84" collapsed="0,0,0,0" />
+          </item>
+          <item id="706fae5a6b124ed59fb465aa55abff1e" iid="a6092a74ab594073a1eac259ace6aa83" container="676e661707144ba7b4faba58d01ec548" container-iid="3b0ee82260a34f678bc9a0e4b9177abb" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1205" ay="971" awidth="150" aheight="74" x="1205" y="971" width="150" height="74" expanded="244,671,150,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="3727005e0f0049bfbcd789cc3d62bb8b" iid="738fca04ed1c4eca98a7da7bf7316263" container="676e661707144ba7b4faba58d01ec548" container-iid="3b0ee82260a34f678bc9a0e4b9177abb" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1206.75" ay="875" awidth="145.75" aheight="74" x="1206.75" y="875" width="145.75" height="74" expanded="245.75,575,145.75,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="e66abfb028134bf5b6a510acbfa4a8d9" iid="ad2899e9c9194fa3b03e86cd035a7ddb" container="676e661707144ba7b4faba58d01ec548" container-iid="3b0ee82260a34f678bc9a0e4b9177abb" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="1" type="entity">
+            <layout ax="1205" ay="779" awidth="147.5" aheight="74" x="1205" y="779" width="147.5" height="74" expanded="244,479,147.5,74" collapsed="0,0,0,0" />
+          </item>
+          <item id="f3416840cd76431ebb60a5c5245cb07a" iid="a66347f3ced6485ab1e9af2213dbf811" container="676e661707144ba7b4faba58d01ec548" container-iid="3b0ee82260a34f678bc9a0e4b9177abb" show-fields="false" creation-date="09/05/2024 20:58:22" order-index="0" type="entity">
+            <layout ax="1206.75" ay="1163" awidth="151.125" aheight="74" x="1206.75" y="1163" width="151.125" height="74" expanded="245.75,863,151.125,74" collapsed="0,0,0,0" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+</sim-project>
