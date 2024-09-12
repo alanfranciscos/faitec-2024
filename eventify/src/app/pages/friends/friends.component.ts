@@ -4,6 +4,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { AddFriendDialogComponent } from '../../components/add-friend-dialog/add-friend-dialog.component';
 
 interface CardItensType {
   name: string;
@@ -21,11 +22,18 @@ interface CardItensType {
     FriendCardComponent,
     CommonModule,
     HeaderComponent,
+    AddFriendDialogComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
 })
 export class FriendsComponent {
+  isAddFriendDialogOpen = false;
+
+  toggleAddFriendDialog() {
+    this.isAddFriendDialogOpen = !this.isAddFriendDialogOpen;
+  }
+
   currentPage = 1;
   itemsPerPage = 6;
   cardItens: Array<CardItensType> = [
