@@ -77,30 +77,41 @@
     background-color: #ffffff;
   }
   
-  /* Pagination styles */
   .pagination {
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: 20px;
   }
-  
+
   .pagination button {
-    padding: 0.5rem 1rem;
+    background: transparent;
     border: none;
-    border-radius: 0.25rem;
-    background-color: #007bff;
-    color: white;
     cursor: pointer;
-    margin: 0 0.5rem;
+    font-size: 16px;
+    color: #000;
+    margin: 0 10px;
   }
-  
+
   .pagination button:disabled {
-    background-color: #ccc;
+    color: #ccc;
     cursor: not-allowed;
   }
-  
-  .pagination span {
-    align-self: center;
-    font-size: 1rem;
+
+  .pagination-numbers {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
-  
+
+  .pagination-numbers li {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .pagination-numbers li.active {
+    font-weight: bold;
+    color: #000;
+  }

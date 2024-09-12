@@ -8,6 +8,15 @@
       "nickname": "leandro",
       "city": "santa rita",
       "state": "PB"
+    },
+    {
+      "id": "1",
+      "name": "admin",
+      "email": "admin@admin",
+      "password": "admin",
+      "nickname": "leandro",
+      "city": "santa rita",
+      "state": "PB"
     }
   ],
   "events": [

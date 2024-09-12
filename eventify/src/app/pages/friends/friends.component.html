@@ -50,7 +50,7 @@
         <ul class="pagination-numbers">
           <li
             *ngFor="let page of pageNumbers"
-            (click)="goToPage(page)"
+            (click)="setPage(page)"
             [class.active]="currentPage === page"
           >
             {{ page }}
