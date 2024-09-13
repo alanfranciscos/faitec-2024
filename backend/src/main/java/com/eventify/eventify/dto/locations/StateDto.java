@@ -1,6 +1,10 @@
 package com.eventify.eventify.dto.locations;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public record StateDto(Long id, String sigla, String nome) { }
+@Data
+public class StateDto {
+    private String id;
+    private String nome;
+    private String sigla;
+}
