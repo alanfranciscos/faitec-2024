@@ -1,4 +1,4 @@
-package com.eventify.eventify.controller.account;
+package com.eventify.eventify.controller.Account;
 
 import java.net.URI;
 
