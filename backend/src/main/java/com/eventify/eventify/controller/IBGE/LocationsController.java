@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LocationsController {
 
+	// Exemplo de requisição dos estados do Brasil
+    // http://localhost:8080/states
+
+	// Exemplo de requisição dos municípios de acordo com os estados
+    // http://localhost:8080/states/MG/cities
+
     private IBGEDataService ibgeDataService;
 
 	public LocationsController(IBGEDataService ibgeDataService){

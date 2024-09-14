@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cep")
 public class ViaCepController {
 
+    // Exemplo de requisição
+    // http://localhost:8080/cep/37540000
+
     private final ViaCepService viaCepService;
 
     @Autowired
