@@ -9,14 +9,15 @@ import org.springframework.web.client.RestTemplate;
 public class ViaCepServiceImpl implements ViaCepService {
 
     private final RestTemplate restTemplate;
+    private final String POSTAL_CODE_URL = "https://viacep.com.br/ws/";
 
     public ViaCepServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @Override
-    public ViaCepDto getAdressByPostalCode(String cep) {
-        String url = "https://viacep.com.br/ws/" + cep + "/json/";
+    public ViaCepDto findAdressByPostalCode(String cep) {
+        String url = POSTAL_CODE_URL + cep + "/json/";
         return restTemplate.getForObject(url, ViaCepDto.class);
     }
 }

@@ -1,16 +1,12 @@
 package com.eventify.eventify.controller.Opencage;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.eventify.eventify.dto.locations.GeocodingDto;
 import com.eventify.eventify.port.service.opencage.OpenCageService;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/geocoding")
@@ -26,17 +22,12 @@ public class OpenCageController {
     }
 
     @GetMapping("/location")
-    public ResponseEntity<?> getLocarionData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
-        try{
-            GeocodingDto response = openCageService.getGeocodingData(lat, lng);
-            if(response != null && !response.getResults().isEmpty()){
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("No data found", HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> findLocationData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
+            GeocodingDto geocodingData = openCageService.findGeocodingData(lat, lng);
+            if(geocodingData == null){
+                return ResponseEntity.noContent().build();
             }
-        } catch (RuntimeException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.ok(geocodingData);
         }
-    }
 }
     

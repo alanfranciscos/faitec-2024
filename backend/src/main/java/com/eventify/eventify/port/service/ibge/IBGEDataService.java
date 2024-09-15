@@ -5,6 +5,6 @@ import com.eventify.eventify.dto.locations.StateDto;
 import java.util.List;
 
 public interface IBGEDataService {
-    List<StateDto> getStates();
-    List<CityDto> getCitiesByState(String st);
+    List<StateDto> findStates();
+    List<CityDto> findCitiesByState(String st);
 }

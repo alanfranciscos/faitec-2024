@@ -20,13 +20,13 @@ public class IBGEDataServiceImpl implements IBGEDataService {
     }
 
     @Override
-    public List<StateDto> getStates() {
+    public List<StateDto> findStates() {
         StateDto[] statesArray = restTemplate.getForObject(IBGE_API_URL_ESTADOS, StateDto[].class);
         return Arrays.asList(statesArray);
     }
 
     @Override
-    public List<CityDto> getCitiesByState(String st) {
+    public List<CityDto> findCitiesByState(String st) {
         CityDto[] citiesArray = restTemplate.getForObject(IBGE_API_URL_MUNICIPIOS, CityDto[].class, st);
         return Arrays.asList(citiesArray);
     }
