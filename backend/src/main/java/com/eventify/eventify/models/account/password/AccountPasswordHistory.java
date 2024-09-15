@@ -17,7 +17,7 @@ import lombok.ToString;
 
 @Entity
 @ToString
-@Table(name = "history_password")
+@Table(name = "account_password")
 public class AccountPasswordHistory {
     @Id
     @Getter

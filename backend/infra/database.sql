@@ -121,5 +121,9 @@ CREATE TABLE payment (
 COMMIT;
 
 -- password123
--- INSERT INTO account (username, email, user_password, verification_code, code_valid_until, is_verified)
--- VALUES ('john_doe', 'john.doe@example.com', '$2a$12$oNXqL2Zi2lNqujv.W0oCdOgGGNiWXlsD8LosX1y/eVGw8UARpevfe', 376358, '2024-07-09 01:06:25.847', TRUE);
+
+INSERT INTO account (username, email, image_data, is_verified)
+VALUES ('johndoe', 'johndoe@example.com', NULL, TRUE);
+
+INSERT INTO account_password (account_id, user_password, created_at, active, staging, verification_code, code_valid_until)
+VALUES (1, '$2a$12$oNXqL2Zi2lNqujv.W0oCdOgGGNiWXlsD8LosX1y/eVGw8UARpevfe', NOW(), TRUE, FALSE, 'verification_code_example', NOW() + INTERVAL '1 hour');
