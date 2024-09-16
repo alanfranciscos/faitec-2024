@@ -15,8 +15,12 @@ public class EmailService {
     @Value("${validation.code.expiration.minutes}")
     private String codeExpirationMinutes;
 
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
     private void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
