@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.eventify.eventify.dto.account.RegisterRequestDTO;
 import com.eventify.eventify.models.account.Account;
-import com.eventify.eventify.models.account.password.AccountPasswordHistory;    
+import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.repository.account.AccountRepository;
 import com.eventify.eventify.repository.account.password.AccountPasswordHistoryRepository;
 import com.eventify.eventify.services.email.EmailService;
@@ -78,7 +78,7 @@ public class AccountService {
     public String forgotPassword(String email, String password) {
         Account account = accountRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        
+
         Optional<AccountPasswordHistory> passwordInStaging = accountPasswordHistoryRepository
                 .findByAccountIdAndStaging(account.getId(), true);
 
@@ -88,7 +88,7 @@ public class AccountService {
 
         List<AccountPasswordHistory> passwordsUsed = accountPasswordHistoryRepository
                 .findByAccountId(account.getId());
-        
+
         for (AccountPasswordHistory passwordUsed : passwordsUsed) {
             if (passwordUsed.getPassword().equals(password)) {
                 throw new RuntimeException("Password already used");
