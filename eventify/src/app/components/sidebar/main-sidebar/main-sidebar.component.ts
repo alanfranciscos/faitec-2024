@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { SideBarItensType } from './types';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,7 @@ import { AuthenticationLayoutComponent } from '../../../layout/authentication-la
   templateUrl: './main-sidebar.component.html',
   styleUrl: './main-sidebar.component.scss',
 })
-export class MainSidebarComponent {
+export class MainSidebarComponent implements OnInit {
   constructor(private router: Router) {}
 
   logout() {
@@ -30,7 +30,7 @@ export class MainSidebarComponent {
     {
       title: 'My events',
       routerLink: '/',
-      isSelected: true,
+      isSelected: false,
       icon: 'fas fa-calendar',
     },
     {
@@ -47,14 +47,19 @@ export class MainSidebarComponent {
     },
   ];
 
+  ngOnInit(): void {
+    const activeRoute = this.router.url;
+    this.sidebarItens.forEach((item) => {
+      item.isSelected = item.routerLink === activeRoute;
+    });
+  }
+
   ToogleSelected(event: Event, item: SideBarItensType) {
     event.preventDefault();
     this.sidebarItens.forEach((element) => {
       element.isSelected = false;
-      if (element.title === item.title) {
-        element.isSelected = true;
-      }
     });
+    item.isSelected = true;
   }
 
   toggleSidebar() {

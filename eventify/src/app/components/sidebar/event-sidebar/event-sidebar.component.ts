@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SideBarItensType } from './types';
 @Component({
   selector: 'app-event-layout',
@@ -10,7 +10,8 @@ import { SideBarItensType } from './types';
   templateUrl: './event-sidebar.component.html',
   styleUrl: './event-sidebar.component.scss',
 })
-export class EventLayoutComponent {
+export class EventLayoutComponent implements OnInit {
+  constructor(private router: Router) {}
   @Input() eventName: string = 'Event Name';
   @Input() location: string = 'Local';
   @Input() date: string = '10/10/2010';
@@ -21,7 +22,7 @@ export class EventLayoutComponent {
     {
       title: 'General view',
       routerLink: '/manage-event/general-view',
-      isSelected: true,
+      isSelected: false,
       icon: 'far fa-map',
     },
     {
@@ -38,14 +39,19 @@ export class EventLayoutComponent {
     },
   ];
 
+  ngOnInit(): void {
+    const activeRoute = this.router.url;
+    this.sidebarItens.forEach((item) => {
+      item.isSelected = item.routerLink === activeRoute;
+    });
+  }
+
   ToogleSelected(event: Event, item: SideBarItensType) {
     event.preventDefault();
     this.sidebarItens.forEach((element) => {
       element.isSelected = false;
-      if (element.title === item.title) {
-        element.isSelected = true;
-      }
     });
+    item.isSelected = true;
   }
 
   toggleSidebar() {
