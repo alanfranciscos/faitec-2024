@@ -47,11 +47,14 @@
       </table>
       <div class="pagination">
         <button (click)="previousPage()" [disabled]="currentPage === 1">
-          Previous
+          <i class="fas fa-arrow-left"></i>
+
+          <span> Previous</span>
         </button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-          Next
+          <span> Next </span>
+          <i class="fas fa-arrow-right"></i>
         </button>
       </div>
     </div>

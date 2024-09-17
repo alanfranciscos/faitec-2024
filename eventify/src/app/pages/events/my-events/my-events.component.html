@@ -2,21 +2,36 @@
   <app-header [ComponentName]="'MY EVENTS'"></app-header>
   <div class="search-container">
     <div class="search">
-      <input type="text" id="search" placeholder="Search" style="display: flex; align-self: center" />
+      <input
+        type="text"
+        id="search"
+        placeholder="Search"
+        style="display: flex; align-self: center"
+      />
       <button class="search-button">
         <i class="fas fa-search"></i>
       </button>
     </div>
-    <button routerLink="create-event/basic-info" class="create-button" style="background-color: #14ad47">
+    <button
+      routerLink="create-event/basic-info"
+      class="create-button"
+      style="background-color: #14ad47"
+    >
       Create
     </button>
   </div>
 
   <div class="cards">
     <ul>
-      <li *ngFor="let item of paginatedItems; let i = index">
-        <app-card [title]="item.title" [description]="item.description" [startData]="item.startData"
-          [endData]="item.endData" [image]="item.image" [status]="item.status">
+      <li *ngFor="let item of paginatedItems">
+        <app-card
+          [title]="item.title"
+          [description]="item.description"
+          [startData]="item.startData"
+          [endData]="item.endData"
+          [image]="item.image"
+          [status]="item.status"
+        >
         </app-card>
       </li>
     </ul>
@@ -29,7 +44,11 @@
     </button>
 
     <ul class="pagination-numbers">
-      <li *ngFor="let page of pageNumbers" (click)="goToPage(page)" [class.active]="currentPage === page">
+      <li
+        *ngFor="let page of pageNumbers"
+        (click)="setPage(page)"
+        [class.active]="currentPage === page"
+      >
         {{ page }}
       </li>
     </ul>

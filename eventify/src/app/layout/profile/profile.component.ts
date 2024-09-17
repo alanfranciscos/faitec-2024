@@ -12,7 +12,7 @@ import {
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { AuthenticationLayoutComponent } from '../authentication-layout/authentication-layout.component';
 import { ButtonComponent } from '../../components/button/button.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface RegisterForm {
   name: FormControl<string | null>;
@@ -33,12 +33,15 @@ interface RegisterForm {
     PrimaryInputComponent,
     AuthenticationLayoutComponent,
     ButtonComponent,
+    RouterLink,
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   @Input() title: string = '';
+  @Input() route: string = '';
+
   @Input() userName: string = '';
   @Input() nickName: string = '';
   @Input() userEmail: string = '';
