@@ -1,23 +1,22 @@
 package com.eventify.eventify.models.account.password;
 
-import java.time.ZonedDateTime;
-
-import com.eventify.eventify.models.account.Account;
-
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.eventify.eventify.models.account.Account;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.time.ZonedDateTime;
+
+import lombok.*;
 
 @Entity
 @ToString
-@Table(name = "history_password")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "account_password")
 public class AccountPasswordHistory {
     @Id
     @Getter
@@ -35,7 +34,7 @@ public class AccountPasswordHistory {
 
     @Getter
     @Column(name = "created_at")
-    private final ZonedDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @Getter
     @Setter

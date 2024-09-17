@@ -4,6 +4,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { AddFriendDialogComponent } from '../../components/add-friend-dialog/add-friend-dialog.component';
 
 interface CardItensType {
   name: string;
@@ -21,11 +22,18 @@ interface CardItensType {
     FriendCardComponent,
     CommonModule,
     HeaderComponent,
+    AddFriendDialogComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
 })
 export class FriendsComponent {
+  isAddFriendDialogOpen = false;
+
+  toggleAddFriendDialog() {
+    this.isAddFriendDialogOpen = !this.isAddFriendDialogOpen;
+  }
+
   currentPage = 1;
   itemsPerPage = 6;
   cardItens: Array<CardItensType> = [
@@ -66,36 +74,40 @@ export class FriendsComponent {
       image: '/assets/svg/logo.svg',
     },
   ];
-  get paginatedItems(): Array<CardItensType> {
+  totalPages = Math.ceil(this.cardItens.length / this.itemsPerPage); //arredonda para cima, para nao quebrar caso tenha pagina impar
+
+  paginatedItems: Array<CardItensType> = this.calculatePaginatedItems();
+
+  pageNumbers: number[] = this.calculatePageNumbers();
+
+  calculatePaginatedItems(): Array<CardItensType> {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.cardItens.slice(startIndex, endIndex);
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.cardItens.length / this.itemsPerPage);
+  calculatePageNumbers(): number[] {
+    return Array(this.totalPages)
+      .fill(0)
+      .map((_, i) => i + 1);
   }
 
-  get pageNumbers(): number[] {
-    const totalPages = this.totalPages;
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  setPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.paginatedItems = this.calculatePaginatedItems();
+    }
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+      this.setPage(this.currentPage + 1);
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
+      this.setPage(this.currentPage - 1);
     }
   }
 }

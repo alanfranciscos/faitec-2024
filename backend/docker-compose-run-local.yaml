@@ -1,6 +1,6 @@
 version: '2'
 services:
-  postgres-ts:
+  postgres-eventify:
     image: postgres:15
     container_name: postgres-eventify
     environment:

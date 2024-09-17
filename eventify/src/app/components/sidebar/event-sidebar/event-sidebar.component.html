@@ -1,4 +1,7 @@
-<aside class="container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
+<aside
+  class="container"
+  [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }"
+>
   <div class="event-card" [ngClass]="{ 'collapsed-card': isCollapsed }">
     <div class="event-image">
       <img src="/assets/svg/avatar.svg" alt="Event Image" />
@@ -6,10 +9,7 @@
     <div class="event-info">
       <ul style="list-style-type: none">
         <li class="custom-span-title">{{ eventName }}</li>
-        <li class="custom-span-text">
-          Event made on {{ location }} {{ date }}
-        </li>
-        <li class="custom-span-text">by {{ creatorUser }}</li>
+        <li class="custom-span-text">{{ description }}</li>
       </ul>
     </div>
   </div>
@@ -18,18 +18,27 @@
     <ul>
       @for (item of sidebarItens ; track $index) {
       <li>
-        <app-item routerLink="{{ item.routerLink }}" icon="{{ item.icon }}" text="{{ item.title }}"
-          [selected]="item.isSelected" [isCollapsed]="isCollapsed" (click)="ToogleSelected($event, item)">
+        <app-item
+          routerLink="{{ item.routerLink }}"
+          icon="{{ item.icon }}"
+          text="{{ item.title }}"
+          [selected]="item.isSelected"
+          [isCollapsed]="isCollapsed"
+          (click)="ToogleSelected($event, item)"
+        >
         </app-item>
       </li>
       }
     </ul>
   </nav>
-  <div class="exit-container" [ngClass]="{
+  <div
+    class="exit-container"
+    [ngClass]="{
       'exit-collapsed': isCollapsed,
       'exit-not-collapsed': !isCollapsed
-    }">
-    <button class="exit-button">
+    }"
+  >
+    <button class="exit-button" (click)="logout()">
       <div>
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
       </div>
@@ -39,10 +48,14 @@
     </button>
   </div>
 
-  <button class="toggle-sidebar" (click)="toggleSidebar()" [ngClass]="{
+  <button
+    class="toggle-sidebar"
+    (click)="toggleSidebar()"
+    [ngClass]="{
       'toggle-sidebar-open': !isCollapsed,
       'toggle-sidebar-closed': isCollapsed
-    }">
+    }"
+  >
     <img src="/assets/svg/navbutton.svg" alt="->" />
   </button>
 </aside>

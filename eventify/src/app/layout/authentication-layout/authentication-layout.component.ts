@@ -10,4 +10,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AuthenticationLayoutComponent {
   @Input() title: string = '';
   @Input() image: string = '/assets/svg/logo.svg';
+  @Input() heightvalue?: string;
 }
