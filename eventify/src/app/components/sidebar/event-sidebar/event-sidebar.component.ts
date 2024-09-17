@@ -16,7 +16,7 @@ export class EventLayoutComponent implements OnInit {
   @Input() location: string = 'Local';
   @Input() date: string = '10/10/2010';
   @Input() creatorUser: string = 'John Doe';
-
+  @Input() description: string = 'Palestras sobre inovações tecnológicas.';
   isCollapsed = false;
   sidebarItens: Array<SideBarItensType> = [
     {
@@ -56,5 +56,9 @@ export class EventLayoutComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/account/login']); // Redireciona para a tela de login
   }
 }
