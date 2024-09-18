@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/geocoding")
+@RequestMapping("api/v1/geocoding")
 public class OpenCageController {
 
     // Exemplo de requisição
@@ -22,7 +22,7 @@ public class OpenCageController {
     }
 
     @GetMapping("/location")
-    public ResponseEntity<?> findLocationData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
+    public ResponseEntity<GeocodingDto> findLocationData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
             GeocodingDto geocodingData = openCageService.findGeocodingData(lat, lng);
             if(geocodingData == null){
                 return ResponseEntity.noContent().build();

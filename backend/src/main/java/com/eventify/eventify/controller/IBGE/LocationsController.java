@@ -4,6 +4,8 @@ import com.eventify.eventify.dto.locations.CityDto;
 import com.eventify.eventify.dto.locations.StateDto;
 import com.eventify.eventify.port.service.ibge.IBGEDataService;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("api/v1/locations")
 public class LocationsController {
 
 	// Exemplo de requisição dos estados do Brasil

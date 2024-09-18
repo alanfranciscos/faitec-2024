@@ -14,7 +14,8 @@ public class OpenCageServiceImpl implements OpenCageService {
 
     private final RestTemplate restTemplate;
 
-    private String URL_OPEN_CAGE = "https://api.opencagedata.com/geocode/v1/json?q=%s,%s&key=%s";
+    @Value("${base.url.open.cage}")
+    private String URL_OPEN_CAGE;
 
     public OpenCageServiceImpl(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
@@ -22,7 +23,8 @@ public class OpenCageServiceImpl implements OpenCageService {
 
     @Override
     public GeocodingDto findGeocodingData(double lat, double lng) {
-        String url = String.format(URL_OPEN_CAGE, lat, lng, openCageApiKey);
+        String SPECIFIC_GEOCODING_URL = "/geocode/v1/json?q=%s,%s&key=%s";
+        String url = String.format(URL_OPEN_CAGE + SPECIFIC_GEOCODING_URL, lat, lng, openCageApiKey);
         return restTemplate.getForObject(url, GeocodingDto.class);
     }
 }

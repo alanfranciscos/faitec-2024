@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cep")
+@RequestMapping("api/v1/cep")
 public class ViaCepController {
 
     // Exemplo de requisição
