@@ -44,9 +44,12 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(10),
       ]),
     });
+  }
+
+  ngOnInit(): void {
+    this.loginIfCredentialsIsValid();
   }
 
   navigateToSignup() {
@@ -79,10 +82,6 @@ export class LoginComponent implements OnInit {
       this.toastrService.error(e.message);
       this.loginForm.get('password')?.setValue(null);
     }
-  }
-
-  ngOnInit(): void {
-    this.loginIfCredentialsIsValid();
   }
 
   loginIfCredentialsIsValid() {
