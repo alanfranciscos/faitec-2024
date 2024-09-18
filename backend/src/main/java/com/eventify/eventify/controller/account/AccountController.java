@@ -20,7 +20,7 @@ import com.eventify.eventify.services.account.AccountService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("api/v1/account")
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
