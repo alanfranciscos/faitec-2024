@@ -1,11 +1,8 @@
 package com.eventify.eventify.models.account;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import lombok.*;
 
 @Entity
@@ -15,8 +12,8 @@ import lombok.*;
 public class Account {
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Setter
+    private Integer id;
 
     @Getter
     @Setter

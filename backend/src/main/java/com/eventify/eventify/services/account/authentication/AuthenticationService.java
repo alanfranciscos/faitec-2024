@@ -1,20 +1,22 @@
 package com.eventify.eventify.services.account.authentication;
 
-import org.springframework.stereotype.Service;
-
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
-import com.eventify.eventify.repository.account.AccountRepository;
-import com.eventify.eventify.repository.account.password.AccountPasswordHistoryRepository;
+import com.eventify.eventify.port.dao.account.AccountDao;
+import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
+import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final AccountRepository accountRepository;
-    private final AccountPasswordHistoryRepository accountPasswordHistoryRepository;
+    private final AccountDao accountDao;
+    private final AccountPasswordHistoryDao accountPasswordHistoryDao;
+
+    public AuthenticationService(AccountDao accountDao, AccountPasswordHistoryDao accountPasswordHistoryDao) {
+        this.accountDao = accountDao;
+        this.accountPasswordHistoryDao = accountPasswordHistoryDao;
+    }
 
     /**
      * Verifies the user's password for the given email.
@@ -30,10 +32,12 @@ public class AuthenticationService {
             throw new RuntimeException("User or password empty");
         }
 
-        Account account = accountRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User or password incorrect"));
+        Account account = accountDao.readByEmail(email);
+        if (account == null) {
+            throw new RuntimeException("User or password incorrect");
+        }
 
-        AccountPasswordHistory accountPasswordHistory =  accountPasswordHistoryRepository
+        AccountPasswordHistory accountPasswordHistory =  accountPasswordHistoryDao
                 .findByAccountIdAndActive(account.getId(), true)
                 .orElseThrow(() -> new RuntimeException("User or password incorrect"));
 

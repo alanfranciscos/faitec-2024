@@ -1,28 +1,33 @@
 package com.eventify.eventify.services.account;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.eventify.eventify.dto.account.RegisterRequestDTO;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
-import com.eventify.eventify.repository.account.AccountRepository;
-import com.eventify.eventify.repository.account.password.AccountPasswordHistoryRepository;
+import com.eventify.eventify.port.dao.account.AccountDao;
+import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
 import com.eventify.eventify.services.email.EmailService;
-
-import lombok.RequiredArgsConstructor;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class AccountService {
 
-    private final AccountRepository accountRepository;
-    private final AccountPasswordHistoryRepository accountPasswordHistoryRepository;
+    private final AccountDao accountDao;
+    
+    private final AccountPasswordHistoryDao accountPasswordHistoryDao;
     private final EmailService emailService;
+
+    public AccountService(
+            AccountDao accountDao,
+            AccountPasswordHistoryDao accountPasswordHistoryDao,
+            EmailService emailService) {
+        this.accountDao = accountDao;
+        this.accountPasswordHistoryDao = accountPasswordHistoryDao;
+        this.emailService = emailService;
+    }
 
     @Value("${validation.code.expiration.minutes}")
     private int codeExpirationMinutes;
@@ -36,10 +41,10 @@ public class AccountService {
     }
 
     public Account RegisterUser(RegisterRequestDTO registerRequestDTO) {
-        Optional<Account> account = this.accountRepository
-                .findByEmail(registerRequestDTO.email());
+        Account account = this.accountDao
+                .readByEmail(registerRequestDTO.email());
 
-        if (!account.isEmpty()) {
+        if (account == null) {
             throw new RuntimeException("User already exists");
         }
 
@@ -50,7 +55,7 @@ public class AccountService {
         newAccount.setImageData(registerRequestDTO.imageData());
 
         try {
-            newAccount = this.accountRepository.save(newAccount);
+            this.accountDao.save(newAccount);
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("message: Failed to create user", e);
         }
@@ -64,9 +69,9 @@ public class AccountService {
         passwordHistory.setVerificationCode(codeGenerated, codeExpirationMinutes);
 
         try {
-            passwordHistory = accountPasswordHistoryRepository.save(passwordHistory);
+            accountPasswordHistoryDao.save(passwordHistory);
         } catch (IllegalArgumentException e) {
-            accountRepository.deleteById(newAccount.getId());
+            accountDao.deleteById(newAccount.getId());
             throw new RuntimeException("message: Failed to create user", e);
         }
 
@@ -76,17 +81,19 @@ public class AccountService {
     }
 
     public String forgotPassword(String email, String password) {
-        Account account = accountRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Account account = accountDao.readByEmail(email);
+        if (account == null) {
+            throw new RuntimeException("User not found");
+        }
 
-        Optional<AccountPasswordHistory> passwordInStaging = accountPasswordHistoryRepository
+        Optional<AccountPasswordHistory> passwordInStaging = accountPasswordHistoryDao
                 .findByAccountIdAndStaging(account.getId(), true);
 
         if (passwordInStaging.isPresent()) {
-            accountPasswordHistoryRepository.deleteById(passwordInStaging.get().getId());
+            accountPasswordHistoryDao.deleteById(passwordInStaging.get().getId());
         }
 
-        List<AccountPasswordHistory> passwordsUsed = accountPasswordHistoryRepository
+        List<AccountPasswordHistory> passwordsUsed = accountPasswordHistoryDao
                 .findByAccountId(account.getId());
 
         for (AccountPasswordHistory passwordUsed : passwordsUsed) {
@@ -104,7 +111,7 @@ public class AccountService {
         passwordHistory.setVerificationCode(codeGenerated, codeExpirationMinutes);
 
         try {
-            passwordHistory = accountPasswordHistoryRepository.save(passwordHistory);
+            accountPasswordHistoryDao.save(passwordHistory);
         } catch (Exception e) {
             throw new RuntimeException("Failed to save verification code", e);
         }
@@ -115,11 +122,12 @@ public class AccountService {
     }
 
     public boolean verifyAccount(String email, String code) {
+        Account account = accountDao.readByEmail(email);
+        if (account == null) {
+            throw new RuntimeException("User or password not found");
+        }
 
-        Account account = accountRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User or password not found"));
-
-        AccountPasswordHistory userPassword = accountPasswordHistoryRepository
+        AccountPasswordHistory userPassword = accountPasswordHistoryDao
                 .findByAccountIdAndStaging(account.getId(), true)
                 .orElseThrow(() -> new RuntimeException("User or password not found"));
 
@@ -135,7 +143,7 @@ public class AccountService {
         userPassword.setStaging(false);
 
         try {
-            accountPasswordHistoryRepository.save(userPassword);
+            accountPasswordHistoryDao.save(userPassword);
         } catch (Exception e) {
             throw new RuntimeException("Failed to save password", e);
         }

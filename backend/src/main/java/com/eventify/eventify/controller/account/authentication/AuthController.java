@@ -1,4 +1,4 @@
-package com.eventify.eventify.controller.Account.authentication;
+package com.eventify.eventify.controller.account.authentication;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

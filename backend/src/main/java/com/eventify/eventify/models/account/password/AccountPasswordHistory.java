@@ -2,14 +2,10 @@ package com.eventify.eventify.models.account.password;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.eventify.eventify.models.account.Account;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
-
 import lombok.*;
 
 @Entity
@@ -20,20 +16,18 @@ import lombok.*;
 public class AccountPasswordHistory {
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Setter
+    private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "account_id")
-    private Long accountId;
+    private Integer accountId;
 
     @Getter
-    @Column(name = "user_password")
     private String password;
 
     @Getter
-    @Column(name = "created_at")
+    @Setter
     private ZonedDateTime createdAt;
 
     @Getter
@@ -45,11 +39,11 @@ public class AccountPasswordHistory {
     private boolean staging;
 
     @Getter
-    @Column(name = "verification_code")
+    @Setter
     private String verificationCode;
 
     @Getter
-    @Column(name = "code_valid_until")
+    @Setter
     private ZonedDateTime codeValidUntil;
 
     public AccountPasswordHistory(Account account) {
