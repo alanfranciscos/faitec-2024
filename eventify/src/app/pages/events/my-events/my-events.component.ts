@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { CardComponent } from '../../../components/card/card.component';
@@ -129,40 +129,36 @@ export class MyEventsComponent {
     },
   ];
 
-  totalPages = Math.ceil(this.cardItens.length / this.itemsPerPage); //arredonda para cima, para nao quebrar caso tenha pagina impar
-
-  paginatedItems: Array<CardItensType> = this.calculatePaginatedItems();
-
-  pageNumbers: number[] = this.calculatePageNumbers();
-
-  calculatePaginatedItems(): Array<CardItensType> {
+  get paginatedItems(): Array<CardItensType> {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.cardItens.slice(startIndex, endIndex);
   }
 
-  calculatePageNumbers(): number[] {
-    return Array(this.totalPages)
-      .fill(0)
-      .map((_, i) => i + 1);
+  get totalPages(): number {
+    return Math.ceil(this.cardItens.length / this.itemsPerPage);
   }
 
-  setPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.paginatedItems = this.calculatePaginatedItems();
-    }
+  get pageNumbers(): number[] {
+    const totalPages = this.totalPages;
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      this.setPage(this.currentPage + 1);
+      this.currentPage++;
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
-      this.setPage(this.currentPage - 1);
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
     }
   }
 }

@@ -83,6 +83,7 @@ export class ExpensesComponent implements OnInit {
       description: 'Example Description 11',
       amount: 1100.0,
     },
+    // Add more items here if needed
   ];
 
   paginatedExpenses: Expense[] = [];

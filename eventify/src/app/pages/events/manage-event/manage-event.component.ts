@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { GeneralViewComponent } from './general-view/general-view.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { MembersComponent } from './members/members.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-manage-event',
@@ -18,7 +18,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     ExpensesComponent,
     MembersComponent,
     RouterOutlet,
-    RouterLink,
   ],
   templateUrl: './manage-event.component.html',
   styleUrl: './manage-event.component.scss',

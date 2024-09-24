@@ -15,17 +15,13 @@
           </button>
         </div>
         <button
+          routerLink="create-event/basic-info"
           class="add-friend-button"
           style="background-color: #14ad47"
-          (click)="toggleAddFriendDialog()"
         >
           Add a new friend
         </button>
       </div>
-      <app-add-friend-dialog
-        *ngIf="isAddFriendDialogOpen"
-        (close)="toggleAddFriendDialog()"
-      ></app-add-friend-dialog>
       <div>
         <div class="cards">
           <ul>
@@ -50,7 +46,7 @@
         <ul class="pagination-numbers">
           <li
             *ngFor="let page of pageNumbers"
-            (click)="setPage(page)"
+            (click)="goToPage(page)"
             [class.active]="currentPage === page"
           >
             {{ page }}
