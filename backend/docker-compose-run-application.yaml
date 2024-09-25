@@ -4,11 +4,9 @@ services:
     image: postgres:15
     container_name: postgres-eventify
     environment:
-      - POSTGRES_PASSWORD=local
-      - POSTGRES_USER=local
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
       - POSTGRES_DB=eventify
-    volumes:
-      - ./infra/database.sql:/docker-entrypoint-initdb.d/database.sql
     ports:
       - "5432:5432"
     networks:
@@ -23,6 +21,8 @@ services:
       - 8080:8080
     networks:
       - my-networks
+    depends_on:
+      - postgres-eventify
 
 networks:
   my-networks:

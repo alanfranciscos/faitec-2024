@@ -1,6 +1,7 @@
 package com.eventify.eventify.config.repository;
 
-import com.eventify.eventify.util.ResourceFileService;
+
+import com.eventify.eventify.port.service.util.ResourceFileService;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.io.IOException;
@@ -85,7 +86,7 @@ public class PostgresConnectionManagerConfiguration {
     public boolean createTableAndInsertData() throws IOException, SQLException {
             Connection connection = getConnection();
 
-            final String basePath = "lds-db-scripts";
+            final String basePath = "db-scripts";
             final String createTable = resourceFileService
                     .read(basePath + "/create-tables-postgres.sql");
 
@@ -98,9 +99,12 @@ public class PostgresConnectionManagerConfiguration {
                     .read(basePath + "/insert-data.sql");
             PreparedStatement insertStatement = connection
                     .prepareStatement(insertData);
-            insertStatement.execute();
+            try {
+                insertStatement.execute();
+            } catch (SQLException e) {
+                System.err.println("Erro ao inserir dados: " + e.getMessage());
+            }
             insertStatement.close();
-
             return true;
     }
 

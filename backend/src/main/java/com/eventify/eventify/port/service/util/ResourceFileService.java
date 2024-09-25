@@ -1,4 +1,4 @@
-package com.eventify.eventify.util;
+package com.eventify.eventify.port.service.util;
 
 import java.io.IOException;
 

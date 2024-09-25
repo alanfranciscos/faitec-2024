@@ -30,8 +30,16 @@ public class AccountDaoImpl implements AccountDao{
                 account.setId(resultSet.getInt("id"));
                 account.setUsername(resultSet.getString("username"));
                 account.setEmail(resultSet.getString("email"));
-                account.setImageData(resultSet.getBytes("imageData"));
-                account.setVerified(resultSet.getBoolean("isVerified"));
+                try {
+                    account.setImageData(resultSet.getBytes("imageData"));
+                } catch (Exception e) {
+                    account.setImageData(null);
+                }
+                try {
+                    account.setVerified(resultSet.getBoolean("isVerified"));
+                } catch (Exception e) {
+                    account.setVerified(false);
+                }
 
                 return account;
             }

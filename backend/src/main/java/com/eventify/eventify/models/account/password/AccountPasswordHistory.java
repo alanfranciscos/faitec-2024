@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
+import java.util.Optional;
+
 import lombok.*;
 
 @Entity
@@ -61,6 +63,11 @@ public class AccountPasswordHistory {
         String passwordHashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
         this.password = passwordHashed;
     }
+
+    public void setPasswordFromDao(String password) {
+        this.password = password;
+    }
+
 
     public void setVerificationCode(String verificationCode, int codeExpirationMinutes) {
         this.verificationCode = verificationCode;

@@ -2,11 +2,9 @@ package com.eventify.eventify.dao.account.password;
 
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
+
+import java.sql.*;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +20,21 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
         final AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory();
         accountPasswordHistory.setId(resultSet.getInt("id"));
         accountPasswordHistory.setAccountId(resultSet.getInt("account_id"));
-        accountPasswordHistory.setPassword(resultSet.getString("user_password"));
-        accountPasswordHistory.setCreatedAt(ZonedDateTime.parse(resultSet.getString("created_at")));
+        accountPasswordHistory.setPasswordFromDao(resultSet.getString("user_password"));
+
+        Timestamp createdAtTimestamp = resultSet.getTimestamp("created_at");
+        ZonedDateTime createdAtZonedDateTime = createdAtTimestamp.toInstant()
+                .atZone(ZoneId.systemDefault());
+        accountPasswordHistory.setCreatedAt(createdAtZonedDateTime);
+
         accountPasswordHistory.setActive(resultSet.getBoolean("active"));
         accountPasswordHistory.setStaging(resultSet.getBoolean("staging"));
         accountPasswordHistory.setVerificationCode(resultSet.getString("verification_code"));
-        accountPasswordHistory.setCodeValidUntil(ZonedDateTime.parse(resultSet.getString("code_valid_until")));
+
+        Timestamp validUntilTimestamp = resultSet.getTimestamp("created_at");
+        ZonedDateTime validUntilZonedDateTime = validUntilTimestamp.toInstant()
+                .atZone(ZoneId.systemDefault());
+        accountPasswordHistory.setCodeValidUntil(validUntilZonedDateTime);
         return accountPasswordHistory;
     }
 
@@ -95,7 +102,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
     @Override
     public Optional<AccountPasswordHistory> findByAccountIdAndActive(Integer accountId, boolean active) {
-        final String sql = "SELECT * FROM account WHERE account_id = ? AND active = ?;";
+        final String sql = "SELECT * FROM account_password WHERE account_id = ? AND active = ?;";
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -112,7 +119,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
             return Optional.empty();
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -129,7 +136,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
     @Override
     public Optional<AccountPasswordHistory> findByAccountIdAndStaging(Integer accountId, boolean staging) {
-        final String sql = "SELECT * FROM account WHERE account_id = ? AND staging = ?;";
+        final String sql = "SELECT * FROM account_password WHERE account_id = ? AND staging = ?;";
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -163,7 +170,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
     @Override
     public List<AccountPasswordHistory> findByAccountId(Integer accountId) {
-        final String sql = "SELECT * FROM account WHERE account_id = ?;";
+        final String sql = "SELECT * FROM account_password WHERE account_id = ?;";
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
