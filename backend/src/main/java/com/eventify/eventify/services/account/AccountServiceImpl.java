@@ -1,11 +1,11 @@
 package com.eventify.eventify.services.account;
 
-import com.eventify.eventify.dto.account.RegisterRequestDTO;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
-import com.eventify.eventify.services.email.EmailService;
+import com.eventify.eventify.port.service.account.AccountService;
+import com.eventify.eventify.services.email.EmailServiceImpl;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -13,24 +13,24 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public class AccountServiceImpl implements AccountService {
+
+    @Value("${validation.code.expiration.minutes}")
+    private int codeExpirationMinutes;
 
     private final AccountDao accountDao;
     
     private final AccountPasswordHistoryDao accountPasswordHistoryDao;
-    private final EmailService emailService;
+    private final EmailServiceImpl emailService;
 
-    public AccountService(
+    public AccountServiceImpl(
             AccountDao accountDao,
             AccountPasswordHistoryDao accountPasswordHistoryDao,
-            EmailService emailService) {
+            EmailServiceImpl emailService) {
         this.accountDao = accountDao;
         this.accountPasswordHistoryDao = accountPasswordHistoryDao;
         this.emailService = emailService;
     }
-
-    @Value("${validation.code.expiration.minutes}")
-    private int codeExpirationMinutes;
 
     private String generateVerificationCodString() {
         String code = "";
@@ -40,9 +40,12 @@ public class AccountService {
         return code;
     }
 
-    public Account RegisterUser(RegisterRequestDTO registerRequestDTO) {
+
+    private boolean userExist() {}
+    
+    public Integer RegisterUser(String username, String email, String password, byte[] imageData) {;
         Account account = this.accountDao
-                .readByEmail(registerRequestDTO.email());
+                .readByEmail(email);
 
         if (account == null) {
             throw new RuntimeException("User already exists");
@@ -50,9 +53,9 @@ public class AccountService {
 
         Account newAccount = new Account();
 
-        newAccount.setUsername(registerRequestDTO.username());
-        newAccount.setEmail(registerRequestDTO.email());
-        newAccount.setImageData(registerRequestDTO.imageData());
+        newAccount.setUsername(username);
+        newAccount.setEmail(email);
+        newAccount.setImageData(imageData);
 
         try {
             this.accountDao.save(newAccount);
@@ -61,7 +64,7 @@ public class AccountService {
         }
 
         AccountPasswordHistory passwordHistory = new AccountPasswordHistory(newAccount);
-        passwordHistory.setPassword(registerRequestDTO.password());
+        passwordHistory.setPassword(password);
         passwordHistory.setActive(false);
         passwordHistory.setStaging(true);
 
@@ -69,15 +72,14 @@ public class AccountService {
         passwordHistory.setVerificationCode(codeGenerated, codeExpirationMinutes);
 
         try {
-            accountPasswordHistoryDao.save(passwordHistory);
+            int accountId = accountPasswordHistoryDao.save(passwordHistory);
+            emailService.sendConfirmationCode(newAccount.getEmail(), passwordHistory.getVerificationCode());
+
+            return accountId;
         } catch (IllegalArgumentException e) {
             accountDao.deleteById(newAccount.getId());
             throw new RuntimeException("message: Failed to create user", e);
         }
-
-        emailService.sendConfirmationCode(newAccount.getEmail(), passwordHistory.getVerificationCode());
-
-        return newAccount;
     }
 
     public String forgotPassword(String email, String password) {

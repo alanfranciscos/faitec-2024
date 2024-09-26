@@ -5,8 +5,8 @@ import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
-import com.eventify.eventify.services.account.AccountService;
-import com.eventify.eventify.services.email.EmailService;
+import com.eventify.eventify.services.account.AccountServiceImpl;
+import com.eventify.eventify.services.email.EmailServiceImpl;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +29,10 @@ public class AccountServiceTest {
     private AccountPasswordHistoryDao accountPasswordHistoryDao;
 
     @Mock
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @InjectMocks
-    private AccountService accountService;
+    private AccountServiceImpl accountService;
 
     private AccountPasswordHistory createAccountPasswordHistory(Account account, String password)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {

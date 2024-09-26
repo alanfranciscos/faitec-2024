@@ -4,7 +4,7 @@ import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
-import com.eventify.eventify.services.account.authentication.AuthenticationService;
+import com.eventify.eventify.services.account.authentication.AuthenticationServiceImpl;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ class AuthenticationServiceTest {
     private AccountPasswordHistoryDao accountPasswordHistoryDao;
 
     @InjectMocks
-    private AuthenticationService authenticationService;
+    private AuthenticationServiceImpl authenticationService;
 
     @BeforeEach
     void setUp() {

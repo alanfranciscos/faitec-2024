@@ -1,13 +1,10 @@
 package com.eventify.eventify.models.account.password;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.eventify.eventify.models.account.Account;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
-import java.util.Optional;
-
 import lombok.*;
 
 @Entity
@@ -48,9 +45,9 @@ public class AccountPasswordHistory {
     @Setter
     private ZonedDateTime codeValidUntil;
 
-    public AccountPasswordHistory(Account account) {
+    public AccountPasswordHistory(int accountId) {
         this.createdAt = ZonedDateTime.now();
-        this.accountId = account.getId();
+        this.accountId = accountId;
     }
 
     public boolean verifyMathPassword(String inputPassword) {

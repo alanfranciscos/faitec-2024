@@ -1,33 +1,34 @@
 package com.eventify.eventify.services.account.authentication;
 
+import com.eventify.eventify.config.security.TokenService;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
+import com.eventify.eventify.port.service.account.authentication.AuthenticationService;
+
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl  implements AuthenticationService{
 
     private final AccountDao accountDao;
     private final AccountPasswordHistoryDao accountPasswordHistoryDao;
+    private final TokenService tokenService;
 
-    public AuthenticationService(AccountDao accountDao, AccountPasswordHistoryDao accountPasswordHistoryDao) {
+    public AuthenticationServiceImpl(
+        AccountDao accountDao,
+        AccountPasswordHistoryDao accountPasswordHistoryDao, 
+        TokenService tokenService
+    ) {
         this.accountDao = accountDao;
         this.accountPasswordHistoryDao = accountPasswordHistoryDao;
+        this.tokenService = tokenService;
     }
 
-    /**
-     * Verifies the user's password for the given email.
-     * 
-     * @param email    the email of the user
-     * @param password the password to verify
-     * @return the Account object if the password is correct
-     * @throws RuntimeException if the email or password is empty, or if the email
-     *                          or password is incorrect
-     */
-    public Account verifyUserPassword(String email, String password) {
+    public String Login(String email, String password) {
+
         if (email == null || password == null) {
             throw new RuntimeException("User or password empty");
         }
@@ -45,6 +46,7 @@ public class AuthenticationService {
             throw new RuntimeException("User or password incorrect");
         }
 
-        return account;
+        String token = this.tokenService.generateToken(account.getEmail());
+        return token;
     }
 }
