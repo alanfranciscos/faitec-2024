@@ -19,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private int codeExpirationMinutes;
 
     private final AccountDao accountDao;
-    
+
     private final AccountPasswordHistoryDao accountPasswordHistoryDao;
     private final EmailServiceImpl emailService;
 
@@ -32,54 +32,25 @@ public class AccountServiceImpl implements AccountService {
         this.emailService = emailService;
     }
 
-    private String generateVerificationCodString() {
-        String code = "";
-        for (int i = 0; i < 6; i++) {
-            code += String.valueOf((int) (Math.random() * 10));
-        }
-        return code;
-    }
-
-
-    private boolean userExist() {}
-    
     public Integer RegisterUser(String username, String email, String password, byte[] imageData) {;
-        Account account = this.accountDao
-                .readByEmail(email);
-
-        if (account == null) {
+        boolean accountExist = userExist(email);
+        if (accountExist) {
             throw new RuntimeException("User already exists");
         }
 
-        Account newAccount = new Account();
-
-        newAccount.setUsername(username);
-        newAccount.setEmail(email);
-        newAccount.setImageData(imageData);
-
-        try {
-            this.accountDao.save(newAccount);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("message: Failed to create user", e);
-        }
-
-        AccountPasswordHistory passwordHistory = new AccountPasswordHistory(newAccount);
-        passwordHistory.setPassword(password);
-        passwordHistory.setActive(false);
-        passwordHistory.setStaging(true);
+        int accountId = createAccount(username, email, imageData);
 
         String codeGenerated = generateVerificationCodString();
-        passwordHistory.setVerificationCode(codeGenerated, codeExpirationMinutes);
-
         try {
-            int accountId = accountPasswordHistoryDao.save(passwordHistory);
-            emailService.sendConfirmationCode(newAccount.getEmail(), passwordHistory.getVerificationCode());
-
-            return accountId;
-        } catch (IllegalArgumentException e) {
-            accountDao.deleteById(newAccount.getId());
-            throw new RuntimeException("message: Failed to create user", e);
+            createAccountPasswordHistory(accountId, password, codeGenerated);
+        } catch (Exception e) {
+            accountDao.deleteById(accountId);
+            throw new RuntimeException("Failed to create user", e);
         }
+
+        emailService.sendConfirmationCode(email, codeGenerated);
+
+        return accountId;
     }
 
     public String forgotPassword(String email, String password) {
@@ -104,21 +75,14 @@ public class AccountServiceImpl implements AccountService {
             }
         }
 
-        AccountPasswordHistory passwordHistory = new AccountPasswordHistory(account);
-        passwordHistory.setPassword(password);
-        passwordHistory.setActive(false);
-        passwordHistory.setStaging(true);
-
         String codeGenerated = generateVerificationCodString();
-        passwordHistory.setVerificationCode(codeGenerated, codeExpirationMinutes);
-
         try {
-            accountPasswordHistoryDao.save(passwordHistory);
+            createAccountPasswordHistory(account.getId(), password, codeGenerated);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to save verification code", e);
+            throw new RuntimeException("Failed to create user", e);
         }
 
-        emailService.sendConfirmationCode(account.getEmail(), passwordHistory.getVerificationCode());
+        emailService.sendConfirmationCode(account.getEmail(), codeGenerated);
 
         return account.getEmail();
     }
@@ -152,4 +116,56 @@ public class AccountServiceImpl implements AccountService {
 
         return true;
     }
+
+    // UTILS
+    private String generateVerificationCodString() {
+        String code = "";
+        for (int i = 0; i < 6; i++) {
+            code += String.valueOf((int) (Math.random() * 10));
+        }
+        return code;
+    }
+
+    private boolean userExist(String email) {
+        Account account = this.accountDao
+                .readByEmail(email);
+
+        if (account == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private int createAccount(String username, String email, byte[] imageData) {
+        Account account = new Account();
+
+        account.setUsername(username);
+        account.setEmail(email);
+        account.setImageData(imageData);
+
+        try {
+            int accountId = this.accountDao.save(account);
+            return accountId;
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("message: Failed to create user", e);
+        }
+    }
+
+    private int createAccountPasswordHistory(int accountId, String password, String code) {
+        AccountPasswordHistory passwordHistory = new AccountPasswordHistory(accountId);
+        passwordHistory.setPassword(password);
+        passwordHistory.setActive(false);
+        passwordHistory.setStaging(true);
+        passwordHistory.setVerificationCode(code, codeExpirationMinutes);
+
+        try {
+            int id = accountPasswordHistoryDao.save(passwordHistory);
+            return id;
+        } catch (IllegalArgumentException e) {
+
+            throw new RuntimeException("message: Failed to create user", e);
+        }
+    }
+
 }

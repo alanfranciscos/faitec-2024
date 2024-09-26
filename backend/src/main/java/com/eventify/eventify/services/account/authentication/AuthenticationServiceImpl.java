@@ -9,18 +9,17 @@ import com.eventify.eventify.port.service.account.authentication.AuthenticationS
 
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class AuthenticationServiceImpl  implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AccountDao accountDao;
     private final AccountPasswordHistoryDao accountPasswordHistoryDao;
     private final TokenService tokenService;
 
     public AuthenticationServiceImpl(
-        AccountDao accountDao,
-        AccountPasswordHistoryDao accountPasswordHistoryDao, 
-        TokenService tokenService
+            AccountDao accountDao,
+            AccountPasswordHistoryDao accountPasswordHistoryDao,
+            TokenService tokenService
     ) {
         this.accountDao = accountDao;
         this.accountPasswordHistoryDao = accountPasswordHistoryDao;
@@ -38,7 +37,7 @@ public class AuthenticationServiceImpl  implements AuthenticationService{
             throw new RuntimeException("User or password incorrect");
         }
 
-        AccountPasswordHistory accountPasswordHistory =  accountPasswordHistoryDao
+        AccountPasswordHistory accountPasswordHistory = accountPasswordHistoryDao
                 .findByAccountIdAndActive(account.getId(), true)
                 .orElseThrow(() -> new RuntimeException("User or password incorrect"));
 
