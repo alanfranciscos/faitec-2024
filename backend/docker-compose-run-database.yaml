@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   postgres-eventify:
     image: postgres:15
@@ -11,4 +11,3 @@ services:
       - ./infra/database.sql:/docker-entrypoint-initdb.d/database.sql
     ports:
       - "5432:5432"
-    # command: [ "./infra/wait-for-it.sh", "postgres-eventfy:5432" ]

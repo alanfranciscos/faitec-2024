@@ -1,10 +1,16 @@
-local-environment:
-	docker-compose -f docker-compose-run-local.yaml down
-	docker-compose -f docker-compose-run-local.yaml stop
-	docker-compose -f docker-compose-run-local.yaml build --force-rm
-	docker-compose -f docker-compose-run-local.yaml up
+run-application:
+	docker-compose -f docker-compose-run-application.yaml down
+	docker-compose -f docker-compose-run-application.yaml stop
+	docker-compose -f docker-compose-run-application.yaml build --force-rm
+	docker-compose -f docker-compose-run-application.yaml up
 
-run-docker:
+run-database:
+	docker-compose -f docker-compose-run-database.yaml down
+	docker-compose -f docker-compose-run-database.yaml stop
+	docker-compose -f docker-compose-run-database.yaml build --force-rm
+	docker-compose -f docker-compose-run-database.yaml up
+
+run-api:
 	docker build -t eventify-api -f Dockerfile .
 	docker run -e PORT=8080 --env-file .env	-p 8080:8080 --rm -it  eventify-api
 

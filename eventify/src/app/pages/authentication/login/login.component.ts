@@ -10,7 +10,7 @@ import { AuthenticationLayoutComponent } from '../../../layout/authentication-la
 import { Router, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { UserCredential } from '../../../domain/dto/user-credential';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { AuthenticationService } from '../../../services/security/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 
 interface LoginForm {
@@ -44,9 +44,12 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(10),
       ]),
     });
+  }
+
+  ngOnInit(): void {
+    this.loginIfCredentialsIsValid();
   }
 
   navigateToSignup() {
@@ -70,19 +73,13 @@ export class LoginComponent implements OnInit {
 
     try {
       await this.authenticationService.authenticate(credential);
-      this.authenticationService.addCredentialsToLocalStorage(credential.email);
 
-      // Redireciona para a página inicial ou uma página padrão
-      await this.router.navigate(['/']); // Alterar para a rota desejada após login
+      await this.router.navigate(['/']);
     } catch (e: any) {
       console.error(`erro: ${e}`);
       this.toastrService.error(e.message);
       this.loginForm.get('password')?.setValue(null);
     }
-  }
-
-  ngOnInit(): void {
-    this.loginIfCredentialsIsValid();
   }
 
   loginIfCredentialsIsValid() {
