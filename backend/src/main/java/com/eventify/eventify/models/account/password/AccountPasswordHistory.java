@@ -1,15 +1,10 @@
 package com.eventify.eventify.models.account.password;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.eventify.eventify.models.account.Account;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
-
 import lombok.*;
 
 @Entity
@@ -18,22 +13,21 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "account_password")
 public class AccountPasswordHistory {
+
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Setter
+    private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "account_id")
-    private Long accountId;
+    private Integer accountId;
 
     @Getter
-    @Column(name = "user_password")
     private String password;
 
     @Getter
-    @Column(name = "created_at")
+    @Setter
     private ZonedDateTime createdAt;
 
     @Getter
@@ -45,16 +39,16 @@ public class AccountPasswordHistory {
     private boolean staging;
 
     @Getter
-    @Column(name = "verification_code")
+    @Setter
     private String verificationCode;
 
     @Getter
-    @Column(name = "code_valid_until")
+    @Setter
     private ZonedDateTime codeValidUntil;
 
-    public AccountPasswordHistory(Account account) {
+    public AccountPasswordHistory(int accountId) {
         this.createdAt = ZonedDateTime.now();
-        this.accountId = account.getId();
+        this.accountId = accountId;
     }
 
     public boolean verifyMathPassword(String inputPassword) {
@@ -66,6 +60,10 @@ public class AccountPasswordHistory {
     public void setPassword(String password) {
         String passwordHashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
         this.password = passwordHashed;
+    }
+
+    public void setPasswordFromDao(String password) {
+        this.password = password;
     }
 
     public void setVerificationCode(String verificationCode, int codeExpirationMinutes) {

@@ -24,6 +24,16 @@
       "name": "validation.code.expiration.minutes",
       "type": "java.lang.String",
       "description": "A description for 'validation.code.expiration.minutes'"
+    },
+    {
+      "name": "opencage.api.key",
+      "type": "java.lang.String",
+      "description": "A description for 'opencage.api.key'"
+    },
+    {
+      "name": "base.url.open.cage",
+      "type": "java.lang.String",
+      "description": "A description for 'base.url.open.cage'"
     }
   ]
 }

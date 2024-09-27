@@ -1,33 +1,29 @@
 package com.eventify.eventify.unit.services.authentication;
 
 import com.eventify.eventify.models.account.Account;
-import com.eventify.eventify.repository.account.AccountRepository;
-import com.eventify.eventify.services.account.authentication.AuthenticationService;
-
+import com.eventify.eventify.models.account.password.AccountPasswordHistory;
+import com.eventify.eventify.port.dao.account.AccountDao;
+import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
+import com.eventify.eventify.services.account.authentication.AuthenticationServiceImpl;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import com.eventify.eventify.models.account.password.AccountPasswordHistory;
-import com.eventify.eventify.repository.account.password.AccountPasswordHistoryRepository;
+import org.mockito.MockitoAnnotations;
 
 class AuthenticationServiceTest {
 
-    @Mock
-    private AccountRepository accountRepository;
+       @Mock
+    private AccountDao accountDao;
 
     @Mock
-    private AccountPasswordHistoryRepository accountPasswordHistoryRepository;
+    private AccountPasswordHistoryDao accountPasswordHistoryDao;
 
     @InjectMocks
-    private AuthenticationService authenticationService;
+    private AuthenticationServiceImpl authenticationService;
 
     @BeforeEach
     void setUp() {
@@ -42,19 +38,19 @@ class AuthenticationServiceTest {
         Account account = new Account();
         account.setEmail(email);
 
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setPassword(password);
 
-        when(accountRepository.findByEmail(email)).thenReturn(Optional.of(account));
-        when(accountPasswordHistoryRepository.findByAccountIdAndActive(account.getId(), true))
+        when(accountDao.readByEmail(email)).thenReturn(account);
+        when(accountPasswordHistoryDao.findByAccountIdAndActive(account.getId(), true))
             .thenReturn(Optional.of(accountPasswordHistory));
 
         // Act
-        Account result = authenticationService.verifyUserPassword(email, password);
+        String token = authenticationService.Login(email, password);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(email, result.getEmail());
+        assertNotNull(token);
+        assertTrue(token.length() > 0);
     }
 
     @Test
@@ -65,7 +61,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(null, password)
+            .Login(null, password)
         );
     }
 
@@ -77,7 +73,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, null)
+            .Login(email, null)
         );
     }
 
@@ -87,12 +83,12 @@ class AuthenticationServiceTest {
         String email = "test@example.com";
         String password = "password";
 
-        when(accountRepository.findByEmail(email)).thenReturn(Optional.empty());
+        when(accountDao.readByEmail(email)).thenReturn(null);
 
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, password)
+            .Login(email, password)
         );
     }
 
@@ -104,18 +100,18 @@ class AuthenticationServiceTest {
         Account account = new Account();
         account.setEmail(email);
 
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setPassword("incorrect_password");
 
-        when(accountPasswordHistoryRepository.findByAccountIdAndActive(account.getId(), true))
+        when(accountPasswordHistoryDao.findByAccountIdAndActive(account.getId(), true))
             .thenReturn(Optional.of(accountPasswordHistory));
 
-        when(accountRepository.findByEmail(email)).thenReturn(Optional.of(account));
+        when(accountDao.readByEmail(email)).thenReturn(account);
 
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, password)
+            .Login(email, password)
         );
     }
 }

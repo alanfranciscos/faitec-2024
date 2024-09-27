@@ -1,46 +1,42 @@
 package com.eventify.eventify.unit.services.account;
 
-import static org.mockito.Mockito.*;
-
 import com.eventify.eventify.dto.account.RegisterRequestDTO;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
-import com.eventify.eventify.repository.account.AccountRepository;
-import com.eventify.eventify.repository.account.password.AccountPasswordHistoryRepository;
-import com.eventify.eventify.services.account.AccountService;
-import com.eventify.eventify.services.email.EmailService;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
+import com.eventify.eventify.port.dao.account.AccountDao;
+import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
+import com.eventify.eventify.services.account.AccountServiceImpl;
+import com.eventify.eventify.services.email.EmailServiceImpl;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
+import org.mockito.MockitoAnnotations;
 
 public class AccountServiceTest {
 
     @Mock
-    private AccountRepository accountRepository;
+    private AccountDao accountDao;
 
     @Mock
-    private AccountPasswordHistoryRepository accountPasswordHistoryRepository;
+    private AccountPasswordHistoryDao accountPasswordHistoryDao;
 
     @Mock
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @InjectMocks
-    private AccountService accountService;
+    private AccountServiceImpl accountService;
 
     private AccountPasswordHistory createAccountPasswordHistory(Account account, String password)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setVerificationCode("123456", 5);
         accountPasswordHistory.setStaging(true);
         accountPasswordHistory.setPassword(password);
@@ -51,8 +47,8 @@ public class AccountServiceTest {
         passwordField.setAccessible(true);
         passwordField.set(passwordStagingAreaSaved, 1L);
 
-        when(accountPasswordHistoryRepository.save(any(AccountPasswordHistory.class)))
-                .thenReturn(passwordStagingAreaSaved);
+        when(accountPasswordHistoryDao.save(any(AccountPasswordHistory.class)))
+                .thenReturn(1);
 
         return passwordStagingAreaSaved;
     }
@@ -60,10 +56,10 @@ public class AccountServiceTest {
     private Account createAccount()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
-            "usernameteste",
-            "emailTeste@teste.com",
-            "passwordTeste",
-            null
+                "usernameteste",
+                "emailTeste@teste.com",
+                "passwordTeste",
+                null
         );
         Account account = new Account();
         account.setEmail(registerRequestDTO.email());
@@ -76,8 +72,8 @@ public class AccountServiceTest {
         accountField.setAccessible(true);
         accountField.set(accountSaved, 1L);
 
-        when(accountRepository.findByEmail(registerRequestDTO.email())).thenReturn(Optional.empty());
-        when(accountRepository.save(any(Account.class))).thenReturn(accountSaved);
+        when(accountDao.readByEmail(registerRequestDTO.email())).thenReturn(null);
+        when(accountDao.save(any(Account.class))).thenReturn(1);
 
         return accountSaved;
     }
@@ -99,19 +95,15 @@ public class AccountServiceTest {
             fail("Error creating user");
         }
 
-        RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
+        // Act
+        int accountId = accountService.RegisterUser(
                 account.getUsername(),
                 account.getEmail(),
-                passwordAccount, null);
-
-        // Act
-        Account result = accountService.RegisterUser(registerRequestDTO);
+                passwordAccount, null
+        );
 
         // Assert
-        assertNotNull(result);
-        assertEquals(registerRequestDTO.email(), result.getEmail());
-        assertEquals(registerRequestDTO.username(), result.getUsername());
-        assertEquals(registerRequestDTO.imageData(), result.getImageData());
+        assertNotNull(accountId);
     }
 
     @Test
@@ -126,11 +118,11 @@ public class AccountServiceTest {
         } catch (Exception e) {
             fail("Error creating user");
         }
-        when(accountRepository.findByEmail(account.getEmail())).thenReturn(Optional.of(account));
+        when(accountDao.readByEmail(account.getEmail())).thenReturn(account);
 
-        when(accountPasswordHistoryRepository.findByAccountIdAndStaging(account.getId(), true))
+        when(accountPasswordHistoryDao.findByAccountIdAndStaging(account.getId(), true))
                 .thenReturn(Optional.empty());
-        when(accountPasswordHistoryRepository.findByAccountId(account.getId()))
+        when(accountPasswordHistoryDao.findByAccountId(account.getId()))
                 .thenReturn(List.of());
 
         // Act
@@ -153,8 +145,8 @@ public class AccountServiceTest {
             fail("Error creating user");
         }
 
-        when(accountRepository.findByEmail(account.getEmail())).thenReturn(Optional.of(account));
-        when(accountPasswordHistoryRepository.findByAccountIdAndStaging(account.getId(), true))
+        when(accountDao.readByEmail(account.getEmail())).thenReturn(account);
+        when(accountPasswordHistoryDao.findByAccountIdAndStaging(account.getId(), true))
                 .thenReturn(Optional.of(accountPasswordHistory));
 
         // Act
