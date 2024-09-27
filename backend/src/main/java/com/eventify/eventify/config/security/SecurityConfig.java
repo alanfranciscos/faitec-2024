@@ -22,8 +22,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/account/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/account/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/account/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/account").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/account/forget-password").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/account/verify").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

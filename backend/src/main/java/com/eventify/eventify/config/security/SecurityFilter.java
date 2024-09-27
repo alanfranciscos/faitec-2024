@@ -1,8 +1,13 @@
 package com.eventify.eventify.config.security;
 
+import com.eventify.eventify.models.account.Account;
+import com.eventify.eventify.port.dao.account.AccountDao;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,20 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.eventify.eventify.models.account.Account;
-import com.eventify.eventify.repository.account.AccountRepository;
-
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     TokenService tokenService;
+    
     @Autowired
-    AccountRepository accountRepository;
+    AccountDao accountDao;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -32,8 +30,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         var login = tokenService.validateToken(token);
 
         if (login != null) {
-            Account account = accountRepository.findByEmail(login)
-                    .orElseThrow(() -> new RuntimeException("User Not Found"));
+            Account account = accountDao.readByEmail(login);
+            if (account == null) {
+                throw new RuntimeException("User Not Found");
+            }
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(account, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);

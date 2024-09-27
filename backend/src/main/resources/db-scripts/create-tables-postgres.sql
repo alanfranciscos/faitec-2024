@@ -1,17 +1,19 @@
--- drop database if exists eventify;
--- create database eventify;
+DROP TABLE IF EXISTS account CASCADE;
+DROP TABLE IF EXISTS account_password CASCADE;
+DROP TABLE IF EXISTS friend CASCADE;
+DROP TABLE IF EXISTS meetup CASCADE;
+DROP TABLE IF EXISTS meetup_image CASCADE;
+DROP TABLE IF EXISTS participate CASCADE;
+DROP TABLE IF EXISTS management CASCADE;
+DROP TABLE IF EXISTS expanses CASCADE;
+DROP TABLE IF EXISTS payment CASCADE;
 
-\c eventify;
-
-begin;
-
--- verification code is 6 but we are using 100 to make it more secure (hashed)
-CREATE TABLE account ( 
+CREATE TABLE account (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(150) NOT NULL UNIQUE, 
+    username VARCHAR(150) NOT NULL UNIQUE,
     email VARCHAR(200) NOT NULL UNIQUE,
     image_data BYTEA,
-    is_verified BOOLEAN DEFAULT FALSE  
+    is_verified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE account_password(
@@ -21,8 +23,8 @@ CREATE TABLE account_password(
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     active BOOLEAN NOT NULL DEFAULT FALSE,
     staging BOOLEAN NOT NULL DEFAULT TRUE,
-    verification_code VARCHAR(100) NOT NULL,  
-    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,  
+    verification_code VARCHAR(100) NOT NULL,
+    code_valid_until TIMESTAMP WITH TIME ZONE NOT NULL,
     FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
     UNIQUE(account_id, user_password)
 );
@@ -38,22 +40,21 @@ CREATE TABLE friend (
     UNIQUE(account_id, friend_id)
 );
 
-
 CREATE TABLE meetup (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(50) NOT NULL, 
+    title VARCHAR(50) NOT NULL,
     information VARCHAR(200) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 
-    cep_address VARCHAR(9), 
-    state_address VARCHAR(200), 
-    city_address VARCHAR(200), 
-    neighborhood_address VARCHAR(200), 
-    number_address VARCHAR(200), 
-    street_address VARCHAR(200), 
+    cep_address VARCHAR(9),
+    state_address VARCHAR(200),
+    city_address VARCHAR(200),
+    neighborhood_address VARCHAR(200),
+    number_address VARCHAR(200),
+    street_address VARCHAR(200),
 
-    date_start TIMESTAMP WITH TIME ZONE NOT NULL, 
-    date_end TIMESTAMP WITH TIME ZONE NOT NULL, 
+    date_start TIMESTAMP WITH TIME ZONE NOT NULL,
+    date_end TIMESTAMP WITH TIME ZONE NOT NULL,
     stage VARCHAR(200) NOT NULL
         CHECK (stage in ('created', 'started', 'finished', 'canceled')
     ),
@@ -75,7 +76,7 @@ CREATE TABLE participate (
     meetup_id INTEGER NOT NULL,
     role_participant VARCHAR(200) NOT NULL
         CHECK (role_participant in ('organizer', 'participant')
-    ), 
+    ),
     active BOOLEAN DEFAULT FALSE,
     sended_at TIMESTAMP WITH TIME ZONE NOT NULL,
     acepted_at TIMESTAMP WITH TIME ZONE,
@@ -90,14 +91,14 @@ CREATE TABLE management (
     managment_at TIMESTAMP WITH TIME ZONE NOT NULL,
     type_action VARCHAR(200) NOT NULL
         CHECK (type_action in ('create', 'modify', 'delete', 'add_participant', 'remove_participant')
-    ), 
+    ),
     UNIQUE(participate_id, managment_at)
 );
 
 CREATE TABLE expanses (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
-    cost NUMERIC(7, 2) NOT NULL, 
+    cost NUMERIC(7, 2) NOT NULL,
     about TEXT NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, cost, about)
@@ -107,23 +108,13 @@ CREATE TABLE payment (
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL,
     expanse_id INTEGER NOT NULL,
-    paid_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-    value_pay NUMERIC(7, 2) NOT NULL, 
+    paid_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    value_pay NUMERIC(7, 2) NOT NULL,
     about VARCHAR(100) NOT NULL,
     type_payment VARCHAR(200) NOT NULL
         CHECK (type_payment in ('credit_card', 'debit_card', 'pix', 'cash')
-    ), 
+    ),
     FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
     FOREIGN KEY (expanse_id) REFERENCES expanses(id) ON DELETE CASCADE,
     UNIQUE(account_id, expanse_id)
 );
-
-COMMIT;
-
--- password123
-
-INSERT INTO account (username, email, image_data, is_verified)
-VALUES ('johndoe', 'johndoe@example.com', NULL, TRUE);
-
-INSERT INTO account_password (account_id, user_password, created_at, active, staging, verification_code, code_valid_until)
-VALUES (1, '$2a$12$oNXqL2Zi2lNqujv.W0oCdOgGGNiWXlsD8LosX1y/eVGw8UARpevfe', NOW(), TRUE, FALSE, 'verification_code_example', NOW() + INTERVAL '1 hour');

@@ -31,13 +31,13 @@ public class TokenService {
         return LocalDateTime.now().plusHours(expiration).toInstant(ZoneOffset.of("-03:00"));
     }
 
-    public String generateToken(Account account) {
+    public String generateToken(String email) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
             String token = JWT.create()
                     .withIssuer(issuer)
-                    .withSubject(account.getEmail())
+                    .withSubject(email)
                     .withAudience(audience)
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
