@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserCredential } from '../../../domain/dto/user-credential';
-import { api } from '../../api/api';
+import { api, setToken, removeToken } from '../../api/api';
 import { AuthResponse } from './types';
 
 @Injectable({
@@ -20,27 +20,22 @@ export class AuthenticationService {
       return false;
     }
 
-    this.addCredentialsToLocalStorage(response.data.token);
+    setToken(response.data.token);
+    localStorage.setItem('auth', 'true');
     return true;
   }
 
   logout() {
     localStorage.clear();
+    removeToken();
   }
 
   isAuthenticated(): boolean {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('auth');
 
     if (token != null) {
       return true;
     }
     return false;
-  }
-
-  /**
-   * The best way to store the token not is in the local storage, but with a cookie. (csrf)
-   */
-  addCredentialsToLocalStorage(token: string) {
-    localStorage.setItem('token', token);
   }
 }

@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
 
     try {
       await this.authenticationService.authenticate(credential);
-      this.authenticationService.addCredentialsToLocalStorage(credential.email);
 
       await this.router.navigate(['/']);
     } catch (e: any) {

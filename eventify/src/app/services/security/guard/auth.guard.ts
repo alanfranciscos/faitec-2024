@@ -16,8 +16,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const blockedRouteWhenLogged = blockedUrlWhenLogged.includes(state.url);
 
-  console.log('isAuthenticated', isAuthenticated);
-
   if (isAuthenticated && blockedRouteWhenLogged) {
     router.navigate(['']);
     return true;
