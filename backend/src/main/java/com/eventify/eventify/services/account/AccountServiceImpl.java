@@ -6,11 +6,14 @@ import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.services.email.EmailServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -32,7 +35,8 @@ public class AccountServiceImpl implements AccountService {
         this.emailService = emailService;
     }
 
-    public Integer RegisterUser(String username, String email, String password, byte[] imageData) {;
+    public Integer RegisterUser(String username, String email, String password, byte[] imageData) {
+        ;
         boolean accountExist = userExist(email);
         if (accountExist) {
             throw new RuntimeException("User already exists");
@@ -123,6 +127,18 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return true;
+    }
+
+    @Override
+    public Account getAccountRequest() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = (Account) authentication.getPrincipal();
+
+        if (account == null) {
+            throw new RuntimeException("User not authenticated");
+        }
+
+        return account;
     }
 
     // UTILS
