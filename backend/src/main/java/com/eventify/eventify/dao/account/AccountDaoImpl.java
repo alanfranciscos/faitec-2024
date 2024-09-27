@@ -7,16 +7,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AccountDaoImpl implements AccountDao{
+public class AccountDaoImpl implements AccountDao {
+
     private final Connection connection;
 
     public AccountDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
+    private Account mapResultSetToAccount(ResultSet resultSet) throws SQLException {
+        final Account account = new Account(
+                resultSet.getInt("id"),
+                resultSet.getString("username"),
+                resultSet.getString("email"),
+                resultSet.getBytes("image_data"),
+                resultSet.getBoolean("is_verified")
+        );
+        return account;
+    }
+
     @Override
     public Account readByEmail(String email) {
-       final String sql = "SELECT * FROM account WHERE email = ?;";
+        final String sql = "SELECT * FROM account WHERE email = ?;";
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -26,21 +38,7 @@ public class AccountDaoImpl implements AccountDao{
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                final Account account = new Account();
-                account.setId(resultSet.getInt("id"));
-                account.setUsername(resultSet.getString("username"));
-                account.setEmail(resultSet.getString("email"));
-                try {
-                    account.setImageData(resultSet.getBytes("imageData"));
-                } catch (Exception e) {
-                    account.setImageData(null);
-                }
-                try {
-                    account.setVerified(resultSet.getBoolean("isVerified"));
-                } catch (Exception e) {
-                    account.setVerified(false);
-                }
-
+                final Account account = mapResultSetToAccount(resultSet);
                 return account;
             }
 
@@ -63,7 +61,7 @@ public class AccountDaoImpl implements AccountDao{
 
     @Override
     public int save(Account entity) {
-        String sql = "INSERT INTO account(username, email, imageData, isVerified) ";
+        String sql = "INSERT INTO account(username, email, image_data, is_verified) ";
         sql += " VALUES(?, ?, ?, ?);";
 
         PreparedStatement preparedStatement;
@@ -114,6 +112,23 @@ public class AccountDaoImpl implements AccountDao{
             preparedStatement.execute();
             preparedStatement.close();
 
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void updateVerificationStatus(int id, boolean isVerified) {
+        final String sql = "UPDATE account SET is_verified = ? WHERE id = ?;";
+
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setBoolean(1, isVerified);
+            preparedStatement.setInt(2, id);
+
+            preparedStatement.execute();
+            preparedStatement.close();
         } catch (Exception e) {
             throw new RuntimeException();
         }

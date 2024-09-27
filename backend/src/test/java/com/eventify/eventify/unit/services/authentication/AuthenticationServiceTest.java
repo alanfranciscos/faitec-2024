@@ -38,7 +38,7 @@ class AuthenticationServiceTest {
         Account account = new Account();
         account.setEmail(email);
 
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setPassword(password);
 
         when(accountDao.readByEmail(email)).thenReturn(account);
@@ -46,11 +46,11 @@ class AuthenticationServiceTest {
             .thenReturn(Optional.of(accountPasswordHistory));
 
         // Act
-        Account result = authenticationService.verifyUserPassword(email, password);
+        String token = authenticationService.Login(email, password);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(email, result.getEmail());
+        assertNotNull(token);
+        assertTrue(token.length() > 0);
     }
 
     @Test
@@ -61,7 +61,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(null, password)
+            .Login(null, password)
         );
     }
 
@@ -73,7 +73,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, null)
+            .Login(email, null)
         );
     }
 
@@ -88,7 +88,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, password)
+            .Login(email, password)
         );
     }
 
@@ -100,7 +100,7 @@ class AuthenticationServiceTest {
         Account account = new Account();
         account.setEmail(email);
 
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setPassword("incorrect_password");
 
         when(accountPasswordHistoryDao.findByAccountIdAndActive(account.getId(), true))
@@ -111,7 +111,7 @@ class AuthenticationServiceTest {
         // Act & Assert
         assertThrows(
             RuntimeException.class, () -> authenticationService
-            .verifyUserPassword(email, password)
+            .Login(email, password)
         );
     }
 }

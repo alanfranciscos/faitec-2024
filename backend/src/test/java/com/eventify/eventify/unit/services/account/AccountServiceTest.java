@@ -36,7 +36,7 @@ public class AccountServiceTest {
 
     private AccountPasswordHistory createAccountPasswordHistory(Account account, String password)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account);
+        AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(account.getId());
         accountPasswordHistory.setVerificationCode("123456", 5);
         accountPasswordHistory.setStaging(true);
         accountPasswordHistory.setPassword(password);
@@ -56,10 +56,10 @@ public class AccountServiceTest {
     private Account createAccount()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
-            "usernameteste",
-            "emailTeste@teste.com",
-            "passwordTeste",
-            null
+                "usernameteste",
+                "emailTeste@teste.com",
+                "passwordTeste",
+                null
         );
         Account account = new Account();
         account.setEmail(registerRequestDTO.email());
@@ -95,19 +95,15 @@ public class AccountServiceTest {
             fail("Error creating user");
         }
 
-        RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
+        // Act
+        int accountId = accountService.RegisterUser(
                 account.getUsername(),
                 account.getEmail(),
-                passwordAccount, null);
-
-        // Act
-        Account result = accountService.RegisterUser(registerRequestDTO);
+                passwordAccount, null
+        );
 
         // Assert
-        assertNotNull(result);
-        assertEquals(registerRequestDTO.email(), result.getEmail());
-        assertEquals(registerRequestDTO.username(), result.getUsername());
-        assertEquals(registerRequestDTO.imageData(), result.getImageData());
+        assertNotNull(accountId);
     }
 
     @Test

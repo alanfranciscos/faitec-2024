@@ -5,11 +5,11 @@ import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao
 
 import java.sql.*;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao {
+
     private final Connection connection;
 
     public AccountPasswordHistoryDaoImpl(Connection connection) {
@@ -17,30 +17,22 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
     }
 
     private AccountPasswordHistory mapResultSetToAccountPasswordHistory(ResultSet resultSet) throws SQLException {
-        final AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory();
-        accountPasswordHistory.setId(resultSet.getInt("id"));
-        accountPasswordHistory.setAccountId(resultSet.getInt("account_id"));
-        accountPasswordHistory.setPasswordFromDao(resultSet.getString("user_password"));
-
-        Timestamp createdAtTimestamp = resultSet.getTimestamp("created_at");
-        ZonedDateTime createdAtZonedDateTime = createdAtTimestamp.toInstant()
-                .atZone(ZoneId.systemDefault());
-        accountPasswordHistory.setCreatedAt(createdAtZonedDateTime);
-
-        accountPasswordHistory.setActive(resultSet.getBoolean("active"));
-        accountPasswordHistory.setStaging(resultSet.getBoolean("staging"));
-        accountPasswordHistory.setVerificationCode(resultSet.getString("verification_code"));
-
-        Timestamp validUntilTimestamp = resultSet.getTimestamp("created_at");
-        ZonedDateTime validUntilZonedDateTime = validUntilTimestamp.toInstant()
-                .atZone(ZoneId.systemDefault());
-        accountPasswordHistory.setCodeValidUntil(validUntilZonedDateTime);
+        final AccountPasswordHistory accountPasswordHistory = new AccountPasswordHistory(
+                resultSet.getInt("id"),
+                resultSet.getInt("account_id"),
+                resultSet.getString("user_password"),
+                resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
+                resultSet.getBoolean("active"),
+                resultSet.getBoolean("staging"),
+                resultSet.getString("verification_code"),
+                resultSet.getTimestamp("code_valid_until").toInstant().atZone(ZoneId.systemDefault())
+        );
         return accountPasswordHistory;
     }
 
     @Override
     public int save(AccountPasswordHistory entity) {
-       String sql = "INSERT INTO account_password(account_id, user_password, created_at, active, staging, verification_code, code_valid_until) ";
+        String sql = "INSERT INTO account_password(account_id, user_password, created_at, active, staging, verification_code, code_valid_until) ";
         sql += " VALUES(?, ?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement;
@@ -53,12 +45,11 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
             preparedStatement.setInt(1, entity.getAccountId());
             preparedStatement.setString(2, entity.getPassword());
-            preparedStatement.setTime(3, Time.valueOf(entity.getCreatedAt().toString()));
+            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant())); 
             preparedStatement.setBoolean(4, entity.isActive());
             preparedStatement.setBoolean(5, entity.isStaging());
             preparedStatement.setString(6, entity.getVerificationCode());
-            preparedStatement.setTime(7, Time.valueOf(entity.getCodeValidUntil().toString()))
-      ;
+            preparedStatement.setTimestamp(7, Timestamp.from(entity.getCodeValidUntil().toInstant()));
 
             preparedStatement.execute();
 
@@ -87,14 +78,14 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
     @Override
     public void deleteById(int id) {
         final String sql = "DELETE FROM account_password WHERE id = ?;";
-    
+
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             preparedStatement.close();
-    
+
         } catch (Exception e) {
             throw new RuntimeException();
         }
@@ -202,4 +193,23 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
         }
     }
 
+    @Override
+    public void updateActiveAndStagingStatus(int accountId, boolean active, boolean staging) {
+        String sql = "Update account_password SET active = ?, staging = ? ";
+        sql += " WHERE id = ? ";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setBoolean(1, active);
+            preparedStatement.setBoolean(2, staging);
+            preparedStatement.setInt(3, accountId);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

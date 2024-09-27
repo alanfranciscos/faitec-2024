@@ -105,11 +105,19 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Invalid code");
         }
 
-        userPassword.setActive(true);
-        userPassword.setStaging(false);
-
         try {
-            accountPasswordHistoryDao.save(userPassword);
+            if (!account.isVerified()) {
+                accountDao.updateVerificationStatus(account.getId(), !account.isVerified());
+            }
+
+            boolean passwordIsActive = true;
+            boolean passwordIsStaging = false;
+            accountPasswordHistoryDao.updateActiveAndStagingStatus(
+                    account.getId(),
+                    passwordIsActive,
+                    passwordIsStaging
+            );
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to save password", e);
         }

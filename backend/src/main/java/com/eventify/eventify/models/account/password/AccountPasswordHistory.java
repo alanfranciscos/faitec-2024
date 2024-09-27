@@ -13,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "account_password")
 public class AccountPasswordHistory {
+
     @Id
     @Getter
     @Setter
@@ -64,7 +65,6 @@ public class AccountPasswordHistory {
     public void setPasswordFromDao(String password) {
         this.password = password;
     }
-
 
     public void setVerificationCode(String verificationCode, int codeExpirationMinutes) {
         this.verificationCode = verificationCode;
