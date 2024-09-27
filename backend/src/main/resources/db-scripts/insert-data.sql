@@ -61,16 +61,26 @@ INSERT INTO meetup_image (meetup_id, image_data) VALUES
 (10,  '\x48656c6c6f');
 
 INSERT INTO participate (account_id, meetup_id, role_participant, active, sended_at, acepted_at) VALUES
-(1, 1, 'organizer', TRUE, NOW(), NOW() + INTERVAL '1 hour'),
-(2, 2, 'participant', TRUE, NOW(), NULL),
-(3, 3, 'organizer', TRUE, NOW(), NOW() + INTERVAL '2 hours'),
-(4, 4, 'participant', TRUE, NOW(), NULL),
-(5, 5, 'organizer', TRUE, NOW(), NOW() + INTERVAL '3 hours'),
-(6, 6, 'participant', TRUE, NOW(), NULL),
-(7, 7, 'organizer', TRUE, NOW(), NOW() + INTERVAL '4 hours'),
-(8, 8, 'participant', TRUE, NOW(), NULL),
-(9, 9, 'organizer', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
-(10, 10, 'participant', TRUE, NOW(), NULL);
+(1, 1, 'organizer', TRUE, NOW(), NULL),
+(2, 2, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(3, 3, 'organizer', TRUE, NOW(), NULL),
+(4, 4, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(5, 5, 'organizer', TRUE, NOW(), NULL),
+(6, 6, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(7, 7, 'organizer', TRUE, NOW(), NULL),
+(8, 8, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(9, 9, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(10, 10, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 1, 'participant', TRUE, NOW(), NULL),
+(11, 2, 'participant', TRUE, NOW(), NULL),
+(11, 3, 'participant', TRUE, NOW(), NULL),
+(11, 4, 'participant', TRUE, NOW(), NULL),
+(11, 5, 'participant', TRUE, NOW(), NULL),
+(11, 6, 'participant', TRUE, NOW(), NULL),
+(11, 7, 'participant', TRUE, NOW(), NULL),
+(11, 8, 'participant', TRUE, NOW(), NULL),
+(11, 9, 'organizer', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 10, 'participant', TRUE, NOW(), NULL);
 
 INSERT INTO management (participate_id, managment_at, type_action) VALUES
 (1, NOW(), 'create'),
