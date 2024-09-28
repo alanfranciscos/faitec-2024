@@ -66,6 +66,7 @@ CREATE TABLE meetup_image (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
     image_data BYTEA NOT NULL,
+    is_profile BOOLEAN NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, image_data)
 );

@@ -1,7 +1,7 @@
 package com.eventify.eventify.controller.event;
 
 import com.eventify.eventify.dto.event.EventListResponse;
-import com.eventify.eventify.models.event.Event;
+import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.port.service.event.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class EventController {
             @RequestParam(defaultValue = "10") int limit,
             @RequestParam(defaultValue = "0") int offset
     ) {
-        List<Event> events = eventService
+        List<EventHeader> events = eventService
                 .listPaginatedFromUser(
                         limit,
                         offset

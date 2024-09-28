@@ -1,7 +1,7 @@
 package com.eventify.eventify.services.event;
 
 import com.eventify.eventify.models.account.Account;
-import com.eventify.eventify.models.event.Event;
+import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.port.dao.event.EventDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.EventService;
@@ -21,8 +21,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> listPaginatedFromUser(int limit, int offset) {
+    public List<EventHeader> listPaginatedFromUser(int limit, int offset) {
         Account account = accountService.getAccountRequest();
-        return eventDao.listPaginatedFromUser(limit, offset, account.getId());
+        List<EventHeader> events = eventDao.listPaginatedHeaderFromUser(limit, offset, account.getId());
+        return events;
     }
 }
