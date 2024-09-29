@@ -94,7 +94,6 @@ export class MyEventsComponent implements OnInit {
       return;
     }
     this.offset = (this.currentPage - 1) * this.limit - this.limit;
-    console.log(this.offset);
     this.content = await this.eventService.listEvents(this.offset, this.limit);
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
