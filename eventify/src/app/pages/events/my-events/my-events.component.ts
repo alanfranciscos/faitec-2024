@@ -1,18 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { CardComponent } from '../../../components/card/card.component';
 import { HeaderComponent } from '../../../components/header/header.component';
-
-interface CardItensType {
-  title: string;
-  description: string;
-  startData: string;
-  endData: string;
-  image: string;
-  status: string;
-}
+import {
+  EventContent,
+  EventHeader,
+} from '../../../domain/model/event/eventHeader.model';
+import { EventService } from '../../../services/event/event.service';
 
 @Component({
   selector: 'app-my-events',
@@ -27,142 +23,80 @@ interface CardItensType {
   templateUrl: './my-events.component.html',
   styleUrls: ['./my-events.component.scss'],
 })
-export class MyEventsComponent {
-  currentPage = 1;
-  itemsPerPage = 6;
-  cardItens: Array<CardItensType> = [
-    {
-      title: 'Tech Conference 2024',
-      description: 'Palestras sobre inovações tecnológicas.',
-      startData: '2024-09-01',
-      endData: '2024-09-03',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Workshop de IA',
-      description: 'Aprenda sobre inteligência artificial aplicada.',
-      startData: '2024-10-15',
-      endData: '2024-10-16',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Reunião de Projetos',
-      description: 'Discussão sobre o andamento dos projetos atuais.',
-      startData: '2024-08-20',
-      endData: '2024-08-20',
-      image: '/assets/svg/logo.svg',
-      status: 'cancelado',
-    },
-    {
-      title: 'Hackathon',
-      description: 'Competição de desenvolvimento de software.',
-      startData: '2024-11-05',
-      endData: '2024-11-07',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Seminário de Segurança',
-      description: 'Debate sobre segurança digital e cibersegurança.',
-      startData: '2024-12-01',
-      endData: '2024-12-02',
-      image: '/assets/svg/logo.svg',
-      status: 'pendente',
-    },
-    {
-      title: 'Feira de Startups',
-      description: 'Exposição das novas startups da região.',
-      startData: '2024-09-25',
-      endData: '2024-09-26',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Encontro de Desenvolvedores',
-      description: 'Networking e troca de experiências entre devs.',
-      startData: '2024-10-10',
-      endData: '2024-10-11',
-      image: '/assets/svg/logo.svg',
-      status: 'rolando',
-    },
-    {
-      title: 'Webinar sobre DevOps',
-      description: 'Sessão online sobre práticas de DevOps.',
-      startData: '2024-08-28',
-      endData: '2024-08-28',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Lançamento de Produto',
-      description: 'Apresentação de novo software no mercado.',
-      startData: '2024-09-30',
-      endData: '2024-09-30',
-      image: '/assets/svg/logo.svg',
-      status: 'pendente',
-    },
-    {
-      title: 'Palestra sobre Cloud',
-      description: 'Exploração das novas tendências em cloud computing.',
-      startData: '2024-11-12',
-      endData: '2024-11-12',
-      image: '/assets/svg/logo.svg',
-      status: 'confirmado',
-    },
-    {
-      title: 'Oficina de UX/UI',
-      description: 'Treinamento prático em design de interfaces.',
-      startData: '2024-08-25',
-      endData: '2024-08-25',
-      image: '/assets/svg/logo.svg',
-      status: 'rolando',
-    },
-    {
-      title: 'Curso de Python',
-      description: 'Curso intensivo sobre programação em Python.',
-      startData: '2024-09-10',
-      endData: '2024-09-12',
-      image: '/assets/svg/logo.svg',
-      status: 'pendente',
-    },
-  ];
+export class MyEventsComponent implements OnInit {
+  content: EventHeader = {
+    events: [],
+    total: 0,
+  };
 
-  totalPages = Math.ceil(this.cardItens.length / this.itemsPerPage); //arredonda para cima, para nao quebrar caso tenha pagina impar
+  offset = 0;
+  quantityPerPage = 6;
+  limit = 6;
 
-  paginatedItems: Array<CardItensType> = this.calculatePaginatedItems();
+  currentPage: number = 1;
 
-  pageNumbers: number[] = this.calculatePageNumbers();
+  pages: Array<number> = [];
 
-  calculatePaginatedItems(): Array<CardItensType> {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.cardItens.slice(startIndex, endIndex);
+  setCurrentPageNumber(): void {
+    this.currentPage = this.limit / this.offset;
+    this.currentPage = !Number.isFinite(this.currentPage)
+      ? 1
+      : this.currentPage + 1;
   }
 
-  calculatePageNumbers(): number[] {
-    return Array(this.totalPages)
-      .fill(0)
-      .map((_, i) => i + 1);
+  constructor(private eventService: EventService) {}
+
+  private formatDateFromEvent(
+    events: Array<EventContent>
+  ): Array<EventContent> {
+    events.map((event) => {
+      event.dateStart = new Date(event.dateStart).toLocaleDateString();
+      event.dateEnd = new Date(event.dateEnd).toLocaleDateString();
+    });
+    return events;
   }
 
-  setPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.paginatedItems = this.calculatePaginatedItems();
+  private getPagesNumbers() {
+    const totalPages = Math.ceil(this.content.total / this.limit);
+    let i = 1;
+    while (i <= totalPages) {
+      this.pages.push(i);
+      i++;
     }
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.setPage(this.currentPage + 1);
-    }
+  async ngOnInit(): Promise<void> {
+    this.content = await this.eventService.listEvents(this.offset, this.limit);
+    this.content.events = this.formatDateFromEvent(this.content.events);
+    this.setCurrentPageNumber();
+    this.getPagesNumbers();
   }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.setPage(this.currentPage - 1);
+  async goToPage(page: number): Promise<void> {
+    this.offset = page * this.limit - this.limit;
+    this.content = await this.eventService.listEvents(this.offset, this.limit);
+    this.content.events = this.formatDateFromEvent(this.content.events);
+    this.setCurrentPageNumber();
+  }
+
+  async nextPage(): Promise<void> {
+    if (this.currentPage === this.pages.length) {
+      return;
     }
+    this.offset = (this.currentPage + 1) * this.limit - this.limit;
+    this.content = await this.eventService.listEvents(this.offset, this.limit);
+    this.content.events = this.formatDateFromEvent(this.content.events);
+    this.setCurrentPageNumber();
+  }
+
+  async previousPage(): Promise<void> {
+    if (this.currentPage === 1) {
+      return;
+    }
+    this.offset = (this.currentPage - 1) * this.limit - this.limit;
+    console.log(this.offset);
+    this.content = await this.eventService.listEvents(this.offset, this.limit);
+    this.content.events = this.formatDateFromEvent(this.content.events);
+    this.setCurrentPageNumber();
   }
 }

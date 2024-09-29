@@ -1,10 +1,8 @@
 package com.eventify.eventify.port.service.event;
 
-import com.eventify.eventify.models.event.EventHeader;
-
-import java.util.List;
+import com.eventify.eventify.dto.event.EventListResponse;
 
 public interface EventService {
 
-    List<EventHeader> listPaginatedFromUser(final int limit, final int offset);
+    EventListResponse listPaginatedFromUser(final int limit, final int offset);
 }

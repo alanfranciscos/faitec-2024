@@ -20,5 +20,5 @@ public class EventHeader {
     private ZonedDateTime dateEnd;
     private EventStageEnum stage;
 
-    private byte[] progileImage;
+    private byte[] profileImage;
 }

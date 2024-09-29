@@ -84,4 +84,29 @@ public class EventDaoImpl implements EventDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public int totalFromUser(int accountId) {
+        String sql = "SELECT count(1) total";
+        sql += " FROM meetup M ";
+        sql += " INNER JOIN participate P on P.meetup_id = M.id ";
+        sql += " INNER JOIN  meetup_image MI on MI.meetup_id = M.id ";
+        sql += " WHERE account_id = ? ";
+        sql += " AND MI.is_profile = true ";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, accountId);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                final List<EventHeader> events = new ArrayList<>();
+                if (resultSet.next()) {
+                    final int total = resultSet.getInt("total");
+                    return total;
+                }
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -1,61 +1,75 @@
+<app-header [ComponentName]="'MY EVENTS'"></app-header>
 <div class="container">
-  <app-header [ComponentName]="'MY EVENTS'"></app-header>
-  <div class="search-container">
-    <div class="search">
-      <input
-        type="text"
-        id="search"
-        placeholder="Search"
-        style="display: flex; align-self: center"
-      />
-      <button class="search-button">
-        <i class="fas fa-search"></i>
-      </button>
+  <div class="content">
+    <div class="utilities">
+      <div class="utilities__search">
+        <input type="text" placeholder="Search" />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="utilities__create">
+        <button>CREATE</button>
+      </div>
     </div>
-    <button
-      routerLink="create-event/basic-info"
-      class="create-button"
-      style="background-color: #14ad47"
-    >
-      Create
-    </button>
-  </div>
 
-  <div class="cards">
-    <ul>
-      <li *ngFor="let item of paginatedItems">
-        <app-card
-          [title]="item.title"
-          [description]="item.description"
-          [startData]="item.startData"
-          [endData]="item.endData"
-          [image]="item.image"
-          [status]="item.status"
-        >
-        </app-card>
-      </li>
-    </ul>
-  </div>
+    <div class="cards-container">
+      <ul class="cards">
+        <li *ngFor="let event of content.events" class="card">
+          <app-card [title]="event.title" [description]="event.information" [startData]="event.dateStart"
+            [endData]="event.dateEnd" [status]="event.stage" [image]="event.profileImage">
+          </app-card>
+        </li>
+      </ul>
+    </div>
 
-  <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">
-      <i class="fas fa-arrow-left"></i>
-      <span>Previous</span>
-    </button>
-
-    <ul class="pagination-numbers">
-      <li
-        *ngFor="let page of pageNumbers"
-        (click)="setPage(page)"
-        [class.active]="currentPage === page"
-      >
-        {{ page }}
-      </li>
-    </ul>
-
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-      <span>Next</span>
-      <i class="fas fa-arrow-right"></i>
-    </button>
+    <div class="pagination">
+      <button class="pagination__arrow" (click)="previousPage()"><i class="fas fa-arrow-left"></i>
+        <span>Previous</span></button>
+      @for (item of pages; track $index) {
+      @if (item === currentPage) {
+      <button class="pagination__number pagination_selected">{{ item }}</button>
+      }@else {
+      <button class="pagination__number" (click)="goToPage(item)">{{ item }}</button>
+      }
+      }
+      <button class=" pagination__arrow" (click)="nextPage()"><span>Next</span> <i class="fas fa-arrow-right">
+        </i></button>
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="cards">
+    <ul>
+      <li *ngFor="let event of content.events">
+        <app-card [title]="event.title" [description]="event.information" [startData]="event.dateStart"
+          [endData]="event.dateEnd" [status]="event.stage" [image]="event.profileImage"></app-card>
+    </ul>
+  </div> -->
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="cards">
+    <ul>
+      <li *ngFor="let event of content.events">
+        <app-card [title]="event.title" [description]="event.information" [startData]="event.dateStart"
+          [endData]="event.dateEnd" [status]="event.stage" [image]="event.profileImage"></app-card>
+    </ul>
+  </div> -->
