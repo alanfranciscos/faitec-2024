@@ -1,13 +1,12 @@
 package com.eventify.eventify.controller.event;
 
 import com.eventify.eventify.dto.event.EventListResponse;
+import com.eventify.eventify.dto.event.EventOrganizationResponse;
+import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.port.service.event.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/event")
@@ -28,6 +27,22 @@ public class EventController {
                 );
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/organization")
+    public ResponseEntity<EventOrganizationResponse> getOrganizationById(
+            @PathVariable int id
+    ) {
+        EventOrganization response = eventService
+                .getOrganizationById(id);
+
+        return ResponseEntity.ok(new EventOrganizationResponse(
+                response.getId(),
+                response.getCreatedOn(),
+                response.getCreatedBy(),
+                response.getNumberOfParticipants(),
+                response.getStatus().toString()
+        ));
     }
 
 }

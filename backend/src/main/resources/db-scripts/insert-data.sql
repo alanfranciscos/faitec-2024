@@ -70,29 +70,29 @@ INSERT INTO participate (account_id, meetup_id, role_participant, active, sended
 (7, 7, 'organizer', TRUE, NOW(), NULL),
 (8, 8, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
 (9, 9, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
-(10, 10, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
-(11, 1, 'participant', TRUE, NOW(), NULL),
-(11, 2, 'participant', TRUE, NOW(), NULL),
-(11, 3, 'participant', TRUE, NOW(), NULL),
-(11, 4, 'participant', TRUE, NOW(), NULL),
-(11, 5, 'participant', TRUE, NOW(), NULL),
-(11, 6, 'participant', TRUE, NOW(), NULL),
-(11, 7, 'participant', TRUE, NOW(), NULL),
-(11, 8, 'participant', TRUE, NOW(), NULL),
-(11, 9, 'organizer', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
-(11, 10, 'participant', TRUE, NOW(), NULL);
+(10, 10, 'organizer', TRUE, NOW(), NULL),
+(11, 1, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 2, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 3, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 4, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 5, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 6, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 7, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 8, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
+(11, 9, 'organizer', TRUE, NOW(), NULL),
+(11, 10, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours');
 
 INSERT INTO management (participate_id, managment_at, type_action) VALUES
 (1, NOW(), 'create'),
-(2, NOW(), 'modify'),
-(3, NOW(), 'delete'),
-(4, NOW(), 'add_participant'),
-(5, NOW(), 'remove_participant'),
+(2, NOW(), 'create'),
+(3, NOW(), 'create'),
+(4, NOW(), 'create'),
+(5, NOW(), 'create'),
 (6, NOW(), 'create'),
-(7, NOW(), 'modify'),
-(8, NOW(), 'delete'),
-(9, NOW(), 'add_participant'),
-(10, NOW(), 'remove_participant');
+(7, NOW(), 'create'),
+(8, NOW(), 'create'),
+(9, NOW(), 'create'),
+(10, NOW(), 'create');
 
 INSERT INTO expanses (meetup_id, cost, about) VALUES
 (1, 100.00, 'Expense for meetup 1'),
