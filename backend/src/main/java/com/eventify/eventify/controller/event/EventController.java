@@ -1,8 +1,10 @@
 package com.eventify.eventify.controller.event;
 
+import com.eventify.eventify.dto.event.EventDatesResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.dto.event.EventOrganizationResponse;
 import com.eventify.eventify.dto.event.TotalExpansesResponse;
+import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.port.service.event.EventService;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +57,19 @@ public class EventController {
 
         return ResponseEntity.ok(new TotalExpansesResponse(
                 response
+        ));
+    }
+
+    @GetMapping("/{id}/dates")
+    public ResponseEntity<EventDatesResponse> getDates(
+            @PathVariable int id
+    ) {
+        EventDate response = eventService
+                .getDateById(id);
+
+        return ResponseEntity.ok(new EventDatesResponse(
+                response.getStartDate(),
+                response.getEndDate()
         ));
     }
 

@@ -1,5 +1,6 @@
 package com.eventify.eventify.dao.event;
 
+import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.models.event.EventStageEnum;
@@ -195,5 +196,28 @@ public class EventDaoImpl implements EventDao {
         }
 
         return 0;
+    }
+
+    @Override
+    public EventDate getDateById(int id) {
+        String sql = "select date_start, date_end from meetup where id = ?";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final EventDate eventDate = new EventDate(
+                            resultSet.getTimestamp("date_start").toInstant().atZone(ZoneId.systemDefault()),
+                            resultSet.getTimestamp("date_end").toInstant().atZone(ZoneId.systemDefault())
+                    );
+                    return eventDate;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }
