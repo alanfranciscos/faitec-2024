@@ -2,6 +2,7 @@ package com.eventify.eventify.controller.event;
 
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.dto.event.EventOrganizationResponse;
+import com.eventify.eventify.dto.event.TotalExpansesResponse;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.port.service.event.EventService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,18 @@ public class EventController {
                 response.getCreatedBy(),
                 response.getNumberOfParticipants(),
                 response.getStatus().toString()
+        ));
+    }
+
+    @GetMapping("/{id}/total-expanses")
+    public ResponseEntity<TotalExpansesResponse> totalExpenses(
+            @PathVariable int id
+    ) {
+        double response = eventService
+                .totalExpanses(id);
+
+        return ResponseEntity.ok(new TotalExpansesResponse(
+                response
         ));
     }
 

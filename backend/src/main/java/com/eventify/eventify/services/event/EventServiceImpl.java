@@ -49,4 +49,17 @@ public class EventServiceImpl implements EventService {
         EventOrganization response = eventDao.getOrganizationById(id);
         return response;
     }
+
+    @Override
+    public double totalExpanses(int eventId) {
+        Account account = accountService.getAccountRequest();
+
+        boolean hasAccess = eventDao.hasAccessToEvent(eventId, account.getId());
+        if (!hasAccess) {
+            throw new IllegalArgumentException("User does not have access to event");
+        }
+
+        double total = eventDao.totalExpenses(eventId);
+        return total;
+    }
 }

@@ -37,11 +37,8 @@ public class EventDaoImpl implements EventDao {
     //             EventStageEnum.fromString(resultSet.getString("stage")),
     //             resultSet.getString("pix_key")
     //     );
-
     //     return event;
     // }
-
-
     private EventHeader mapResultSetToEventHeader(ResultSet resultSet) throws SQLException {
         final EventHeader eventHeader = new EventHeader(
                 resultSet.getInt("id"),
@@ -175,5 +172,28 @@ public class EventDaoImpl implements EventDao {
         }
 
         return null;
+    }
+
+    @Override
+    public double totalExpenses(int eventId) {
+        String sql = "select SUM(E.cost) current_expanse ";
+        sql += " from meetup M ";
+        sql += " inner join expanses E ON E.meetup_id = M.id ";
+        sql += " where E.meetup_id = ? ";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, eventId);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final double total = resultSet.getDouble("current_expanse");
+                    return total;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return 0;
     }
 }
