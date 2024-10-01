@@ -77,7 +77,7 @@ public class EventController {
     ) {
         Event response = eventService
                 .getEventById(id);
-        
+
 
         return ResponseEntity.ok(new EventLocalizationResponse(
                 response.getLocalName(),
@@ -92,6 +92,18 @@ public class EventController {
                         response.getLatitude(),
                         response.getLongitude()
                 )
+        ));
+    }
+
+    @GetMapping("/{id}/payment")
+    public ResponseEntity<EventPaymentResponse> getPayment(
+            @PathVariable int id
+    ) {
+        Event response = eventService
+                .getEventById(id);
+
+        return ResponseEntity.ok(new EventPaymentResponse(
+                response.getPixKey()
         ));
     }
 
