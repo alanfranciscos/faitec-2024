@@ -1,9 +1,6 @@
 package com.eventify.eventify.dao.event;
 
-import com.eventify.eventify.models.event.EventDate;
-import com.eventify.eventify.models.event.EventHeader;
-import com.eventify.eventify.models.event.EventOrganization;
-import com.eventify.eventify.models.event.EventStageEnum;
+import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.port.dao.event.EventDao;
 
 import java.sql.Connection;
@@ -21,25 +18,31 @@ public class EventDaoImpl implements EventDao {
         this.connection = connection;
     }
 
-    // private Event mapResultSetToEvent(ResultSet resultSet) throws SQLException {
-    //     final Event event = new Event(
-    //             resultSet.getInt("id"),
-    //             resultSet.getString("title"),
-    //             resultSet.getString("information"),
-    //             resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
-    //             resultSet.getString("cep_address"),
-    //             resultSet.getString("state_address"),
-    //             resultSet.getString("city_address"),
-    //             resultSet.getString("neighborhood_address"),
-    //             resultSet.getString("number_address"),
-    //             resultSet.getString("street_address"),
-    //             resultSet.getTimestamp("date_start").toInstant().atZone(ZoneId.systemDefault()),
-    //             resultSet.getTimestamp("date_end").toInstant().atZone(ZoneId.systemDefault()),
-    //             EventStageEnum.fromString(resultSet.getString("stage")),
-    //             resultSet.getString("pix_key")
-    //     );
-    //     return event;
-    // }
+    private Event mapResultSetToEvent(ResultSet resultSet) throws SQLException {
+        final Event event = new Event(
+                resultSet.getInt("id"),
+                resultSet.getString("title"),
+                resultSet.getString("information"),
+                resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
+                resultSet.getString("local_name"),
+                resultSet.getString("cep_address"),
+                resultSet.getString("state_address"),
+                resultSet.getString("city_address"),
+                resultSet.getString("neighborhood_address"),
+                resultSet.getString("number_address"),
+                resultSet.getString("street_address"),
+                resultSet.getString("complement_address"),
+                resultSet.getDouble("latitude"),
+                resultSet.getDouble("longitude"),
+                resultSet.getTimestamp("date_start").toInstant().atZone(ZoneId.systemDefault()),
+                resultSet.getTimestamp("date_end").toInstant().atZone(ZoneId.systemDefault()),
+                EventStageEnum.fromString(resultSet.getString("stage")),
+                resultSet.getString("pix_key")
+        );
+        return event;
+    }
+
+
     private EventHeader mapResultSetToEventHeader(ResultSet resultSet) throws SQLException {
         final EventHeader eventHeader = new EventHeader(
                 resultSet.getInt("id"),
@@ -212,6 +215,26 @@ public class EventDaoImpl implements EventDao {
                             resultSet.getTimestamp("date_end").toInstant().atZone(ZoneId.systemDefault())
                     );
                     return eventDate;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
+    @Override
+    public Event readById(int id) {
+        String sql = "SELECT * FROM meetup WHERE id = ?";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final Event event = mapResultSetToEvent(resultSet);
+                    return event;
                 }
             }
         } catch (SQLException e) {

@@ -2,6 +2,7 @@ package com.eventify.eventify.services.event;
 
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
+import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.models.event.EventOrganization;
@@ -74,6 +75,19 @@ public class EventServiceImpl implements EventService {
         }
 
         EventDate response = eventDao.getDateById(id);
+        return response;
+    }
+
+    @Override
+    public Event getEventById(int id) {
+        Account account = accountService.getAccountRequest();
+
+        boolean hasAccess = eventDao.hasAccessToEvent(id, account.getId());
+        if (!hasAccess) {
+            throw new IllegalArgumentException("User does not have access to event");
+        }
+
+        Event response = eventDao.readById(id);
         return response;
     }
 

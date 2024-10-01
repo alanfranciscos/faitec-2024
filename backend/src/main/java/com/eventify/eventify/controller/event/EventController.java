@@ -1,9 +1,7 @@
 package com.eventify.eventify.controller.event;
 
-import com.eventify.eventify.dto.event.EventDatesResponse;
-import com.eventify.eventify.dto.event.EventListResponse;
-import com.eventify.eventify.dto.event.EventOrganizationResponse;
-import com.eventify.eventify.dto.event.TotalExpansesResponse;
+import com.eventify.eventify.dto.event.*;
+import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.port.service.event.EventService;
@@ -70,6 +68,30 @@ public class EventController {
         return ResponseEntity.ok(new EventDatesResponse(
                 response.getStartDate(),
                 response.getEndDate()
+        ));
+    }
+
+    @GetMapping("/{id}/localization")
+    public ResponseEntity<EventLocalizationResponse> getLocalization(
+            @PathVariable int id
+    ) {
+        Event response = eventService
+                .getEventById(id);
+        
+
+        return ResponseEntity.ok(new EventLocalizationResponse(
+                response.getLocalName(),
+                response.getCepAddress(),
+                response.getStateAddress(),
+                response.getCityAddress(),
+                response.getNeighborhoodAddress(),
+                response.getStreetAddress(),
+                response.getNumberAddress(),
+                response.getComplementAddress(),
+                new EventLocalizationResponse.Coordinates(
+                        response.getLatitude(),
+                        response.getLongitude()
+                )
         ));
     }
 

@@ -46,12 +46,16 @@ CREATE TABLE meetup (
     information VARCHAR(200) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 
+    local_name VARCHAR(200),
     cep_address VARCHAR(9),
     state_address VARCHAR(200),
     city_address VARCHAR(200),
     neighborhood_address VARCHAR(200),
     number_address VARCHAR(200),
     street_address VARCHAR(200),
+    complement_address VARCHAR(200),
+    latitude NUMERIC(11, 8),
+    longitude NUMERIC(11, 8),
 
     date_start TIMESTAMP WITH TIME ZONE NOT NULL,
     date_end TIMESTAMP WITH TIME ZONE NOT NULL,
