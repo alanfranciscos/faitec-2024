@@ -1,0 +1,21 @@
+Diagramas de Classes
+
+* Nas classes listadas serão somente esses métodos que foram listados?
+* Entre Account_password e Account não seria uma agregação?
+* Qual o relacionamento entre state, City e Geocode no caso do diagrama de Classes de negócio?
+* Classes Expenses and payments não tem nenhum método. Vocês ainda não definiram?
+
+Diagrama de componentes:
+
+* Ok
+
+Digrama de implantação 
+* Faltou especificar os dispositivos que acessam a aplicação Web
+
+Diagrama de Pacotes:
+* Fiquei com dúvidas com o relacionamento autenticação e amigos.
+
+Diagrama de Sequencia
+*ok
+
+* Sugestão nomear os diagramas de acordo com que eles estão representando (ex. Caso de uso representado no diagrama de Sequência)
