@@ -1,16 +1,16 @@
 package com.eventify.eventify.dto.event;
 
 public record EventLocalizationResponse(
-        String LocationName,
+        String locationName,
         String zipCode,
         String country,
         String city,
-        String Neighborhood,
+        String neighborhood,
         String street,
-        String Number,
+        String number,
         String complement,
         Coordinates coordinates
 ) {
-    public record Coordinates(double latitude, double longitude) {
+    public record Coordinates(double lat, double lng) {
     }
 }
