@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import ViewItensType from './types';
 import { MapComponent } from '../../../../components/map/map.component';
 @Component({
@@ -8,7 +8,13 @@ import { MapComponent } from '../../../../components/map/map.component';
   templateUrl: './general-view.component.html',
   styleUrl: './general-view.component.scss',
 })
-export class GeneralViewComponent {
+export class GeneralViewComponent implements OnInit {
+
+
+  ngOnInit(): void {
+    // await gerInformationsOrganization()
+    throw new Error('Method not implemented.');
+  }
   @Input() createDate!: string;
   @Input() startDate!: string;
   @Input() endDate!: string;
