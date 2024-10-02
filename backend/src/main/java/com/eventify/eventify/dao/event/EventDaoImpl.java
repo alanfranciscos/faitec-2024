@@ -225,6 +225,31 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
+    public List<EventExpanses> getExpansesById(int id) {
+        String sql = "select created_at, about, cost from expanses where meetup_id = ?";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                final List<EventExpanses> expanses = new ArrayList<>();
+                while (resultSet.next()) {
+                    final EventExpanses expanse = new EventExpanses(
+                            resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
+                            resultSet.getString("about"),
+                            resultSet.getDouble("cost")
+                    );
+                    expanses.add(expanse);
+                }
+
+                return expanses;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Event readById(int id) {
         String sql = "SELECT * FROM meetup WHERE id = ?";
 
@@ -243,4 +268,6 @@ public class EventDaoImpl implements EventDao {
 
         return null;
     }
+
+
 }

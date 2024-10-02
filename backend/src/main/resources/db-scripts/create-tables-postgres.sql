@@ -103,7 +103,8 @@ CREATE TABLE management (
 CREATE TABLE expanses (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
-    cost NUMERIC(7, 2) NOT NULL,
+    cost NUMERIC(12, 2) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     about TEXT NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, cost, about)

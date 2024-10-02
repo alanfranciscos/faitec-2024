@@ -3,11 +3,14 @@ package com.eventify.eventify.controller.event;
 import com.eventify.eventify.dto.event.*;
 import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
+import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.port.service.event.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/event")
@@ -104,6 +107,24 @@ public class EventController {
 
         return ResponseEntity.ok(new EventPaymentResponse(
                 response.getPixKey()
+        ));
+    }
+
+    @GetMapping("/{id}/expanses")
+    public ResponseEntity<EventExpansesResponse> getExpanses(
+            @PathVariable int id
+    ) {
+        List<EventExpanses> response = eventService
+                .getExpansesById(id);
+
+
+        return ResponseEntity.ok(new EventExpansesResponse(
+                response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
+                        eventExpanses.getCreatedAt(),
+                        eventExpanses.getAbout(),
+                        eventExpanses.getCost()
+
+                )).toList()
         ));
     }
 

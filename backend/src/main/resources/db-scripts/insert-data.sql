@@ -94,17 +94,18 @@ INSERT INTO management (participate_id, managment_at, type_action) VALUES
 (9, NOW(), 'create'),
 (10, NOW(), 'create');
 
-INSERT INTO expanses (meetup_id, cost, about) VALUES
-(1, 100.00, 'Expense for meetup 1'),
-(2, 150.00, 'Expense for meetup 2'),
-(3, 200.00, 'Expense for meetup 3'),
-(4, 250.00, 'Expense for meetup 4'),
-(5, 300.00, 'Expense for meetup 5'),
-(6, 350.00, 'Expense for meetup 6'),
-(7, 400.00, 'Expense for meetup 7'),
-(8, 450.00, 'Expense for meetup 8'),
-(9, 500.00, 'Expense for meetup 9'),
-(10, 550.00, 'Expense for meetup 10');
+INSERT INTO expanses (meetup_id, cost, created_at, about) VALUES
+(1, 100.00, NOW(), 'Expense for meetup 1'),
+(1, 300.00, NOW(), 'Expense 2 for meetup 1'),
+(2, 150.00, NOW(), 'Expense for meetup 2'),
+(3, 200.00, NOW(), 'Expense for meetup 3'),
+(4, 250.00, NOW(), 'Expense for meetup 4'),
+(5, 300.00, NOW(), 'Expense for meetup 5'),
+(6, 350.00, NOW(), 'Expense for meetup 6'),
+(7, 400.00, NOW(), 'Expense for meetup 7'),
+(8, 450.00, NOW(), 'Expense for meetup 8'),
+(9, 500.00, NOW(), 'Expense for meetup 9'),
+(10, 550.00, NOW(), 'Expense for meetup 10');
 
 INSERT INTO payment (account_id, expanse_id, paid_at, value_pay, about, type_payment) VALUES
 (1, 1, NOW(), 100.00, 'Payment for expense 1', 'credit_card'),
