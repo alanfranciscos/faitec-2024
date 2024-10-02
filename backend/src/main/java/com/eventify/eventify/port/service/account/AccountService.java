@@ -44,4 +44,13 @@ public interface AccountService {
      * @return the account request.
      */
     Account getAccountRequest();
+
+
+    /**
+     * Retrieves the account associated with the given ID.
+     *
+     * @param accountId the ID of the account to retrieve
+     * @return the account associated with the given ID
+     */
+    Account getAccountById(int accountId);
 }

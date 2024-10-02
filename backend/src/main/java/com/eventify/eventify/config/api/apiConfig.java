@@ -3,9 +3,11 @@ package com.eventify.eventify.config.api;
 import com.eventify.eventify.dao.account.AccountDaoImpl;
 import com.eventify.eventify.dao.account.password.AccountPasswordHistoryDaoImpl;
 import com.eventify.eventify.dao.event.EventDaoImpl;
+import com.eventify.eventify.dao.event.participate.ParticipateDaoImpl;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
 import com.eventify.eventify.port.dao.event.EventDao;
+import com.eventify.eventify.port.dao.participate.ParticipateDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +35,11 @@ public class apiConfig {
     @Bean
     public EventDao getEventDao(final Connection connection) {
         return new EventDaoImpl(connection);
+    }
+
+    @Bean
+    public ParticipateDao getParticipateDao(final Connection connection) {
+        return new ParticipateDaoImpl(connection);
     }
 
 }

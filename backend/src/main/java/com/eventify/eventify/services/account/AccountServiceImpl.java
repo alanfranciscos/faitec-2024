@@ -141,6 +141,15 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+    @Override
+    public Account getAccountById(int accountId) {
+        try {
+            return accountDao.readById(accountId);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read account", e);
+        }
+    }
+
     // UTILS
     private String generateVerificationCodString() {
         String code = "";
@@ -191,5 +200,4 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("message: Failed to create user", e);
         }
     }
-
 }

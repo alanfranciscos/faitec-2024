@@ -1,11 +1,14 @@
 package com.eventify.eventify.controller.event;
 
 import com.eventify.eventify.dto.event.*;
+import com.eventify.eventify.dto.event.participate.ListParticipantsResponse;
 import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.service.event.EventService;
+import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+    private final ParticipateService participateService;
 
     @GetMapping
     public ResponseEntity<EventListResponse> listPaginatedFromUser(
@@ -124,6 +128,23 @@ public class EventController {
                         eventExpanses.getAbout(),
                         eventExpanses.getCost()
 
+                )).toList()
+        ));
+    }
+
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<ListParticipantsResponse> getParticipants(
+            @PathVariable int id
+    ) {
+        List<ParticipateHeader> response = participateService
+                .listByEventId(id);
+
+        return ResponseEntity.ok(new ListParticipantsResponse(
+                response.stream().map(participateHeader -> new ListParticipantsResponse.Participant(
+                        participateHeader.getId(),
+                        participateHeader.getName(),
+                        participateHeader.getSendedAt(),
+                        participateHeader.getRoleParticipate().toString()
                 )).toList()
         ));
     }

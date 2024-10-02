@@ -2,6 +2,7 @@ package com.eventify.eventify.dao.account;
 
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.port.dao.account.AccountDao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -131,6 +132,39 @@ public class AccountDaoImpl implements AccountDao {
             preparedStatement.close();
         } catch (Exception e) {
             throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public Account readById(int id) {
+        final String sql = "SELECT * FROM account WHERE id = ?;";
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                final Account account = mapResultSetToAccount(resultSet);
+                return account;
+            }
+
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
