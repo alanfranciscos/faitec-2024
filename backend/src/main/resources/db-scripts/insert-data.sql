@@ -34,7 +34,14 @@ INSERT INTO friend (account_id, friend_id, sended_at, acepted_at) VALUES
 (6, 8, NOW(), NOW() + INTERVAL '1 hour'),
 (7, 9, NOW(), NULL),
 (8, 10, NOW(), NOW() + INTERVAL '1 hour'),
-(9, 1, NOW(), NULL);
+(9, 1, NOW(), NULL),
+(11, 1, NOW(), NOW() + INTERVAL '1 hour'),
+(11, 2, NOW(), NULL),
+(11, 3, NOW(), NOW() + INTERVAL '1 hour'),
+(11, 4, NOW(), NOW() + INTERVAL '1 hour'),
+(5, 11, NOW(), NULL),
+(6, 11, NOW(), NOW() + INTERVAL '1 hour'),
+(7, 11, NOW(), NOW() + INTERVAL '1 hour');
 
 INSERT INTO meetup (title, information, created_at, local_name, cep_address, state_address, city_address, neighborhood_address, number_address, street_address, complement_address, latitude, longitude, date_start, date_end, stage, pix_key) VALUES
 ('Meetup 1', 'Information 1', NOW(), 'o nome do local', '12345-678', 'State 1', 'City 1', 'Neighborhood 1', '10', 'Street 1', 'complemento', -23.5505, -46.6333, NOW() + INTERVAL '1 day', NOW() + INTERVAL '2 days', 'created', 'pix_key_1'),
