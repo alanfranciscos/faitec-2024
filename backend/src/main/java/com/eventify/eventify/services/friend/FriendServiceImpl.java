@@ -56,4 +56,13 @@ public class FriendServiceImpl implements FriendService {
 
         return response;
     }
+
+    @Override
+    public List<Friend> listPaginatedFromUserAndNotAcepted(int limit, int offset) {
+        Account account = accountService.getAccountRequest();
+        int accountId = account.getId();
+        List<Friend> friends = friendDao.listPaginatedFromUserAndNotAcepted(accountId, limit, offset);
+
+        return friends;
+    }
 }

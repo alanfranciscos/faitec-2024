@@ -47,4 +47,17 @@ public class ParticipateServiceImpl implements ParticipateService {
         return participateHeaders;
 
     }
+
+    @Override
+    public List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(int limit, int offset) {
+        Account account = accountService.getAccountRequest();
+
+        List<Participate> participateList = participateDao.listPaginatedFromUserAndNotAceptedAndNotIsOwner(account.getId(), limit, offset);
+
+        if (participateList == null) {
+            return new ArrayList<>();
+        }
+
+        return participateList;
+    }
 }

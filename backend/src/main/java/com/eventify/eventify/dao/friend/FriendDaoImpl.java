@@ -79,6 +79,31 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
+    public List<Friend> listPaginatedFromUserAndNotAcepted(int accountId, int limit, int offset) {
+        String sql = "SELECT * FROM friend WHERE friend_id = ? AND acepted_at IS NULL";
+        sql += " ORDER BY sended_at DESC ";
+        sql += " LIMIT ? OFFSET ? ;";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<Friend> friends = new ArrayList<>();
+            while (resultSet.next()) {
+                friends.add(mapResultSetToFriend(resultSet));
+            }
+
+            return friends;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public int QuantityOfFriendsByAccountIdAndAcepted(int accountId) {
         String sql = "SELECT COUNT(1) FROM friend ";
         sql += " WHERE (account_id = ? or friend_id = ?) AND acepted_at IS NOT NULL";
