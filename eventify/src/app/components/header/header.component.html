@@ -2,7 +2,13 @@
   <div class="content">
     <div>
       <span class="custom-span">{{ ComponentName }}</span>
-      <span class="custom-span"><i class="fal fa-info-circle"></i></span>
+
+      <app-tooltip tooltipText="{{textTooltip}}" [position]="tooltipPosition">
+        <span class=" custom-span"><i class="fal fa-info-circle"></i></span>
+      </app-tooltip>
+
+
+
     </div>
 
     <div class="user-profile">
