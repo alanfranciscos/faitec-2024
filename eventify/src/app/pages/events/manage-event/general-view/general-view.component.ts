@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import ViewItensType from './types';
 import { MapComponent } from '../../../../components/map/map.component';
 @Component({
-  selector: 'app-general-view',
+  selector: 'app-view',
   standalone: true,
   imports: [MapComponent],
   templateUrl: './general-view.component.html',

@@ -8,4 +8,7 @@ import java.util.List;
 public interface ParticipateDao extends ReadDao<Participate> {
 
     List<Participate> listByEventId(int eventId);
+
+    List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(int accountId, int limit, int offset);
+
 }

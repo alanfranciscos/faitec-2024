@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { EventLayoutComponent } from '../../../components/sidebar/event-sidebar/event-sidebar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { GeneralViewComponent } from './general-view/general-view.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { MembersComponent } from './members/members.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { GeneralViewComponent } from './general-view/general-view.component';
 
 @Component({
-  selector: 'app-manage-event',
+  selector: 'app-event',
   standalone: true,
   imports: [
     EventLayoutComponent,

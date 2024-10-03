@@ -7,7 +7,7 @@
         <button><i class="fas fa-search"></i></button>
       </div>
       <div class="utilities__create">
-        <button>CREATE</button>
+        <button routerLink="create-event/basic-info">CREATE</button>
       </div>
     </div>
 
@@ -15,7 +15,7 @@
       <ul class="cards">
         <li *ngFor="let event of content.events" class="card">
           <app-card [title]="event.title" [description]="event.information" [startData]="event.dateStart"
-            [endData]="event.dateEnd" [status]="event.stage" [image]="event.profileImage">
+            [endData]="event.dateEnd" [status]="event.stage" [image]="event.profileImage" [url]="'/event/'+ event.id">
           </app-card>
         </li>
       </ul>

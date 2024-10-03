@@ -87,7 +87,7 @@ INSERT INTO participate (account_id, meetup_id, role_participant, active, sended
 (11, 7, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
 (11, 8, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours'),
 (11, 9, 'organizer', TRUE, NOW(), NULL),
-(11, 10, 'participant', TRUE, NOW(), NOW() + INTERVAL '5 hours');
+(11, 10, 'participant', TRUE, NOW(), NULL);
 
 INSERT INTO management (participate_id, managment_at, type_action) VALUES
 (1, NOW(), 'create'),
@@ -121,7 +121,7 @@ INSERT INTO payment (account_id, expanse_id, paid_at, value_pay, about, type_pay
 (4, 4, NOW(), 250.00, 'Payment for expense 4', 'cash'),
 (5, 5, NOW(), 300.00, 'Payment for expense 5', 'credit_card'),
 (6, 6, NOW(), 350.00, 'Payment for expense 6', 'debit_card'),
-(7, 7, NOW(), 400.00,    'Payment for expense 7', 'pix'),
+(7, 7, NOW(), 400.00,  'Payment for expense 7', 'pix'),
 (8, 8, NOW(), 450.00, 'Payment for expense 8', 'cash'),
 (9, 9, NOW(), 500.00, 'Payment for expense 9', 'credit_card'),
 (10, 10, NOW(), 550.00, 'Payment for expense 10', 'debit_card');
