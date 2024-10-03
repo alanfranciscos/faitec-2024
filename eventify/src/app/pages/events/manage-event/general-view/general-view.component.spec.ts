@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GeneralViewComponent } from './general-view.component';
 
 describe('GeneralViewComponent', () => {
@@ -8,10 +7,9 @@ describe('GeneralViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GeneralViewComponent]
-    })
-    .compileComponents();
-    
+      imports: [GeneralViewComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(GeneralViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

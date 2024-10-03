@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -16,4 +16,5 @@ export class CardComponent {
   @Input() startData: string = 'startData';
   @Input() endData: string = 'endData';
   @Input() status: string = 'color';
+  @Input() url!: string;
 }
