@@ -1,0 +1,6 @@
+<span class="tooltip-container" style="position: relative;">
+  <ng-content></ng-content>
+  <div class="tooltip" [ngClass]="tooltipClass" *ngIf="visible">
+    {{ tooltipText }}
+  </div>
+</span>
