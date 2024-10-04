@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import ViewItensType from './types';
 import { MapComponent } from '../../../../components/map/map.component';
+import { OrganizationInfo } from '../../../../domain/model/event/organizationInfo.model';
+import { EventService } from '../../../../services/event/event.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-view',
   standalone: true,
@@ -8,7 +11,12 @@ import { MapComponent } from '../../../../components/map/map.component';
   templateUrl: './general-view.component.html',
   styleUrl: './general-view.component.scss',
 })
-export class GeneralViewComponent {
+export class GeneralViewComponent implements OnInit {
+  constructor(
+    private eventService: EventService,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
   @Input() createDate!: string;
   @Input() startDate!: string;
   @Input() endDate!: string;
@@ -26,4 +34,17 @@ export class GeneralViewComponent {
     status: 'active',
     currentExpense: '1000.00',
   };
+
+  organizationData!: OrganizationInfo;
+  createdOnFormatted!: string;
+  async ngOnInit(): Promise<void> {
+    let eventId = this.activatedRoute.snapshot.paramMap.get('id');
+    eventId = eventId == null ? '-1' : eventId;
+
+    const response = await this.eventService.getOrganizationData(eventId);
+    this.organizationData = response;
+    this.createdOnFormatted = new Date(
+      this.organizationData.createdOn
+    ).toLocaleDateString();
+  }
 }

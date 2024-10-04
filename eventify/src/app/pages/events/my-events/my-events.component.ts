@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { CardComponent } from '../../../components/card/card.component';
 import { HeaderComponent } from '../../../components/header/header.component';
@@ -44,7 +44,10 @@ export class MyEventsComponent implements OnInit {
       : this.currentPage + 1;
   }
 
-  constructor(private eventService: EventService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private eventService: EventService
+  ) {}
 
   private formatDateFromEvent(
     events: Array<EventContent>

@@ -8,19 +8,20 @@
       <div class="card-content">
         <div class="info-line">
           <span class="label">Created on: </span>
-          <span class="value">{{ generalViewExample.createDate }}</span>
+          <span class="value">{{ createdOnFormatted }}</span>
         </div>
         <div class="info-line">
           <span class="label">Created by: </span>
-          <span class="value">{{ generalViewExample.userName }}</span>
+          <span class="value">{{ organizationData.createdBy }}</span>
+          <!-- arrumar -->
         </div>
         <div class="info-line">
           <span class="label">Number of participants: </span>
-          <span class="value">{{ generalViewExample.participantsNumber }}</span>
+          <span class="value">{{ organizationData.numberOfParticipants }}</span>
         </div>
         <div class="info-line">
           <span class="label">Status: </span>
-          <span class="value">{{ generalViewExample.status }}</span>
+          <span class="value">{{ organizationData.status }}</span>
         </div>
       </div>
     </div>
@@ -30,9 +31,7 @@
         <i class="fas fa-dollar-sign"></i>
       </div>
       <div class="card-content centered-content">
-        <span class="value large-text"
-          >R${{ generalViewExample.currentExpense }}</span
-        >
+        <span class="value large-text">R${{ generalViewExample.currentExpense }}</span>
       </div>
     </div>
     <div class="card">
@@ -62,21 +61,11 @@
         <div class="form-row">
           <div class="form-group">
             <label for="locationName">Location Name</label>
-            <input
-              type="text"
-              id="locationName"
-              name="locationName"
-              class="form-control"
-            />
+            <input type="text" id="locationName" name="locationName" class="form-control" />
           </div>
           <div class="form-group">
             <label for="zipCode">ZIP Code</label>
-            <input
-              type="text"
-              id="zipCode"
-              name="zipCode"
-              class="form-control"
-            />
+            <input type="text" id="zipCode" name="zipCode" class="form-control" />
           </div>
           <div class="form-group">
             <label for="state">State</label>
@@ -90,12 +79,7 @@
           </div>
           <div class="form-group">
             <label for="neighborhood">Neighborhood</label>
-            <input
-              type="text"
-              id="neighborhood"
-              name="neighborhood"
-              class="form-control"
-            />
+            <input type="text" id="neighborhood" name="neighborhood" class="form-control" />
           </div>
         </div>
         <div class="form-row">
@@ -109,12 +93,7 @@
           </div>
           <div class="form-group">
             <label for="complement">Complement</label>
-            <input
-              type="text"
-              id="complement"
-              name="complement"
-              class="form-control"
-            />
+            <input type="text" id="complement" name="complement" class="form-control" />
           </div>
         </div>
       </form>
