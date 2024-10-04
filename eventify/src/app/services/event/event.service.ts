@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventHeader } from '../../domain/model/event/eventHeader.model';
 import { ApiService } from '../api/api.service';
+import { OrganizationInfo } from '../../domain/model/event/organizationInfo.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,13 @@ export class EventService {
       throw new Error('Failed to fetch events');
     }
 
+    return response.data;
+  }
+  async getOrganizationData(eventId: string): Promise<OrganizationInfo> {
+    const response = await this.api.get(`api/v1/event/${eventId}/organization`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch organization data');
+    }
     return response.data;
   }
 }
