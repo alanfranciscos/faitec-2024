@@ -5,6 +5,7 @@ import { MapComponent } from '../../../../components/map/map.component';
 import { OrganizationInfo } from '../../../../domain/model/event/organizationInfo.model';
 import { EventService } from '../../../../services/event/event.service';
 import { ActivatedRoute } from '@angular/router';
+import { EventDate } from '../../../../domain/model/event/eventDate.model';
 @Component({
   selector: 'app-view',
   standalone: true,
@@ -16,6 +17,7 @@ export class GeneralViewComponent implements OnInit {
   organizationData!: OrganizationInfo;
   createdOnFormatted!: string;
   totalExpenses!: string;
+  eventDate!: EventDate;
 
   constructor(
     private eventService: EventService,
@@ -47,10 +49,14 @@ export class GeneralViewComponent implements OnInit {
       eventId
     );
     this.organizationData = organizationResponse;
-    this.createdOnFormatted = new Date(
+    this.organizationData.createdOn = new Date(
       this.organizationData.createdOn
     ).toLocaleDateString();
     const expensesResponse = await this.eventService.getTotalExpenses(eventId);
     this.totalExpenses = `${expensesResponse.totalExpanses.toFixed(2)}`;
+    const eventDate = await this.eventService.getEventDate(eventId);
+    this.eventDate = eventDate;
+    eventDate.startDate = new Date(eventDate.startDate).toLocaleDateString();
+    eventDate.endDate = new Date(eventDate.endDate).toLocaleDateString();
   }
 }

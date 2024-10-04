@@ -1,6 +1,6 @@
 export interface OrganizationInfo {
   id: number;
-  createdOn: Date;
+  createdOn: string;
   createdBy: string;
   numberOfParticipants: number;
   status: string;
