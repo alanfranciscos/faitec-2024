@@ -1,5 +1,6 @@
 package com.eventify.eventify.port.service.event;
 
+import com.eventify.eventify.dto.event.EventCreate;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
@@ -14,4 +15,6 @@ public interface EventService extends Expanses {
     EventDate getDateById(final int id);
 
     Event getEventById(final int id);
+
+    int createEvent(final EventCreate event);
 }

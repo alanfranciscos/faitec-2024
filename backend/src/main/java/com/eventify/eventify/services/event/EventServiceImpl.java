@@ -1,5 +1,6 @@
 package com.eventify.eventify.services.event;
 
+import com.eventify.eventify.dto.event.EventCreate;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
@@ -101,4 +102,38 @@ public class EventServiceImpl implements EventService {
         return response;
     }
 
+    @Override
+    public int createEvent(EventCreate eventCreate) {
+
+        Event event = new Event(
+                eventCreate.title(),
+                eventCreate.information(),
+                eventCreate.createdAt(),
+                eventCreate.localName(),
+                eventCreate.cepAddress(),
+                eventCreate.stateAddress(),
+                eventCreate.cityAddress(),
+                eventCreate.neighborhoodAddress(),
+                eventCreate.numberAddress(),
+                eventCreate.streetAddress(),
+                eventCreate.complementAddress(),
+                eventCreate.latitude(),
+                eventCreate.longitude(),
+                eventCreate.dateStart(),
+                eventCreate.dateEnd(),
+                eventCreate.stage(),
+                eventCreate.pixKey()
+        );
+
+        if (event == null) {
+            throw new RuntimeException();
+        }
+
+//        if (entity.getFullName().isEmpty() || entity.getPassword().isEmpty() || entity.getEmail().isEmpty()) {
+//            return 0;
+//        }
+
+        int id = eventDao.save(event);
+        return id;
+    }
 }

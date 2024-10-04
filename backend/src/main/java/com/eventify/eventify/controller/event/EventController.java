@@ -12,7 +12,9 @@ import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -147,6 +149,17 @@ public class EventController {
                         participateHeader.getRoleParticipate().toString()
                 )).toList()
         ));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Event> createEvent(@RequestBody final EventCreate eventCreate){
+        int id = eventService.createEvent(eventCreate);
+        final URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }

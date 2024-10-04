@@ -4,11 +4,12 @@ import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.port.dao.crud.CrudDao;
 import com.eventify.eventify.port.dao.crud.ReadDao;
 
 import java.util.List;
 
-public interface EventDao extends ReadDao<Event>, ListPaginatedFromUser, TotalFromUser, Expanses {
+public interface EventDao extends ListPaginatedFromUser, TotalFromUser, Expanses, CrudDao<Event> {
 
     boolean hasAccessToEvent(final int eventId, final int accountId);
 
