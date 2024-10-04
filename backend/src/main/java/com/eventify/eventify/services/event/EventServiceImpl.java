@@ -1,7 +1,8 @@
 package com.eventify.eventify.services.event;
 
-import com.eventify.eventify.dto.event.EventCreate;
+import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
+import com.eventify.eventify.dto.event.EventUpdateResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.port.dao.event.EventDao;
@@ -103,26 +104,26 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public int createEvent(EventCreate eventCreate) {
+    public int createEvent(EventCreateResponse eventCreateResponse) {
 
         Event event = new Event(
-                eventCreate.title(),
-                eventCreate.information(),
-                eventCreate.createdAt(),
-                eventCreate.localName(),
-                eventCreate.cepAddress(),
-                eventCreate.stateAddress(),
-                eventCreate.cityAddress(),
-                eventCreate.neighborhoodAddress(),
-                eventCreate.numberAddress(),
-                eventCreate.streetAddress(),
-                eventCreate.complementAddress(),
-                eventCreate.latitude(),
-                eventCreate.longitude(),
-                eventCreate.dateStart(),
-                eventCreate.dateEnd(),
-                eventCreate.stage(),
-                eventCreate.pixKey()
+                eventCreateResponse.title(),
+                eventCreateResponse.information(),
+                eventCreateResponse.createdAt(),
+                eventCreateResponse.localName(),
+                eventCreateResponse.cepAddress(),
+                eventCreateResponse.stateAddress(),
+                eventCreateResponse.cityAddress(),
+                eventCreateResponse.neighborhoodAddress(),
+                eventCreateResponse.numberAddress(),
+                eventCreateResponse.streetAddress(),
+                eventCreateResponse.complementAddress(),
+                eventCreateResponse.latitude(),
+                eventCreateResponse.longitude(),
+                eventCreateResponse.dateStart(),
+                eventCreateResponse.dateEnd(),
+                eventCreateResponse.stage(),
+                eventCreateResponse.pixKey()
         );
 
         if (event == null) {
@@ -135,5 +136,23 @@ public class EventServiceImpl implements EventService {
 
         int id = eventDao.save(event);
         return id;
+    }
+
+    @Override
+    public void updateEvent(int id, Event entity) {
+        Event event = getEventById(id);
+        if (event == null) {
+            return;
+        }
+        eventDao.updateInformation(id, entity);
+    }
+
+    @Override
+    public void deleteEvent(int id) {
+        if (id < 0) {
+            return;
+        }
+
+        eventDao.deleteById(id);
     }
 }

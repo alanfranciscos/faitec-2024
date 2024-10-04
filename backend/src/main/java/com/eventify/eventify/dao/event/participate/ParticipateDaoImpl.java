@@ -4,10 +4,7 @@ import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -91,6 +88,86 @@ public class ParticipateDaoImpl implements ParticipateDao {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int save(Participate entity) {
+
+        String sql = "INSERT INTO participate(account_id, meetup_id, role_participant, active, sended_at, acepted_at)";
+        sql += " VALUES(?, ?, ?, ?, ?, ?);";
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            connection.setAutoCommit(false);
+
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, entity.getAccountId());
+            preparedStatement.setInt(2, entity.getEventId());
+            preparedStatement.setString(3, entity.getRoleParticipate().toString());
+            preparedStatement.setBoolean(4, entity.isActive());
+            preparedStatement.setTimestamp(5, Timestamp.from(entity.getSendedAt().toInstant()));
+            preparedStatement.setTimestamp(6, Timestamp.from(entity.getAcceptedAt().toInstant()));
+
+            preparedStatement.execute();
+
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                final int id = resultSet.getInt(1);
+                entity.setId(id);
+            }
+
+            connection.commit();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+        return entity.getId();
+    }
+
+    @Override
+    public void deleteById(int id) {
+        logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
+
+        final String sql = "DELETE FROM participate WHERE id = ? ;";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            logger.log(Level.INFO, "Entidade removida com sucesso");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateInformation(int id, Participate entity) {
+
+        String sql = "UPDATE participate SET role_participant = ?, active = ?";
+        sql += " WHERE id = ? ";
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getRoleParticipate().toString());
+            preparedStatement.setBoolean(2, entity.isActive());
+            preparedStatement.setInt(3, entity.getId());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException();
         }
     }
 }

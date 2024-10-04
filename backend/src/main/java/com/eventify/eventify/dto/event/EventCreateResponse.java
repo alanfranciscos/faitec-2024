@@ -1,11 +1,10 @@
 package com.eventify.eventify.dto.event;
 
-import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventStageEnum;
 
 import java.time.ZonedDateTime;
 
-public record EventCreate(
+public record EventCreateResponse(
          String title,
          String information,
          ZonedDateTime createdAt,

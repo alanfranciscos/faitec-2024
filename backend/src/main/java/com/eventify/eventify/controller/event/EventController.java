@@ -152,14 +152,26 @@ public class EventController {
     }
 
     @PostMapping()
-    public ResponseEntity<Event> createEvent(@RequestBody final EventCreate eventCreate){
-        int id = eventService.createEvent(eventCreate);
+    public ResponseEntity<Event> createEvent(@RequestBody final EventCreateResponse eventCreateResponse){
+        int id = eventService.createEvent(eventCreateResponse);
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(id)
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Event event){
+        eventService.updateEvent(id, event);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> deleteEntity(@PathVariable final int id){
+        eventService.deleteEvent(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
