@@ -5,6 +5,7 @@ import { PaymentApproach } from '../../../../domain/model/event/paymentApproach.
 import { EventService } from '../../../../services/event/event.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ExpansesResponse } from '../../../../domain/model/event/expense.model';
+import { DialogComponent } from '../../../../components/dialog/dialog.component';
 
 interface Expense {
   name: string;
@@ -17,7 +18,7 @@ interface Expense {
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, DialogComponent],
   standalone: true,
 })
 export class ExpensesComponent implements OnInit {
@@ -33,7 +34,10 @@ export class ExpensesComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   totalPages = 0;
-
+  isAddExpenseDialogOpen = false;
+  toggleAddExpenseDialog() {
+    this.isAddExpenseDialogOpen = !this.isAddExpenseDialogOpen;
+  }
   async ngOnInit() {
     const url = this.router.url;
     let eventId = url.split('/')[2];
