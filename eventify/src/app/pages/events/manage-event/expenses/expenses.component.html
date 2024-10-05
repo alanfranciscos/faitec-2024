@@ -96,7 +96,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let expense of paginatedExpenses">
+          <tr *ngFor="let expense of eventExpanses.expanses">
             <td>{{ expense.description }}</td>
             <td>{{ expense.amount | currency : "USD" }}</td>
             <td>{{ expense.date }}</td>
