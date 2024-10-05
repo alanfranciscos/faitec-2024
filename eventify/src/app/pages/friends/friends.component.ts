@@ -4,7 +4,6 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import { AddFriendDialogComponent } from '../../components/add-friend-dialog/add-friend-dialog.component';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 
 interface CardItensType {
@@ -23,6 +22,7 @@ interface CardItensType {
     FriendCardComponent,
     CommonModule,
     HeaderComponent,
+    DialogComponent,
     DialogComponent,
   ],
   templateUrl: './friends.component.html',
