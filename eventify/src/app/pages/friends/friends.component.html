@@ -1,6 +1,8 @@
 <main class="main-container">
   <div class="content-container">
-    <app-header [ComponentName]="'Friends'"></app-header>
+    <app-header [ComponentName]="'Friends'"
+      textTooltip="This is your friends screen, where you can send friend requests and view your friends list."
+      tooltipPosition="right"></app-header>
     <content>
       <div class="search-container">
         <div class="search">
@@ -14,8 +16,12 @@
         </button>
       </div>
 
+
       <app-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()" dialog_title="Add Friends"
         dialog_placeholder="Insert your friend's email or nickname"></app-dialog>
+
+      <app-add-friend-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()"></app-add-friend-dialog>
+
       <div>
         <div class="cards">
           <ul>
