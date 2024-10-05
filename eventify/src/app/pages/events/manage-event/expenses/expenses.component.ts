@@ -1,5 +1,10 @@
+import { TotalExpenses } from './../../../../domain/model/event/totalexpenses.model.d';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { PaymentApproach } from '../../../../domain/model/event/paymentApproach.model';
+import { EventService } from '../../../../services/event/event.service';
+import { ActivatedRoute } from '@angular/router';
+import { ExpansesResponse } from '../../../../domain/model/event/expense.model';
 
 interface Expense {
   name: string;
@@ -16,6 +21,13 @@ interface Expense {
   standalone: true,
 })
 export class ExpensesComponent implements OnInit {
+  paymentApproach!: PaymentApproach;
+  totalExpenses!: TotalExpenses;
+  eventExpanses!: ExpansesResponse;
+  constructor(
+    private eventService: EventService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   expenses = [
     {
       name: 'Example Name 1',
@@ -89,11 +101,21 @@ export class ExpensesComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   totalPages = 0;
-  totalExpenses = 0;
-  ngOnInit() {
+
+  async ngOnInit() {
+    // arrumar isso daqui pq n ta pegando a rota n sei pq, eu setei como 1
+    let eventId = this.activatedRoute.snapshot.paramMap.get('id');
+    eventId = eventId == null ? '1' : eventId;
+    console.log('eventid do expenses', eventId);
+    const totalExpenses = await this.eventService.getTotalExpenses(eventId);
+    this.totalExpenses = totalExpenses;
+    const paymentApproach = await this.eventService.getPaymentApproach(eventId);
+    this.paymentApproach = paymentApproach;
+    const eventExpanses = await this.eventService.getEventExpanses(eventId);
+    this.eventExpanses = eventExpanses;
+
     this.totalPages = Math.ceil(this.expenses.length / this.pageSize);
     this.updatePagination();
-    this.calculateTotalExpenses(); // Calcular a soma total ao iniciar o componente
   }
 
   updatePagination() {
@@ -114,10 +136,5 @@ export class ExpensesComponent implements OnInit {
       this.currentPage++;
       this.updatePagination();
     }
-  }
-  calculateTotalExpenses() {
-    this.totalExpenses = this.expenses.reduce((accumulator, expense) => {
-      return accumulator + expense.amount;
-    }, 0);
   }
 }
