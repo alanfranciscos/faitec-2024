@@ -1,3 +1,4 @@
+import { EventLocation } from './../../../../domain/model/event/eventLocalization.model.d';
 import { TotalExpenses } from './../../../../domain/model/event/totalexpenses.model.d';
 import { Component, Input, OnInit } from '@angular/core';
 import ViewItensType from './types';
@@ -18,6 +19,7 @@ export class GeneralViewComponent implements OnInit {
   createdOnFormatted!: string;
   totalExpenses!: string;
   eventDate!: EventDate;
+  eventLocation!: EventLocation;
 
   constructor(
     private eventService: EventService,
@@ -58,5 +60,8 @@ export class GeneralViewComponent implements OnInit {
     this.eventDate = eventDate;
     eventDate.startDate = new Date(eventDate.startDate).toLocaleDateString();
     eventDate.endDate = new Date(eventDate.endDate).toLocaleDateString();
+
+    const eventLocation = await this.eventService.getEventLocation(eventId);
+    this.eventLocation = eventLocation;
   }
 }

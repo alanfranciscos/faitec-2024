@@ -61,45 +61,52 @@
         <div class="form-row">
           <div class="form-group">
             <label for="locationName">Location Name</label>
-            <input type="text" id="locationName" name="locationName" class="form-control" />
+            <input type="text" id="locationName" name="locationName" class="form-control"
+              [value]="eventLocation.locationName" readonly />
           </div>
           <div class="form-group">
             <label for="zipCode">ZIP Code</label>
-            <input type="text" id="zipCode" name="zipCode" class="form-control" />
+            <input type="text" id="zipCode" name="zipCode" class="form-control" [value]="eventLocation.zipCode"
+              readonly />
           </div>
           <div class="form-group">
             <label for="state">State</label>
-            <input type="text" id="state" name="state" class="form-control" />
+            <input type="text" id="state" name="state" class="form-control" [value]="eventLocation.country" readonly />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="city">City</label>
-            <input type="text" id="city" name="city" class="form-control" />
+            <input type="text" id="city" name="city" class="form-control" [value]="eventLocation.city" readonly />
           </div>
           <div class="form-group">
             <label for="neighborhood">Neighborhood</label>
-            <input type="text" id="neighborhood" name="neighborhood" class="form-control" />
+            <input type="text" id="neighborhood" name="neighborhood" class="form-control"
+              [value]="eventLocation.neighborhood" readonly />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="street">Street/Avenue</label>
-            <input type="text" id="street" name="street" class="form-control" />
+            <input type="text" id="street" name="street" class="form-control" [value]="eventLocation.street" readonly />
           </div>
           <div class="form-group">
             <label for="number">Number</label>
-            <input type="text" id="number" name="number" class="form-control" />
+            <input type="text" id="number" name="number" class="form-control" [value]="eventLocation.number" readonly />
           </div>
           <div class="form-group">
             <label for="complement">Complement</label>
-            <input type="text" id="complement" name="complement" class="form-control" />
+            <input type="text" id="complement" name="complement" class="form-control" [value]="eventLocation.complement"
+              readonly />
           </div>
         </div>
       </form>
+
       <div class="map">
         <app-map width="800" height="500"></app-map>
       </div>
     </div>
   </div>
+
+
 </div>
