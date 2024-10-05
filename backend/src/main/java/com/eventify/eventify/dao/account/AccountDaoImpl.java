@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AccountDaoImpl implements AccountDao {
 
@@ -166,5 +167,10 @@ public class AccountDaoImpl implements AccountDao {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public List<Account> readAll() {
+        return null;
     }
 }

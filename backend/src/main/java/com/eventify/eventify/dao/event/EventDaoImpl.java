@@ -5,6 +5,7 @@ import com.eventify.eventify.port.dao.event.EventDao;
 
 import java.sql.*;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -268,6 +269,51 @@ public class EventDaoImpl implements EventDao {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Event> readAll() {
+        final List<Event> events = new ArrayList<>();
+        final String sql = "SELECT * FROM meetup;";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                final Event event = new Event();
+
+                event.setId(resultSet.getInt("id"));
+                event.setTitle(resultSet.getString("title"));
+                event.setInformation(resultSet.getString("information"));
+                event.setCreatedAt(ZonedDateTime.parse(resultSet.getString("createdAt")));
+                event.setLocalName(resultSet.getString("localName"));
+                event.setCepAddress(resultSet.getString("cepAddress"));
+                event.setStateAddress(resultSet.getString("stateAddress"));
+                event.setCityAddress(resultSet.getString("cityAddress"));
+                event.setNeighborhoodAddress(resultSet.getString("neighborhoodAddress"));
+                event.setNumberAddress(resultSet.getString("numberAddress"));
+                event.setStreetAddress(resultSet.getString("streetAddress"));
+                event.setComplementAddress(resultSet.getString("complementAddress"));
+                event.setLatitude(resultSet.getDouble("latitude"));
+                event.setLongitude(resultSet.getDouble("longitude"));
+                event.setDateStart(ZonedDateTime.parse(resultSet.getString("dateStart")));
+                event.setDateEnd(ZonedDateTime.parse(resultSet.getString("dateEnd")));
+                event.setStage(EventStageEnum.valueOf(resultSet.getString("stage")));
+                event.setPixKey(resultSet.getString("pixKey"));
+                events.add(event);
+            }
+            return events;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 

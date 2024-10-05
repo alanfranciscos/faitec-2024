@@ -2,7 +2,6 @@ package com.eventify.eventify.services.event;
 
 import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
-import com.eventify.eventify.dto.event.EventUpdateResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.port.dao.event.EventDao;
