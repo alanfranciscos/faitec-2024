@@ -2,10 +2,10 @@
   <div class="box">
     <i class="fas fa-times" (click)="closeDialog()"></i>
     <div class="title">
-      <span>Add a new friend</span>
+      <span>{{dialog_title}}</span>
     </div>
     <div class="content">
-      <input type="text" placeholder="Insert your friend's email or nickname" />
+      <input type="text" placeholder={{dialog_placeholder}} />
       <app-button text="Add"></app-button>
     </div>
   </div>
