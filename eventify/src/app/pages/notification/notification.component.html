@@ -1,17 +1,15 @@
 <main class="main-container">
   <div class="content-container">
     <content>
-      <app-header [ComponentName]="'Notifications'"></app-header>
+      <app-header [ComponentName]="'Notifications'"
+        textTooltip="This is your notifications screen where you can view your event invitations and friend requests, and accept or decline them."
+        tooltipPosition="right"></app-header>
       <div>
         <div class="cards">
           <ul>
             <li *ngFor="let item of paginatedItems; let i = index">
-              <app-notification-card
-                [title]="item.title"
-                [description]="item.description"
-                [dateNotification]="item.dateNotification"
-                [image]="item.image"
-              >
+              <app-notification-card [title]="item.title" [description]="item.description"
+                [dateNotification]="item.dateNotification" [image]="item.image">
               </app-notification-card>
             </li>
           </ul>
@@ -24,11 +22,7 @@
         </button>
 
         <ul class="pagination-numbers">
-          <li
-            *ngFor="let page of pageNumbers"
-            (click)="setPage(page)"
-            [class.active]="currentPage === page"
-          >
+          <li *ngFor="let page of pageNumbers" (click)="setPage(page)" [class.active]="currentPage === page">
             {{ page }}
           </li>
         </ul>

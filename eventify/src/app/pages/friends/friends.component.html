@@ -1,41 +1,27 @@
 <main class="main-container">
   <div class="content-container">
-    <app-header [ComponentName]="'Friends'"></app-header>
+    <app-header [ComponentName]="'Friends'"
+      textTooltip="This is your friends screen, where you can send friend requests and view your friends list."
+      tooltipPosition="right"></app-header>
     <content>
       <div class="search-container">
         <div class="search">
-          <input
-            type="text"
-            id="search"
-            placeholder="Search for a friend"
-            style="display: flex; align-self: center"
-          />
+          <input type="text" id="search" placeholder="Search for a friend" style="display: flex; align-self: center" />
           <button class="search-button">
             <i class="fas fa-search"></i>
           </button>
         </div>
-        <button
-          class="add-friend-button"
-          style="background-color: #14ad47"
-          (click)="toggleAddFriendDialog()"
-        >
+        <button class="add-friend-button" style="background-color: #14ad47" (click)="toggleAddFriendDialog()">
           Add a new friend
         </button>
       </div>
-      <app-add-friend-dialog
-        *ngIf="isAddFriendDialogOpen"
-        (close)="toggleAddFriendDialog()"
-      ></app-add-friend-dialog>
+      <app-add-friend-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()"></app-add-friend-dialog>
       <div>
         <div class="cards">
           <ul>
             <li *ngFor="let item of paginatedItems; let i = index">
-              <app-friend-card
-                [name]="item.name"
-                [type]="item.type"
-                [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image"
-              >
+              <app-friend-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
+                [image]="item.image">
               </app-friend-card>
             </li>
           </ul>
@@ -48,11 +34,7 @@
         </button>
 
         <ul class="pagination-numbers">
-          <li
-            *ngFor="let page of pageNumbers"
-            (click)="setPage(page)"
-            [class.active]="currentPage === page"
-          >
+          <li *ngFor="let page of pageNumbers" (click)="setPage(page)" [class.active]="currentPage === page">
             {{ page }}
           </li>
         </ul>

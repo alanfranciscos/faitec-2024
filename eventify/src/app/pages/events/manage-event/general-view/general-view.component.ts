@@ -17,7 +17,7 @@ import { EventDate } from '../../../../domain/model/event/eventDate.model';
 export class GeneralViewComponent implements OnInit {
   organizationData!: OrganizationInfo;
   createdOnFormatted!: string;
-  totalExpenses!: string;
+  totalExpenses!: TotalExpenses;
   eventDate!: EventDate;
   eventLocation!: EventLocation;
 
@@ -54,8 +54,8 @@ export class GeneralViewComponent implements OnInit {
     this.organizationData.createdOn = new Date(
       this.organizationData.createdOn
     ).toLocaleDateString();
-    const expensesResponse = await this.eventService.getTotalExpenses(eventId);
-    this.totalExpenses = `${expensesResponse.totalExpanses.toFixed(2)}`;
+    const totalExpenses = await this.eventService.getTotalExpenses(eventId);
+    this.totalExpenses = totalExpenses;
     const eventDate = await this.eventService.getEventDate(eventId);
     this.eventDate = eventDate;
     eventDate.startDate = new Date(eventDate.startDate).toLocaleDateString();
