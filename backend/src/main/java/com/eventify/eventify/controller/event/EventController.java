@@ -6,6 +6,7 @@ import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
@@ -163,15 +164,27 @@ public class EventController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Event event){
+    public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event){
         eventService.updateEvent(id, event);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Event> deleteEntity(@PathVariable final int id){
+    public ResponseEntity<Event> deleteEvent(@PathVariable final int id){
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> getEvents() {
+        List<Event> events = eventService.findAll();
+        return ResponseEntity.ok().body(events);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable final int id){
+        Event event = eventService.findById(id);
+        return ResponseEntity.ok().body(event);
     }
 
 }
