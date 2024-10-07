@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DialogComponent } from '../../components/dialog/dialog.component';
+import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 
 interface CardItensType {
   name: string;
@@ -24,6 +25,7 @@ interface CardItensType {
     HeaderComponent,
     DialogComponent,
     DialogComponent,
+    PrimaryInputComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',

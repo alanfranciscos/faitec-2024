@@ -25,8 +25,11 @@
       <span class="title-text">Expense Records</span>
       <button class="add-expense-button" style="background-color: #14ad47" (click)="toggleAddExpenseDialog()">Add a new
         expense</button>
-      <app-dialog *ngIf="isAddExpenseDialogOpen" (close)="toggleAddExpenseDialog()" dialog_title="Add Expense"
-        dialog_placeholder="Insert the description and value"></app-dialog>
+      <app-dialog *ngIf="isAddExpenseDialogOpen" (close)="toggleAddExpenseDialog()" dialog_title="Add Expense">
+        <app-primary-input type="text" placeholder="Insert a description" />
+        <app-primary-input type="number" placeholder="Insert a value" />
+        <app-primary-input type="date" placeholder="" />
+      </app-dialog>
     </div>
     <div class="card-content">
       <table class="expenses-table">
