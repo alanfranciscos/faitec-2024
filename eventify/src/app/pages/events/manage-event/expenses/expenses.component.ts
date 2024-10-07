@@ -6,6 +6,7 @@ import { EventService } from '../../../../services/event/event.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ExpansesResponse } from '../../../../domain/model/event/expense.model';
 import { DialogComponent } from '../../../../components/dialog/dialog.component';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
 
 interface Expense {
   name: string;
@@ -18,7 +19,7 @@ interface Expense {
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss'],
-  imports: [CommonModule, DialogComponent],
+  imports: [CommonModule, DialogComponent, PrimaryInputComponent],
   standalone: true,
 })
 export class ExpensesComponent implements OnInit {
@@ -28,7 +29,7 @@ export class ExpensesComponent implements OnInit {
   constructor(
     private router: Router,
     private eventService: EventService,
-    private activatedRoute: ActivatedRoute // private route: Route
+    private activatedRoute: ActivatedRoute
   ) {}
 
   currentPage = 1;

@@ -5,7 +5,7 @@ import {
   ControlValueAccessor,
 } from '@angular/forms';
 
-type InputTypes = 'text' | 'email' | 'password' | 'file';
+type InputTypes = 'text' | 'email' | 'password' | 'file' | 'number' | 'date';
 
 @Component({
   selector: 'app-primary-input',
