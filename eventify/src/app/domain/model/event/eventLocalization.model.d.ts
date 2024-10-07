@@ -7,8 +7,10 @@ export interface EventLocation {
   street: string;
   number: string;
   complement: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
+  coordinates: Coordinate;
+}
+
+export interface Coordinate {
+  lat: number;
+  lng: number;
 }
