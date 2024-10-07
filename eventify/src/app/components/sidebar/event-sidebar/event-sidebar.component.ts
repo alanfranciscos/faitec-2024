@@ -63,8 +63,7 @@ export class EventLayoutComponent implements OnInit {
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/account/login']); // Redireciona para a tela de login
+  home() {
+    this.router.navigate(['/']);
   }
 }

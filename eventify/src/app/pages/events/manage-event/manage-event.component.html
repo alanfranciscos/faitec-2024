@@ -1,5 +1,5 @@
 <div class="container">
-  <header class="topbar">
+  <header>
     <a routerLink="/"><img src="/assets/svg/logo-max.svg" alt="logo expanded" /></a>
     <div class="user-profile">
       <span class="custom-span">User name</span>
@@ -8,15 +8,17 @@
     </div>
   </header>
 
+  <app-event-layout class="sidebar"></app-event-layout>
+
   <main class="main-container">
-    <app-event-layout class="sidebar"></app-event-layout>
     <div class="content-container">
       <content>
         <router-outlet />
+        <footer class="footer">
+          <app-footer></app-footer>
+        </footer>
       </content>
     </div>
   </main>
-  <footer class="footer">
-    <app-footer></app-footer>
-  </footer>
+
 </div>
