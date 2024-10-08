@@ -9,13 +9,26 @@
 
 
 
+
     </div>
 
     <div class="user-profile">
       <span class="custom-span">User name</span>
-      <a routerLink="/my-profile">
-        <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" />
-      </a>
+      <div class="dropdown">
+        <button (click)="toggleDropdown()" (mouseover)="toggleDropdown()" class=" dropdown-button"
+          style="background: unset; border: none; cursor: pointer;">
+          <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" />
+        </button>
+
+        <ul *ngIf="isOpen" class="dropdown-menu">
+          <li>
+            <a routerLink="/my-profile"><i class="fas fa-user-alt"></i><span>Edit data</span></a>
+          </li>
+          <li>
+            <a routerLink="/my-profile" (click)="logout()"><i class="fal fa-sign-out-alt"></i><span>Exit</span></a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>
