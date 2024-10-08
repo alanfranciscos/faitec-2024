@@ -55,10 +55,9 @@
   }
 
 
-  /* Content container should fill the remaining height and allow the footer to be at the bottom */
   .content-container {
-    margin-left: 250px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex: 1; /* This allows the content to take up all the available space in the column */
+    transition: margin-left 0.8s ease-in-out; /* Suaviza a transição */
   }

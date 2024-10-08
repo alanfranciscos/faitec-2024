@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ export class EventLayoutComponent implements OnInit {
   @Input() creatorUser: string = 'John Doe';
   @Input() description: string = 'Palestras sobre inovações tecnológicas.';
   isCollapsed = false;
+  @Output() sidebarToggle = new EventEmitter<void>();
 
   sidebarItens: Array<SideBarItensType> = [];
 
@@ -62,6 +63,7 @@ export class EventLayoutComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit();
   }
   home() {
     this.router.navigate(['/']);

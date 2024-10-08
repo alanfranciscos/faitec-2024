@@ -9,24 +9,37 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterLink, TooltipComponent, DropdownlistComponent, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
-  @Input() ComponentName!: string | '#';
+  @Input() ComponentName: string = '';
   @Input() textTooltip?: string;
   @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' = 'top';
+
   isOpen = false;
+  openedByClick = false; // Nova variável para controlar o clique
+
+  constructor(private router: Router) {}
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    this.openedByClick = this.isOpen; // Se abriu por clique, mantém o estado.
   }
 
-  selectOption(option: string) {
-    this.isOpen = false;
+  openDropdown() {
+    if (!this.openedByClick) {
+      this.isOpen = true; // Abre apenas por hover se não foi clicado
+    }
   }
+
+  closeDropdown() {
+    if (!this.openedByClick) {
+      this.isOpen = false; // Fecha apenas se não foi clicado
+    }
+  }
+
   logout() {
     localStorage.clear();
-    this.router.navigate(['/account/login']); // Redireciona para a tela de login
+    this.router.navigate(['/account/login']);
   }
 }
