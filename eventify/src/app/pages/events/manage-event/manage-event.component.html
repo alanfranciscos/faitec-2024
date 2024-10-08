@@ -11,7 +11,7 @@
   <app-event-layout class="sidebar" (sidebarToggle)="toggleSidebar()"></app-event-layout>
 
   <main class="main-container">
-    <div class="content-container" [ngStyle]="{ 'margin-left': isCollapsed ? '5rem' : '15.625rem' }">
+    <div class="content-container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
       <content>
         <router-outlet />
         <footer class="footer">

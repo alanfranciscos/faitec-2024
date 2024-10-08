@@ -1,7 +1,6 @@
-.container{
+.container {
   display: flex;
   flex-direction: column;
-
 }
 
 .main-container {
@@ -18,46 +17,69 @@
   overflow: visible;
 }
 
-  .user-profile {
-    display: flex;
-    align-items: center;
+.user-profile {
+  display: flex;
+  align-items: center;
+}
 
-  }
+.custom-span {
+  font-family: Inter;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 36.31px;
+  text-align: left;
+  margin-right: 20px;
+  color: #7d7d7d;
+}
+.user-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+}
 
-  .custom-span {
-    font-family: Inter;
-    font-size: 30px;
-    font-weight: 400;
-    line-height: 36.31px;
-    text-align: left;
-    margin-right: 20px;
-    color: #7D7D7D;
-  }
-  .user-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 2rem;
-  }
+header {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  margin-left: 250px;
+  // position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d9d9d9;
+}
+.topbar img {
+  margin-right: 2rem;
+}
 
- header {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: row;
-    margin-left: 250px;
-    // position: fixed;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #D9D9D9;
-  }
-  .topbar img{
-    margin-right: 2rem;
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.8s ease-in-out; /* Suaviza a transição */
+}
 
+@keyframes expand-content {
+  from {
+    margin-left: 5rem; /* Largura mínima quando colapsada */
   }
-
-
-  .content-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    transition: margin-left 0.8s ease-in-out; /* Suaviza a transição */
+  to {
+    margin-left: 15.625rem; /* Largura completa quando aberta */
   }
+}
+
+@keyframes decrease-content {
+  from {
+    margin-left: 15.625rem; /* Largura completa quando aberta */
+  }
+  to {
+    margin-left: 5rem; /* Largura mínima quando colapsada */
+  }
+}
+
+.sidebar-open {
+  animation: expand-content 0.8s forwards;
+}
+
+.sidebar-closed {
+  animation: decrease-content 0.8s forwards;
+}

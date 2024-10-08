@@ -34,3 +34,4 @@ build/
 
 ###################################
 .env
+gcp-credentials.json
