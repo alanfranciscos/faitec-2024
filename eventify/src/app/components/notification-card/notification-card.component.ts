@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './notification-card.component.scss',
 })
 export class NotificationCardComponent {
+  @Input() cardType!: 'friend' | 'event';
   @Input() title: string = 'titulo';
   @Input() description: string = 'descripcion';
   @Input() image: string = 'imagen';

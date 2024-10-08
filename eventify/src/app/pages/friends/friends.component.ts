@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main-sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
+import { UserAddComponentComponent } from '../../components/user-add-component/user-add-component.component';
 
 interface CardItensType {
   name: string;
@@ -20,12 +20,13 @@ interface CardItensType {
   imports: [
     MainSidebarComponent,
     FooterComponent,
-    FriendCardComponent,
+
     CommonModule,
     HeaderComponent,
     DialogComponent,
     DialogComponent,
     PrimaryInputComponent,
+    UserAddComponentComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',

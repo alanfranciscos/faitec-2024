@@ -26,9 +26,10 @@
         <div class="cards">
           <ul>
             <li *ngFor="let item of paginatedItems; let i = index">
-              <app-friend-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
+              <!-- <app-friend-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
                 [image]="item.image">
-              </app-friend-card>
+              </app-friend-card> -->
+              <app-user-add-component id_type="friend"></app-user-add-component>
             </li>
           </ul>
         </div>

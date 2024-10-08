@@ -1,0 +1,19 @@
+<div class="card-container">
+  <div class="card" id="{{id_type}}">
+    <img class="card-image" src="{{ image }}" alt="imageEvent" />
+
+    @if(id_type=='friend'){ <div class="card-content">
+      <h3>{{ name }}</h3>
+      <p class="date">Date: {{ dateStartFriendship }}</p>
+    </div>}
+    @else{ <div class="card-content">
+      <h3>{{ name }}</h3>
+      <p class="date">Date: {{ dateStartInEvent }}</p>
+      <p class="date">Type: {{ type }}</p>
+    </div>}
+
+    <div class="card-actions">
+      <i class="fas fa-user-slash decline-icon"></i>
+    </div>
+  </div>
+</div>

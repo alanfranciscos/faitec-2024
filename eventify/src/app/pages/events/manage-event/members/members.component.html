@@ -3,35 +3,25 @@
     <content>
       <div class="search-container">
         <div class="search">
-          <input
-            type="text"
-            id="search"
-            placeholder="Search for a friend"
-            style="display: flex; align-self: center"
-          />
+          <input type="text" id="search" placeholder="Search for a friend" style="display: flex; align-self: center" />
           <button class="search-button">
             <i class="fas fa-search"></i>
           </button>
         </div>
-        <button
-          routerLink="create-event/basic-info"
-          class="add-friend-button"
-          style="background-color: #14ad47"
-        >
+        <button routerLink="create-event/basic-info" class="add-friend-button" style="background-color: #14ad47"
+          (click)="toggleAddFriendDialog()">
           Add a new member
         </button>
+        <app-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()" dialog_title="Add a new member">
+          <app-primary-input type="text" placeholder="Insert your friend's email or nickname" /></app-dialog>
+
       </div>
       <div>
         <div class="cards">
           <ul>
             <li *ngFor="let item of paginatedItems; let i = index">
-              <app-member-card
-                [name]="item.name"
-                [type]="item.type"
-                [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image"
-              >
-              </app-member-card>
+
+              <app-user-add-component id_type="member"></app-user-add-component>
             </li>
           </ul>
         </div>
@@ -43,11 +33,7 @@
         </button>
 
         <ul class="pagination-numbers">
-          <li
-            *ngFor="let page of pageNumbers"
-            (click)="goToPage(page)"
-            [class.active]="currentPage === page"
-          >
+          <li *ngFor="let page of pageNumbers" (click)="goToPage(page)" [class.active]="currentPage === page">
             {{ page }}
           </li>
         </ul>

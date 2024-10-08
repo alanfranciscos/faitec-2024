@@ -1,136 +1,140 @@
 /* Ensure that the main container takes up at least the full viewport height */
 .main-container {
+  display: flex;
+  flex-direction: row; /* Keep the main container as a row */
+  min-height: 100vh; /* 100% of the viewport height */
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem; /* Espaçamento interno em relação às bordas da tela */
+  margin-top: 3rem; /* Alinhamento superior */
+}
+
+.search {
+  display: flex;
+  width: 25rem; /* Largura da barra de pesquisa */
+  height: 2.125rem;
+  border-radius: 0.3125rem;
+  overflow: hidden;
+  border: 1px solid #D9D9D9;
+}
+
+.search input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.3125rem 0 0 0.3125rem; /* Estilo do campo de entrada */
+}
+
+.search input[type="text"]:focus {
+  outline: none; /* Remove o contorno do campo de entrada ao focar */
+}
+
+.search-button {
+  width: 3.125rem; /* Largura do botão de pesquisa */
+  height: 100%;
+  background-color: #D9D9D9; /* Cor de fundo do botão */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 0 0.3125rem 0.3125rem 0; /* Bordas do botão */
+}
+
+.search-button i {
+  font-size: 1.5rem; /* Tamanho do ícone no botão */
+}
+
+.search-button:focus {
+  outline: none; /* Remove o contorno do botão ao focar */
+}
+
+.add-friend-button {
+  width: 10rem; /* Largura do botão de adicionar amigo */
+  height: 2.5rem; /* Altura do botão */
+  margin-left: auto; /* Alinha o botão à direita */
+  border-radius: 0.3125rem; /* Bordas arredondadas */
+  background-color: #14ad47; /* Cor de fundo do botão */
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1rem; /* Tamanho da fonte */
+  opacity: 1;
+  gap: 0;
+}
+
+/* Content container should fill the remaining height and allow the footer to be at the bottom */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Permite que o conteúdo ocupe todo o espaço disponível */
+}
+
+.cards {
+  padding: 2rem; /* Espaçamento interno dos cartões */
+  ul {
     display: flex;
-    flex-direction: row; /* Keep the main container as a row */
-    min-height: 100vh; /* 100% of the viewport height */
+    flex-direction: column; /* Coloca os itens em coluna */
+    gap: 0.5rem; /* Espaçamento entre os itens */
   }
-  
-  .search-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5rem; /* Espaçamento interno em relação às bordas da tela */
-    margin-top: 3rem;
-  }
-  
-  .search {
-    display: flex;
-    width: 25rem;
-    height: 2.125rem; 
-    border-radius: 0.3125rem; 
-    overflow: hidden;
-    border: 1px solid #D9D9D9;
-  }
-  
-  .search input[type="text"] {
-    width: 100%;
-    height: 100%;
-    border: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: 0.3125rem 0 0 0.3125rem;
-  }
-  
-  .search input[type="text"]:focus {
-    outline: none;
-  }
-  
-  .search-button {
-    width: 3.125rem; 
-    height: 100%;
-    background-color: #D9D9D9; 
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    border-radius: 0 0.3125rem 0.3125rem 0; 
-  }
-  
-  .search-button i {
-    font-size: 1.5rem; /* Ajuste o tamanho do ícone */
-  }
-  
-  .search-button:focus {
-    outline: none;
-  }
-  
-  .add-friend-button {
-    width: 10rem; 
-    height:2.5rem;   
-    margin-left: auto;
-    border-radius: 0.3125rem; 
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1rem;
-    opacity: 1;
-    gap: 0; 
-  }
-  
-  
-  
-  /* Content container should fill the remaining height and allow the footer to be at the bottom */
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* This allows the content to take up all the available space in the column */
-  }
-  
-  
-  
-  .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .pagination button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #000;
-    margin: 0 10px;
-  }
-  
-  .pagination button:disabled {
-    color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pagination-numbers {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .pagination-numbers li {
-    margin: 0 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .pagination-numbers li.active {
-    font-weight: bold;
-    color: #000;
-  }
-  
-  /* Footer styling */
-  .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9em;
-    margin-top: auto; /* Pushes the footer to the bottom of the content container */
-  }
-  
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Espaçamento superior */
+}
+
+.pagination button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px; /* Tamanho da fonte do botão de paginação */
+  color: #000;
+  margin: 0 10px; /* Espaçamento lateral */
+}
+
+.pagination button:disabled {
+  color: #ccc; /* Cor para botões desativados */
+  cursor: not-allowed; /* Indica que não pode ser clicado */
+}
+
+.pagination-numbers {
+  display: flex;
+  list-style: none; /* Remove a listagem padrão */
+  padding: 0; /* Remove o preenchimento padrão */
+  margin: 0; /* Remove a margem padrão */
+}
+
+.pagination-numbers li {
+  margin: 0 5px; /* Espaçamento lateral entre os números da página */
+  cursor: pointer; /* Indica que é clicável */
+  font-size: 16px; /* Tamanho da fonte */
+}
+
+.pagination-numbers li.active {
+  font-weight: bold; /* Destaca o número da página ativa */
+  color: #000; /* Cor do texto da página ativa */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #333; /* Cor de fundo do rodapé */
+  color: #fff; /* Cor do texto do rodapé */
+  text-align: center; /* Alinhamento do texto */
+  padding: 20px 0; /* Preenchimento do rodapé */
+  font-size: 0.9em; /* Tamanho da fonte do rodapé */
+  margin-top: auto; /* Empurra o rodapé para a parte inferior */
+}

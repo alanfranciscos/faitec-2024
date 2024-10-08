@@ -1,27 +1,11 @@
-<!-- <div class="card-container">
-  <div class="card">
-    <div class="card-content">
-      <h3>{{ title }}</h3>
-      <p class="description">{{ description }}</p>
-      <p class="date">{{ startData }}</p>
-      <p class="date">{{ endData }}</p>
-    </div>
-    <div class="card-actions">
-      <img src="{{ image }}" alt="imageEvent" />
-      <p>{{ status }}</p>
-    </div>
-  </div>
-</div> -->
 <div class="card-container">
-  <div class="card">
+  <div class="card" id="{{cardType}}">
     <img class="card-image" src="{{ image }}" alt="imageEvent" />
-
     <div class="card-content">
       <h3>{{ title }}</h3>
       <p class="description">{{ description }}</p>
       <p class="date">Date: {{ dateNotification }}</p>
     </div>
-
     <div class="card-actions">
       <i class="fas fa-check accept-icon"></i>
       <i class="fas fa-times decline-icon"></i>

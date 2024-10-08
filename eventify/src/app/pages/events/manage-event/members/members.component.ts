@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MainSidebarComponent } from '../../../../components/sidebar/main-sidebar/main-sidebar.component';
 import { FooterComponent } from '../../../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../../components/header/header.component';
-import { MemberCardComponent } from '../../../../components/member-card/member-card.component';
+import { UserAddComponentComponent } from '../../../../components/user-add-component/user-add-component.component';
+import { DialogComponent } from '../../../../components/dialog/dialog.component';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
 
 interface CardItensType {
   name: string;
@@ -20,12 +22,15 @@ interface CardItensType {
     FooterComponent,
     CommonModule,
     HeaderComponent,
-    MemberCardComponent,
+    UserAddComponentComponent,
+    DialogComponent,
+    PrimaryInputComponent,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',
 })
 export class MembersComponent {
+  isAddFriendDialogOpen = false;
   currentPage = 1;
   itemsPerPage = 6;
   cardItens: Array<CardItensType> = [
@@ -97,5 +102,8 @@ export class MembersComponent {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
     }
+  }
+  toggleAddFriendDialog() {
+    this.isAddFriendDialogOpen = !this.isAddFriendDialogOpen;
   }
 }
