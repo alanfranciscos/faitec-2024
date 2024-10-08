@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { SideBarItensType } from './types';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ export class MainSidebarComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/account/login']); // Redireciona para a tela de login
   }
-
+  @Output() sidebarToggle = new EventEmitter<void>();
   isCollapsed = false;
   sidebarItens: Array<SideBarItensType> = [
     {
@@ -64,5 +64,6 @@ export class MainSidebarComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit();
   }
 }

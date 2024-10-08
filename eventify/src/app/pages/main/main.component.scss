@@ -12,11 +12,17 @@
   overflow: visible;
 }
 
+// .content-container {
+//   margin-left: 250px;
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+// }
 .content-container {
-  margin-left: 250px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.8s ease-in-out; /* Suaviza a transição */
 }
 
 content {

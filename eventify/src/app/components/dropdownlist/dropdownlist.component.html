@@ -1,0 +1,11 @@
+<p>dropdownlist works!</p>
+<div class="dropdown">
+  <button (click)="toggleDropdown()" class="dropdown-button">
+    Selecione uma opção
+  </button>
+  <ul *ngIf="isOpen" class="dropdown-menu">
+    <li *ngFor="let option of options" (click)="selectOption(option)">
+      {{ option }}
+    </li>
+  </ul>
+</div>
