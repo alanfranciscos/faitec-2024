@@ -23,6 +23,8 @@ import { ManageEventComponent } from './pages/events/manage-event/manage-event.c
 import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
 import { MembersComponent } from './pages/events/manage-event/members/members.component';
 import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
+import { EventComponent } from './pages/notification/event/event.component';
+import { FriendComponent } from './pages/notification/friend/friend.component';
 
 export const routes: Routes = [
   {
@@ -57,9 +59,17 @@ export const routes: Routes = [
         canActivate: [authGuard], // Protegendo a rota de eventos
       },
       {
-        path: 'notification',
-        component: NotificationComponent,
-        canActivate: [authGuard], // Protegendo a rota de notificações
+        path: 'invite',
+        children: [
+          {
+            path: 'friend',
+            component: FriendComponent,
+          },
+          {
+            path: 'event',
+            component: EventComponent,
+          },
+        ],
       },
 
       {

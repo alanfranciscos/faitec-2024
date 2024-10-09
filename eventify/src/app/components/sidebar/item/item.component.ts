@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SideBarItensType } from '../main-sidebar/types';
 
 @Component({
   selector: 'app-item',
@@ -15,6 +16,14 @@ export class ItemComponent {
   @Input() routerLink!: string;
   @Input() selected: boolean = false;
   @Input() isCollapsed!: boolean;
+  @Input() children?: Array<SideBarItensType> | null;
+  @Input() isOpen: boolean = false;
+
+  @Output() selectedChildRoute = new EventEmitter<string>();
 
   constructor() {}
+
+  clickItem(route: string): void {
+    this.selectedChildRoute.emit(route);
+  }
 }

@@ -1,7 +1,7 @@
 @if (selected) {
 <div class="button-wrapper button-selected">
   <div class="button-background"></div>
-  <div class="button-foreground" [ngClass]="{'centralize-icon': isCollapsed}">
+  <div class="button-foreground" [ngClass]=" {'centralize-icon': isCollapsed}">
     <a routerLink={{routerLink}} [ngClass]="{'centralize-icon': isCollapsed, 'selected': !isCollapsed}">
       <i class={{icon}}></i>
       @if (!isCollapsed) {
@@ -11,10 +11,24 @@
     </a>
   </div>
 </div>
+@for (child of children ; track $index) {
+<div class="button-wrapper button-selected">
+  <div [ngClass]="{'button-background': child.isSelected}"></div>
+  <div class="button-foreground" (click)="clickItem(child.routerLink)" [ngClass]="{'centralize-icon': isCollapsed}">
+    <a routerLink={{child.routerLink}} [ngClass]="{'centralize-icon': isCollapsed, 'selected': !isCollapsed}">
+      <i class={{child.icon}}></i>
+      @if (!isCollapsed) {
+      &nbsp;
+      <span>{{child.title}}</span>
+      }
+    </a>
+  </div>
+</div>
+}
 }
 @else {
 <div class="button-wrapper">
-  <div class="button-unselected" [ngClass]="{'centralize-icon': isCollapsed}">
+  <div class="button-unselected" onclick="clickItem(routerLink)" [ngClass]="{'centralize-icon': isCollapsed}">
     <a routerLink={{routerLink}} [ngClass]="{'centralize-icon': isCollapsed}">
       <i class={{icon}}></i>
       @if (!isCollapsed) {

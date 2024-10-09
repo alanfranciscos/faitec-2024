@@ -1,7 +1,4 @@
-<aside
-  class="container"
-  [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }"
->
+<aside class="container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
   <div class="logo-container">
     @if (!isCollapsed) {
     <img src="/assets/svg/logo-max.svg" alt="logo expanded" />
@@ -13,26 +10,19 @@
     <ul>
       @for (item of sidebarItens ; track $index) {
       <li>
-        <app-item
-          routerLink="{{ item.routerLink }}"
-          icon="{{ item.icon }}"
-          text="{{ item.title }}"
-          [selected]="item.isSelected"
-          [isCollapsed]="isCollapsed"
-          (click)="ToogleSelected($event, item)"
-        >
+        <app-item routerLink="{{ item.routerLink }}" icon="{{ item.icon }}" text="{{ item.title }}"
+          [selected]="item.isSelected" [isCollapsed]="isCollapsed" (click)="ToogleSelected($event, item)"
+          [children]="item.children"
+          (selectedChildRoute)="changeLinkChild($event)">
         </app-item>
       </li>
       }
     </ul>
   </nav>
-  <div
-    class="exit-container"
-    [ngClass]="{
+  <div class="exit-container" [ngClass]="{
       'exit-collapsed': isCollapsed,
       'exit-not-collapsed': !isCollapsed
-    }"
-  >
+    }">
     <button class="exit-button" (click)="logout()">
       <div>
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -43,14 +33,73 @@
     </button>
   </div>
 
-  <button
-    class="toggle-sidebar"
-    (click)="toggleSidebar()"
-    [ngClass]="{
+  <button class="toggle-sidebar" (click)="toggleSidebar()" [ngClass]="{
       'toggle-sidebar-open': !isCollapsed,
       'toggle-sidebar-closed': isCollapsed
-    }"
-  >
+    }">
     <img src="/assets/svg/navbutton.svg" alt="->" />
   </button>
 </aside>
+<!--
+<aside class="container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
+  <div class="logo-container">
+    <img *ngIf="!isCollapsed" src="/assets/svg/logo-max.svg" alt="logo expanded" />
+    <img *ngIf="isCollapsed" src="/assets/svg/logo-min.svg" alt="logo collapsed" />
+  </div>
+
+  <nav class="content">
+    <ul>
+      <li>
+        <app-item routerLink="/" icon="fas fa-calendar" text="My events" [selected]="isRouteActive('/')"
+          [isCollapsed]="isCollapsed">
+        </app-item>
+      </li>
+      <li>
+        <app-item routerLink="/friends" icon="fas fa-user-friends" text="Friends" [selected]="isRouteActive('/friends')"
+          [isCollapsed]="isCollapsed">
+        </app-item>
+      </li>
+
+      <!-- Notification Dropdown -->
+<!-- <li>
+        <div routerLink="/invite/friend" (click)="toggleDropdown()">
+          <app-item icon="fas fa-bell" text="Invites" [selected]="isDropdownOpen" [isCollapsed]="isCollapsed">
+          </app-item>
+        </div>
+
+        <!-- Dropdown items -->
+<!-- <ul *ngIf="isDropdownOpen" class="dropdown">
+          <li>
+            <app-item routerLink="/invite/friend" icon="fas fa-user-friends" text="Friend Request"
+              [selected]="isRouteActive('/invite/friend')" [isCollapsed]="isCollapsed">
+            </app-item>
+          </li>
+          <li>
+            <app-item routerLink="/invite/event" icon="fas fa-calendar" text="Event invitation"
+              [selected]="isRouteActive('/invite/event')" [isCollapsed]="isCollapsed">
+            </app-item>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="exit-container" [ngClass]="{
+      'exit-collapsed': isCollapsed,
+      'exit-not-collapsed': !isCollapsed
+    }">
+    <button class="exit-button" (click)="logout()">
+      <div>
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </div>
+      <span *ngIf="!isCollapsed">&nbsp;Exit</span>
+    </button>
+  </div>
+
+  <button class="toggle-sidebar" (click)="toggleSidebar()" [ngClass]="{
+      'toggle-sidebar-open': !isCollapsed,
+      'toggle-sidebar-closed': isCollapsed
+    }">
+    <img src="/assets/svg/navbutton.svg" alt="->" />
+  </button>
+</aside> --> --> -->

@@ -3,4 +3,5 @@ export interface SideBarItensType {
   isSelected: boolean;
   routerLink: string;
   icon: string;
+  children: null | Array<SideBarItensType>;
 }
