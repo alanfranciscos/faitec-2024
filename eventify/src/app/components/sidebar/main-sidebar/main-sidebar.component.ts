@@ -40,10 +40,23 @@ export class MainSidebarComponent implements OnInit {
       icon: 'fas fa-user-friends',
     },
     {
-      title: 'Notifications',
+      title: 'Invites',
       isSelected: false,
-      routerLink: '/notification',
       icon: 'fas fa-bell',
+      children: [
+        {
+          title: 'Friends',
+          routerLink: '/invite/friend',
+          isSelected: false,
+          icon: 'fas fa-user-friends',
+        },
+        {
+          title: 'Events',
+          routerLink: '/invite/event',
+          isSelected: false,
+          icon: 'fas fa-calendar',
+        },
+      ],
     },
   ];
 
@@ -51,15 +64,52 @@ export class MainSidebarComponent implements OnInit {
     const activeRoute = this.router.url;
     this.sidebarItens.forEach((item) => {
       item.isSelected = item.routerLink === activeRoute;
+
+      if (item.children) {
+        item.children.forEach((child) => {
+          child.isSelected = child.routerLink === activeRoute;
+        });
+      }
+    });
+
+    this.selectFather();
+  }
+
+  private unselectAll() {
+    this.sidebarItens.forEach((element) => {
+      element.isSelected = false;
+      if (element.children) {
+        element.children.forEach((child) => {
+          child.isSelected = false;
+        });
+      }
+    });
+  }
+
+  private selectFather() {
+    this.sidebarItens.forEach((element) => {
+      if (element.children) {
+        element.children.forEach((child) => {
+          if (child.isSelected) {
+            element.isSelected = true;
+          }
+        });
+      }
     });
   }
 
   ToogleSelected(event: Event, item: SideBarItensType) {
     event.preventDefault();
-    this.sidebarItens.forEach((element) => {
-      element.isSelected = false;
-    });
+
+    this.unselectAll();
+
     item.isSelected = true;
+    if (item.children) {
+      item.children[0].isSelected = true;
+      this.router.navigate([item.children[0].routerLink]);
+    }
+
+    this.selectFather();
   }
 
   toggleSidebar() {

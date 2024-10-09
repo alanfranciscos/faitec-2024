@@ -1,9 +1,9 @@
-@if (selected) {
+@if (selected || isChild) {
 <div class="button-wrapper button-selected">
-  <div class="button-background"></div>
+  <div [ngClass]="{'button-background': selected}"></div>
   <div class="button-foreground" [ngClass]="{'centralize-icon': isCollapsed}">
     <a routerLink={{routerLink}} [ngClass]="{'centralize-icon': isCollapsed, 'selected': !isCollapsed}">
-      <i class={{icon}}></i>
+      <i class={{icon}} [ngClass]="{'child-menu': isChild}"></i>
       @if (!isCollapsed) {
       &nbsp;
       <span>{{text}}</span>

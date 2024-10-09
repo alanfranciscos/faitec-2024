@@ -15,6 +15,7 @@ export class ItemComponent {
   @Input() routerLink!: string;
   @Input() selected: boolean = false;
   @Input() isCollapsed!: boolean;
+  @Input() isChild: boolean = false;
 
   constructor() {}
 }

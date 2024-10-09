@@ -57,15 +57,19 @@ export const routes: Routes = [
         canActivate: [authGuard], // Protegendo a rota de eventos
       },
       {
-        path: 'notification',
-        component: NotificationComponent,
-        canActivate: [authGuard], // Protegendo a rota de notificações
-      },
-
-      {
         path: 'friends',
         component: FriendsComponent,
-        canActivate: [authGuard], // Protegendo a rota de amigos
+        canActivate: [authGuard],
+      },
+      {
+        path: 'invite/friend',
+        component: NotificationComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'invite/event',
+        component: NotificationComponent,
+        canActivate: [authGuard],
       },
     ],
   },
