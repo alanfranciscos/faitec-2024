@@ -4,10 +4,12 @@ package com.eventify.eventify.services.expense;
 import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.expense.ExpenseDao;
 import com.eventify.eventify.port.service.crud.CrudService;
+import com.eventify.eventify.port.service.event.expense.ExpenseService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-public class ExpenseServiceImpl implements CrudService<Expense> {
+@Service
+public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseDao expenseDao;
 
@@ -20,9 +22,6 @@ public class ExpenseServiceImpl implements CrudService<Expense> {
         if(entity == null){
             return 0;
         }
-//        if(entity.getFullName().isEmpty() || entity.getPassword().isEmpty() || entity.getEmail().isEmpty()){
-//            return 0;
-//        }
         int id = expenseDao.save(entity);
         return id;
     }
@@ -52,7 +51,7 @@ public class ExpenseServiceImpl implements CrudService<Expense> {
 
     @Override
     public void update(int id, Expense entity) {
-        Expense expense = expenseDao.readById(id);
+        Expense expense = findById(id);
         if (expense == null) {
             return;
         }

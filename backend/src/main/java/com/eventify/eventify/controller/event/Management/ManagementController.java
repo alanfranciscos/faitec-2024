@@ -1,4 +1,4 @@
-package com.eventify.eventify.controller.event.ManagementController;
+package com.eventify.eventify.controller.event.Management;
 
 import com.eventify.eventify.dto.event.management.ManagementCreateResponse;
 import com.eventify.eventify.models.event.management.Management;

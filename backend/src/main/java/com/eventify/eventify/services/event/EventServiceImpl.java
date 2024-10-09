@@ -4,6 +4,7 @@ import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
+import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.event.EventDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.EventService;
@@ -129,10 +130,6 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException();
         }
 
-//        if (entity.getFullName().isEmpty() || entity.getPassword().isEmpty() || entity.getEmail().isEmpty()) {
-//            return 0;
-//        }
-
         int id = eventDao.save(event);
         return id;
     }
@@ -154,4 +151,20 @@ public class EventServiceImpl implements EventService {
 
         eventDao.deleteById(id);
     }
+
+    @Override
+    public List<Event> findAll() {
+        List<Event> events = eventDao.readAll();
+        return events;
+    }
+
+    @Override
+    public Event findById(int id) {
+        if(id < 0){
+            return null;
+        }
+        Event event = eventDao.readById(id);
+        return event;
+    }
+
 }

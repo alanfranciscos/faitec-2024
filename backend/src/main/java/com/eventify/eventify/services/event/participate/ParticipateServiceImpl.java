@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ParticipateServiceImpl implements ParticipateService, CrudService<Participate> {
+public class ParticipateServiceImpl implements ParticipateService {
     private final ParticipateDao participateDao;
     private final AccountService accountService;
 
@@ -68,9 +68,6 @@ public class ParticipateServiceImpl implements ParticipateService, CrudService<P
         if(entity == null){
             return 0;
         }
-//        if(entity.getFullName().isEmpty() || entity.getPassword().isEmpty() || entity.getEmail().isEmpty()){
-//            return 0;
-//        }
         int id = participateDao.save(entity);
         return id;
     }
@@ -100,7 +97,7 @@ public class ParticipateServiceImpl implements ParticipateService, CrudService<P
 
     @Override
     public void update(int id, Participate entity) {
-        Participate participate = participateDao.readById(id);
+        Participate participate = findById(id);
         if (participate == null) {
             return;
         }

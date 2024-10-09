@@ -4,7 +4,7 @@ import com.eventify.eventify.models.event.EventExpanses;
 
 import java.util.List;
 
-public interface ExpenseService {
+public interface ExpenseForEventService {
 
     double totalExpanses(final int eventId);
 

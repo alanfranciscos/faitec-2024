@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FriendServiceImpl implements FriendService, CrudService<Friend> {
+public class FriendServiceImpl implements FriendService {
 
     private final FriendDao friendDao;
     private final AccountService accountService;
@@ -102,7 +102,7 @@ public class FriendServiceImpl implements FriendService, CrudService<Friend> {
 
     @Override
     public void update(int id, Friend entity) {
-        Friend friend = friendDao.readById(id);
+        Friend friend = findById(id);
         if (friend == null) {
             return;
         }

@@ -4,12 +4,11 @@ import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
-import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
 
 import java.util.List;
 
-public interface EventService extends ExpenseService {
+public interface EventService extends ExpenseForEventService {
 
     EventListResponse listPaginatedFromUser(final int limit, final int offset);
 

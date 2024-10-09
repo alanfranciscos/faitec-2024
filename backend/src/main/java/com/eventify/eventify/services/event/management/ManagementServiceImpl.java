@@ -3,9 +3,10 @@ package com.eventify.eventify.services.event.management;
 import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.port.dao.event.management.ManagementDao;
 import com.eventify.eventify.port.service.event.management.ManagementService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ManagementServiceImpl implements ManagementService {
 
     private final ManagementDao managementDao;
@@ -48,7 +49,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void update(int id, Management entity) {
-        Management management = managementDao.readById(id);
+        Management management = findById(id);
         if (management == null) {
             return;
         }

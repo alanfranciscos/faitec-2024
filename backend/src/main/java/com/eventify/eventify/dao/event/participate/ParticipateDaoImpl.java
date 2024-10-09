@@ -2,6 +2,7 @@ package com.eventify.eventify.dao.event.participate;
 
 import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventStageEnum;
+import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
@@ -42,8 +43,37 @@ public class ParticipateDaoImpl implements ParticipateDao {
     }
 
     @Override
-    public Participate readById(int id) {
-        return null;
+    public Participate readById(int id){
+        final String sql = "SELECT * FROM participate WHERE id = ? ;";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                final Participate participate = new Participate();
+                participate.setId(resultSet.getInt("id"));
+                participate.setAccountId(resultSet.getInt("account_id"));
+                participate.setEventId(resultSet.getInt("meetup_id"));
+                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
+                participate.setActive(resultSet.getBoolean("active"));
+                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sended_at")));
+                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("acepted_at")));
+                logger.log(Level.INFO, "Entidade com id " + id + " encontrada.");
+                return participate;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
