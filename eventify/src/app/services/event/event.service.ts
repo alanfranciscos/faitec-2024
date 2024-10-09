@@ -7,6 +7,10 @@ import { EventDate } from '../../domain/model/event/eventDate.model';
 import { EventLocation } from '../../domain/model/event/eventLocalization.model';
 import { PaymentApproach } from '../../domain/model/event/paymentApproach.model';
 import { ExpansesResponse } from '../../domain/model/event/expense.model';
+import {
+  EventParticipants,
+  EventParticipantsResponse,
+} from '../../domain/model/event/eventparticipants.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +30,14 @@ export class EventService {
 
     return response.data;
   }
+  async listParticipants(eventId: string): Promise<EventParticipantsResponse> {
+    const response = await this.api.get(`api/v1/event/${eventId}/participants`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch organization data');
+    }
+    return response.data;
+  }
+
   async getOrganizationData(eventId: string): Promise<OrganizationInfo> {
     const response = await this.api.get(`api/v1/event/${eventId}/organization`);
     if (response.status != 200) {

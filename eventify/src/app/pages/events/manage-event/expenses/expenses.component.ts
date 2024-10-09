@@ -26,11 +26,7 @@ export class ExpensesComponent implements OnInit {
   paymentApproach!: PaymentApproach;
   totalExpenses!: TotalExpenses;
   eventExpanses!: ExpansesResponse;
-  constructor(
-    private router: Router,
-    private eventService: EventService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private eventService: EventService) {}
 
   currentPage = 1;
   pageSize = 10;
@@ -43,8 +39,6 @@ export class ExpensesComponent implements OnInit {
     const url = this.router.url;
     let eventId = url.split('/')[2];
     eventId = eventId == null ? '-1' : eventId;
-
-    console.log('eventid do expenses', eventId);
     const totalExpenses = await this.eventService.getTotalExpenses(eventId);
     this.totalExpenses = totalExpenses;
     const paymentApproach = await this.eventService.getPaymentApproach(eventId);

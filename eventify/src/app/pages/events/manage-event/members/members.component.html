@@ -3,35 +3,33 @@
     <content>
       <div class="search-container">
         <div class="search">
-          <input
-            type="text"
-            id="search"
-            placeholder="Search for a friend"
-            style="display: flex; align-self: center"
-          />
+          <input type="text" id="search" placeholder="Search for a friend" style="display: flex; align-self: center" />
           <button class="search-button">
             <i class="fas fa-search"></i>
           </button>
         </div>
-        <button
-          routerLink="create-event/basic-info"
-          class="add-friend-button"
-          style="background-color: #14ad47"
-        >
+        <button routerLink="create-event/basic-info" class="add-friend-button" style="background-color: #14ad47"
+          (click)="toggleAddMemberDialog()">
           Add a new member
         </button>
+        <app-dialog *ngIf="isAddExpenseDialogOpen" (close)="toggleAddMemberDialog()" dialog_title="Add a member">
+          <app-primary-input type="text" placeholder="Insert your friend's email or nickname" /></app-dialog>
+
       </div>
       <div>
         <div class="cards">
           <ul>
-            <li *ngFor="let item of paginatedItems; let i = index">
-              <app-member-card
-                [name]="item.name"
-                [type]="item.type"
-                [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image"
-              >
+            <!-- <li *ngFor="let item of paginatedItems; let i = index">
+              <app-member-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
+                [image]="item.image">
               </app-member-card>
+            </li> -->
+            <li *ngFor="let participant of participants.participants; let i = index">
+              <app-member-card [name]="participant.name" [roleParticipate]="participant.roleParticipate"
+                [aceptedAt]="participant.aceptedAt">
+              </app-member-card>
+
+
             </li>
           </ul>
         </div>
@@ -42,17 +40,9 @@
           <span>Previous</span>
         </button>
 
-        <ul class="pagination-numbers">
-          <li
-            *ngFor="let page of pageNumbers"
-            (click)="goToPage(page)"
-            [class.active]="currentPage === page"
-          >
-            {{ page }}
-          </li>
-        </ul>
 
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+
+        <button (click)="nextPage()">
           <span>Next</span>
           <i class="fas fa-arrow-right"></i>
         </button>
