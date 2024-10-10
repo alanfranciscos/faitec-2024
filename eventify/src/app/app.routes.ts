@@ -23,6 +23,8 @@ import { ManageEventComponent } from './pages/events/manage-event/manage-event.c
 import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
 import { MembersComponent } from './pages/events/manage-event/members/members.component';
 import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
+import { FriendComponent } from './pages/invites/friend/friend.component';
+import { EventComponent } from './pages/invites/event/event.component';
 
 export const routes: Routes = [
   {
@@ -63,12 +65,12 @@ export const routes: Routes = [
       },
       {
         path: 'invite/friend',
-        component: NotificationComponent,
+        component: FriendComponent,
         canActivate: [authGuard],
       },
       {
         path: 'invite/event',
-        component: NotificationComponent,
+        component: EventComponent,
         canActivate: [authGuard],
       },
     ],

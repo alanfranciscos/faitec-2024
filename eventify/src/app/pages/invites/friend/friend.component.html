@@ -1,0 +1,36 @@
+<main class="main-container">
+  <div class="content-container">
+    <content>
+      <app-header [ComponentName]="'Invites > Friends'"
+        textTooltip="This is your notifications screen where you can view your event invitations and friend requests, and accept or decline them."
+        tooltipPosition="right"></app-header>
+      <div>
+        <div class="cards">
+          <ul>
+            <li *ngFor="let request of friendRequest.invite; let i = index">
+              <app-notification-card [title]="request.title" [dateNotification]="request.sendedAt">
+              </app-notification-card>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="pagination">
+        <button>
+          <i class=" fas fa-arrow-left"></i>
+          <span>Previous</span>
+        </button>
+
+        <ul class="pagination-numbers">
+          <li>
+
+          </li>
+        </ul>
+
+        <button>
+          <span>Next</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </content>
+  </div>
+</main>
