@@ -11,13 +11,12 @@ public interface AccountService {
     /**
      * Registers a new user with the provided username, email, password, and profile image data.
      *
-     * @param username  the username of the new user
-     * @param email     the email address of the new user
-     * @param password  the password for the new user
-     * @param imageData the profile image data for the new user
+     * @param username the username of the new user
+     * @param email    the email address of the new user
+     * @param password the password for the new user
      * @return an Integer representing the ID of the newly registered user
      */
-    Integer RegisterUser(String username, String email, String password, byte[] imageData);
+    Integer RegisterUser(String username, String email, String password);
 
     /**
      * Resets the password for the user associated with the given email.
