@@ -4,12 +4,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MapComponent } from '../../../../components/map/map.component';
 import { OrganizationInfo } from '../../../../domain/model/event/organizationInfo.model';
 import { EventService } from '../../../../services/event/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDate } from '../../../../domain/model/event/eventDate.model';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [MapComponent],
+  imports: [MapComponent, PrimaryInputComponent, ButtonComponent, RouterLink],
   templateUrl: './general-view.component.html',
   styleUrl: './general-view.component.scss',
 })
@@ -33,10 +35,13 @@ export class GeneralViewComponent implements OnInit {
   eventDate!: EventDate;
   eventLocation!: EventLocation;
   popUpInfo!: string;
+  route!: string;
 
   async ngOnInit(): Promise<void> {
     let eventId = this.activatedRoute.snapshot.paramMap.get('id');
     eventId = eventId == null ? '-1' : eventId;
+    this.route = '/event/' + eventId + '/edit-event/basic-info';
+
     const organizationResponse = await this.eventService.getOrganizationData(
       eventId
     );
