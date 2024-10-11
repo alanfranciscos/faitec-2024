@@ -25,21 +25,24 @@ import { MembersComponent } from './pages/events/manage-event/members/members.co
 import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
 import { FriendComponent } from './pages/invites/friend/friend.component';
 import { EventComponent } from './pages/invites/event/event.component';
+import { ConfirmationComponent } from './pages/authentication/confirmation/confirmation.component';
+
 
 export const routes: Routes = [
   {
     path: 'account/login',
-
     component: LoginComponent,
   },
   {
     path: 'account/register',
-
     component: RegisterComponent,
   },
   {
+    path: 'account/confirmation',
+    component: ConfirmationComponent,
+  },
+  {
     path: 'account/forget-password',
-
     component: ForgetPasswordComponent,
   },
 
