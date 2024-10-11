@@ -24,6 +24,10 @@ import { EventService } from '../../../services/event/event.service';
   styleUrls: ['./my-events.component.scss'],
 })
 export class MyEventsComponent implements OnInit {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private eventService: EventService
+  ) {}
   content: EventHeader = {
     events: [],
     total: 0,
@@ -43,11 +47,6 @@ export class MyEventsComponent implements OnInit {
       ? 1
       : this.currentPage + 1;
   }
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private eventService: EventService
-  ) {}
 
   private formatDateFromEvent(
     events: Array<EventContent>
@@ -73,6 +72,7 @@ export class MyEventsComponent implements OnInit {
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
     this.getPagesNumbers();
+    console.log(this.content);
   }
 
   async goToPage(page: number): Promise<void> {

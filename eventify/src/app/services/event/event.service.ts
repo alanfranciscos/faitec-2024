@@ -7,6 +7,9 @@ import { EventDate } from '../../domain/model/event/eventDate.model';
 import { EventLocation } from '../../domain/model/event/eventLocalization.model';
 import { PaymentApproach } from '../../domain/model/event/paymentApproach.model';
 import { ExpansesResponse } from '../../domain/model/event/expense.model';
+import { EventParticipantsResponse } from '../../domain/model/event/eventparticipants.model';
+import { EventInvitationResponse } from '../../domain/model/event/invitation.model';
+import { FriendRequestResponse } from '../../domain/model/event/friend_request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,14 @@ export class EventService {
 
     return response.data;
   }
+  async listParticipants(eventId: string): Promise<EventParticipantsResponse> {
+    const response = await this.api.get(`api/v1/event/${eventId}/participants`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch organization data');
+    }
+    return response.data;
+  }
+
   async getOrganizationData(eventId: string): Promise<OrganizationInfo> {
     const response = await this.api.get(`api/v1/event/${eventId}/organization`);
     if (response.status != 200) {
@@ -74,6 +85,25 @@ export class EventService {
       throw new Error('Failed to fetch event expanses');
     }
 
+    return response.data;
+  }
+
+  async getEventInvitation(): Promise<EventInvitationResponse> {
+    const response = await this.api.get<EventInvitationResponse>(
+      `api/v1/invite/list/event`
+    );
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch event invitation');
+    }
+    return response.data;
+  }
+  async getFriendRequest(): Promise<FriendRequestResponse> {
+    const response = await this.api.get<FriendRequestResponse>(
+      `api/v1/invite/list/friend`
+    );
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch event invitation');
+    }
     return response.data;
   }
 }

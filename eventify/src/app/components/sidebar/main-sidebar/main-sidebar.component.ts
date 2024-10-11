@@ -31,23 +31,27 @@ export class MainSidebarComponent implements OnInit {
       title: 'My events',
       routerLink: '/',
       isSelected: false,
-      icon: 'fas fa-calendar',
+      // icon: 'fas fa-calendar',
+      icon: 'fad fa-calendar-week',
     },
     {
       title: 'Friends',
       isSelected: false,
       routerLink: '/friends',
-      icon: 'fas fa-user-friends',
+      // icon: 'fas fa-user-friends',
+      icon: 'fad fa-users',
     },
     {
       title: 'Invites',
       isSelected: false,
-      icon: 'fas fa-bell',
+      // icon: 'fas fa-bell',
+      icon: 'fad fa-envelope-open-text',
       children: [
         {
           title: 'Friends',
           routerLink: '/invite/friend',
           isSelected: false,
+          // icon: 'fas fa-user-friends',
           icon: 'fas fa-user-friends',
         },
         {
