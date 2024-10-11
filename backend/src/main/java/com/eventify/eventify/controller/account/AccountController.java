@@ -23,7 +23,7 @@ public class AccountController {
     public ResponseEntity<String> register(@RequestParam("username") String username,
                                            @RequestParam("email") String email,
                                            @RequestParam("password") String password,
-                                           @RequestParam("image") MultipartFile imageData) {
+                                           @RequestParam(value = "image", required = false) MultipartFile imageData) {
         int accountId = this.accountService.RegisterUser(
                 username,
                 email,
@@ -37,7 +37,6 @@ public class AccountController {
                 throw new RuntimeException("Failed to create user", e);
             }
         }
-
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
