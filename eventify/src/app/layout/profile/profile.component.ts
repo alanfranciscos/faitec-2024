@@ -16,10 +16,7 @@ import { Router, RouterLink } from '@angular/router';
 
 interface RegisterForm {
   name: FormControl<string | null>;
-  nickname: FormControl<string | null>;
   email: FormControl<string | null>;
-  state: FormControl<string | null>;
-  city: FormControl<string | null>;
   password: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
   profileImage: FormControl<File | null>;
@@ -51,9 +48,6 @@ export class ProfileComponent implements OnInit {
   @Input() cancelButton: CancelButton = {
     text: 'Cancelar',
     onClick: () => null,
-    // onClick: () => {
-    //   this.router.navigate(['/home']);
-    // },
   };
 
   registerForm: FormGroup<RegisterForm>;
@@ -63,10 +57,7 @@ export class ProfileComponent implements OnInit {
     this.registerForm = new FormGroup<RegisterForm>(
       {
         name: new FormControl('', [Validators.required]),
-        nickname: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
-        state: new FormControl('', [Validators.required]),
-        city: new FormControl('', [Validators.required]),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
@@ -120,17 +111,10 @@ export class ProfileComponent implements OnInit {
         this.registerForm.get('nickname')?.value || ''
       );
       formData.append('email', this.registerForm.get('email')?.value || '');
-      formData.append('state', this.registerForm.get('state')?.value || '');
-      formData.append('city', this.registerForm.get('city')?.value || '');
-      formData.append(
-        'password',
-        this.registerForm.get('password')?.value || ''
-      );
       formData.append(
         'profileImage',
         this.registerForm.get('profileImage')?.value || ''
       );
-      this.router.navigate(['login']);
     }
   }
 }
