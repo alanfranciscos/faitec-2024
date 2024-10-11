@@ -3,7 +3,10 @@ package com.eventify.eventify.models.account;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @ToString
@@ -25,7 +28,7 @@ public class Account {
 
     @Getter
     @Setter
-    private byte[] imageData;
+    private String imageData;
 
     @Getter
     @Setter

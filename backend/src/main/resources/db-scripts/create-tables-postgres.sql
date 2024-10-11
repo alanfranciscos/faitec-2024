@@ -12,7 +12,7 @@ CREATE TABLE account (
     id SERIAL PRIMARY KEY,
     username VARCHAR(150) NOT NULL UNIQUE,
     email VARCHAR(200) NOT NULL UNIQUE,
-    image_data BYTEA,
+    image_data TEXT,
     is_verified BOOLEAN DEFAULT FALSE
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE meetup (
 CREATE TABLE meetup_image (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
-    image_data BYTEA NOT NULL,
+    image_data TEXT NOT NULL,
     is_profile BOOLEAN NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, image_data)

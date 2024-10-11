@@ -13,8 +13,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
@@ -34,18 +32,19 @@ public class GcpStorageServiceImpl implements GcpStorageService {
     }
 
     @Override
-    public String uploadImage(MultipartFile file) throws IOException {
-        List<String> fileNames = new ArrayList<>();
-
-        String userIdSearch = "user_1";
-        bucket.list(Storage.BlobListOption.prefix(userIdSearch)).iterateAll()
-                .forEach(blob -> fileNames.add(blob.getName()));
-
-
-        String fileName = file.getOriginalFilename()
-                .replaceAll("\\..+$", "") + ".png";
+    public String uploadImage(MultipartFile file, String fileName, String bucketPath) throws IOException {
+//        List<String> fileNames = new ArrayList<>();
+//
+//        String userIdSearch = "user_1";
+//        bucket.list(Storage.BlobListOption.prefix(userIdSearch)).iterateAll()
+//                .forEach(blob -> fileNames.add(blob.getName()));
+//
+//        String fileName = file.getOriginalFilename()
+        fileName = fileName.replaceAll("\\..+$", "") + ".png";
         byte[] imageData = convertToPng(file);
-        Blob blob = bucket.create(fileName, imageData, "image/png");
+
+        bucketPath = bucketPath + fileName;
+        Blob blob = bucket.create(bucketPath, imageData, "image/png");
         return blob.getSelfLink();
     }
 

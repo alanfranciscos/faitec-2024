@@ -1,22 +1,14 @@
 package com.eventify.eventify.controller.account;
 
-import java.net.URI;
-
+import com.eventify.eventify.dto.account.*;
+import com.eventify.eventify.services.account.AccountServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.eventify.eventify.dto.account.ForgotPasswordRequestDTO;
-import com.eventify.eventify.dto.account.ForgotPasswordResponseDTO;
-import com.eventify.eventify.dto.account.RegisterRequestDTO;
-import com.eventify.eventify.dto.account.VerifyAccountRequestDTO;
-import com.eventify.eventify.dto.account.VerifyAccountResponseDTO;
-import com.eventify.eventify.services.account.AccountServiceImpl;
-
-import lombok.RequiredArgsConstructor;
+import java.net.URI;
 
 @RestController
 @RequestMapping("api/v1/account")
@@ -52,6 +44,12 @@ public class AccountController {
     public ResponseEntity<VerifyAccountResponseDTO> verify(@RequestBody VerifyAccountRequestDTO body) {
         this.accountService.verifyAccount(body.email(), body.code());
         return ResponseEntity.ok(new VerifyAccountResponseDTO("Account verified"));
+    }
+
+    @PatchMapping("/{id}/image-profile")
+    public ResponseEntity<String> updateImageProfile(@PathVariable int id, @RequestParam("image") MultipartFile imageData) {
+        this.accountService.updateImage(id, imageData);
+        return ResponseEntity.ok("Image updated successfully");
     }
 
 }
