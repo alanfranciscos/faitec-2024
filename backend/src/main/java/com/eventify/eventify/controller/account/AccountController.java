@@ -1,7 +1,8 @@
 package com.eventify.eventify.controller.account;
 
-import java.net.URI;
-
+import com.eventify.eventify.dto.account.*;
+import com.eventify.eventify.services.account.AccountServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,14 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.eventify.eventify.dto.account.ForgotPasswordRequestDTO;
-import com.eventify.eventify.dto.account.ForgotPasswordResponseDTO;
-import com.eventify.eventify.dto.account.RegisterRequestDTO;
-import com.eventify.eventify.dto.account.VerifyAccountRequestDTO;
-import com.eventify.eventify.dto.account.VerifyAccountResponseDTO;
-import com.eventify.eventify.services.account.AccountServiceImpl;
-
-import lombok.RequiredArgsConstructor;
+import java.net.URI;
 
 @RestController
 @RequestMapping("api/v1/account")
@@ -29,8 +23,7 @@ public class AccountController {
         int accountId = this.accountService.RegisterUser(
                 body.username(),
                 body.email(),
-                body.password(),
-                body.imageData()
+                body.password()
         );
 
         final URI uri = ServletUriComponentsBuilder

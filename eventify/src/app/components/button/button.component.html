@@ -1,2 +1,5 @@
-<button [ngClass]="{ 'primary-button': isPrimary, 'secondary-button': !isPrimary }"
-  (click)="onClicked">{{text}}</button>
+<button [ngClass]="{
+      'primary-button': !isDisabled && isPrimary,
+      'disabled-primary-button': isDisabled && isPrimary,
+      'secondary-button': !isPrimary,
+      }" (click)="onClick()" [disabled]="isDisabled">{{text}}</button>

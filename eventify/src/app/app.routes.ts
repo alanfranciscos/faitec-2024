@@ -31,7 +31,7 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'account/confirmation',
+    path: 'account/:id/confirmation/:code',
     component: ConfirmationComponent,
   },
   {
