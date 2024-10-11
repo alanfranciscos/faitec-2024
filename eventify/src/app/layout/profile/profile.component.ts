@@ -13,6 +13,7 @@ import { PrimaryInputComponent } from '../../components/primary-input/primary-in
 import { AuthenticationLayoutComponent } from '../authentication-layout/authentication-layout.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { Router, RouterLink } from '@angular/router';
+import { TooltipComponent } from '../../components/tooltip/tooltip.component';
 
 interface RegisterForm {
   name: FormControl<string | null>;
@@ -31,6 +32,7 @@ interface RegisterForm {
     AuthenticationLayoutComponent,
     ButtonComponent,
     RouterLink,
+    TooltipComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],

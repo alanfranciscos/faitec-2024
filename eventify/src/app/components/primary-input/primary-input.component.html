@@ -1,5 +1,19 @@
 <div class="input-wrapper">
+
+  @if(label=='Password:'){<div class="input-wrapper-password">
+    <label [for]="inputName" style="margin-right: 1rem;">{{ label }}</label>
+    <app-tooltip
+      tooltipText='A strong password should be at least 8 characters long and include a combination of uppercase and lowercase letters, numbers, and special characters (e.g., @, #, $). Avoid using common words or easily guessable information such as your name or birthdate. For extra security, use a unique password for each of your accounts.'
+      position='right'>
+      <span class="custom-span">
+        <i class="fal fa-info-circle"></i>
+      </span>
+    </app-tooltip>
+  </div>
+  }
+  @else {
   <label [for]="inputName">{{ label }}</label>
+  }
   <div class="input-content">
     <input [type]="type" [placeholder]="placeholder" [value]="value" (input)="onInput($event)" />
     <div class="icon">
