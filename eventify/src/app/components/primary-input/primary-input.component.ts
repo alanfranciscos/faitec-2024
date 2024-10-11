@@ -4,13 +4,14 @@ import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
 } from '@angular/forms';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 
 type InputTypes = 'text' | 'email' | 'password' | 'file' | 'number' | 'date';
 
 @Component({
   selector: 'app-primary-input',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TooltipComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
