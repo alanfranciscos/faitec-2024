@@ -172,17 +172,19 @@ public class AccountDaoImpl implements AccountDao {
     public void updateImage(int id, String imagePath) {
         final String sql = "UPDATE account SET image_data = ? WHERE id = ?;";
 
-        PreparedStatement preparedStatement;
         try {
+            PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, imagePath);
-            preparedStatement.setInt(2, id);
-
+            preparedStatement.setInt(2, Integer.valueOf(id));
             preparedStatement.execute();
-            preparedStatement.close();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
 
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Adiciona rastreamento da pilha
+            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+        }
     }
+
 }

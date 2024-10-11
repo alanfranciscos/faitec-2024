@@ -16,19 +16,8 @@ export class RegisterComponent {
 
   async registerUser(data: UserInputCredential) {
     const url = await this.userService.createUserAccount(data);
-    console.log('User registered!', {
-      username: data.name,
-      email: data.email,
-      password: data.password,
-      teste: data.profileImage,
-    });
-
-    const skip = true;
 
     const userId = url.split('/').pop();
-    if (data.profileImage && userId && !skip) {
-      this.userService.updateImageProfile(userId, data.profileImage);
-    }
 
     const route = `/account/${userId}/confirmation`;
     this.router.navigate([route]);

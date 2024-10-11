@@ -1,6 +1,9 @@
 package com.eventify.eventify.controller.account;
 
-import com.eventify.eventify.dto.account.*;
+import com.eventify.eventify.dto.account.ForgotPasswordRequestDTO;
+import com.eventify.eventify.dto.account.ForgotPasswordResponseDTO;
+import com.eventify.eventify.dto.account.VerifyAccountRequestDTO;
+import com.eventify.eventify.dto.account.VerifyAccountResponseDTO;
 import com.eventify.eventify.services.account.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +20,24 @@ public class AccountController {
     private final AccountServiceImpl accountService;
 
     @PostMapping()
-    public ResponseEntity<String> register(@RequestBody RegisterRequestDTO body) {
+    public ResponseEntity<String> register(@RequestParam("username") String username,
+                                           @RequestParam("email") String email,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("image") MultipartFile imageData) {
         int accountId = this.accountService.RegisterUser(
-                body.username(),
-                body.email(),
-                body.password()
+                username,
+                email,
+                password
         );
+        if (imageData != null) {
+            try {
+                this.accountService.updateImage(accountId, imageData);
+            } catch (Exception e) {
+                this.accountService.deleteAccount(accountId);
+                throw new RuntimeException("Failed to create user", e);
+            }
+        }
+
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

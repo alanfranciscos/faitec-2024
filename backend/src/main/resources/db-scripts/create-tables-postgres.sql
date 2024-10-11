@@ -10,9 +10,9 @@ DROP TABLE IF EXISTS payment CASCADE;
 
 CREATE TABLE account (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(150) NOT NULL UNIQUE,
+    username VARCHAR(150) NOT NULL,
     email VARCHAR(200) NOT NULL UNIQUE,
-    image_data TEXT,
+    image_data VARCHAR(512),
     is_verified BOOLEAN DEFAULT FALSE
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE meetup (
 CREATE TABLE meetup_image (
     id SERIAL PRIMARY KEY,
     meetup_id INTEGER NOT NULL,
-    image_data TEXT NOT NULL,
+    image_data VARCHAR(512) NOT NULL,
     is_profile BOOLEAN NOT NULL,
     FOREIGN KEY (meetup_id) REFERENCES meetup(id) ON DELETE CASCADE,
     UNIQUE(meetup_id, image_data)

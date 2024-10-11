@@ -62,4 +62,12 @@ public interface AccountService {
      * @param imageData the new profile image data for the user
      */
     void updateImage(int id, MultipartFile imageData);
+
+
+    /**
+     * Deletes the account associated with the given ID.
+     *
+     * @param id the ID of the account to delete
+     */
+    void deleteAccount(int id);
 }

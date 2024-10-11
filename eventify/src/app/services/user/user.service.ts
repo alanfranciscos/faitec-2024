@@ -10,16 +10,26 @@ export class UserService {
   api = this.apiService.getApi();
 
   async createUserAccount(data: UserInputCredential): Promise<String> {
-    const response = await this.api.post(`/api/v1/account`, {
-      username: data.name,
-      email: data.email,
-      password: data.password,
+    const formData = new FormData();
+
+    formData.append('username', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+
+    if (data.profileImage) {
+      formData.append('image', data.profileImage);
+    }
+
+    const response = await this.api.post(`/api/v1/account`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     const locationHeader = response.headers['location'];
 
-    if (response.status != 201) {
-      throw new Error('Failed to fetch organization data');
+    if (response.status !== 201) {
+      throw new Error('Failed to create user account');
     }
     return locationHeader;
   }

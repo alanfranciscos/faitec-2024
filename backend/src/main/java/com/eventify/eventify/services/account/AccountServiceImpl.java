@@ -41,7 +41,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Integer RegisterUser(String username, String email, String password) {
-        ;
         boolean accountExist = userExist(email);
         if (accountExist) {
             throw new RuntimeException("User already exists");
@@ -174,6 +173,15 @@ public class AccountServiceImpl implements AccountService {
             accountDao.updateImage(id, imageUrl);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update image in database: ", e);
+        }
+    }
+
+    @Override
+    public void deleteAccount(int id) {
+        try {
+            accountDao.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete account", e);
         }
     }
 
