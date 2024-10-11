@@ -23,21 +23,23 @@ import { ManageEventComponent } from './pages/events/manage-event/manage-event.c
 import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
 import { MembersComponent } from './pages/events/manage-event/members/members.component';
 import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
+import { ConfirmationComponent } from './pages/authentication/confirmation/confirmation.component';
 
 export const routes: Routes = [
   {
     path: 'account/login',
-
     component: LoginComponent,
   },
   {
     path: 'account/register',
-
     component: RegisterComponent,
   },
   {
+    path: 'account/confirmation',
+    component: ConfirmationComponent,
+  },
+  {
     path: 'account/forget-password',
-
     component: ForgetPasswordComponent,
   },
 
