@@ -27,7 +27,6 @@ import { FriendComponent } from './pages/invites/friend/friend.component';
 import { EventComponent } from './pages/invites/event/event.component';
 import { ConfirmationComponent } from './pages/authentication/confirmation/confirmation.component';
 
-
 export const routes: Routes = [
   {
     path: 'account/login',
@@ -38,7 +37,7 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'account/confirmation',
+    path: 'account/:id/confirmation/:code',
     component: ConfirmationComponent,
   },
   {

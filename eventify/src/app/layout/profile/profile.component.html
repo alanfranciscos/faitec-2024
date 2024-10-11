@@ -1,6 +1,6 @@
 <app-authentication-layout image="{{ userImage }}" title="{{ title }}">
   <div class="container">
-    <form [formGroup]="registerForm" (ngSubmit)="register()" class="content">
+    <form [formGroup]="registerForm" class="content">
 
       <div class="first-row row">
         <app-primary-input class="name-input" formControlName="name" inputName="name" type="text" label="Name"
@@ -10,7 +10,7 @@
           <label for="file-upload" class="file-upload-label">
             <i class="fas fa-image"></i>
           </label>
-          <input id="file-upload" type="file" class="file-upload-input" />
+          <input id="file-upload" type="file" class="file-upload-input" (change)="onFileSelected($event)" />
         </div>
       </div>
 
@@ -54,7 +54,8 @@
           </app-button>
         </div>
         <div class="form-item">
-          <app-button class="primary-button" text="Register" type="submit" routerLink="{{ route }}">
+          <!-- <app-button class="primary-button" text="Register" type="submit" routerLink="{{ route }}  [isDisabled]="!registerForm.valid"" -->
+          <app-button class="primary-button" text="Register" type="submit" (clicked)="register()">
           </app-button>
         </div>
       </div>
