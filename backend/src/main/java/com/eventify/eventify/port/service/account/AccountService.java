@@ -1,6 +1,7 @@
 package com.eventify.eventify.port.service.account;
 
 import com.eventify.eventify.models.account.Account;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Service interface for managing user accounts.
@@ -52,4 +53,21 @@ public interface AccountService {
      * @return the account associated with the given ID
      */
     Account getAccountById(int accountId);
+
+
+    /**
+     * Updates the profile image for the user associated with the given ID.
+     *
+     * @param id        the ID of the user
+     * @param imageData the new profile image data for the user
+     */
+    void updateImage(int id, MultipartFile imageData);
+
+
+    /**
+     * Deletes the account associated with the given ID.
+     *
+     * @param id the ID of the account to delete
+     */
+    void deleteAccount(int id);
 }

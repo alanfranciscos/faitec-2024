@@ -5,12 +5,15 @@ import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
 import com.eventify.eventify.port.service.account.AccountService;
+import com.eventify.eventify.port.service.gcp.GcpStorageService;
 import com.eventify.eventify.services.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,18 +28,19 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountPasswordHistoryDao accountPasswordHistoryDao;
     private final EmailServiceImpl emailService;
+    private final GcpStorageService gcpStorageService;
 
     public AccountServiceImpl(
             AccountDao accountDao,
             AccountPasswordHistoryDao accountPasswordHistoryDao,
-            EmailServiceImpl emailService) {
+            EmailServiceImpl emailService, GcpStorageService gcpStorageService) {
         this.accountDao = accountDao;
         this.accountPasswordHistoryDao = accountPasswordHistoryDao;
         this.emailService = emailService;
+        this.gcpStorageService = gcpStorageService;
     }
 
     public Integer RegisterUser(String username, String email, String password) {
-        ;
         boolean accountExist = userExist(email);
         if (accountExist) {
             throw new RuntimeException("User already exists");
@@ -150,6 +154,34 @@ public class AccountServiceImpl implements AccountService {
             return accountDao.readById(accountId);
         } catch (Exception e) {
             throw new RuntimeException("Failed to read account", e);
+        }
+    }
+
+    @Override
+    public void updateImage(int id, MultipartFile imageData) {
+        String imageUrl = "";
+
+        try {
+            String fileName = "1.png";
+            String bucketPath = "users/" + id + "/";
+            imageUrl = gcpStorageService.uploadImage(imageData, fileName, bucketPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Bucket error: ", e);
+        }
+
+        try {
+            accountDao.updateImage(id, imageUrl);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update image in database: ", e);
+        }
+    }
+
+    @Override
+    public void deleteAccount(int id) {
+        try {
+            accountDao.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete account", e);
         }
     }
 
