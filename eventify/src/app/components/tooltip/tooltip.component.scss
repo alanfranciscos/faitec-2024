@@ -4,10 +4,14 @@
   color: #fff;
   padding: 5px 10px;
   border-radius: 4px;
-  white-space: nowrap;
+  white-space: normal; /* Permitir quebra de linha */
+  word-wrap: break-word; /* Quebrar palavras longas */
   z-index: 1000;
   transition: opacity 0.3s;
+  width: 20rem /* Ajuste conforme necessário */
 }
+
+
 
 .tooltip-top {
   bottom: 100%;

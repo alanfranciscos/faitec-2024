@@ -4,9 +4,12 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Map, TileLayer, MapOptions, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Coordinate } from '../../domain/model/event/eventLocalization.model';
 
 @Component({
   selector: 'app-map',
@@ -19,12 +22,17 @@ export class MapComponent implements OnInit, OnChanges {
   private map: Map | undefined;
   @Input() width: string = '600';
   @Input() height: string = '420';
-  private mapContainerId = 'map'; // ID do contêiner do mapa
+  @Input() coordinates = { lat: -14.239209931938646, lng: -50.261992558398134 };
+  @Input() dragable: boolean = false;
+  @Input() popUpInfo: string = 'Arraste-me!';
+  @Output() coordinatesChange = new EventEmitter<Coordinate>();
+
+  private mapContainerId = 'map';
 
   private optionsMap: MapOptions = {
     maxBoundsViscosity: 1.0,
     minZoom: 2,
-    center: [-14.239209931938646, -50.261992558398134],
+    center: [this.coordinates.lat, this.coordinates.lng],
     zoom: 4,
     layers: [
       new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -35,20 +43,23 @@ export class MapComponent implements OnInit, OnChanges {
 
   private addMarker(lat: number, lng: number): void {
     if (this.map) {
-      const marker = new Marker([lat, lng], { draggable: true });
-      marker.addTo(this.map).bindPopup('Arraste-me!').openPopup();
+      const marker = new Marker([lat, lng], { draggable: this.dragable });
+      marker.addTo(this.map).bindPopup(this.popUpInfo).openPopup();
 
       marker.on('dragend', (event) => {
         const target = event.target;
         const position = target.getLatLng();
-        console.log('Local:', position.lat, position.lng);
+        this.coordinates.lat = position.lat;
+        this.coordinates.lng = position.lng;
+
+        this.coordinatesChange.emit(this.coordinates);
       });
     }
   }
 
   ngOnInit(): void {
     this.initMap();
-    this.addMarker(-14.239209931938646, -50.261992558398134);
+    this.addMarker(this.coordinates.lat, this.coordinates.lng);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

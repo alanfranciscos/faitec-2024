@@ -12,11 +12,17 @@
   overflow: visible;
 }
 
+// .content-container {
+//   margin-left: 250px;
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+// }
 .content-container {
-  margin-left: 250px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.8s ease-in-out; /* Suaviza a transição */
 }
 
 content {
@@ -27,4 +33,30 @@ content {
 .footer {
   text-align: center;
   font-size: 0.9em;
+}
+
+@keyframes expand-content {
+  from {
+    margin-left: 5rem; /* Largura mínima quando colapsada */
+  }
+  to {
+    margin-left: 15.625rem; /* Largura completa quando aberta */
+  }
+}
+
+@keyframes decrease-content {
+  from {
+    margin-left: 15.625rem; /* Largura completa quando aberta */
+  }
+  to {
+    margin-left: 5rem; /* Largura mínima quando colapsada */
+  }
+}
+
+.sidebar-open {
+  animation: expand-content 0.8s forwards;
+}
+
+.sidebar-closed {
+  animation: decrease-content 0.8s forwards;
 }

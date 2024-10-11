@@ -21,8 +21,7 @@ public class AccountController {
         int accountId = this.accountService.RegisterUser(
                 body.username(),
                 body.email(),
-                body.password(),
-                body.imageData()
+                body.password()
         );
 
         final URI uri = ServletUriComponentsBuilder

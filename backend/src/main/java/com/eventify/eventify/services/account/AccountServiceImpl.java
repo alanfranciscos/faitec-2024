@@ -40,14 +40,14 @@ public class AccountServiceImpl implements AccountService {
         this.gcpStorageService = gcpStorageService;
     }
 
-    public Integer RegisterUser(String username, String email, String password, byte[] imageData) {
+    public Integer RegisterUser(String username, String email, String password) {
         ;
         boolean accountExist = userExist(email);
         if (accountExist) {
             throw new RuntimeException("User already exists");
         }
 
-        int accountId = createAccount(username, email, imageData);
+        int accountId = createAccount(username, email);
 
         String codeGenerated = generateVerificationCodString();
         try {
@@ -57,7 +57,10 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Failed to create user", e);
         }
 
-        emailService.sendConfirmationCode(email, codeGenerated);
+        boolean skip = true;
+        if (!skip) {
+            emailService.sendConfirmationCode(email, codeGenerated);
+        }
 
         return accountId;
     }
@@ -194,12 +197,12 @@ public class AccountServiceImpl implements AccountService {
         return true;
     }
 
-    private int createAccount(String username, String email, String imageData) {
+    private int createAccount(String username, String email) {
         Account account = new Account();
 
         account.setUsername(username);
         account.setEmail(email);
-        account.setImageData(imageData);
+        account.setImageData(null);
 
         try {
             int accountId = this.accountDao.save(account);

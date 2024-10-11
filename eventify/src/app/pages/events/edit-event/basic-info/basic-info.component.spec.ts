@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddFriendDialogComponent } from './add-friend-dialog.component';
+import { BasicInfoComponent } from './basic-info.component';
 
-describe('AddFriendDialogComponent', () => {
-  let component: AddFriendDialogComponent;
-  let fixture: ComponentFixture<AddFriendDialogComponent>;
+describe('BasicInfoComponent', () => {
+  let component: BasicInfoComponent;
+  let fixture: ComponentFixture<BasicInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddFriendDialogComponent]
+      imports: [BasicInfoComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddFriendDialogComponent);
+    fixture = TestBed.createComponent(BasicInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

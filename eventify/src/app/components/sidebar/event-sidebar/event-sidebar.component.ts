@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ export class EventLayoutComponent implements OnInit {
   @Input() creatorUser: string = 'John Doe';
   @Input() description: string = 'Palestras sobre inovações tecnológicas.';
   isCollapsed = false;
+  @Output() sidebarToggle = new EventEmitter<void>();
 
   sidebarItens: Array<SideBarItensType> = [];
 
@@ -30,19 +31,22 @@ export class EventLayoutComponent implements OnInit {
         title: 'General view',
         routerLink: '/event/' + eventId,
         isSelected: false,
-        icon: 'far fa-map',
+        // icon: 'far fa-map',
+        icon: 'fad fa-route',
       },
       {
         title: 'Expenses',
         isSelected: false,
         routerLink: `/event/${eventId}/expenses`,
-        icon: 'fas fa-dollar-sign',
+        // icon: 'fas fa-dollar-sign',
+        icon: 'fad fa-money-bill-wave',
       },
       {
         title: 'Members',
         isSelected: false,
         routerLink: `/event/${eventId}/members`,
-        icon: 'fas fa-user-friends',
+        // icon: 'fas fa-user-friends',
+        icon: 'fad fa-users',
       },
     ];
 
@@ -62,9 +66,9 @@ export class EventLayoutComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit();
   }
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/account/login']); // Redireciona para a tela de login
+  home() {
+    this.router.navigate(['/']);
   }
 }

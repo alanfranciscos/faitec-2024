@@ -73,7 +73,7 @@
         </div>
 
         <div class="map">
-          <app-map></app-map>
+          <app-map [dragable]="true" (coordinatesChange)="onCoordinatesChange($event)"></app-map>
         </div>
       </div>
 
