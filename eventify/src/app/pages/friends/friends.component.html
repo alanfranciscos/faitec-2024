@@ -25,27 +25,33 @@
       <div>
         <div class="cards">
           <ul>
-            <li *ngFor="let item of paginatedItems; let i = index">
+            <!-- <li *ngFor="let item of paginatedItems; let i = index">
               <app-friend-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
                 [image]="item.image">
               </app-friend-card>
+            </li> -->
+            <li *ngFor="let item of content.friends; let i = index">
+              <app-friend-card [name]="item.username" [dateStartFriendship]="item.dateStartFriendship"
+                [image]="item.image">
+              </app-friend-card>
             </li>
+
           </ul>
         </div>
       </div>
       <div class="pagination">
-        <button (click)="prevPage()" [disabled]="currentPage === 1">
+        <button>
           <i class="fas fa-arrow-left"></i>
           <span>Previous</span>
         </button>
 
         <ul class="pagination-numbers">
-          <li *ngFor="let page of pageNumbers" (click)="setPage(page)" [class.active]="currentPage === page">
-            {{ page }}
+          <li>
+
           </li>
         </ul>
 
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <button>
           <span>Next</span>
           <i class="fas fa-arrow-right"></i>
         </button>
