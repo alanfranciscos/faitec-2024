@@ -31,19 +31,22 @@ export class EventLayoutComponent implements OnInit {
         title: 'General view',
         routerLink: '/event/' + eventId,
         isSelected: false,
-        icon: 'far fa-map',
+        // icon: 'far fa-map',
+        icon: 'fad fa-route',
       },
       {
         title: 'Expenses',
         isSelected: false,
         routerLink: `/event/${eventId}/expenses`,
-        icon: 'fas fa-dollar-sign',
+        // icon: 'fas fa-dollar-sign',
+        icon: 'fad fa-money-bill-wave',
       },
       {
         title: 'Members',
         isSelected: false,
         routerLink: `/event/${eventId}/members`,
-        icon: 'fas fa-user-friends',
+        // icon: 'fas fa-user-friends',
+        icon: 'fad fa-users',
       },
     ];
 
