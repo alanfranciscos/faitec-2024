@@ -8,8 +8,10 @@ import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -56,10 +58,56 @@ public class ParticipateDaoImpl implements ParticipateDao {
                 participate.setId(resultSet.getInt("id"));
                 participate.setAccountId(resultSet.getInt("account_id"));
                 participate.setEventId(resultSet.getInt("meetup_id"));
-                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
+                participate.setRoleParticipate( RoleParticipateEnum.fromString(resultSet.getString("role_participant")));
+//                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
                 participate.setActive(resultSet.getBoolean("active"));
-                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sended_at")));
-                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("acepted_at")));
+
+//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
+//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ssXXX");
+
+//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+//                OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
+//                OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
+//
+//                System.out.println("DATA ENVIADA: " + offsetSendedAt.format(pattern).trim());
+//                System.out.println("DATA ACEITADA: " + offsetAceptedAt.format(pattern).trim());
+//
+//                if (offsetSendedAt != null) {
+////                    ZonedDateTime zonedSendedAt = offsetSendedAt.toZonedDateTime();
+//                    participate.setSendedAt(ZonedDateTime.parse(offsetSendedAt.format(pattern).trim()));
+//                }else {
+//                    participate.setSendedAt(null);
+//                }
+//
+//                if (offsetAceptedAt != null) {
+////                    ZonedDateTime zonedAcceptedAt = offsetAceptedAt.toZonedDateTime();
+//                    participate.setAcceptedAt(ZonedDateTime.parse(offsetAceptedAt.format(pattern).trim()));
+//                }else {
+//                    participate.setAcceptedAt(null);
+//                }
+
+                OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
+                OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
+                System.out.println("DATA ENVIADA: " + offsetSendedAt);
+                System.out.println("DATA ACEITADA: " + offsetAceptedAt);
+
+                if (offsetSendedAt != null) {
+                    // Converter diretamente para ZonedDateTime
+                    ZonedDateTime zonedSendedAt = offsetSendedAt.toZonedDateTime();
+                    participate.setSendedAt(zonedSendedAt);
+                } else {
+                    participate.setSendedAt(null);
+                }
+
+                if (offsetAceptedAt != null) {
+                    // Converter diretamente para ZonedDateTime
+                    ZonedDateTime zonedAcceptedAt = offsetAceptedAt.toZonedDateTime();
+                    participate.setAcceptedAt(zonedAcceptedAt);
+                } else {
+                    participate.setAcceptedAt(null);
+                }
+
                 logger.log(Level.INFO, "Entidade com id " + id + " encontrada.");
                 return participate;
             }

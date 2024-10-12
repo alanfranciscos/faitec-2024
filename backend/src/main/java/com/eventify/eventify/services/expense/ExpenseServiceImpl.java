@@ -1,20 +1,30 @@
 package com.eventify.eventify.services.expense;
 
 
+import com.eventify.eventify.dto.event.EventExpansesResponse;
+import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.expense.Expense;
+import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.port.dao.expense.ExpenseDao;
+import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.crud.CrudService;
 import com.eventify.eventify.port.service.event.expense.ExpenseService;
+import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseDao expenseDao;
+    private final AccountService accountService;
+    private final ParticipateService participateService;
 
-    public ExpenseServiceImpl(ExpenseDao expenseDao) {
+    public ExpenseServiceImpl(ExpenseDao expenseDao, AccountService accountService, ParticipateService participateService) {
         this.expenseDao = expenseDao;
+        this.accountService = accountService;
+        this.participateService = participateService;
     }
 
     @Override
@@ -56,5 +66,26 @@ public class ExpenseServiceImpl implements ExpenseService {
             return;
         }
         expenseDao.updateInformation(id, entity);
+    }
+
+    @Override
+    public EventExpansesResponse getExpensesByAccountId() {
+//        if(id < 0){
+//            throw new RuntimeException("Id lower than 0");
+//        }
+        Account account = accountService.getAccountRequest();
+        if (account == null){
+            throw new RuntimeException("Null account");
+        }
+        Participate participate = participateService.findById(account.getId());
+        if (participate == null){
+            throw new RuntimeException("Null participate");
+        }
+
+
+
+
+        EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(participate.getEventId());
+        return eventExpansesResponse;
     }
 }

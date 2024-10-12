@@ -1,5 +1,6 @@
 package com.eventify.eventify.controller.event.Expense;
 
+import com.eventify.eventify.dto.event.EventExpansesResponse;
 import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.service.event.expense.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,11 @@ public class ExpenseController {
     public ResponseEntity<Expense> deleteEntity(@PathVariable final int id){
         expenseService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/expanses-account")
+    public ResponseEntity<EventExpansesResponse> getExpensesByAccountId(){
+        EventExpansesResponse expense = expenseService.getExpensesByAccountId();
+        return ResponseEntity.ok().body(expense);
     }
 }

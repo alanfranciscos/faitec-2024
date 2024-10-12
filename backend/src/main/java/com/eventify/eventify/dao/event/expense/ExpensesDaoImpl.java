@@ -1,6 +1,7 @@
 package com.eventify.eventify.dao.event.expense;
 
 import com.eventify.eventify.dao.event.EventDaoImpl;
+import com.eventify.eventify.dto.event.EventExpansesResponse;
 import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.expense.ExpenseDao;
 
@@ -136,8 +137,6 @@ public class ExpensesDaoImpl implements ExpenseDao {
                 } else {
                     expense.setCreated_at(null);
                 }
-
-//                expense.setCreated_at(ZonedDateTime.parse(resultSet.getString("created_at")));
                 expense.setAbout(resultSet.getString("about"));
                 expenses.add(expense);
             }
@@ -170,4 +169,40 @@ public class ExpensesDaoImpl implements ExpenseDao {
             throw new RuntimeException();
         }
     }
+    @Override
+    public EventExpansesResponse getExpensesByAccountId(int event_id) {
+        final List<EventExpansesResponse.Expanse> expenses = new ArrayList<>();
+        final String sql = "SELECT * FROM expanses WHERE meetup_id = ? ;";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, event_id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                OffsetDateTime offsetCreatedAt = resultSet.getObject("created_at", OffsetDateTime.class);
+                ZonedDateTime zonedCreatedAt = offsetCreatedAt.toZonedDateTime();
+                final EventExpansesResponse.Expanse expense = new EventExpansesResponse.Expanse(
+                        zonedCreatedAt,
+                        resultSet.getString("about"),
+                        resultSet.getDouble("cost")
+                );
+                expenses.add(expense);
+            }
+            EventExpansesResponse response = new EventExpansesResponse(expenses);
+            return response;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
 }
