@@ -6,13 +6,16 @@ import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -147,6 +150,41 @@ public class EventController {
                         participateHeader.getRoleParticipate().toString()
                 )).toList()
         ));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Event> createEvent(@RequestBody final EventCreateResponse eventCreateResponse){
+        int id = eventService.createEvent(eventCreateResponse);
+        final URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event){
+        eventService.updateEvent(id, event);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> deleteEvent(@PathVariable final int id){
+        eventService.deleteEvent(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> getEvents() {
+        List<Event> events = eventService.findAll();
+        return ResponseEntity.ok().body(events);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable final int id){
+        Event event = eventService.findById(id);
+        return ResponseEntity.ok().body(event);
     }
 
 }

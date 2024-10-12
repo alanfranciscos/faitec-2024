@@ -1,8 +1,10 @@
 package com.eventify.eventify.services.event;
 
+import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
+import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.event.EventDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.EventService;
@@ -99,6 +101,70 @@ public class EventServiceImpl implements EventService {
 
         Event response = eventDao.readById(id);
         return response;
+    }
+
+    @Override
+    public int createEvent(EventCreateResponse eventCreateResponse) {
+
+        Event event = new Event(
+                eventCreateResponse.title(),
+                eventCreateResponse.information(),
+                eventCreateResponse.createdAt(),
+                eventCreateResponse.localName(),
+                eventCreateResponse.cepAddress(),
+                eventCreateResponse.stateAddress(),
+                eventCreateResponse.cityAddress(),
+                eventCreateResponse.neighborhoodAddress(),
+                eventCreateResponse.numberAddress(),
+                eventCreateResponse.streetAddress(),
+                eventCreateResponse.complementAddress(),
+                eventCreateResponse.latitude(),
+                eventCreateResponse.longitude(),
+                eventCreateResponse.dateStart(),
+                eventCreateResponse.dateEnd(),
+                eventCreateResponse.stage(),
+                eventCreateResponse.pixKey()
+        );
+
+        if (event == null) {
+            throw new RuntimeException();
+        }
+
+        int id = eventDao.save(event);
+        return id;
+    }
+
+    @Override
+    public void updateEvent(int id, Event entity) {
+        Event event = getEventById(id);
+        if (event == null) {
+            return;
+        }
+        eventDao.updateInformation(id, entity);
+    }
+
+    @Override
+    public void deleteEvent(int id) {
+        if (id < 0) {
+            return;
+        }
+
+        eventDao.deleteById(id);
+    }
+
+    @Override
+    public List<Event> findAll() {
+        List<Event> events = eventDao.readAll();
+        return events;
+    }
+
+    @Override
+    public Event findById(int id) {
+        if(id < 0){
+            return null;
+        }
+        Event event = eventDao.readById(id);
+        return event;
     }
 
 }

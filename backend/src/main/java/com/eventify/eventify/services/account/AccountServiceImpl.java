@@ -158,6 +158,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountByEmail(String email) {
+        try {
+            return accountDao.readByEmail(email);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read account", e);
+
+        }
+    }
+  
     public void updateImage(int id, MultipartFile imageData) {
         String imageUrl = "";
 

@@ -3,11 +3,15 @@ package com.eventify.eventify.config.api;
 import com.eventify.eventify.dao.account.AccountDaoImpl;
 import com.eventify.eventify.dao.account.password.AccountPasswordHistoryDaoImpl;
 import com.eventify.eventify.dao.event.EventDaoImpl;
+import com.eventify.eventify.dao.event.expense.ExpensesDaoImpl;
+import com.eventify.eventify.dao.event.management.ManagementDaoImpl;
 import com.eventify.eventify.dao.event.participate.ParticipateDaoImpl;
 import com.eventify.eventify.dao.friend.FriendDaoImpl;
 import com.eventify.eventify.port.dao.account.AccountDao;
 import com.eventify.eventify.port.dao.account.password.AccountPasswordHistoryDao;
 import com.eventify.eventify.port.dao.event.EventDao;
+import com.eventify.eventify.port.dao.event.management.ManagementDao;
+import com.eventify.eventify.port.dao.expense.ExpenseDao;
 import com.eventify.eventify.port.dao.friend.FriendDao;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +51,16 @@ public class apiConfig {
     @Bean
     public FriendDao getFriendDao(final Connection connection) {
         return new FriendDaoImpl(connection);
+    }
+
+    @Bean
+    public ExpenseDao getExpenseDao(final Connection connection) {
+        return new ExpensesDaoImpl(connection);
+    }
+
+    @Bean
+    public ManagementDao getManagementDao(final Connection connection) {
+        return new ManagementDaoImpl(connection);
     }
 
 }

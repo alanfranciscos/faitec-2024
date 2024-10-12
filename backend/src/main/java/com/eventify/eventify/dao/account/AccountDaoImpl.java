@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AccountDaoImpl implements AccountDao {
 
@@ -169,6 +170,10 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
+    public List<Account> readAll() {
+        return null;
+    }
+
     public void updateImage(int id, String imagePath) {
         final String sql = "UPDATE account SET image_data = ? WHERE id = ?;";
 
@@ -186,5 +191,4 @@ public class AccountDaoImpl implements AccountDao {
             throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
         }
     }
-
 }

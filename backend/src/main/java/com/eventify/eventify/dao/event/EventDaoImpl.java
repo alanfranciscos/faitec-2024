@@ -3,16 +3,19 @@ package com.eventify.eventify.dao.event;
 import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.port.dao.event.EventDao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EventDaoImpl implements EventDao {
 
     private final Connection connection;
+
+    private static final Logger logger = Logger.getLogger(EventDaoImpl.class.getName());
 
     public EventDaoImpl(Connection connection) {
         this.connection = connection;
@@ -20,7 +23,6 @@ public class EventDaoImpl implements EventDao {
 
     private Event mapResultSetToEvent(ResultSet resultSet) throws SQLException {
         final Event event = new Event(
-                resultSet.getInt("id"),
                 resultSet.getString("title"),
                 resultSet.getString("information"),
                 resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
@@ -269,5 +271,157 @@ public class EventDaoImpl implements EventDao {
         return null;
     }
 
+    @Override
+    public List<Event> readAll() {
+        final List<Event> events = new ArrayList<>();
+        final String sql = "SELECT * FROM meetup;";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                final Event event = new Event();
 
+                event.setId(resultSet.getInt("id"));
+                event.setTitle(resultSet.getString("title"));
+                event.setInformation(resultSet.getString("information"));
+                event.setCreatedAt(ZonedDateTime.parse(resultSet.getString("createdAt")));
+                event.setLocalName(resultSet.getString("localName"));
+                event.setCepAddress(resultSet.getString("cepAddress"));
+                event.setStateAddress(resultSet.getString("stateAddress"));
+                event.setCityAddress(resultSet.getString("cityAddress"));
+                event.setNeighborhoodAddress(resultSet.getString("neighborhoodAddress"));
+                event.setNumberAddress(resultSet.getString("numberAddress"));
+                event.setStreetAddress(resultSet.getString("streetAddress"));
+                event.setComplementAddress(resultSet.getString("complementAddress"));
+                event.setLatitude(resultSet.getDouble("latitude"));
+                event.setLongitude(resultSet.getDouble("longitude"));
+                event.setDateStart(ZonedDateTime.parse(resultSet.getString("dateStart")));
+                event.setDateEnd(ZonedDateTime.parse(resultSet.getString("dateEnd")));
+                event.setStage(EventStageEnum.valueOf(resultSet.getString("stage")));
+                event.setPixKey(resultSet.getString("pixKey"));
+                events.add(event);
+            }
+            return events;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    @Override
+    public int save(Event entity) {
+
+            String sql = "INSERT INTO meetup(title, information, created_at, local_name";
+            sql += ", cep_address, state_address, city_address, neighborhood_address, number_address";
+            sql += ", street_address, complement_address, latitude, longitude, date_start, date_end, stage, pix_key)";
+            sql += " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+
+            try {
+                connection.setAutoCommit(false);
+
+                preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+                preparedStatement.setString(1, entity.getTitle());
+                preparedStatement.setString(2, entity.getInformation());
+                preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant()));
+                preparedStatement.setString(4, entity.getLocalName());
+                preparedStatement.setString(5, entity.getCepAddress());
+                preparedStatement.setString(6, entity.getStateAddress());
+                preparedStatement.setString(7, entity.getCityAddress());
+                preparedStatement.setString(8, entity.getNeighborhoodAddress());
+                preparedStatement.setString(9, entity.getNumberAddress());
+                preparedStatement.setString(10, entity.getStreetAddress());
+                preparedStatement.setString(11, entity.getComplementAddress());
+                preparedStatement.setDouble(12, entity.getLatitude());
+                preparedStatement.setDouble(13, entity.getLongitude());
+                preparedStatement.setTimestamp(14, Timestamp.from(entity.getDateStart().toInstant()));
+                preparedStatement.setTimestamp(15, Timestamp.from(entity.getDateEnd().toInstant()));
+                preparedStatement.setString(16, entity.getStage().toString().toLowerCase());
+                preparedStatement.setString(17, entity.getPixKey());
+
+                preparedStatement.execute();
+
+                resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    final int id = resultSet.getInt(1);
+                    entity.setId(id);
+                }
+
+                connection.commit();
+
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                throw new RuntimeException(e);
+            }
+            return entity.getId();
+        }
+
+
+    @Override
+    public void deleteById(int id) {
+        logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
+
+        final String sql = "DELETE FROM meetup WHERE id = ? ;";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            logger.log(Level.INFO, "Entidade removida com sucesso");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateInformation(int id, Event entity) {
+        String sql = "UPDATE meetup SET title = ?, information = ?, localName = ?, cepAddress = ?, stateAddress = ?, ";
+        sql += "cityAddress = ?, neighborhoodAddress = ?, numberAddress = ?, streetAddress = ?, complementAddress = ?, latitude = ?, ";
+        sql += "longitude = ?, dateStart = ?, dateEnd = ?, stage = ?, pixKey = ?";
+        sql += " WHERE id = ? ";
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getTitle());
+            preparedStatement.setString(2, entity.getInformation());
+            preparedStatement.setString(3, entity.getLocalName());
+            preparedStatement.setString(4, entity.getCepAddress());
+            preparedStatement.setString(5, entity.getStateAddress());
+            preparedStatement.setString(6, entity.getCityAddress());
+            preparedStatement.setString(7, entity.getNeighborhoodAddress());
+            preparedStatement.setString(8, entity.getNumberAddress());
+            preparedStatement.setString(9, entity.getStreetAddress());
+            preparedStatement.setString(10, entity.getComplementAddress());
+            preparedStatement.setDouble(11, entity.getLatitude());
+            preparedStatement.setDouble(12, entity.getLongitude());
+            preparedStatement.setTimestamp(13, Timestamp.from(entity.getDateStart().toInstant()));
+            preparedStatement.setTimestamp(14, Timestamp.from(entity.getDateEnd().toInstant()));
+            preparedStatement.setString(15, entity.getStage().toString());
+            preparedStatement.setString(16, entity.getPixKey());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
 }

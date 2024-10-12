@@ -1,10 +1,12 @@
 package com.eventify.eventify.services.event.participate;
 
 import com.eventify.eventify.models.account.Account;
+import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 import com.eventify.eventify.port.service.account.AccountService;
+import com.eventify.eventify.port.service.crud.CrudService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,56 @@ public class ParticipateServiceImpl implements ParticipateService {
         }
 
         return participateList;
+    }
+
+    @Override
+    public int create(Participate entity) {
+        if(entity == null){
+            return 0;
+        }
+        int id = participateDao.save(entity);
+        return id;
+    }
+
+    @Override
+    public void delete(int id) {
+        if (id < 0) {
+            return;
+        }
+        participateDao.deleteById(id);
+    }
+
+    @Override
+    public Participate findById(int id) {
+        if(id < 0){
+            return null;
+        }
+        Participate participate = participateDao.readById(id);
+        return participate;
+    }
+
+    @Override
+    public List<Participate> findAll() {
+        List<Participate> participates = participateDao.readAll();
+        return participates;
+    }
+
+    @Override
+    public void update(int id, Participate entity) {
+        Participate participate = findById(id);
+        if (participate == null) {
+            return;
+        }
+        participateDao.updateInformation(id, entity);
+    }
+
+    @Override
+    public List<Participate> readAllParticipations(int id) {
+        Participate participate = findById(id);
+        if (participate == null) {
+            throw new RuntimeException("Invalid id");
+        }
+        List<Participate> participations = participateDao.readByAccountId(id);
+        return participations;
     }
 }

@@ -54,6 +54,13 @@ public interface AccountService {
      */
     Account getAccountById(int accountId);
 
+    /**
+     * Retrieves the account associated with the given email.
+     * @param email the email of the account to retrieve
+     * @return the account associated with the given email
+     */
+    Account getAccountByEmail(String email);
+
 
     /**
      * Updates the profile image for the user associated with the given ID.
