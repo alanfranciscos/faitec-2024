@@ -13,4 +13,5 @@ public interface ParticipateDao extends ReadDao<Participate>, CrudDao<Participat
 
     List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(int accountId, int limit, int offset);
 
+    List<Participate> readByAccountId(int id);
 }

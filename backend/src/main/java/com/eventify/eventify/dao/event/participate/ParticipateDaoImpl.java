@@ -59,33 +59,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
                 participate.setAccountId(resultSet.getInt("account_id"));
                 participate.setEventId(resultSet.getInt("meetup_id"));
                 participate.setRoleParticipate( RoleParticipateEnum.fromString(resultSet.getString("role_participant")));
-//                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
                 participate.setActive(resultSet.getBoolean("active"));
-
-//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
-//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ssXXX");
-
-//                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-//                OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
-//                OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
-//
-//                System.out.println("DATA ENVIADA: " + offsetSendedAt.format(pattern).trim());
-//                System.out.println("DATA ACEITADA: " + offsetAceptedAt.format(pattern).trim());
-//
-//                if (offsetSendedAt != null) {
-////                    ZonedDateTime zonedSendedAt = offsetSendedAt.toZonedDateTime();
-//                    participate.setSendedAt(ZonedDateTime.parse(offsetSendedAt.format(pattern).trim()));
-//                }else {
-//                    participate.setSendedAt(null);
-//                }
-//
-//                if (offsetAceptedAt != null) {
-////                    ZonedDateTime zonedAcceptedAt = offsetAceptedAt.toZonedDateTime();
-//                    participate.setAcceptedAt(ZonedDateTime.parse(offsetAceptedAt.format(pattern).trim()));
-//                }else {
-//                    participate.setAcceptedAt(null);
-//                }
 
                 OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
                 OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
@@ -137,13 +111,13 @@ public class ParticipateDaoImpl implements ParticipateDao {
                 final Participate participate = new Participate();
 
                 participate.setId(resultSet.getInt("id"));
-                participate.setAccountId(resultSet.getInt("accountId"));
-                participate.setEventId(resultSet.getInt("eventId"));
-                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("roleParticipate")));
+                participate.setAccountId(resultSet.getInt("account_id"));
+                participate.setEventId(resultSet.getInt("meetup_id"));
+                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
 
                 participate.setActive(resultSet.getBoolean("active"));
-                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sendedAt")));
-                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("acceptedAt")));
+                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sended_at")));
+                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("accepted_at")));
 
                 participates.add(participate);
             }
@@ -286,4 +260,49 @@ public class ParticipateDaoImpl implements ParticipateDao {
             throw new RuntimeException();
         }
     }
+
+    public List<Participate> readByAccountId(int accountId){
+        String sql = "SELECT * FROM participate ";
+        sql += "WHERE account_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<Participate> participates = new ArrayList<>();
+            while (resultSet.next()) {
+
+                final Participate participate = new Participate();
+
+                participate.setId(resultSet.getInt("id"));
+                participate.setAccountId(resultSet.getInt("account_id"));
+                participate.setEventId(resultSet.getInt("meetup_id"));
+                participate.setRoleParticipate(RoleParticipateEnum.fromString(resultSet.getString("role_participant")));
+
+                participate.setActive(resultSet.getBoolean("active"));
+
+                OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
+                OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
+                if (offsetSendedAt != null) {
+                    ZonedDateTime zonedSendedAt = offsetSendedAt.toZonedDateTime();
+                    participate.setSendedAt(zonedSendedAt);
+                } else {
+                    participate.setSendedAt(null);
+                }
+                if (offsetAceptedAt != null) {
+                    ZonedDateTime zonedAcceptedAt = offsetAceptedAt.toZonedDateTime();
+                    participate.setAcceptedAt(zonedAcceptedAt);
+                } else {
+                    participate.setAcceptedAt(null);
+                }
+                participates.add(participate);
+            }
+
+            return participates;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 }

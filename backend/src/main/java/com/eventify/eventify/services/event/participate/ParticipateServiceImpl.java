@@ -103,4 +103,14 @@ public class ParticipateServiceImpl implements ParticipateService {
         }
         participateDao.updateInformation(id, entity);
     }
+
+    @Override
+    public List<Participate> readAllParticipations(int id) {
+        Participate participate = findById(id);
+        if (participate == null) {
+            throw new RuntimeException("Invalid id");
+        }
+        List<Participate> participations = participateDao.readByAccountId(id);
+        return participations;
+    }
 }

@@ -11,5 +11,7 @@ public interface ParticipateService extends CrudService<Participate> {
 
     List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(final int limit, final int offset);
 
+    List<Participate> readAllParticipations(int id);
+
 
 }

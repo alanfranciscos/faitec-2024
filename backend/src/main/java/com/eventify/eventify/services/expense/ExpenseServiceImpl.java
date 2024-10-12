@@ -69,23 +69,29 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public EventExpansesResponse getExpensesByAccountId() {
-//        if(id < 0){
-//            throw new RuntimeException("Id lower than 0");
-//        }
+    public List<EventExpansesResponse> getExpensesByAccountId() {
         Account account = accountService.getAccountRequest();
         if (account == null){
             throw new RuntimeException("Null account");
         }
-        Participate participate = participateService.findById(account.getId());
-        if (participate == null){
-            throw new RuntimeException("Null participate");
+
+        List<Participate> participations = participateService.readAllParticipations(account.getId());
+
+        List<Integer> MeetupIds = new ArrayList<>();
+
+        for (Participate participation : participations) {
+            MeetupIds.add(participation.getEventId());
+        }
+
+        List<EventExpansesResponse> eventExpansesResponses = new ArrayList<>();
+
+
+        for (Integer meetupId : MeetupIds) {
+            EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(meetupId);
+            eventExpansesResponses.add(eventExpansesResponse);
         }
 
 
-
-
-        EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(participate.getEventId());
-        return eventExpansesResponse;
+        return eventExpansesResponses;
     }
 }
