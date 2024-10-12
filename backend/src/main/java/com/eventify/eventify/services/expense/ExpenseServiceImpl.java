@@ -69,29 +69,30 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<EventExpansesResponse> getExpensesByAccountId() {
+    public EventExpansesResponse getExpensesByAccountId() {
         Account account = accountService.getAccountRequest();
         if (account == null){
             throw new RuntimeException("Null account");
         }
 
-        List<Participate> participations = participateService.readAllParticipations(account.getId());
+//        List<Participate> participations = participateService.readAllParticipations(account.getId());
+//
+//        List<Integer> MeetupIds = new ArrayList<>();
+//
+//        for (Participate participation : participations) {
+//            MeetupIds.add(participation.getEventId());
+//        }
+//
+//        List<EventExpansesResponse> eventExpansesResponses = new ArrayList<>();
+//
+//        int expenseId = 1;
+//        for (Integer meetupId : MeetupIds) {
+//            EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(meetupId, expenseId);
+//            eventExpansesResponses.add(eventExpansesResponse);
+//        }
 
-        List<Integer> MeetupIds = new ArrayList<>();
+        EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(account.getId());
 
-        for (Participate participation : participations) {
-            MeetupIds.add(participation.getEventId());
-        }
-
-        List<EventExpansesResponse> eventExpansesResponses = new ArrayList<>();
-
-
-        for (Integer meetupId : MeetupIds) {
-            EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(meetupId);
-            eventExpansesResponses.add(eventExpansesResponse);
-        }
-
-
-        return eventExpansesResponses;
+        return eventExpansesResponse;
     }
 }

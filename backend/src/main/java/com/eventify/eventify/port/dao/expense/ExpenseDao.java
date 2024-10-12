@@ -7,5 +7,5 @@ import com.eventify.eventify.port.dao.crud.CrudDao;
 import java.util.List;
 
 public interface ExpenseDao extends CrudDao<Expense> {
-    EventExpansesResponse getExpensesByAccountId(int id);
+    EventExpansesResponse getExpensesByAccountId(int idAccount);
 }

@@ -54,8 +54,8 @@ public class ExpenseController {
     }
 
     @GetMapping("/expanses-account")
-    public ResponseEntity<List<EventExpansesResponse>> getExpensesByAccountId(){
-        List<EventExpansesResponse> expense = expenseService.getExpensesByAccountId();
+    public ResponseEntity<EventExpansesResponse> getExpensesByAccountId(){
+        EventExpansesResponse expense = expenseService.getExpensesByAccountId();
         return ResponseEntity.ok().body(expense);
     }
 }

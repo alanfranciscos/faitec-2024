@@ -7,5 +7,5 @@ import com.eventify.eventify.port.service.crud.CrudService;
 import java.util.List;
 
 public interface ExpenseService extends CrudService<Expense> {
-    List<EventExpansesResponse> getExpensesByAccountId();
+    EventExpansesResponse getExpensesByAccountId();
 }
