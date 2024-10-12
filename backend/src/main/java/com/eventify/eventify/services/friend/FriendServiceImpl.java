@@ -11,6 +11,7 @@ import com.eventify.eventify.port.service.crud.CrudService;
 import com.eventify.eventify.port.service.friend.FriendService;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,35 @@ public class FriendServiceImpl implements FriendService {
         List<Friend> friends = friendDao.listPaginatedFromUserAndNotAcepted(accountId, limit, offset);
 
         return friends;
+    }
+
+    @Override
+    public int createFriend(String email) {
+        if(email == null){
+            throw new RuntimeException("Email is requiered");
+        }
+        Account account = accountService.getAccountRequest();
+        Account friendAccount = accountService.getAccountByEmail(email);
+        if(friendAccount == null){
+            throw new RuntimeException("Invalid email");
+        }
+
+        boolean isFriend = friendDao.isFriend(account.getId(), friendAccount.getId());
+        if(isFriend){
+            throw new RuntimeException("Already friends");
+        }
+
+        ZonedDateTime sendedAt = ZonedDateTime.now();
+
+        Friend friend = new Friend();
+        friend.setAccountId(account.getId());
+        friend.setFriendId(friendAccount.getId());
+        friend.setSendedAt(sendedAt);
+        friend.setAcceptedAt(null);
+
+        int id = friendDao.save(friend);
+
+        return id;
     }
 
     @Override

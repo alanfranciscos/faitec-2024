@@ -11,4 +11,6 @@ public interface FriendService extends CrudService<Friend> {
     FriendListResponse listFriendByAccountId(final int limit, final int offset);
 
     List<Friend> listPaginatedFromUserAndNotAcepted(int limit, int offset);
+
+    int createFriend(String email);
 }

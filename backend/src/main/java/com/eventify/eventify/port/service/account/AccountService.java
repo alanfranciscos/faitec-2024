@@ -53,4 +53,11 @@ public interface AccountService {
      * @return the account associated with the given ID
      */
     Account getAccountById(int accountId);
+
+    /**
+     * Retrieves the account associated with the given email.
+     * @param email the email of the account to retrieve
+     * @return the account associated with the given email
+     */
+    Account getAccountByEmail(String email);
 }

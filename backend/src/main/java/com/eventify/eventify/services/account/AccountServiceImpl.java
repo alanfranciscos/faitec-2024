@@ -150,6 +150,15 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public Account getAccountByEmail(String email) {
+        try {
+            return accountDao.readByEmail(email);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read account", e);
+        }
+    }
+
     // UTILS
     private String generateVerificationCodString() {
         String code = "";

@@ -13,4 +13,7 @@ public interface FriendDao extends ReadDao<Friend>, CrudDao<Friend> {
     List<Friend> listPaginatedFromUserAndNotAcepted(final int accountId, final int limit, final int offset);
 
     int QuantityOfFriendsByAccountIdAndAcepted(final int accountId);
+
+    boolean isFriend (final int accountId, final int friendId);
+
 }

@@ -5,6 +5,7 @@ import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.expense.ExpenseDao;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,17 @@ public class ExpensesDaoImpl implements ExpenseDao {
                 expense.setId(resultSet.getInt("id"));
                 expense.setMeetup_id(resultSet.getInt("meetup_id"));
                 expense.setCost(resultSet.getDouble("cost"));
-                expense.setCreated_at(ZonedDateTime.parse(resultSet.getString("created_at")));
+
+                OffsetDateTime offsetCreatedAt = resultSet.getObject("created_at", OffsetDateTime.class);
+
+                if (offsetCreatedAt != null) {
+                    ZonedDateTime zonedCreatedAt = offsetCreatedAt.toZonedDateTime();
+                    expense.setCreated_at(zonedCreatedAt);
+                } else {
+                    expense.setCreated_at(null);
+                }
+
+//                expense.setCreated_at(ZonedDateTime.parse(resultSet.getString("created_at")));
                 expense.setAbout(resultSet.getString("about"));
                 expenses.add(expense);
             }

@@ -1,5 +1,6 @@
 package com.eventify.eventify.controller.friend;
 
+import com.eventify.eventify.dto.friend.FriendCreateRequest;
 import com.eventify.eventify.dto.friend.FriendListResponse;
 import com.eventify.eventify.models.friend.Friend;
 import com.eventify.eventify.port.service.friend.FriendService;
@@ -43,9 +44,9 @@ public class FriendController {
         return ResponseEntity.ok().body(friend);
     }
 
-    @PostMapping()
-    public ResponseEntity<Friend> createEntity(@RequestBody final Friend data){
-        int id = friendService.create(data);
+    @PostMapping("/create")
+    public ResponseEntity<Friend> createEntity(@RequestBody final FriendCreateRequest data){
+        int id = friendService.createFriend(data.email());
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

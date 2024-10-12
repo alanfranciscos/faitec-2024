@@ -7,6 +7,7 @@ import com.eventify.eventify.models.friend.Friend;
 import com.eventify.eventify.port.dao.friend.FriendDao;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class FriendDaoImpl implements FriendDao {
 
     @Override
     public Friend readById(int id) {
-        String sql = "SELECT * FROM friends WHERE id = ?";
+        String sql = "SELECT * FROM friend WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -61,7 +62,7 @@ public class FriendDaoImpl implements FriendDao {
     @Override
     public List<Friend> readAll() {
         final List<Friend> friends = new ArrayList<>();
-        final String sql = "SELECT * FROM friends;";
+        final String sql = "SELECT * FROM friend;";
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -71,10 +72,24 @@ public class FriendDaoImpl implements FriendDao {
                 final Friend friend = new Friend();
 
                 friend.setId(resultSet.getInt("id"));
-                friend.setAccountId(resultSet.getInt("accountId"));
-                friend.setFriendId(resultSet.getInt("friendId"));
-                friend.setSendedAt(ZonedDateTime.parse(resultSet.getString("sendedAt")));
-                friend.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("acceptedAt")));
+                friend.setAccountId(resultSet.getInt("account_id"));
+                friend.setFriendId(resultSet.getInt("friend_id"));
+                OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
+                OffsetDateTime offsetAceptedAt = resultSet.getObject("acepted_at", OffsetDateTime.class);
+
+                if (offsetSendedAt != null) {
+                    ZonedDateTime zonedSendedAt = offsetSendedAt.toZonedDateTime();
+                    friend.setSendedAt(zonedSendedAt);
+                }else {
+                    friend.setSendedAt(null);
+                }
+
+                if (offsetAceptedAt != null) {
+                    ZonedDateTime zonedAcceptedAt = offsetAceptedAt.toZonedDateTime();
+                    friend.setAcceptedAt(zonedAcceptedAt);
+                } else {
+                    friend.setAcceptedAt(null);
+                }
 
                 friends.add(friend);
             }
@@ -90,7 +105,6 @@ public class FriendDaoImpl implements FriendDao {
             }
         }
     }
-
 
     @Override
     public List<Friend> listFriendByAccountId(final int accountId, final int limit, final int offset) {
@@ -162,6 +176,29 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
+    public boolean isFriend(int accountId, int friendId) {
+        String sql = "SELECT * FROM friend WHERE id = ? AND friend_id = ? OR id = ? AND friend_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            statement.setInt(2, friendId);
+
+            statement.setInt(3, accountId);
+            statement.setInt(4, friendId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
     public int save(Friend entity) {
 
 
@@ -178,8 +215,19 @@ public class FriendDaoImpl implements FriendDao {
 
             preparedStatement.setInt(1, entity.getAccountId());
             preparedStatement.setInt(2, entity.getFriendId());
-            preparedStatement.setTimestamp(3, Timestamp.from(entity.getSendedAt().toInstant()));
-            preparedStatement.setTimestamp(4, Timestamp.from(entity.getAcceptedAt().toInstant()));
+
+            if (entity.getSendedAt() == null) {
+                preparedStatement.setTimestamp(3, null);
+            } else {
+                preparedStatement.setTimestamp(3, Timestamp.from(entity.getSendedAt().toInstant()));
+            }
+
+            if (entity.getAcceptedAt() == null) {
+                preparedStatement.setTimestamp(4, null);
+            } else {
+                preparedStatement.setTimestamp(4, Timestamp.from(entity.getAcceptedAt().toInstant()));
+            }
+
 
             preparedStatement.execute();
 
