@@ -75,22 +75,6 @@ public class ExpenseServiceImpl implements ExpenseService {
             throw new RuntimeException("Null account");
         }
 
-//        List<Participate> participations = participateService.readAllParticipations(account.getId());
-//
-//        List<Integer> MeetupIds = new ArrayList<>();
-//
-//        for (Participate participation : participations) {
-//            MeetupIds.add(participation.getEventId());
-//        }
-//
-//        List<EventExpansesResponse> eventExpansesResponses = new ArrayList<>();
-//
-//        int expenseId = 1;
-//        for (Integer meetupId : MeetupIds) {
-//            EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(meetupId, expenseId);
-//            eventExpansesResponses.add(eventExpansesResponse);
-//        }
-
         EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(account.getId());
 
         return eventExpansesResponse;
