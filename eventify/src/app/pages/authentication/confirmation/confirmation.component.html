@@ -1,0 +1,14 @@
+<app-authentication-layout image="/assets/svg/logo.svg" title="Confirmation" widthvalue="80%">
+  <div class="content">
+    <h2>O código foi enviado para seu email. Verifique também na lixeira e caixa de span.</h2>
+
+    <div class="input-container">
+      @for(input of [1,2,3,4,5,6]; track $index) {
+      <input type="text" class="confirmation-input" maxlength="1" [(ngModel)]="confirmationCode[$index]"
+        (input)="onInputChange($index)" (keydown)="onKeyDown($event, $index)" />
+      }
+    </div>
+
+    <app-button class="primary-button" text="Confirm" (click)="null"></app-button>
+  </div>
+</app-authentication-layout>

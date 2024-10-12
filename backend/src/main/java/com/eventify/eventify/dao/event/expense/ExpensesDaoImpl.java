@@ -172,7 +172,6 @@ public class ExpensesDaoImpl implements ExpenseDao {
     @Override
     public EventExpansesResponse getExpensesByAccountId(int account_id) {
         final List<EventExpansesResponse.Expanse> expenses = new ArrayList<>();
-//        final String sql = "SELECT * FROM expanses WHERE meetup_id = ? ;";
         String sql = "SELECT EX.meetup_id, EX.cost, EX.created_at, EX.about, PA.account_id FROM account AC ";
         sql += "INNER JOIN participate PA ON PA.account_id = AC.id ";
         sql += "INNER JOIN meetup ME ON ME.id = PA.meetup_id ";

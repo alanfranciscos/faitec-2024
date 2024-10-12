@@ -12,10 +12,15 @@ button {
   transition: 0.3s;
 }
 
-.primary-button{
-  background-color: #4CAF50;
+.primary-button {
+  background-color: #4caf50;
 }
 
-.secondary-button{
-  background-color: #B3B3B3;
+.secondary-button {
+  background-color: #b3b3b3;
+}
+
+.disabled-primary-button {
+  background-color: #87ac88;
+  cursor: not-allowed;
 }

@@ -5,6 +5,8 @@ import { PaymentApproach } from '../../../../domain/model/event/paymentApproach.
 import { EventService } from '../../../../services/event/event.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ExpansesResponse } from '../../../../domain/model/event/expense.model';
+import { DialogComponent } from '../../../../components/dialog/dialog.component';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
 
 interface Expense {
   name: string;
@@ -17,29 +19,26 @@ interface Expense {
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, DialogComponent, PrimaryInputComponent],
   standalone: true,
 })
 export class ExpensesComponent implements OnInit {
   paymentApproach!: PaymentApproach;
   totalExpenses!: TotalExpenses;
   eventExpanses!: ExpansesResponse;
-  constructor(
-    private router: Router,
-    private eventService: EventService,
-    private activatedRoute: ActivatedRoute // private route: Route
-  ) {}
+  constructor(private router: Router, private eventService: EventService) {}
 
   currentPage = 1;
   pageSize = 10;
   totalPages = 0;
-
+  isAddExpenseDialogOpen = false;
+  toggleAddExpenseDialog() {
+    this.isAddExpenseDialogOpen = !this.isAddExpenseDialogOpen;
+  }
   async ngOnInit() {
     const url = this.router.url;
     let eventId = url.split('/')[2];
     eventId = eventId == null ? '-1' : eventId;
-
-    console.log('eventid do expenses', eventId);
     const totalExpenses = await this.eventService.getTotalExpenses(eventId);
     this.totalExpenses = totalExpenses;
     const paymentApproach = await this.eventService.getPaymentApproach(eventId);

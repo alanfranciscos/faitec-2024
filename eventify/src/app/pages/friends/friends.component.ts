@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main-sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FriendCardComponent } from '../../components/friend-card/friend-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
-import { AddFriendDialogComponent } from '../../components/add-friend-dialog/add-friend-dialog.component';
-
-interface CardItensType {
-  name: string;
-  type: string;
-  dateStartFriendship: string;
-  image: string;
-}
+import { DialogComponent } from '../../components/dialog/dialog.component';
+import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
+import { FriendService } from '../../services/friend/friend.service';
+import {
+  FriendsContent,
+  FriendsHeader,
+} from '../../domain/model/event/friendsHeader.model';
 
 @Component({
   selector: 'app-friend',
@@ -22,92 +21,111 @@ interface CardItensType {
     FriendCardComponent,
     CommonModule,
     HeaderComponent,
-    AddFriendDialogComponent,
+    DialogComponent,
+    DialogComponent,
+    PrimaryInputComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
 })
-export class FriendsComponent {
+export class FriendsComponent implements OnInit {
+  constructor(private friendService: FriendService) {}
+  content: FriendsHeader = {
+    friends: [],
+    total: 0,
+  };
+  offset = 0;
+  quantityPerPage = 10;
+  limit = 10;
+  currentPage: number = 1;
+  pages: Array<number> = [];
+
+  setCurrentPageNumber(): void {
+    this.currentPage = this.limit / this.offset;
+    this.currentPage = !Number.isFinite(this.currentPage)
+      ? 1
+      : this.currentPage + 1;
+  }
+  private formatDateFromEvent(
+    friends: Array<FriendsContent>
+  ): Array<FriendsContent> {
+    friends.map((friend) => {
+      friend.dateStartFriendship = new Date(
+        friend.dateStartFriendship
+      ).toLocaleDateString();
+    });
+    return friends;
+  }
+
+  private getPagesNumbers() {
+    const totalPages = Math.ceil(this.content.total / this.limit);
+    let i = 1;
+    while (i <= totalPages) {
+      this.pages.push(i);
+      i++;
+    }
+  }
+
+  // async ngOnInit(): Promise<void> {
+  //   this.content = await this.friendService.listFriends(
+  //     this.offset,
+  //     this.limit
+  //   );
+  //   // this.content.friend = this.formatDateFromEvent(this.content.friend);
+  //   this.setCurrentPageNumber();
+  //   this.getPagesNumbers();
+  //   console.log(this.content.friends);
+  //   console.log(this.content.total);
+  // }
+  async ngOnInit(): Promise<void> {
+    this.content = await this.friendService.listFriends(
+      this.offset,
+      this.limit
+    );
+    this.content.friends = this.formatDateFromEvent(this.content.friends);
+    this.setCurrentPageNumber();
+    this.getPagesNumbers();
+    console.log(this.content.friends);
+    console.log(this.content.total);
+  }
+  async goToPage(page: number): Promise<void> {
+    this.offset = page * this.limit - this.limit;
+    this.content = await this.friendService.listFriends(
+      this.offset,
+      this.limit
+    );
+    this.content.friends = this.formatDateFromEvent(this.content.friends);
+    this.setCurrentPageNumber();
+  }
+
+  async nextPage(): Promise<void> {
+    if (this.currentPage === this.pages.length) {
+      return;
+    }
+    this.offset = (this.currentPage + 1) * this.limit - this.limit;
+    this.content = await this.friendService.listFriends(
+      this.offset,
+      this.limit
+    );
+    this.content.friends = this.formatDateFromEvent(this.content.friends);
+    this.setCurrentPageNumber();
+  }
+  async previousPage(): Promise<void> {
+    if (this.currentPage === 1) {
+      return;
+    }
+    this.offset = (this.currentPage - 1) * this.limit - this.limit;
+    this.content = await this.friendService.listFriends(
+      this.offset,
+      this.limit
+    );
+    this.content.friends = this.formatDateFromEvent(this.content.friends);
+    this.setCurrentPageNumber();
+  }
+
   isAddFriendDialogOpen = false;
 
   toggleAddFriendDialog() {
     this.isAddFriendDialogOpen = !this.isAddFriendDialogOpen;
-  }
-
-  currentPage = 1;
-  itemsPerPage = 6;
-  cardItens: Array<CardItensType> = [
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-    {
-      name: 'Fulano da silva',
-      type: 'Participante',
-      dateStartFriendship: '2024-09-01',
-      image: '/assets/svg/logo.svg',
-    },
-  ];
-  totalPages = Math.ceil(this.cardItens.length / this.itemsPerPage); //arredonda para cima, para nao quebrar caso tenha pagina impar
-
-  paginatedItems: Array<CardItensType> = this.calculatePaginatedItems();
-
-  pageNumbers: number[] = this.calculatePageNumbers();
-
-  calculatePaginatedItems(): Array<CardItensType> {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.cardItens.slice(startIndex, endIndex);
-  }
-
-  calculatePageNumbers(): number[] {
-    return Array(this.totalPages)
-      .fill(0)
-      .map((_, i) => i + 1);
-  }
-
-  setPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.paginatedItems = this.calculatePaginatedItems();
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.setPage(this.currentPage + 1);
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.setPage(this.currentPage - 1);
-    }
   }
 }

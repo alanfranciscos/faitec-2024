@@ -1,22 +1,24 @@
 <div class="container">
-  <header class="topbar">
+  <!-- <header>
     <a routerLink="/"><img src="/assets/svg/logo-max.svg" alt="logo expanded" /></a>
     <div class="user-profile">
       <span class="custom-span">User name</span>
       <a routerLink="/my-profile">
         <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" /></a>
     </div>
-  </header>
+  </header> -->
+  <app-header></app-header>
+  <app-event-layout class="sidebar" (sidebarToggle)="toggleSidebar()"></app-event-layout>
 
   <main class="main-container">
-    <app-event-layout class="sidebar"></app-event-layout>
-    <div class="content-container">
+    <div class="content-container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
       <content>
         <router-outlet />
+        <footer class="footer">
+          <app-footer></app-footer>
+        </footer>
       </content>
     </div>
   </main>
-  <footer class="footer">
-    <app-footer></app-footer>
-  </footer>
+
 </div>

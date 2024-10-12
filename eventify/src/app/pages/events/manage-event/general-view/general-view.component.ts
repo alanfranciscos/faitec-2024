@@ -1,26 +1,21 @@
 import { EventLocation } from './../../../../domain/model/event/eventLocalization.model.d';
 import { TotalExpenses } from './../../../../domain/model/event/totalexpenses.model.d';
 import { Component, Input, OnInit } from '@angular/core';
-import ViewItensType from './types';
 import { MapComponent } from '../../../../components/map/map.component';
 import { OrganizationInfo } from '../../../../domain/model/event/organizationInfo.model';
 import { EventService } from '../../../../services/event/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDate } from '../../../../domain/model/event/eventDate.model';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [MapComponent],
+  imports: [MapComponent, PrimaryInputComponent, ButtonComponent, RouterLink],
   templateUrl: './general-view.component.html',
   styleUrl: './general-view.component.scss',
 })
 export class GeneralViewComponent implements OnInit {
-  organizationData!: OrganizationInfo;
-  createdOnFormatted!: string;
-  totalExpenses!: TotalExpenses;
-  eventDate!: EventDate;
-  eventLocation!: EventLocation;
-
   constructor(
     private eventService: EventService,
     private activatedRoute: ActivatedRoute
@@ -34,34 +29,40 @@ export class GeneralViewComponent implements OnInit {
   @Input() status!: string;
   @Input() currentExpense!: string;
 
-  generalViewExample: ViewItensType = {
-    createDate: '2022-01-01',
-    startDate: '2022-01-01',
-    endDate: '2022-01-31',
-    userName: 'John Doe',
-    participantsNumber: '10',
-    status: 'active',
-    currentExpense: '1000.00',
-  };
+  organizationData!: OrganizationInfo;
+  createdOnFormatted!: string;
+  totalExpenses!: TotalExpenses;
+  eventDate!: EventDate;
+  eventLocation!: EventLocation;
+  popUpInfo!: string;
+  route!: string;
 
   async ngOnInit(): Promise<void> {
     let eventId = this.activatedRoute.snapshot.paramMap.get('id');
     eventId = eventId == null ? '-1' : eventId;
+    this.route = '/event/' + eventId + '/edit-event/basic-info';
+
     const organizationResponse = await this.eventService.getOrganizationData(
       eventId
     );
+
     this.organizationData = organizationResponse;
     this.organizationData.createdOn = new Date(
       this.organizationData.createdOn
     ).toLocaleDateString();
+
     const totalExpenses = await this.eventService.getTotalExpenses(eventId);
     this.totalExpenses = totalExpenses;
+
     const eventDate = await this.eventService.getEventDate(eventId);
     this.eventDate = eventDate;
+
     eventDate.startDate = new Date(eventDate.startDate).toLocaleDateString();
     eventDate.endDate = new Date(eventDate.endDate).toLocaleDateString();
 
     const eventLocation = await this.eventService.getEventLocation(eventId);
     this.eventLocation = eventLocation;
+
+    this.popUpInfo = `${eventLocation.locationName} - ${eventLocation.city}`;
   }
 }

@@ -56,6 +56,9 @@
     <div class="content-container">
       <div class="content-title">
         <span class="title-text">Location</span>
+        <button class="add-expense-button" style="background-color: #14ad47" routerLink="{{route}}">Edit / Add
+          info</button>
+
       </div>
       <form>
         <div class="form-row">
@@ -103,7 +106,7 @@
       </form>
 
       <div class="map">
-        <app-map width="800" height="500"></app-map>
+        <app-map width="800" height="500" [coordinates]="eventLocation.coordinates" [popUpInfo]="popUpInfo"></app-map>
       </div>
     </div>
   </div>
