@@ -1,21 +1,21 @@
-<div class="expenses-container">
+<!-- <div class="expenses-container">
   <div class="expenses-cards">
     <div class="card expenses-card">
       <div class="card-title">
         <span class="title-text">Current Expenses</span>
-        <i
-          class="fas fa-dollar-sign"
-          style="font-size: 2rem; color: #14ad47"
-        ></i>
+        <i class="fas fa-dollar-sign" style="font-size: 2rem; color: #14ad47"></i>
       </div>
       <div class="card-content">
-        <span style="font-size: 2rem; color: black; padding: 1rem"
-          >R$ {{ totalExpenses }}</span
-        >
+        <span style="font-size: 2rem; color: black; padding: 1rem">R$ {{ totalExpenses.totalExpanses }}</span>
       </div>
     </div>
     <div class="card expenses-card">
-      <img src="/assets/svg/pix.svg" alt="pix-image" class="expenses-image" />
+      <div class="expense-key">
+
+        <img src="/assets/svg/pix.svg" alt="pix-image" class="expenses-image" />
+        <span>{{paymentApproach.pixKeY}}</span>
+
+      </div>
       <p class="expenses-text">
         The payment key will only be available at the end of the event.
       </p>
@@ -49,6 +49,63 @@
         <button (click)="previousPage()" [disabled]="currentPage === 1">
           <i class="fas fa-arrow-left"></i>
 
+          <span> Previous</span>
+        </button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          <span> Next </span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="expenses-container">
+  <div class="expenses-cards">
+    <div class="card expenses-card">
+      <div class="card-title">
+        <span class="title-text">Current Expenses</span>
+        <i class="fas fa-dollar-sign" style="font-size: 2rem; color: #14ad47"></i>
+      </div>
+      <div class="card-content">
+        <span style="font-size: 2rem; color: black; padding: 1rem">R$ {{ totalExpenses.totalExpanses }}</span>
+      </div>
+    </div>
+    <div class="card expenses-card">
+      <div class="expense-key">
+        <img src="/assets/svg/pix.svg" alt="pix-image" class="expenses-image" />
+        <span>{{paymentApproach.pixKeY}}</span>
+      </div>
+      <p class="expenses-text">
+        The payment key will only be available at the end of the event.
+      </p>
+    </div>
+  </div>
+
+  <div class="card expenses-table-card">
+    <div class="card-title">
+      <span class="title-text">Expense Records</span>
+    </div>
+    <div class="card-content">
+      <table class="expenses-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expense of eventExpanses.expanses">
+            <td>{{ expense.description }}</td>
+            <td>{{ expense.amount | currency : "USD" }}</td>
+            <td>{{ expense.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">
+          <i class="fas fa-arrow-left"></i>
           <span> Previous</span>
         </button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>

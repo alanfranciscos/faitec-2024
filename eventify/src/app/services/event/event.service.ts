@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { EventHeader } from '../../domain/model/event/eventHeader.model';
 import { ApiService } from '../api/api.service';
+import { OrganizationInfo } from '../../domain/model/event/organizationInfo.model';
+import { TotalExpenses } from '../../domain/model/event/totalexpenses.model';
+import { EventDate } from '../../domain/model/event/eventDate.model';
+import { EventLocation } from '../../domain/model/event/eventLocalization.model';
+import { PaymentApproach } from '../../domain/model/event/paymentApproach.model';
+import { ExpansesResponse } from '../../domain/model/event/expense.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +22,56 @@ export class EventService {
 
     if (response.status != 200) {
       throw new Error('Failed to fetch events');
+    }
+
+    return response.data;
+  }
+  async getOrganizationData(eventId: string): Promise<OrganizationInfo> {
+    const response = await this.api.get(`api/v1/event/${eventId}/organization`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch organization data');
+    }
+    return response.data;
+  }
+
+  async getTotalExpenses(eventId: string): Promise<TotalExpenses> {
+    const response = await this.api.get(
+      `api/v1/event/${eventId}/total-expanses`
+    );
+    if (response.status != 200) {
+      throw new Error('Failed to fetch total expenses');
+    }
+    return response.data;
+  }
+
+  async getEventDate(eventId: string): Promise<EventDate> {
+    const response = await this.api.get(`api/v1/event/${eventId}/dates`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch total expenses');
+    }
+    return response.data;
+  }
+  async getEventLocation(eventId: string): Promise<EventLocation> {
+    const response = await this.api.get(`api/v1/event/${eventId}/localization`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch total expenses');
+    }
+    return response.data;
+  }
+  async getPaymentApproach(eventId: string): Promise<PaymentApproach> {
+    const response = await this.api.get(`api/v1/event/${eventId}/payment`);
+    if (response.status != 200) {
+      throw new Error('Failed to fetch total expenses');
+    }
+    return response.data;
+  }
+  async getEventExpanses(eventId: string): Promise<ExpansesResponse> {
+    const response = await this.api.get<ExpansesResponse>(
+      `api/v1/event/${eventId}/expanses`
+    );
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch event expanses');
     }
 
     return response.data;

@@ -14,15 +14,15 @@ import { NotificationComponent } from './pages/notification/notification.compone
 
 import { FriendsComponent } from './pages/friends/friends.component';
 
-import { ManageEventComponent } from './pages/events/manage-event/manage-event.component';
-import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
-import { MembersComponent } from './pages/events/manage-event/members/members.component';
-import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
 import { MyEventsComponent } from './pages/events/my-events/my-events.component';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { ForgetPasswordComponent } from './pages/authentication/forget-password/forget-password.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { authGuard } from './services/security/guard/auth.guard';
+import { ManageEventComponent } from './pages/events/manage-event/manage-event.component';
+import { ExpensesComponent } from './pages/events/manage-event/expenses/expenses.component';
+import { MembersComponent } from './pages/events/manage-event/members/members.component';
+import { GeneralViewComponent } from './pages/events/manage-event/general-view/general-view.component';
 
 export const routes: Routes = [
   {
@@ -83,10 +83,10 @@ export const routes: Routes = [
   },
 
   {
-    path: 'manage-event',
+    path: 'event/:id',
     component: ManageEventComponent,
     children: [
-      { path: 'general-view', component: GeneralViewComponent },
+      { path: '', component: GeneralViewComponent },
       { path: 'expenses', component: ExpensesComponent },
       { path: 'members', component: MembersComponent },
     ],
