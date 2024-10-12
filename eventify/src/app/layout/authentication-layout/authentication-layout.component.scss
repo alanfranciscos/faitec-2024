@@ -1,6 +1,5 @@
 main {
-  // width: 100vw;
-  height: 100%;
+  height: 100vh;
 
   background: linear-gradient(270deg, #69ac7f -0.44%, #fff 100%);
   opacity: var(--sds-size-stroke-border);
@@ -11,8 +10,6 @@ main {
 }
 
 .form-section {
-  width: 30.75rem;
-
   border-radius: 0.625rem;
   border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.2);
   background: #fff;
@@ -40,4 +37,7 @@ main {
 
 img {
   margin-top: 2.5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }

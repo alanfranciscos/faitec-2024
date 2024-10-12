@@ -22,7 +22,7 @@ public class AccountDaoImpl implements AccountDao {
                 resultSet.getInt("id"),
                 resultSet.getString("username"),
                 resultSet.getString("email"),
-                resultSet.getBytes("image_data"),
+                resultSet.getString("image_data"),
                 resultSet.getBoolean("is_verified")
         );
         return account;
@@ -76,7 +76,7 @@ public class AccountDaoImpl implements AccountDao {
 
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getEmail());
-            preparedStatement.setBytes(3, entity.getImageData());
+            preparedStatement.setString(3, entity.getImageData());
             preparedStatement.setBoolean(4, entity.isVerified());
 
             preparedStatement.execute();
@@ -172,5 +172,23 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public List<Account> readAll() {
         return null;
+    }
+
+    public void updateImage(int id, String imagePath) {
+        final String sql = "UPDATE account SET image_data = ? WHERE id = ?;";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, imagePath);
+            preparedStatement.setInt(2, Integer.valueOf(id));
+            preparedStatement.execute();
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Adiciona rastreamento da pilha
+            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+        }
     }
 }

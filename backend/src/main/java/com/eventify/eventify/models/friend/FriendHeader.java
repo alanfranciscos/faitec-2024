@@ -12,6 +12,6 @@ import java.time.ZonedDateTime;
 public class FriendHeader {
     private int id;
     private String username;
-    private byte[] image;
+    private String image;
     private ZonedDateTime dateStartFriendship;
 }

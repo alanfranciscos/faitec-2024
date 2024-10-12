@@ -53,7 +53,7 @@ public class EventDaoImpl implements EventDao {
                 resultSet.getTimestamp("date_start").toInstant().atZone(ZoneId.systemDefault()),
                 resultSet.getTimestamp("date_end").toInstant().atZone(ZoneId.systemDefault()),
                 EventStageEnum.fromString(resultSet.getString("stage")),
-                resultSet.getBytes("image_data")
+                resultSet.getString("image_data")
         );
 
         return eventHeader;

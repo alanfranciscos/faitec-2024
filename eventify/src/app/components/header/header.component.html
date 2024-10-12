@@ -3,19 +3,39 @@
     <div>
       <span class="custom-span">{{ ComponentName }}</span>
 
-      <app-tooltip tooltipText="{{textTooltip}}" [position]="tooltipPosition">
-        <span class=" custom-span"><i class="fal fa-info-circle"></i></span>
+      <app-tooltip tooltipText={{textTooltip}} [position]="tooltipPosition">
+        <span class="custom-span">
+          @if (textTooltip) {
+          <i class="fal fa-info-circle"></i>
+          }
+
+        </span>
       </app-tooltip>
-
-
-
     </div>
 
     <div class="user-profile">
       <span class="custom-span">User name</span>
-      <a routerLink="/my-profile">
-        <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" />
-      </a>
+      <div class="dropdown" (mouseenter)="openDropdown()" (mouseleave)="closeDropdown()">
+        <button class="dropdown-button" (click)="toggleDropdown()"
+          style="background: unset; border: none; cursor: pointer;">
+          <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" />
+        </button>
+
+        <ul *ngIf="isOpen" class="dropdown-menu">
+          <li>
+            <a routerLink="/my-profile">
+              <i class="fas fa-user-alt"></i>
+              <span>Edit</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/account/login" (click)="logout()">
+              <i class="fal fa-sign-out-alt"></i>
+              <span>Exit</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

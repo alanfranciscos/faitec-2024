@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-member-card',
@@ -8,8 +9,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './member-card.component.scss',
 })
 export class MemberCardComponent {
-  @Input() name: string = 'titulo';
-  @Input() type: string = 'descripcion';
-  @Input() image: string = 'image';
-  @Input() dateStartFriendship: string = 'startData';
+  @Input() name!: string;
+  @Input() roleParticipate!: string;
+  @Input() image?: string;
+  @Input() aceptedAt!: string;
 }

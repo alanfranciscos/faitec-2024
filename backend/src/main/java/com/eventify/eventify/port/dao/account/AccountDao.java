@@ -12,4 +12,6 @@ public interface AccountDao extends
         UpdateVerificationStatus,
         DeleteDao {
 
+    void updateImage(int id, String imagePath);
+
 }

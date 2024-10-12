@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventLayoutComponent } from '../../../components/sidebar/event-sidebar/event-sidebar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { GeneralViewComponent } from './general-view/general-view.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { MembersComponent } from './members/members.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { GeneralViewComponent } from './general-view/general-view.component';
+import { EventService } from '../../../services/event/event.service';
+import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-  selector: 'app-manage-event',
+  selector: 'app-event',
   standalone: true,
   imports: [
     EventLayoutComponent,
@@ -19,8 +21,15 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MembersComponent,
     RouterOutlet,
     RouterLink,
+    HeaderComponent,
   ],
   templateUrl: './manage-event.component.html',
   styleUrl: './manage-event.component.scss',
 })
-export class ManageEventComponent {}
+export class ManageEventComponent {
+  isCollapsed = false; // Inicializa como false (sidebar expandida)
+
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed; // Alterna o estado da sidebar
+  }
+}

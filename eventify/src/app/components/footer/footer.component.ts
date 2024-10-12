@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { LanguageComponent } from '../language/language.component';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [LanguageComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })

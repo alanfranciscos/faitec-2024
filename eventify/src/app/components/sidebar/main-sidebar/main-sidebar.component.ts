@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { SideBarItensType } from './types';
 import { CommonModule } from '@angular/common';
@@ -24,26 +24,43 @@ export class MainSidebarComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/account/login']); // Redireciona para a tela de login
   }
-
+  @Output() sidebarToggle = new EventEmitter<void>();
   isCollapsed = false;
   sidebarItens: Array<SideBarItensType> = [
     {
       title: 'My events',
       routerLink: '/',
       isSelected: false,
-      icon: 'fas fa-calendar',
+      // icon: 'fas fa-calendar',
+      icon: 'fad fa-calendar-week',
     },
     {
       title: 'Friends',
       isSelected: false,
       routerLink: '/friends',
-      icon: 'fas fa-user-friends',
+      // icon: 'fas fa-user-friends',
+      icon: 'fad fa-users',
     },
     {
-      title: 'Notifications',
+      title: 'Invites',
       isSelected: false,
-      routerLink: '/notification',
-      icon: 'fas fa-bell',
+      // icon: 'fas fa-bell',
+      icon: 'fad fa-envelope-open-text',
+      children: [
+        {
+          title: 'Friends',
+          routerLink: '/invite/friend',
+          isSelected: false,
+          // icon: 'fas fa-user-friends',
+          icon: 'fas fa-user-friends',
+        },
+        {
+          title: 'Events',
+          routerLink: '/invite/event',
+          isSelected: false,
+          icon: 'fas fa-calendar',
+        },
+      ],
     },
   ];
 
@@ -51,18 +68,56 @@ export class MainSidebarComponent implements OnInit {
     const activeRoute = this.router.url;
     this.sidebarItens.forEach((item) => {
       item.isSelected = item.routerLink === activeRoute;
+
+      if (item.children) {
+        item.children.forEach((child) => {
+          child.isSelected = child.routerLink === activeRoute;
+        });
+      }
+    });
+
+    this.selectFather();
+  }
+
+  private unselectAll() {
+    this.sidebarItens.forEach((element) => {
+      element.isSelected = false;
+      if (element.children) {
+        element.children.forEach((child) => {
+          child.isSelected = false;
+        });
+      }
+    });
+  }
+
+  private selectFather() {
+    this.sidebarItens.forEach((element) => {
+      if (element.children) {
+        element.children.forEach((child) => {
+          if (child.isSelected) {
+            element.isSelected = true;
+          }
+        });
+      }
     });
   }
 
   ToogleSelected(event: Event, item: SideBarItensType) {
     event.preventDefault();
-    this.sidebarItens.forEach((element) => {
-      element.isSelected = false;
-    });
+
+    this.unselectAll();
+
     item.isSelected = true;
+    if (item.children) {
+      item.children[0].isSelected = true;
+      this.router.navigate([item.children[0].routerLink]);
+    }
+
+    this.selectFather();
   }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit();
   }
 }

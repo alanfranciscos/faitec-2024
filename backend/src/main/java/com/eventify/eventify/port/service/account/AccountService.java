@@ -1,6 +1,7 @@
 package com.eventify.eventify.port.service.account;
 
 import com.eventify.eventify.models.account.Account;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Service interface for managing user accounts.
@@ -11,13 +12,12 @@ public interface AccountService {
     /**
      * Registers a new user with the provided username, email, password, and profile image data.
      *
-     * @param username  the username of the new user
-     * @param email     the email address of the new user
-     * @param password  the password for the new user
-     * @param imageData the profile image data for the new user
+     * @param username the username of the new user
+     * @param email    the email address of the new user
+     * @param password the password for the new user
      * @return an Integer representing the ID of the newly registered user
      */
-    Integer RegisterUser(String username, String email, String password, byte[] imageData);
+    Integer RegisterUser(String username, String email, String password);
 
     /**
      * Resets the password for the user associated with the given email.
@@ -60,4 +60,21 @@ public interface AccountService {
      * @return the account associated with the given email
      */
     Account getAccountByEmail(String email);
+
+
+    /**
+     * Updates the profile image for the user associated with the given ID.
+     *
+     * @param id        the ID of the user
+     * @param imageData the new profile image data for the user
+     */
+    void updateImage(int id, MultipartFile imageData);
+
+
+    /**
+     * Deletes the account associated with the given ID.
+     *
+     * @param id the ID of the account to delete
+     */
+    void deleteAccount(int id);
 }
