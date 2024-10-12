@@ -1,7 +1,8 @@
 package com.eventify.eventify.port.service.account;
 
-import com.eventify.eventify.models.account.Account;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.eventify.eventify.models.account.Account;
 
 /**
  * Service interface for managing user accounts.
@@ -54,6 +55,7 @@ public interface AccountService {
      */
     Account getAccountById(int accountId);
 
+
     /**
      * Retrieves the account associated with the given email.
      * @param email the email of the account to retrieve
@@ -77,4 +79,5 @@ public interface AccountService {
      * @param id the ID of the account to delete
      */
     void deleteAccount(int id);
+
 }

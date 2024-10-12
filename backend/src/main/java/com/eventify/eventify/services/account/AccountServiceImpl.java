@@ -163,10 +163,22 @@ public class AccountServiceImpl implements AccountService {
             return accountDao.readByEmail(email);
         } catch (Exception e) {
             throw new RuntimeException("Failed to read account", e);
+        }
+    }
+
+
+    @Override
+    public void deleteAccount(int id) {
+        try {
+            accountDao.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete account", e);
 
         }
     }
-  
+
+
+    
     public void updateImage(int id, MultipartFile imageData) {
         String imageUrl = "";
 
@@ -185,14 +197,6 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    @Override
-    public void deleteAccount(int id) {
-        try {
-            accountDao.deleteById(id);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to delete account", e);
-        }
-    }
 
     // UTILS
     private String generateVerificationCodString() {
