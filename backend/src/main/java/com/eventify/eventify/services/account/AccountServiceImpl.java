@@ -177,6 +177,8 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+
+    
     public void updateImage(int id, MultipartFile imageData) {
         String imageUrl = "";
 
@@ -194,6 +196,7 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Failed to update image in database: ", e);
         }
     }
+
 
     // UTILS
     private String generateVerificationCodString() {

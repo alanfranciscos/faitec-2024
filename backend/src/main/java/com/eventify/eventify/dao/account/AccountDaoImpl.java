@@ -170,7 +170,6 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-
     public List<Account> readAll() {
         return null;
     }

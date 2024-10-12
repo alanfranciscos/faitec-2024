@@ -1,7 +1,8 @@
 package com.eventify.eventify.port.service.account;
 
-import com.eventify.eventify.models.account.Account;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.eventify.eventify.models.account.Account;
 
 /**
  * Service interface for managing user accounts.
