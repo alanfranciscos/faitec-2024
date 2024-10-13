@@ -27,4 +27,7 @@ public interface EventService extends ExpenseForEventService {
     List<Event> findAll();
 
     Event findById(final int id);
+
+    int getTotalParticipantsForPagination(final int eventId);
+
 }

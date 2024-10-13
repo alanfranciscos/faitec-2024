@@ -4,6 +4,5 @@ import com.eventify.eventify.models.invite.Invite;
 
 import java.util.List;
 
-public record InviteListResponse(
-        List<Invite> invite) {
+public record InviteListResponse(List<Invite> invite, int totalInvites) {
 }

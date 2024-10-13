@@ -10,4 +10,6 @@ public interface ExpenseForEventService {
 
     List<EventExpanses> getExpansesById(final int id);
 
+    int getTotalExpensesForPagination(final int eventId);
+
 }

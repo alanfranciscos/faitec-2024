@@ -78,6 +78,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public int getTotalExpensesForPagination(int eventId) {
+        int totalExpenses = eventDao.getTotalExpensesForPagination(eventId);
+        return totalExpenses;
+    }
+
+    @Override
+    public int getTotalParticipantsForPagination(int eventId) {
+        int totalParticipants = eventDao.getTotalParticipantsForPagination(eventId);
+        return totalParticipants;
+    }
+
+
+    @Override
     public EventDate getDateById(int id) {
         Account account = accountService.getAccountRequest();
 

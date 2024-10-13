@@ -123,7 +123,7 @@ public class EventController {
     ) {
         List<EventExpanses> response = eventService
                 .getExpansesById(id);
-
+        int totalExpenses = eventService.getTotalExpensesForPagination(id);
 
         return ResponseEntity.ok(new EventExpansesResponse(
                 response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
@@ -131,7 +131,7 @@ public class EventController {
                         eventExpanses.getAbout(),
                         eventExpanses.getCost()
 
-                )).toList()
+                )).toList(), totalExpenses
         ));
     }
 
@@ -141,6 +141,7 @@ public class EventController {
     ) {
         List<ParticipateHeader> response = participateService
                 .listByEventId(id);
+        int totalParticipants = eventService.getTotalParticipantsForPagination(id);
 
         return ResponseEntity.ok(new ListParticipantsResponse(
                 response.stream().map(participateHeader -> new ListParticipantsResponse.Participant(
@@ -148,7 +149,7 @@ public class EventController {
                         participateHeader.getName(),
                         participateHeader.getSendedAt(),
                         participateHeader.getRoleParticipate().toString()
-                )).toList()
+                )).toList(), totalParticipants
         ));
     }
 

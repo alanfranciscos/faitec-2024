@@ -19,16 +19,8 @@ public class FriendController {
     private final FriendService friendService;
 
     @GetMapping()
-    public ResponseEntity<FriendListResponse> listPaginatedFromUser(
-            @RequestParam(defaultValue = "10") int limit,
-            @RequestParam(defaultValue = "0") int offset
-    ) {
-        FriendListResponse response = friendService
-                .listFriendByAccountId(
-                        limit,
-                        offset
-                );
-
+    public ResponseEntity<FriendListResponse> listPaginatedFromUser(@RequestParam(defaultValue = "10") int limit, @RequestParam(defaultValue = "0") int offset) {
+        FriendListResponse response = friendService.listFriendByAccountId(limit,offset);
         return ResponseEntity.ok(response);
     }
 

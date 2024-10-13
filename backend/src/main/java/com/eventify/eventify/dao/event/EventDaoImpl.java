@@ -204,6 +204,27 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
+    public int getTotalExpensesForPagination(int eventId) {
+
+        String sql = "SELECT COUNT(*) AS TOTAL FROM expanses ";
+        sql += " WHERE meetup_id = ?; ";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, eventId);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final int totalExpenses = resultSet.getInt("TOTAL");
+                    return totalExpenses;
+                }
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public EventDate getDateById(int id) {
         String sql = "select date_start, date_end from meetup where id = ?";
 
@@ -249,6 +270,27 @@ public class EventDaoImpl implements EventDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int getTotalParticipantsForPagination(int eventId) {
+        String sql = "SELECT COUNT(*) AS TOTAL FROM participate";
+        sql += " WHERE meetup_id = ?; ";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, eventId);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final int totalParticipate = resultSet.getInt("TOTAL");
+                    return totalParticipate;
+                }
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

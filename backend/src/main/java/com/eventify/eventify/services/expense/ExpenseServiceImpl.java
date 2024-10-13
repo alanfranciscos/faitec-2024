@@ -68,15 +68,15 @@ public class ExpenseServiceImpl implements ExpenseService {
         expenseDao.updateInformation(id, entity);
     }
 
-    @Override
-    public EventExpansesResponse getExpensesByAccountId() {
-        Account account = accountService.getAccountRequest();
-        if (account == null){
-            throw new RuntimeException("Null account");
-        }
-
-        EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(account.getId());
-
-        return eventExpansesResponse;
-    }
+//    @Override
+//    public EventExpansesResponse getExpensesByAccountId() {
+//        Account account = accountService.getAccountRequest();
+//        if (account == null){
+//            throw new RuntimeException("Null account");
+//        }
+//
+//        EventExpansesResponse eventExpansesResponse = expenseDao.getExpensesByAccountId(account.getId());
+//
+//        return eventExpansesResponse;
+//    }
 }

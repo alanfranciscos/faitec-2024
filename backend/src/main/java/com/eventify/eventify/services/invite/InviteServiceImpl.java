@@ -45,10 +45,11 @@ public class InviteServiceImpl implements InviteService {
 
 
         List<Invite> eventInviteList = new ArrayList<>();
+        int totalEventInvites = 0;
 
         for (Participate participate : participateList) {
             Event event = eventService.getEventById(participate.getEventId());
-
+            totalEventInvites += 1;
             Invite invite = new Invite(
                     participate.getId(),
                     event.getTitle(),
@@ -59,7 +60,7 @@ public class InviteServiceImpl implements InviteService {
         }
 
         return new InviteListResponse(
-                eventInviteList
+                eventInviteList, totalEventInvites
         );
     }
 
@@ -70,9 +71,11 @@ public class InviteServiceImpl implements InviteService {
 
 
         List<Invite> friendInviteList = new ArrayList<>();
+        int totalEventInvites = 0;
 
         for (Friend friend : friendList) {
             Account sendedAccount = accountService.getAccountById(friend.getAccountId());
+            totalEventInvites += 1;
 
             Invite invite = new Invite(
                     friend.getId(),
@@ -84,7 +87,7 @@ public class InviteServiceImpl implements InviteService {
         }
 
         return new InviteListResponse(
-                friendInviteList
+                friendInviteList, totalEventInvites
         );
 
     }

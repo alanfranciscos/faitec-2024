@@ -169,46 +169,46 @@ public class ExpensesDaoImpl implements ExpenseDao {
             throw new RuntimeException();
         }
     }
-    @Override
-    public EventExpansesResponse getExpensesByAccountId(int account_id) {
-        final List<EventExpansesResponse.Expanse> expenses = new ArrayList<>();
-        String sql = "SELECT EX.meetup_id, EX.cost, EX.created_at, EX.about, PA.account_id FROM account AC ";
-        sql += "INNER JOIN participate PA ON PA.account_id = AC.id ";
-        sql += "INNER JOIN meetup ME ON ME.id = PA.meetup_id ";
-        sql += "INNER JOIN expanses EX ON EX.meetup_id = ME.id ";
-        sql += "WHERE PA.account_id = ? ";
-        sql += "GROUP BY EX.meetup_id, EX.cost, EX.created_at, EX.about, PA.account_id ";
-        sql += "ORDER BY 1;";
-
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, account_id);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                OffsetDateTime offsetCreatedAt = resultSet.getObject("created_at", OffsetDateTime.class);
-                ZonedDateTime zonedCreatedAt = offsetCreatedAt.toZonedDateTime();
-                final EventExpansesResponse.Expanse expense = new EventExpansesResponse.Expanse(
-                        zonedCreatedAt,
-                        resultSet.getString("about"),
-                        resultSet.getDouble("cost")
-                );
-                expenses.add(expense);
-            }
-            EventExpansesResponse response = new EventExpansesResponse(expenses);
-            return response;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                resultSet.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+//    @Override
+//    public EventExpansesResponse getExpensesByAccountId(int account_id) {
+//        final List<EventExpansesResponse.Expanse> expenses = new ArrayList<>();
+//        String sql = "SELECT EX.meetup_id, EX.cost, EX.created_at, EX.about, PA.account_id FROM account AC ";
+//        sql += "INNER JOIN participate PA ON PA.account_id = AC.id ";
+//        sql += "INNER JOIN meetup ME ON ME.id = PA.meetup_id ";
+//        sql += "INNER JOIN expanses EX ON EX.meetup_id = ME.id ";
+//        sql += "WHERE PA.account_id = ? ";
+//        sql += "GROUP BY EX.meetup_id, EX.cost, EX.created_at, EX.about, PA.account_id ";
+//        sql += "ORDER BY 1;";
+//
+//
+//        PreparedStatement preparedStatement = null;
+//        ResultSet resultSet = null;
+//
+//        try {
+//            preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, account_id);
+//            resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                OffsetDateTime offsetCreatedAt = resultSet.getObject("created_at", OffsetDateTime.class);
+//                ZonedDateTime zonedCreatedAt = offsetCreatedAt.toZonedDateTime();
+//                final EventExpansesResponse.Expanse expense = new EventExpansesResponse.Expanse(
+//                        zonedCreatedAt,
+//                        resultSet.getString("about"),
+//                        resultSet.getDouble("cost")
+//                );
+//                expenses.add(expense);
+//            }
+//            EventExpansesResponse response = new EventExpansesResponse(expenses);
+//            return response;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            try {
+//                resultSet.close();
+//                preparedStatement.close();
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
 }

@@ -4,8 +4,4 @@ import com.eventify.eventify.models.friend.FriendHeader;
 
 import java.util.List;
 
-public record FriendListResponse(
-        List<FriendHeader> friends,
-        int total
-) {
-}
+public record FriendListResponse(List<FriendHeader> friends,int total) { }
