@@ -97,6 +97,29 @@ public class FriendServiceImpl implements FriendService {
 
         return id;
     }
+    @Override
+    public boolean deleteFriend(int friendId) {
+
+        if (friendId < 0) {
+            throw new RuntimeException("ID less than 0");
+        }
+
+        Account account = accountService.getAccountRequest();
+        int accountId = account.getId();
+
+        List<Friend> friends = friendDao.listFriendByAccountId(accountId, 10, 0);
+
+        List<FriendHeader> friendHeaders = new ArrayList<>();
+
+        for (Friend friend : friends) {
+            if (friend.getAcceptedAt() == null || friend.getId() != friendId) {
+                continue;
+            }
+            friendDao.deleteById(friendId);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public int create(Friend entity) {
@@ -110,9 +133,22 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public void delete(int id) {
         if (id < 0) {
-            return;
+            throw new RuntimeException("ID less than 0");
         }
-        friendDao.deleteById(id);
+
+        Account account = accountService.getAccountRequest();
+        Account friendAccount = accountService.getAccountById(id);
+        if(friendAccount == null){
+            throw new RuntimeException("Invalid ID");
+        }
+
+        boolean isFriend = friendDao.isFriend(account.getId(), friendAccount.getId());
+        if(isFriend){
+            friendDao.deleteById(id);
+        } else {
+            throw new RuntimeException("Is not friend");
+        }
+
     }
 
     @Override

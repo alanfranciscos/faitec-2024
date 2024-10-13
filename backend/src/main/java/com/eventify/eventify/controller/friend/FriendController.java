@@ -24,20 +24,20 @@ public class FriendController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/entities")
-    public ResponseEntity<List<Friend>> getEntities(){
+    @GetMapping("/all-friends")
+    public ResponseEntity<List<Friend>> getFriends(){
         List<Friend> friends = friendService.findAll();
         return ResponseEntity.ok().body(friends);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Friend> getEntityById(@PathVariable final int id){
+    public ResponseEntity<Friend> getFriendById(@PathVariable final int id){
         Friend friend = friendService.findById(id);
         return ResponseEntity.ok().body(friend);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Friend> createEntity(@RequestBody final FriendCreateRequest data){
+    public ResponseEntity<Friend> createFriend(@RequestBody final FriendCreateRequest data){
         int id = friendService.createFriend(data.email());
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,16 +47,16 @@ public class FriendController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Friend data){
-        friendService.update(id, data);
-        return ResponseEntity.ok().build();
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Void> updateFriend(@PathVariable final int id, @RequestBody final Friend data){
+//        friendService.update(id, data);
+//        return ResponseEntity.ok().build();
+//    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Friend> deleteEntity(@PathVariable final int id){
-        friendService.delete(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Friend> deleteFriend(@PathVariable final int id){
+        final boolean response = friendService.deleteFriend(id);
+        return response ? ResponseEntity.noContent().build() : ResponseEntity.badRequest().build();
     }
 
 }
