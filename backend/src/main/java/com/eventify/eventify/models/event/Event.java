@@ -55,4 +55,11 @@ public class Event {
         this.stage = stage;
         this.pixKey = pixKey;
     }
+
+    public Event(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
+        this.title = eventName;
+        this.pixKey = eventDescription;
+        this.dateStart = date_start;
+        this.dateEnd = date_end;
+    }
 }

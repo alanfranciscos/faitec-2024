@@ -13,9 +13,11 @@ import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -154,12 +156,52 @@ public class EventController {
     }
 
     @PostMapping()
-    public ResponseEntity<Event> createEvent(@RequestBody final EventCreateResponse eventCreateResponse){
-        int id = eventService.createEvent(eventCreateResponse);
+    public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
+                                             @RequestParam("eventname") String eventname,
+                                             @RequestParam("eventdescription") String eventdescription,
+                                             @RequestParam(value = "local_name", required = false) String local_name,
+                                             @RequestParam(value = "cep_address", required = false) String cep_address,
+                                             @RequestParam(value = "state_address", required = false) String state_address,
+                                             @RequestParam(value = "city_address", required = false) String city_address,
+                                             @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
+                                             @RequestParam(value = "number_address", required = false) String number_address,
+                                             @RequestParam(value = "street_address", required = false) String street_address,
+                                             @RequestParam(value = "complement_address", required = false) String complement_address,
+                                             @RequestParam("date_start") ZonedDateTime date_start,
+                                             @RequestParam("date_end") ZonedDateTime date_end,
+                                             @RequestParam(value = "payment", required = false) EventPaymentResponse eventPaymentResponse
+                                             ){
+        int eventId = this.eventService.createEvent(
+                eventname,
+                eventdescription,
+                date_start,
+                date_end
+        );
+        if (imageData != null) {
+            try {
+                this.eventService.updateImage(eventId, imageData);
+            } catch (Exception e) {
+                this.eventService.deleteEvent(eventId);
+                throw new RuntimeException("Failed to create event", e);
+            }
+        }
+
+        if (true) {
+            try {
+                this.eventService.updateAddress(local_name, cep_address,
+                        state_address, city_address,
+                        neighborhood_address, number_address,
+                        street_address, complement_address);
+            } catch (Exception e) {
+                this.eventService.deleteEvent(eventId);
+                throw new RuntimeException("Failed to create event", e);
+            }
+        }
+
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(eventId)
                 .toUri();
         return ResponseEntity.created(uri).build();
     }

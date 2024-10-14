@@ -294,6 +294,44 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
+    public void updateImage(int id, String imagePath) {
+        final String sql = "UPDATE meetup_image SET image_data = ?, is_profile = true WHERE id = ?;";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, imagePath);
+            preparedStatement.setInt(2, Integer.valueOf(id));
+            preparedStatement.execute();
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateAddress(String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+        final String sql = "UPDATE meetup SET local_name = ?, cep_address = ?, state_address = ?, city_address = ?, neighborhood_address = ?, number_address = ?, street_address = ?, complement_address = ? WHERE id = ?;";
+
+//        try {
+//            PreparedStatement preparedStatement;
+//            preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setString(1, imagePath);
+//            preparedStatement.setInt(2, Integer.valueOf(id));
+//            preparedStatement.execute();
+//
+//            connection.commit();
+//            preparedStatement.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+//        }
+    }
+
+    @Override
     public Event readById(int id) {
         String sql = "SELECT * FROM meetup WHERE id = ?";
 

@@ -20,4 +20,11 @@ public interface EventDao extends ListPaginatedFromUser, TotalFromUser, Expanses
     List<EventExpanses> getExpansesById(final int id);
 
     int getTotalParticipantsForPagination(final int eventId);
+
+    void updateImage(int id, String imagePath);
+
+    void updateAddress(String local_name, String cep_address,
+                       String state_address, String city_address,
+                       String neighborhood_address, String number_address,
+                       String street_address, String complement_address);
 }

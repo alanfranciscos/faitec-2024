@@ -2,14 +2,19 @@ package com.eventify.eventify.services.event;
 
 import com.eventify.eventify.dto.event.EventCreateResponse;
 import com.eventify.eventify.dto.event.EventListResponse;
+import com.eventify.eventify.dto.event.EventPaymentResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.port.dao.event.EventDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.EventService;
+import com.eventify.eventify.port.service.gcp.GcpStorageService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -17,10 +22,12 @@ public class EventServiceImpl implements EventService {
 
     private final EventDao eventDao;
     private final AccountService accountService;
+    private final GcpStorageService gcpStorageService;
 
-    public EventServiceImpl(EventDao eventDao, AccountService accountService) {
+    public EventServiceImpl(EventDao eventDao, AccountService accountService, GcpStorageService gcpStorageService) {
         this.eventDao = eventDao;
         this.accountService = accountService;
+        this.gcpStorageService = gcpStorageService;
     }
 
     @Override
@@ -89,6 +96,37 @@ public class EventServiceImpl implements EventService {
         return totalParticipants;
     }
 
+    @Override
+    public void updateImage(int eventId, MultipartFile imageData) {
+        String imageUrl = "";
+
+        try {
+            String fileName = "1.png";
+            String bucketPath = "events/" + eventId + "/";
+            imageUrl = gcpStorageService.uploadImage(imageData, fileName, bucketPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Bucket error: ", e);
+        }
+
+        try {
+            eventDao.updateImage(eventId, imageUrl);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update image in database: ", e);
+        }
+    }
+
+    @Override
+    public void updateAddress(String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+        try {
+            eventDao.updateAddress(local_name, cep_address,
+                    state_address, city_address,
+                    neighborhood_address, number_address,
+                    street_address, complement_address);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update address in database: ", e);
+        }
+    }
+
 
     @Override
     public EventDate getDateById(int id) {
@@ -117,27 +155,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public int createEvent(EventCreateResponse eventCreateResponse) {
+    public int createEvent(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
 
-        Event event = new Event(
-                eventCreateResponse.title(),
-                eventCreateResponse.information(),
-                eventCreateResponse.createdAt(),
-                eventCreateResponse.localName(),
-                eventCreateResponse.cepAddress(),
-                eventCreateResponse.stateAddress(),
-                eventCreateResponse.cityAddress(),
-                eventCreateResponse.neighborhoodAddress(),
-                eventCreateResponse.numberAddress(),
-                eventCreateResponse.streetAddress(),
-                eventCreateResponse.complementAddress(),
-                eventCreateResponse.latitude(),
-                eventCreateResponse.longitude(),
-                eventCreateResponse.dateStart(),
-                eventCreateResponse.dateEnd(),
-                eventCreateResponse.stage(),
-                eventCreateResponse.pixKey()
-        );
+        Event event = new Event(eventName, eventDescription, date_start, date_end);
 
         if (event == null) {
             throw new RuntimeException();
