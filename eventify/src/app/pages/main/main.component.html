@@ -2,7 +2,11 @@
   <app-main-layout class="sidebar" (sidebarToggle)="toggleSidebar()"></app-main-layout>
   <div class="content-container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
     <content>
+      <button (click)="toggleAdFullBanner()">anuncio full</button>
+      <app-full-banner *ngIf="isAdFullBannerDialogOpen" (close)="toggleAdFullBanner()"></app-full-banner>
+      <app-drop-bottom-banner></app-drop-bottom-banner>
       <router-outlet></router-outlet>
+
     </content>
     <footer class="footer">
       <app-footer></app-footer>
