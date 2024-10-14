@@ -58,13 +58,12 @@ public class AccountServiceTest {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
                 "usernameteste",
                 "emailTeste@teste.com",
-                "passwordTeste",
-                null
+                "passwordTeste"
         );
         Account account = new Account();
         account.setEmail(registerRequestDTO.email());
         account.setUsername(registerRequestDTO.username());
-        account.setImageData(registerRequestDTO.imageData());
+        account.setImageData(null);
 
         Account accountSaved = Mockito.spy(account);
 
@@ -99,7 +98,7 @@ public class AccountServiceTest {
         int accountId = accountService.RegisterUser(
                 account.getUsername(),
                 account.getEmail(),
-                passwordAccount, null
+                passwordAccount
         );
 
         // Assert
