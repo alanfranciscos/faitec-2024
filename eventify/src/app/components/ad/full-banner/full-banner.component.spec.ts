@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdComponent } from './ad.component';
+import { FullBannerComponent } from './full-banner.component';
 
-describe('AdComponent', () => {
-  let component: AdComponent;
-  let fixture: ComponentFixture<AdComponent>;
+describe('FullBannerComponent', () => {
+  let component: FullBannerComponent;
+  let fixture: ComponentFixture<FullBannerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdComponent]
+      imports: [FullBannerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AdComponent);
+    fixture = TestBed.createComponent(FullBannerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

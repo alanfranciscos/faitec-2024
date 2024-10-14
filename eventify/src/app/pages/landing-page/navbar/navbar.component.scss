@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.navbar {
+  background-color: white;
+  color: black;
+  padding: 1.45rem;
+  border-bottom:black solid 1px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-menu li {
+  margin: 0 1rem;
+}
+
+.navbar-menu a {
+  color: black;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+}
+
+.navbar-menu a:hover {
+  background-color: #555;
+  border-radius: 5px; /* Arredondar os cantos do hover */
+}
+
+.navbar-toggle {
+  display: none; /* Ocultar o botão de toggle em telas grandes */
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none; /* Esconder o menu padrão em telas pequenas */
+    flex-direction: column; /* Exibir verticalmente */
+    position: absolute;
+    top: 60px; /* Abaixo da navbar */
+    right: 0;
+    background-color: #333;
+    width: 100%; /* Largura total */
+  }
+
+  .navbar-menu li {
+    margin: 1rem 0; /* Margem entre os itens */
+  }
+
+  .navbar-toggle {
+    display: block; /* Mostrar o botão de toggle em telas pequenas */
+  }
+
+  .navbar-menu.show {
+    display: flex; /* Exibir o menu quando ativado */
+  }
+}
+
+main {
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+section h2 {
+  margin: 0;
+}

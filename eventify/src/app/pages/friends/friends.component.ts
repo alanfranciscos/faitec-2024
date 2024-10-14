@@ -22,7 +22,7 @@ import {
     CommonModule,
     HeaderComponent,
     DialogComponent,
-    DialogComponent,
+
     PrimaryInputComponent,
   ],
   templateUrl: './friends.component.html',
@@ -66,17 +66,6 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  // async ngOnInit(): Promise<void> {
-  //   this.content = await this.friendService.listFriends(
-  //     this.offset,
-  //     this.limit
-  //   );
-  //   // this.content.friend = this.formatDateFromEvent(this.content.friend);
-  //   this.setCurrentPageNumber();
-  //   this.getPagesNumbers();
-  //   console.log(this.content.friends);
-  //   console.log(this.content.total);
-  // }
   async ngOnInit(): Promise<void> {
     this.content = await this.friendService.listFriends(
       this.offset,

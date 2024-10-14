@@ -20,8 +20,13 @@ import { ConfirmationComponent } from './pages/authentication/confirmation/confi
 import { _BasicInfoComponent } from './pages/events/edit-event/basic-info/basic-info.component';
 import { _AddressInfoComponent } from './pages/events/edit-event/address-info/address-info.component';
 import { _PaymentInfoComponent } from './pages/events/edit-event/payment-info/payment-info.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 
 export const routes: Routes = [
+  {
+    path: 'landing-page',
+    component: LandingPageComponent,
+  },
   {
     path: 'account/login',
     component: LoginComponent,

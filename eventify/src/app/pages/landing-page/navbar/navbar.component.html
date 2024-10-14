@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="logo"><img src="/assets/svg/logo-max.svg" alt=""></div>
+    <ul class="navbar-menu">
+      <li><a href="#navbar">Main</a></li>
+      <li><a href="#main">About</a></li>
+      <li><a href="#about">Usage</a></li>
+      <li><a href="#usage">Register</a></li>
+      <li><a href="#footer">Login</a></li>
+    </ul>
+    <div class="navbar-toggle" (click)="toggleMenu()">
+      <i class="fas" [ngClass]="isMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+    </div>
+  </div>
+</nav>

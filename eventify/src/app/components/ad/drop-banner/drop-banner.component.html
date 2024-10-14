@@ -1,0 +1,10 @@
+<div class="banner" [class.hidden]="isHidden">
+  <div class="banner-handle" (click)="toggleBanner()">
+    <button>
+      <i class="fas" [ngClass]="isHidden ? 'fa-caret-up' : 'fa-caret-down'"></i>
+    </button>
+  </div>
+  <div class="banner-content">
+    <p>Este é o seu anúncio!</p>
+  </div>
+</div>

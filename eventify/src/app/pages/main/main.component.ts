@@ -4,6 +4,8 @@ import { MainSidebarComponent } from '../../components/sidebar/main-sidebar/main
 import { MyEventsComponent } from '../events/my-events/my-events.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
+import { FullBannerComponent } from '../../components/ad/full-banner/full-banner.component';
+import { DropBannerComponent } from '../../components/ad/drop-banner/drop-banner.component';
 
 @Component({
   selector: 'app-main',
@@ -14,6 +16,8 @@ import { RouterOutlet } from '@angular/router';
     FooterComponent,
     RouterOutlet,
     CommonModule,
+    FullBannerComponent,
+    DropBannerComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -23,5 +27,10 @@ export class MainComponent {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed; // Alterna o estado da sidebar
+  }
+  isAdFullBannerDialogOpen = true;
+
+  toggleAdFullBanner() {
+    this.isAdFullBannerDialogOpen = !this.isAdFullBannerDialogOpen;
   }
 }
