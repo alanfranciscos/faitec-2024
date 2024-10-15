@@ -58,7 +58,7 @@ public class AccountServiceImpl implements AccountService {
 
         boolean skip = true;
         if (!skip) {
-            emailService.sendConfirmationCode(email, codeGenerated);
+            emailService.sendConfirmationCode(email, codeGenerated, accountId);
         }
 
         return accountId;
@@ -93,7 +93,7 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Failed to create user", e);
         }
 
-        emailService.sendConfirmationCode(account.getEmail(), codeGenerated);
+        emailService.sendConfirmationCode(account.getEmail(), codeGenerated, account.getId());
 
         return account.getEmail();
     }
@@ -179,7 +179,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
-    
     public void updateImage(int id, MultipartFile imageData) {
         String imageUrl = "";
 

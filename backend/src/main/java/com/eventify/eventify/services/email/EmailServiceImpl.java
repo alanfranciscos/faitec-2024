@@ -54,9 +54,15 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendConfirmationCode(String toEmail, String code) {
+    public void sendConfirmationCode(String toEmail, String code, int userId) {
+        String activationUrl = "http://localhost:4200//account/" + userId + "/confirmation";
+
         String subject = "Eventify - Código de Verificação";
-        String text = BodyEmail.creadeHtmlBodyToSendCode(code, codeExpirationMinutes);
+        String text = BodyEmail.creadeHtmlBodyToSendCode(
+                code,
+                codeExpirationMinutes,
+                activationUrl
+        );
         try {
             this.sendEmail(toEmail, subject, text);
         } catch (IOException e) {

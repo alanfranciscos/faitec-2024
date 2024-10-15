@@ -1,7 +1,7 @@
 package com.eventify.eventify.services.email;
 
 public class BodyEmail {
-    public static String creadeHtmlBodyToSendCode(String code, String validUntilMinutes) {
+    public static String creadeHtmlBodyToSendCode(String code, String validUntilMinutes, String activationUrl) {
         String htmlCodeContent = "<!DOCTYPE html>"
                 + "<html lang=\"pt-BR\">"
                 + "<head>"
@@ -47,6 +47,11 @@ public class BodyEmail {
                 + "            font-size: 12px;"
                 + "            margin-top: 20px;"
                 + "        }"
+                + "        .activation-link {"
+                + "            color: #14AD47;"
+                + "            text-decoration: none;"
+                + "            font-weight: bold;"
+                + "        }"
                 + "    </style>"
                 + "</head>"
                 + "<body>"
@@ -59,6 +64,10 @@ public class BodyEmail {
                 + "            <p class=\"code\">" + code + "</p>"
                 + "            <p>Insira este código na plataforma. Código válido pelos próximos " + validUntilMinutes
                 + " minutos.</p>"
+                + "            <p>Para ativar sua conta, clique no link abaixo:</p>"
+                + "            <p>"
+                + "                <a href=\"" + activationUrl + "\" class=\"activation-link\">Ativar minha conta</a>"
+                + "            </p>"
                 + "        </div>"
                 + "        <div class=\"footer\">"
                 + "            <p>&copy; 2024 Eventify. Todos os direitos reservados.</p>"
@@ -66,6 +75,7 @@ public class BodyEmail {
                 + "    </div>"
                 + "</body>"
                 + "</html>";
+
         return htmlCodeContent;
     }
 }
