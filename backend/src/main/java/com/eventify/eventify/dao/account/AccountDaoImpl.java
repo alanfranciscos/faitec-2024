@@ -129,6 +129,7 @@ public class AccountDaoImpl implements AccountDao {
             preparedStatement.setInt(2, id);
 
             preparedStatement.execute();
+            connection.commit();
             preparedStatement.close();
         } catch (Exception e) {
             throw new RuntimeException();

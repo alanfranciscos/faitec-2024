@@ -31,11 +31,11 @@ public interface AccountService {
     /**
      * Verifies the user's account using the provided email and verification code.
      *
-     * @param email the email address of the user
-     * @param code  the verification code sent to the user's email
+     * @param id   the id of the user
+     * @param code the verification code sent to the user's email
      * @return true if the account is successfully verified, false otherwise
      */
-    boolean verifyAccount(String email, String code);
+    boolean verifyAccount(int id, String code);
 
 
     /**

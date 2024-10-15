@@ -55,7 +55,7 @@ public class AccountController {
 
     @PostMapping("/verify")
     public ResponseEntity<VerifyAccountResponseDTO> verify(@RequestBody VerifyAccountRequestDTO body) {
-        this.accountService.verifyAccount(body.email(), body.code());
+        this.accountService.verifyAccount(body.id(), body.code());
         return ResponseEntity.ok(new VerifyAccountResponseDTO("Account verified"));
     }
 
