@@ -36,6 +36,14 @@ public class FriendController {
         return ResponseEntity.ok().body(friend);
     }
 
+    /**
+     *
+     * @param data
+     *     {
+     *         "email": "user1@example.com",
+     *     }
+     * @return
+     */
     @PostMapping("/create")
     public ResponseEntity<Friend> createFriend(@RequestBody final FriendCreateRequest data){
         int id = friendService.createFriend(data.email());

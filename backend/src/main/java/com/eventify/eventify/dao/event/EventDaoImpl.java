@@ -6,6 +6,7 @@ import com.eventify.eventify.port.dao.event.EventDao;
 import java.sql.*;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -313,22 +314,104 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public void updateAddress(String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
-        final String sql = "UPDATE meetup SET local_name = ?, cep_address = ?, state_address = ?, city_address = ?, neighborhood_address = ?, number_address = ?, street_address = ?, complement_address = ? WHERE id = ?;";
+    public void updateAddress(int eventId, String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+        String sql = "UPDATE meetup SET local_name = ?, cep_address = ?, ";
+        sql += "state_address = ?, city_address = ?, neighborhood_address = ?, ";
+        sql += "number_address = ?, street_address = ?, complement_address = ? WHERE id = ?;";
 
-//        try {
-//            PreparedStatement preparedStatement;
-//            preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, imagePath);
-//            preparedStatement.setInt(2, Integer.valueOf(id));
-//            preparedStatement.execute();
-//
-//            connection.commit();
-//            preparedStatement.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
-//        }
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, local_name);
+            preparedStatement.setString(2, cep_address);
+            preparedStatement.setString(3, state_address);
+            preparedStatement.setString(4, city_address);
+            preparedStatement.setString(5, neighborhood_address);
+            preparedStatement.setString(6, number_address);
+            preparedStatement.setString(7, street_address);
+            preparedStatement.setString(8, complement_address);
+            preparedStatement.setInt(9, Integer.valueOf(eventId));
+            preparedStatement.execute();
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar a endereço: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updatePayment(int eventId, String pix_key) {
+        final String sql = "UPDATE meetup SET pix_key = ? WHERE id = ?;";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, pix_key);
+            preparedStatement.setInt(2, Integer.valueOf(eventId));
+            preparedStatement.execute();
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public int partiallySave(Event entity) {
+        String sql = "INSERT INTO meetup(title, information, created_at, ";
+        sql += "date_start, date_end, stage) ";
+        sql += "VALUES(?, ?, ?, ?, ?, ?); ";
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        String currentDate = currentDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
+
+        try {
+            connection.setAutoCommit(false);
+
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, entity.getTitle());
+            preparedStatement.setString(2, entity.getInformation());
+
+//            if (entity.getCreatedAt() == null) {
+//                preparedStatement.setTimestamp(3, null);
+//            } else {
+                preparedStatement.setTimestamp(3, Timestamp.from(currentDateTime.toInstant()));
+//            }
+
+//            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant()));
+            preparedStatement.setTimestamp(4, Timestamp.from(entity.getDateStart().toInstant()));
+            preparedStatement.setTimestamp(5, Timestamp.from(entity.getDateEnd().toInstant()));
+//            preparedStatement.setString(6, entity.getStage().toString().toLowerCase());
+            preparedStatement.setString(6, "created");
+
+            preparedStatement.execute();
+
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                final int id = resultSet.getInt(1);
+                entity.setId(id);
+            }
+
+            connection.commit();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+        return entity.getId();
     }
 
     @Override

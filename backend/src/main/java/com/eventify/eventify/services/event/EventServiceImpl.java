@@ -116,14 +116,23 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void updateAddress(String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+    public void updateAddress(int eventId, String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
         try {
-            eventDao.updateAddress(local_name, cep_address,
+            eventDao.updateAddress(eventId, local_name, cep_address,
                     state_address, city_address,
                     neighborhood_address, number_address,
                     street_address, complement_address);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update address in database: ", e);
+        }
+    }
+
+    @Override
+    public void updatePayment(int eventId, String pixKeY) {
+        try {
+            eventDao.updatePayment(eventId, pixKeY);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update payment in database: ", e);
         }
     }
 
@@ -155,7 +164,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public int createEvent(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
+    public int partiallySave(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
 
         Event event = new Event(eventName, eventDescription, date_start, date_end);
 
@@ -163,7 +172,7 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException();
         }
 
-        int id = eventDao.save(event);
+        int id = eventDao.partiallySave(event);
         return id;
     }
 

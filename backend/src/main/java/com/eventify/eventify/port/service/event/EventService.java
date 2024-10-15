@@ -22,7 +22,7 @@ public interface EventService extends ExpenseForEventService {
 
     Event getEventById(final int id);
 
-    int createEvent(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end);
+    int partiallySave(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end);
 
     void updateEvent(final int id, final Event event);
 
@@ -36,8 +36,10 @@ public interface EventService extends ExpenseForEventService {
 
     void updateImage(final int eventId, final MultipartFile imageData);
 
-    void updateAddress(String local_name, String cep_address,
+    void updateAddress(int eventId, String local_name, String cep_address,
                        String state_address, String city_address,
                        String neighborhood_address, String number_address,
                        String street_address, String complement_address);
+
+    void updatePayment(final int eventId, final String eventPaymentResponse);
 }
