@@ -45,7 +45,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
 
             preparedStatement.setInt(1, entity.getAccountId());
             preparedStatement.setString(2, entity.getPassword());
-            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant())); 
+            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant()));
             preparedStatement.setBoolean(4, entity.isActive());
             preparedStatement.setBoolean(5, entity.isStaging());
             preparedStatement.setString(6, entity.getVerificationCode());
@@ -207,6 +207,7 @@ public class AccountPasswordHistoryDaoImpl implements AccountPasswordHistoryDao 
             preparedStatement.setInt(3, accountId);
 
             preparedStatement.execute();
+            connection.commit();
             preparedStatement.close();
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -52,4 +52,17 @@ export class UserService {
       throw new Error('Failed to update image');
     }
   }
+
+  async sendConfirmationCode(id: number, code: string): Promise<boolean> {
+    const response = await this.api.post('/api/v1/account/verify', {
+      id: id,
+      code: code,
+    });
+
+    if (response.status !== 200) {
+      throw new Error('Failed to send confirmation code');
+    }
+
+    return true;
+  }
 }

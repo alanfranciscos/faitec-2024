@@ -9,6 +9,7 @@
       }
     </div>
 
-    <app-button class="primary-button" text="Confirm" (click)="null"></app-button>
+    <app-button class="primary-button" text="Confirm" (click)="sendConfirmationCode()"
+      [isDisabled]="verifyConfirmationCode()"></app-button>
   </div>
 </app-authentication-layout>

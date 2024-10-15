@@ -98,8 +98,9 @@ public class AccountServiceImpl implements AccountService {
         return account.getEmail();
     }
 
-    public boolean verifyAccount(String email, String code) {
-        Account account = accountDao.readByEmail(email);
+    @Override
+    public boolean verifyAccount(int id, String code) {
+        Account account = accountDao.readById(id);
         if (account == null) {
             throw new RuntimeException("User or password not found");
         }
