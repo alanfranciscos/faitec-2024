@@ -1,0 +1,42 @@
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  gap: 20px;
+  background-color: #14AD47; /* Cor de fundo aplicada */
+  color: white; /* Torna o texto branco para contraste */
+}
+
+.about-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.title {
+  font-size: 2.5rem; /* Aumenta o tamanho do título */
+  font-weight: bold;
+  color: white; /* Torna o título branco para maior destaque */
+  display: block;
+  margin-bottom: 20px;
+}
+
+.content {
+  font-size: 1.2rem; /* Aumenta ligeiramente o tamanho do texto */
+  color: white; /* Texto branco para contraste com o fundo */
+  margin-bottom: 20px; /* Adiciona espaçamento entre os parágrafos */
+}
+
+.about-image {
+  flex: 1;
+  text-align: right; /* Centraliza a imagem no lado direito */
+}
+
+.about-image img {
+  width: 100%; /* Garante que a imagem ocupe toda a largura disponível */
+  height: 600px; /* Define a altura da imagem */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra suave para destacar a imagem */
+  object-fit: cover; /* Corta a parte de cima e de baixo da imagem */
+  object-position: center; /* Centraliza a imagem dentro do container */
+}

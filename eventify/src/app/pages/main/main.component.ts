@@ -28,7 +28,7 @@ export class MainComponent {
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed; // Alterna o estado da sidebar
   }
-  isAdFullBannerDialogOpen = true;
+  isAdFullBannerDialogOpen = false;
 
   toggleAdFullBanner() {
     this.isAdFullBannerDialogOpen = !this.isAdFullBannerDialogOpen;
