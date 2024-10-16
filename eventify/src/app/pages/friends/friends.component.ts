@@ -30,21 +30,26 @@ import {
 })
 export class FriendsComponent implements OnInit {
   constructor(private friendService: FriendService) {}
-  content: FriendsHeader = {
-    friends: [],
-    total: 0,
-  };
+  content!: FriendsHeader;
   offset = 0;
   quantityPerPage = 10;
   limit = 10;
   currentPage: number = 1;
   pages: Array<number> = [];
-
   setCurrentPageNumber(): void {
     this.currentPage = this.limit / this.offset;
     this.currentPage = !Number.isFinite(this.currentPage)
       ? 1
       : this.currentPage + 1;
+  }
+
+  private getPagesNumbers() {
+    const totalPages = Math.ceil(this.content.total / this.limit);
+    let i = 1;
+    while (i <= totalPages) {
+      this.pages.push(i);
+      i++;
+    }
   }
   private formatDateFromEvent(
     friends: Array<FriendsContent>
@@ -56,26 +61,14 @@ export class FriendsComponent implements OnInit {
     });
     return friends;
   }
-
-  private getPagesNumbers() {
-    const totalPages = Math.ceil(this.content.total / this.limit);
-    let i = 1;
-    while (i <= totalPages) {
-      this.pages.push(i);
-      i++;
-    }
-  }
-
   async ngOnInit(): Promise<void> {
     this.content = await this.friendService.listFriends(
       this.offset,
       this.limit
     );
     this.content.friends = this.formatDateFromEvent(this.content.friends);
-    this.setCurrentPageNumber();
     this.getPagesNumbers();
-    console.log(this.content.friends);
-    console.log(this.content.total);
+    this.setCurrentPageNumber();
   }
   async goToPage(page: number): Promise<void> {
     this.offset = page * this.limit - this.limit;
@@ -86,7 +79,6 @@ export class FriendsComponent implements OnInit {
     this.content.friends = this.formatDateFromEvent(this.content.friends);
     this.setCurrentPageNumber();
   }
-
   async nextPage(): Promise<void> {
     if (this.currentPage === this.pages.length) {
       return;

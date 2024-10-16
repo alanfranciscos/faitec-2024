@@ -19,11 +19,6 @@
       <div>
         <div class="cards">
           <ul>
-            <!-- <li *ngFor="let item of paginatedItems; let i = index">
-              <app-member-card [name]="item.name" [type]="item.type" [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image">
-              </app-member-card>
-            </li> -->
             <li *ngFor="let participant of participants.participants; let i = index">
               <app-member-card [name]="participant.name" [roleParticipate]="participant.roleParticipate"
                 [aceptedAt]="participant.aceptedAt">
@@ -34,19 +29,20 @@
           </ul>
         </div>
       </div>
-      <div class="pagination">
-        <button (click)="prevPage()" [disabled]="currentPage === 1">
-          <i class="fas fa-arrow-left"></i>
-          <span>Previous</span>
-        </button>
+      <!-- <div class="pagination">
+        <button class="pagination__arrow" (click)="previousPage()"><i class="fas fa-arrow-left"></i>
+          <span>Previous</span></button>
+        @for (item of pages; track $index) {
+        @if (item === currentPage) {
+        <button class="pagination__number pagination_selected">{{ item }}</button>
+        }@else {
+        <button class="pagination__number" (click)="goToPage(item)">{{ item }}</button>
+        }
+        }
+        <button class=" pagination__arrow" (click)="nextPage()"><span>Next</span> <i class="fas fa-arrow-right">
+          </i></button>
+      </div> -->
 
-
-
-        <button (click)="nextPage()">
-          <span>Next</span>
-          <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
     </content>
   </div>
 </main>

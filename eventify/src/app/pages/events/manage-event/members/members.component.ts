@@ -37,19 +37,19 @@ export class MembersComponent implements OnInit {
   participants!: EventParticipantsResponse;
 
   async ngOnInit(): Promise<void> {
-    const url = this.router.url;
-    let eventId = url.split('/')[2];
-    eventId = eventId == null ? '-1' : eventId;
-    const participants = await this.eventService.listParticipants(eventId);
-    this.participants = participants;
-    console.log(participants);
-    this.participants = {
-      ...participants,
-      participants: participants.participants.map((participants) => ({
-        ...participants,
-        aceptedAt: new Date(participants.aceptedAt).toLocaleDateString(),
-      })),
-    };
+    // const url = this.router.url;
+    // let eventId = url.split('/')[2];
+    // eventId = eventId == null ? '-1' : eventId;
+    // const participants = await this.eventService.listParticipants(eventId);
+    // this.participants = participants;
+    // console.log(participants);
+    // this.participants = {
+    //   ...participants,
+    //   participants: participants.participants.map((participants) => ({
+    //     ...participants,
+    //     aceptedAt: new Date(participants.aceptedAt).toLocaleDateString(),
+    //   })),
+    // };
   }
   isAddExpenseDialogOpen = false;
   toggleAddMemberDialog() {
