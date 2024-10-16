@@ -25,8 +25,8 @@ export class ExpensesComponent implements OnInit {
   eventExpanses!: ExpansesResponse;
 
   offset = 0;
-  quantityPerPage = 6;
-  limit = 6;
+  quantityPerPage = 1;
+  limit = 1;
   currentPage: number = 1;
 
   pages: Array<number> = [];
