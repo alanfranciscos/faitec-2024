@@ -6,4 +6,5 @@ export interface Expense {
 
 export interface ExpansesResponse {
   expanses: Array<Expense>;
+  total: number;
 }

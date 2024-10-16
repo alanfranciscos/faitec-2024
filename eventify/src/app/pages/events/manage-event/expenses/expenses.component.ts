@@ -4,16 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentApproach } from '../../../../domain/model/event/paymentApproach.model';
 import { EventService } from '../../../../services/event/event.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { ExpansesResponse } from '../../../../domain/model/event/expense.model';
+import {
+  ExpansesResponse,
+  Expense,
+} from '../../../../domain/model/event/expense.model';
 import { DialogComponent } from '../../../../components/dialog/dialog.component';
 import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
-
-interface Expense {
-  name: string;
-  date: string;
-  description: string;
-  amount: number;
-}
 
 @Component({
   selector: 'app-expenses',
@@ -23,27 +19,52 @@ interface Expense {
   standalone: true,
 })
 export class ExpensesComponent implements OnInit {
+  constructor(private router: Router, private eventService: EventService) {}
   paymentApproach!: PaymentApproach;
   totalExpenses!: TotalExpenses;
   eventExpanses!: ExpansesResponse;
-  constructor(private router: Router, private eventService: EventService) {}
 
-  currentPage = 1;
-  pageSize = 10;
-  totalPages = 0;
+  offset = 0;
+  quantityPerPage = 6;
+  limit = 6;
+  currentPage: number = 1;
+
+  pages: Array<number> = [];
+  setCurrentPageNumber(): void {
+    this.currentPage = this.limit / this.offset;
+    this.currentPage = !Number.isFinite(this.currentPage)
+      ? 1
+      : this.currentPage + 1;
+  }
+
+  private getPagesNumbers() {
+    const totalPages = Math.ceil(this.eventExpanses.total / this.limit);
+    let i = 1;
+    while (i <= totalPages) {
+      this.pages.push(i);
+      i++;
+    }
+  }
+
   isAddExpenseDialogOpen = false;
   toggleAddExpenseDialog() {
     this.isAddExpenseDialogOpen = !this.isAddExpenseDialogOpen;
   }
+  eventId = '';
   async ngOnInit() {
     const url = this.router.url;
     let eventId = url.split('/')[2];
     eventId = eventId == null ? '-1' : eventId;
+
     const totalExpenses = await this.eventService.getTotalExpenses(eventId);
     this.totalExpenses = totalExpenses;
     const paymentApproach = await this.eventService.getPaymentApproach(eventId);
     this.paymentApproach = paymentApproach;
-    const eventExpanses = await this.eventService.getEventExpanses(eventId);
+    const eventExpanses = await this.eventService.getEventExpanses(
+      eventId,
+      this.offset,
+      this.limit
+    );
     this.eventExpanses = eventExpanses;
     this.eventExpanses = {
       ...eventExpanses,
@@ -53,27 +74,59 @@ export class ExpensesComponent implements OnInit {
       })),
     };
 
-    this.totalPages = 0;
-    this.updatePagination();
+    console.log(eventExpanses);
+
+    this.getPagesNumbers();
+    this.setCurrentPageNumber();
+  }
+  private formatDateFromEvent(expenses: Array<Expense>): Array<Expense> {
+    expenses.map((expense) => {
+      expense.date = new Date(expense.date).toLocaleDateString();
+    });
+    return expenses;
+  }
+  async goToPage(page: number): Promise<void> {
+    this.offset = page * this.limit - this.limit;
+    this.eventExpanses = await this.eventService.getEventExpanses(
+      this.eventId,
+      this.offset,
+      this.limit
+    );
+    this.eventExpanses.expanses = this.formatDateFromEvent(
+      this.eventExpanses.expanses
+    );
+    this.setCurrentPageNumber();
   }
 
-  updatePagination() {
-    // const startIndex = (this.currentPage - 1) * this.pageSize;
-    // const endIndex = startIndex + this.pageSize;
-    // this.paginatedExpenses = this.expenses.slice(startIndex, endIndex);
+  async nextPage(): Promise<void> {
+    if (this.currentPage === this.pages.length) {
+      return;
+    }
+    this.offset = (this.currentPage + 1) * this.limit - this.limit;
+    this.eventExpanses = await this.eventService.getEventExpanses(
+      this.eventId,
+      this.offset,
+      this.limit
+    );
+    this.eventExpanses.expanses = this.formatDateFromEvent(
+      this.eventExpanses.expanses
+    );
+    this.setCurrentPageNumber();
   }
 
-  previousPage() {
-    // if (this.currentPage > 1) {
-    //   this.currentPage--;
-    //   this.updatePagination();
-    // }
-  }
-
-  nextPage() {
-    //   if (this.currentPage < this.totalPages) {
-    //     this.currentPage++;
-    //     this.updatePagination();
-    //   }
+  async previousPage(): Promise<void> {
+    if (this.currentPage === 1) {
+      return;
+    }
+    this.offset = (this.currentPage - 1) * this.limit - this.limit;
+    this.eventExpanses = await this.eventService.getEventExpanses(
+      this.eventId,
+      this.offset,
+      this.limit
+    );
+    this.eventExpanses.expanses = this.formatDateFromEvent(
+      this.eventExpanses.expanses
+    );
+    this.setCurrentPageNumber();
   }
 }

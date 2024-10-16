@@ -7,4 +7,5 @@ export interface EventParticipants {
 
 export interface EventParticipantsResponse {
   participants: Array<EventParticipants>;
+  total: number;
 }
