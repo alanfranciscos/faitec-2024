@@ -1,9 +1,7 @@
 package com.eventify.eventify.dao.event.management;
 
-
 import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.port.dao.event.management.ManagementDao;
-
 import java.sql.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ManagementDaoImpl implements ManagementDao {
+
     private static final Logger logger = Logger
             .getLogger(ManagementDaoImpl.class.getName());
 
@@ -38,7 +37,7 @@ public class ManagementDaoImpl implements ManagementDao {
             preparedStatement.setInt(1, entity.getParticipate_id());
             preparedStatement.setTimestamp(2, Timestamp.from(currentDateTime.toInstant()));
 //            preparedStatement.setTimestamp(2, Timestamp.from(entity.getManagment_at().toInstant()));
-            prgit pueparedStatement.setString(3, entity.getType_action());
+            preparedStatement.setString(3, entity.getType_action());
 
             preparedStatement.execute();
 
