@@ -1,8 +1,5 @@
 package com.eventify.eventify.dao.event.participate;
 
-import com.eventify.eventify.models.event.Event;
-import com.eventify.eventify.models.event.EventStageEnum;
-import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
@@ -11,7 +8,6 @@ import java.sql.*;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +41,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
     }
 
     @Override
-    public Participate readById(int id){
+    public Participate readById(int id) {
         final String sql = "SELECT * FROM participate WHERE id = ? ;";
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -58,7 +54,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
                 participate.setId(resultSet.getInt("id"));
                 participate.setAccountId(resultSet.getInt("account_id"));
                 participate.setEventId(resultSet.getInt("meetup_id"));
-                participate.setRoleParticipate( RoleParticipateEnum.fromString(resultSet.getString("role_participant")));
+                participate.setRoleParticipate(RoleParticipateEnum.fromString(resultSet.getString("role_participant")));
                 participate.setActive(resultSet.getBoolean("active"));
 
                 OffsetDateTime offsetSendedAt = resultSet.getObject("sended_at", OffsetDateTime.class);
@@ -135,11 +131,14 @@ public class ParticipateDaoImpl implements ParticipateDao {
     }
 
     @Override
-    public List<Participate> listByEventId(int eventId) {
-        String sql = "SELECT * FROM participate WHERE meetup_id = ?";
+    public List<Participate> listByEventId(int eventId, int limit, int offset) {
+        String sql = "SELECT * FROM participate WHERE meetup_id = ? ";
+        sql += " LIMIT ? OFFSET ?;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, eventId);
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
             ResultSet resultSet = statement.executeQuery();
 
             List<Participate> participates = new ArrayList<>();
@@ -261,7 +260,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
         }
     }
 
-    public List<Participate> readByAccountId(int accountId){
+    public List<Participate> readByAccountId(int accountId) {
         String sql = "SELECT * FROM participate ";
         sql += "WHERE account_id = ?";
 

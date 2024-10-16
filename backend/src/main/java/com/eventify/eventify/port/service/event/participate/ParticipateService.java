@@ -7,7 +7,7 @@ import com.eventify.eventify.port.service.crud.CrudService;
 import java.util.List;
 
 public interface ParticipateService extends CrudService<Participate> {
-    List<ParticipateHeader> listByEventId(int eventId);
+    List<ParticipateHeader> listByEventId(int eventId, int limit, int offset);
 
     List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(final int limit, final int offset);
 
