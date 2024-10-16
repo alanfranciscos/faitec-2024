@@ -6,4 +6,6 @@ export interface EventInvitation {
 
 export interface EventInvitationResponse {
   invite: Array<EventInvitation>;
+
+  totalInvites: number;
 }

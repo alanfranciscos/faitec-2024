@@ -13,48 +13,38 @@
 
 .pagination {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
-.cards {
-  padding: 2rem;
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.pagination__arrow {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: unset;
+
+  span {
+    margin: 0.5rem;
   }
 }
 
-.pagination button {
-  background: transparent;
+.pagination__number {
+  cursor: pointer;
   border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #000;
-  margin: 0 10px;
+  outline: none;
+  background-color: unset;
+  margin: 0 0.5rem;
 }
 
-.pagination button:disabled {
-  color: #ccc;
-  cursor: not-allowed;
+.pagination_selected {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  background: #14ad47;
 }
 
-.pagination-numbers {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.pagination-numbers li {
-  margin: 0 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.pagination-numbers li.active {
-  font-weight: bold;
-  color: #000;
+@media screen and (min-width: 1910px) {
+  .cards-container {
+    margin-top: 6rem;
+  }
 }

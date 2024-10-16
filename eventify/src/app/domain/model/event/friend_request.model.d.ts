@@ -6,4 +6,5 @@ export interface FriendRequest {
 
 export interface FriendRequestResponse {
   invite: Array<FriendRequest>;
+  totalInvites: number;
 }
