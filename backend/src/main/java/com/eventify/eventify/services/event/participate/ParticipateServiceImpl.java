@@ -1,6 +1,9 @@
 package com.eventify.eventify.services.event.participate;
 
+import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
+import com.eventify.eventify.models.event.Event;
+import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
@@ -68,6 +71,8 @@ public class ParticipateServiceImpl implements ParticipateService {
         if(entity == null){
             return 0;
         }
+        Account account = accountService.getAccountRequest();
+        entity.setAccountId(account.getId());
         int id = participateDao.save(entity);
         return id;
     }
@@ -78,6 +83,18 @@ public class ParticipateServiceImpl implements ParticipateService {
             return;
         }
         participateDao.deleteById(id);
+    }
+
+    @Override
+    public void deleteByUserEvents(int eventId, EventListResponse response) {
+        for (EventHeader event : response.events()) {
+            if (event.getId() != eventId){
+                continue;
+            } else {
+                participateDao.deleteByEventId(eventId);
+            }
+        }
+
     }
 
     @Override

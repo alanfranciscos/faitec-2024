@@ -29,15 +29,16 @@ public class ManagementDaoImpl implements ManagementDao {
 
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
         try {
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, entity.getParticipate_id());
-            preparedStatement.setTimestamp(2, Timestamp.from(entity.getManagment_at().toInstant()));
-            preparedStatement.setString(3, entity.getType_action());
+            preparedStatement.setTimestamp(2, Timestamp.from(currentDateTime.toInstant()));
+//            preparedStatement.setTimestamp(2, Timestamp.from(entity.getManagment_at().toInstant()));
+            prgit pueparedStatement.setString(3, entity.getType_action());
 
             preparedStatement.execute();
 

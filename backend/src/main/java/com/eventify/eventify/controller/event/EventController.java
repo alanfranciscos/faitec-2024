@@ -7,8 +7,11 @@ import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
 import com.eventify.eventify.models.event.management.Management;
+import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
+import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.service.event.EventService;
+import com.eventify.eventify.port.service.event.management.ManagementService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,7 @@ public class EventController {
 
     private final EventService eventService;
     private final ParticipateService participateService;
+    private final ManagementService managementService;
 
     @GetMapping
     public ResponseEntity<EventListResponse> listPaginatedFromUser(
@@ -278,6 +282,10 @@ public class EventController {
                 throw new RuntimeException("Failed to create event", e);
             }
         }
+        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
+        int participateId = participateService.create(participate);
+        Management management = new Management(participateId, "create");
+        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

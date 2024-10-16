@@ -1,5 +1,6 @@
 package com.eventify.eventify.port.service.event.participate;
 
+import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.service.crud.CrudService;
@@ -11,7 +12,7 @@ public interface ParticipateService extends CrudService<Participate> {
 
     List<Participate> listPaginatedFromUserAndNotAceptedAndNotIsOwner(final int limit, final int offset);
 
-    List<Participate> readAllParticipations(int id);
+    List<Participate> readAllParticipations(int eventId);
 
-
+    void deleteByUserEvents(final int id, EventListResponse response);
 }

@@ -65,9 +65,10 @@ public class EventDaoImpl implements EventDao {
         String sql = "SELECT M.id, M.title, M.information, M.date_start, M.date_end, M.stage, MI.image_data ";
         sql += " FROM meetup M ";
         sql += " INNER JOIN participate P on P.meetup_id = M.id ";
-        sql += " INNER JOIN  meetup_image MI on MI.meetup_id = M.id ";
+        sql += " LEFT JOIN meetup_image MI on MI.meetup_id = M.id ";
         sql += " WHERE account_id = ? ";
-        sql += " AND MI.is_profile = true ";
+        sql += " AND P.active = true ";
+        sql += " AND P.acepted_at IS NOT NULL ";
         sql += " LIMIT ? OFFSET ? ;";
 
         try (var preparedStatement = connection.prepareStatement(sql)) {
@@ -369,7 +370,6 @@ public class EventDaoImpl implements EventDao {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         ZonedDateTime currentDateTime = ZonedDateTime.now();
-        String currentDate = currentDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 
         try {
             connection.setAutoCommit(false);
@@ -378,17 +378,9 @@ public class EventDaoImpl implements EventDao {
 
             preparedStatement.setString(1, entity.getTitle());
             preparedStatement.setString(2, entity.getInformation());
-
-//            if (entity.getCreatedAt() == null) {
-//                preparedStatement.setTimestamp(3, null);
-//            } else {
-                preparedStatement.setTimestamp(3, Timestamp.from(currentDateTime.toInstant()));
-//            }
-
-//            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreatedAt().toInstant()));
+            preparedStatement.setTimestamp(3, Timestamp.from(currentDateTime.toInstant()));
             preparedStatement.setTimestamp(4, Timestamp.from(entity.getDateStart().toInstant()));
             preparedStatement.setTimestamp(5, Timestamp.from(entity.getDateEnd().toInstant()));
-//            preparedStatement.setString(6, entity.getStage().toString().toLowerCase());
             preparedStatement.setString(6, "created");
 
             preparedStatement.execute();

@@ -15,4 +15,9 @@ public class Management {
     private Integer participate_id;
     private ZonedDateTime managment_at;
     private String type_action;
+
+    public Management(Integer participate_id, String type_action){
+        this.participate_id = participate_id;
+        this.type_action = type_action;
+    }
 }

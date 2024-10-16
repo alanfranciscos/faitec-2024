@@ -20,4 +20,13 @@ public class Participate {
     private ZonedDateTime sendedAt;
     private ZonedDateTime acceptedAt;
 
+    public Participate(int eventId, RoleParticipateEnum roleParticipate, boolean active){
+        this.accountId = accountId;
+        this.eventId = eventId;
+        this.roleParticipate = roleParticipate;
+        this.active = active;
+        this.sendedAt = sendedAt;
+        this.acceptedAt = acceptedAt;
+    }
+
 }
