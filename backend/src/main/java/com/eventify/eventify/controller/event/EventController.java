@@ -13,15 +13,13 @@ import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.management.ManagementService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/event")
@@ -94,7 +92,6 @@ public class EventController {
         Event response = eventService
                 .getEventById(id);
 
-
         return ResponseEntity.ok(new EventLocalizationResponse(
                 response.getLocalName(),
                 response.getCepAddress(),
@@ -133,29 +130,30 @@ public class EventController {
 
         return ResponseEntity.ok(new EventExpansesResponse(
                 response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
-                        eventExpanses.getCreatedAt(),
-                        eventExpanses.getAbout(),
-                        eventExpanses.getCost()
-
-                )).toList(), totalExpenses
+                eventExpanses.getCreatedAt(),
+                eventExpanses.getAbout(),
+                eventExpanses.getCost()
+        )).toList(), totalExpenses
         ));
     }
 
     @GetMapping("/{id}/participants")
     public ResponseEntity<ListParticipantsResponse> getParticipants(
-            @PathVariable int id
+            @PathVariable int id,
+            @RequestParam(defaultValue = "6") int limit,
+            @RequestParam(defaultValue = "0") int offset
     ) {
         List<ParticipateHeader> response = participateService
-                .listByEventId(id);
+                .listByEventId(id, limit, offset);
         int totalParticipants = eventService.getTotalParticipantsForPagination(id);
 
         return ResponseEntity.ok(new ListParticipantsResponse(
                 response.stream().map(participateHeader -> new ListParticipantsResponse.Participant(
-                        participateHeader.getId(),
-                        participateHeader.getName(),
-                        participateHeader.getSendedAt(),
-                        participateHeader.getRoleParticipate().toString()
-                )).toList(), totalParticipants
+                participateHeader.getId(),
+                participateHeader.getName(),
+                participateHeader.getSendedAt(),
+                participateHeader.getRoleParticipate().toString()
+        )).toList(), totalParticipants
         ));
     }
 
@@ -220,31 +218,20 @@ public class EventController {
 //                .toUri();
 //        return ResponseEntity.created(uri).build();
 //    }
-
     /**
-     *
      * @param imageData
-     * @param event
-     *     {
-     *         "eventname": "Festival de Música",
-     *             "eventdescription": "Um festival incrível com várias bandas!",
-     *             "local_name": "Praça Central",
-     *             "cep_address": "12345-678",
-     *             "state_address": "SP",
-     *             "city_address": "São Paulo",
-     *             "neighborhood_address": "Centro",
-     *             "number_address": "100",
-     *             "street_address": "Rua das Flores",
-     *             "complement_address": "Próximo ao parque",
-     *             "date_start": "2024-12-25T20:46:19.645594-03:00",
-     *             "date_end": "2024-12-29T20:46:19.645594-03:00",
-     *             "pix_key": "12345678940"
-     *     }
+     * @param event { "eventname": "Festival de Música", "eventdescription": "Um
+     * festival incrível com várias bandas!", "local_name": "Praça Central",
+     * "cep_address": "12345-678", "state_address": "SP", "city_address": "São
+     * Paulo", "neighborhood_address": "Centro", "number_address": "100",
+     * "street_address": "Rua das Flores", "complement_address": "Próximo ao
+     * parque", "date_start": "2024-12-25T20:46:19.645594-03:00", "date_end":
+     * "2024-12-29T20:46:19.645594-03:00", "pix_key": "12345678940" }
      * @return
      */
     @PostMapping()
     public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
-                                             @RequestBody Event event){
+            @RequestBody Event event) {
         int eventId = this.eventService.partiallySave(
                 event.getTitle(),
                 event.getInformation(),
@@ -260,9 +247,9 @@ public class EventController {
             }
         }
 
-        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null ||
-                event.getCityAddress() != null || event.getNeighborhoodAddress() != null ||
-                event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
+        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null
+                || event.getCityAddress() != null || event.getNeighborhoodAddress() != null
+                || event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
             try {
                 this.eventService.updateAddress(eventId, event.getLocalName(), event.getCepAddress(),
                         event.getStateAddress(), event.getCityAddress(),
@@ -296,13 +283,13 @@ public class EventController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event){
+    public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event) {
         eventService.updateEvent(id, event);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Event> deleteEvent(@PathVariable final int id){
+    public ResponseEntity<Event> deleteEvent(@PathVariable final int id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
@@ -314,7 +301,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable final int id){
+    public ResponseEntity<Event> getEventById(@PathVariable final int id) {
         Event event = eventService.findById(id);
         return ResponseEntity.ok().body(event);
     }

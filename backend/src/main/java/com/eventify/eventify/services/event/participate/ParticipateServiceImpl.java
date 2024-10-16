@@ -2,22 +2,19 @@ package com.eventify.eventify.services.event.participate;
 
 import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.account.Account;
-import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventHeader;
-import com.eventify.eventify.models.event.expense.Expense;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 import com.eventify.eventify.port.service.account.AccountService;
-import com.eventify.eventify.port.service.crud.CrudService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ParticipateServiceImpl implements ParticipateService {
+
     private final ParticipateDao participateDao;
     private final AccountService accountService;
 
@@ -26,12 +23,11 @@ public class ParticipateServiceImpl implements ParticipateService {
         this.accountService = accountService;
     }
 
-
     @Override
-    public List<ParticipateHeader> listByEventId(int eventId) {
+    public List<ParticipateHeader> listByEventId(int eventId, int limit, int offset) {
         List<ParticipateHeader> participateHeaders = new ArrayList<>();
 
-        List<Participate> participateList = participateDao.listByEventId(eventId);
+        List<Participate> participateList = participateDao.listByEventId(eventId, limit, offset);
 
         if (participateList == null) {
             return participateHeaders;
@@ -68,7 +64,7 @@ public class ParticipateServiceImpl implements ParticipateService {
 
     @Override
     public int create(Participate entity) {
-        if(entity == null){
+        if (entity == null) {
             return 0;
         }
         Account account = accountService.getAccountRequest();
@@ -88,7 +84,7 @@ public class ParticipateServiceImpl implements ParticipateService {
     @Override
     public void deleteByUserEvents(int eventId, EventListResponse response) {
         for (EventHeader event : response.events()) {
-            if (event.getId() != eventId){
+            if (event.getId() != eventId) {
                 continue;
             } else {
                 participateDao.deleteByEventId(eventId);
@@ -99,7 +95,7 @@ public class ParticipateServiceImpl implements ParticipateService {
 
     @Override
     public Participate findById(int id) {
-        if(id < 0){
+        if (id < 0) {
             return null;
         }
         Participate participate = participateDao.readById(id);
