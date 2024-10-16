@@ -6,17 +6,20 @@ import com.eventify.eventify.models.event.Event;
 import com.eventify.eventify.models.event.EventDate;
 import com.eventify.eventify.models.event.EventExpanses;
 import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.models.event.management.Management;
+import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
+import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.service.event.EventService;
+import com.eventify.eventify.port.service.event.management.ManagementService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/event")
@@ -25,6 +28,7 @@ public class EventController {
 
     private final EventService eventService;
     private final ParticipateService participateService;
+    private final ManagementService managementService;
 
     @GetMapping
     public ResponseEntity<EventListResponse> listPaginatedFromUser(
@@ -88,7 +92,6 @@ public class EventController {
         Event response = eventService
                 .getEventById(id);
 
-
         return ResponseEntity.ok(new EventLocalizationResponse(
                 response.getLocalName(),
                 response.getCepAddress(),
@@ -127,11 +130,10 @@ public class EventController {
 
         return ResponseEntity.ok(new EventExpansesResponse(
                 response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
-                        eventExpanses.getCreatedAt(),
-                        eventExpanses.getAbout(),
-                        eventExpanses.getCost()
-
-                )).toList(), totalExpenses
+                eventExpanses.getCreatedAt(),
+                eventExpanses.getAbout(),
+                eventExpanses.getCost()
+        )).toList(), totalExpenses
         ));
     }
 
@@ -147,11 +149,11 @@ public class EventController {
 
         return ResponseEntity.ok(new ListParticipantsResponse(
                 response.stream().map(participateHeader -> new ListParticipantsResponse.Participant(
-                        participateHeader.getId(),
-                        participateHeader.getName(),
-                        participateHeader.getSendedAt(),
-                        participateHeader.getRoleParticipate().toString()
-                )).toList(), totalParticipants
+                participateHeader.getId(),
+                participateHeader.getName(),
+                participateHeader.getSendedAt(),
+                participateHeader.getRoleParticipate().toString()
+        )).toList(), totalParticipants
         ));
     }
 
@@ -216,29 +218,20 @@ public class EventController {
 //                .toUri();
 //        return ResponseEntity.created(uri).build();
 //    }
-
     /**
      * @param imageData
-     * @param event     {
-     *                  "eventname": "Festival de Música",
-     *                  "eventdescription": "Um festival incrível com várias bandas!",
-     *                  "local_name": "Praça Central",
-     *                  "cep_address": "12345-678",
-     *                  "state_address": "SP",
-     *                  "city_address": "São Paulo",
-     *                  "neighborhood_address": "Centro",
-     *                  "number_address": "100",
-     *                  "street_address": "Rua das Flores",
-     *                  "complement_address": "Próximo ao parque",
-     *                  "date_start": "2024-12-25T20:46:19.645594-03:00",
-     *                  "date_end": "2024-12-29T20:46:19.645594-03:00",
-     *                  "pix_key": "12345678940"
-     *                  }
+     * @param event { "eventname": "Festival de Música", "eventdescription": "Um
+     * festival incrível com várias bandas!", "local_name": "Praça Central",
+     * "cep_address": "12345-678", "state_address": "SP", "city_address": "São
+     * Paulo", "neighborhood_address": "Centro", "number_address": "100",
+     * "street_address": "Rua das Flores", "complement_address": "Próximo ao
+     * parque", "date_start": "2024-12-25T20:46:19.645594-03:00", "date_end":
+     * "2024-12-29T20:46:19.645594-03:00", "pix_key": "12345678940" }
      * @return
      */
     @PostMapping()
     public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
-                                             @RequestBody Event event) {
+            @RequestBody Event event) {
         int eventId = this.eventService.partiallySave(
                 event.getTitle(),
                 event.getInformation(),
@@ -254,9 +247,9 @@ public class EventController {
             }
         }
 
-        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null ||
-                event.getCityAddress() != null || event.getNeighborhoodAddress() != null ||
-                event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
+        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null
+                || event.getCityAddress() != null || event.getNeighborhoodAddress() != null
+                || event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
             try {
                 this.eventService.updateAddress(eventId, event.getLocalName(), event.getCepAddress(),
                         event.getStateAddress(), event.getCityAddress(),
@@ -276,6 +269,10 @@ public class EventController {
                 throw new RuntimeException("Failed to create event", e);
             }
         }
+        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
+        int participateId = participateService.create(participate);
+        Management management = new Management(participateId, "create");
+        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

@@ -182,12 +182,12 @@ public class ParticipateDaoImpl implements ParticipateDao {
 
     @Override
     public int save(Participate entity) {
-
         String sql = "INSERT INTO participate(account_id, meetup_id, role_participant, active, sended_at, acepted_at)";
         sql += " VALUES(?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement;
         ResultSet resultSet;
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
 
         try {
             connection.setAutoCommit(false);
@@ -196,10 +196,10 @@ public class ParticipateDaoImpl implements ParticipateDao {
 
             preparedStatement.setInt(1, entity.getAccountId());
             preparedStatement.setInt(2, entity.getEventId());
-            preparedStatement.setString(3, entity.getRoleParticipate().toString());
+            preparedStatement.setString(3, entity.getRoleParticipate().toString().toLowerCase());
             preparedStatement.setBoolean(4, entity.isActive());
-            preparedStatement.setTimestamp(5, Timestamp.from(entity.getSendedAt().toInstant()));
-            preparedStatement.setTimestamp(6, Timestamp.from(entity.getAcceptedAt().toInstant()));
+            preparedStatement.setTimestamp(5, Timestamp.from(currentDateTime.toInstant()));
+            preparedStatement.setTimestamp(6, Timestamp.from(currentDateTime.toInstant()));
 
             preparedStatement.execute();
 
@@ -301,6 +301,24 @@ public class ParticipateDaoImpl implements ParticipateDao {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteByEventId(int eventId) {
+        logger.log(Level.INFO, "Preparando para remover a participante com id " + eventId);
+
+        final String sql = "DELETE FROM participate WHERE meetup_id = ? ;";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, eventId);
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            logger.log(Level.INFO, "Participante removida com sucesso");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

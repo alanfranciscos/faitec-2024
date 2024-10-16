@@ -1,6 +1,8 @@
 package com.eventify.eventify.controller.event.Participate;
 
+import com.eventify.eventify.dto.event.EventListResponse;
 import com.eventify.eventify.models.event.participate.Participate;
+import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ParticipateController {
     private final ParticipateService participateService;
+    private final EventService eventService;
 
     @GetMapping()
     public ResponseEntity<List<Participate>> getEntities(){
@@ -46,7 +49,9 @@ public class ParticipateController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Participate> deleteEntity(@PathVariable final int id){
-        participateService.delete(id);
+        EventListResponse response = eventService.listPaginatedFromUser(6,0);
+
+        participateService.deleteByUserEvents(id, response);
         return ResponseEntity.noContent().build();
     }
 }

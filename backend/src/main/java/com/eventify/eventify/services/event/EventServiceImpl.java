@@ -165,7 +165,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public int partiallySave(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
-
         Event event = new Event(eventName, eventDescription, date_start, date_end);
 
         if (event == null) {
