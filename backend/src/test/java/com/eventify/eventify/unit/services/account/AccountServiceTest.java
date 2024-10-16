@@ -137,7 +137,7 @@ public class AccountServiceTest {
         String passwordAccount = "password@teste.com";
         Account account = new Account();
         AccountPasswordHistory accountPasswordHistory = null;
-        try {
+        try {   
             account = createAccount();
             accountPasswordHistory = createAccountPasswordHistory(account, passwordAccount);
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class AccountServiceTest {
                 .thenReturn(Optional.of(accountPasswordHistory));
 
         // Act
-        boolean result = accountService.verifyAccount(account.getEmail(), "123456");
+        boolean result = accountService.verifyAccount(account.getId(), "123456");
 
         // Assert
         assertTrue(result);

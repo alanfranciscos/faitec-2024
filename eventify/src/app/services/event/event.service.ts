@@ -29,13 +29,19 @@ export class EventService {
 
     return response.data;
   }
-  async listParticipants(eventId: string): Promise<EventParticipantsResponse> {
-    const response = await this.api.get(`api/v1/event/${eventId}/participants`);
-    if (response.status != 200) {
-      throw new Error('Failed to fetch organization data');
-    }
-    return response.data;
-  }
+  // async listParticipants(
+  //   eventId: string,
+  //   offset: number,
+  //   limit: number
+  // ): Promise<EventParticipantsResponse> {
+  //   const response = await this.api.get(
+  //     `api/v1/event/${eventId}/participants?offset=${offset}&limit=${limit}`
+  //   );
+  //   if (response.status != 200) {
+  //     throw new Error('Failed to fetch organization data');
+  //   }
+  //   return response.data;
+  // }
 
   async getOrganizationData(eventId: string): Promise<OrganizationInfo> {
     const response = await this.api.get(`api/v1/event/${eventId}/organization`);
@@ -52,6 +58,21 @@ export class EventService {
     if (response.status != 200) {
       throw new Error('Failed to fetch total expenses');
     }
+    return response.data;
+  }
+  async getEventExpanses(
+    eventId: string,
+    offset: number,
+    limit: number
+  ): Promise<ExpansesResponse> {
+    const response = await this.api.get<ExpansesResponse>(
+      `api/v1/event/${eventId}/expanses?offset=${offset}&limit=${limit}`
+    );
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch event expanses');
+    }
+
     return response.data;
   }
 
@@ -74,17 +95,6 @@ export class EventService {
     if (response.status != 200) {
       throw new Error('Failed to fetch total expenses');
     }
-    return response.data;
-  }
-  async getEventExpanses(eventId: string): Promise<ExpansesResponse> {
-    const response = await this.api.get<ExpansesResponse>(
-      `api/v1/event/${eventId}/expanses`
-    );
-
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch event expanses');
-    }
-
     return response.data;
   }
 
