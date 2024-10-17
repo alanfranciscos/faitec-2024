@@ -25,32 +25,43 @@
       <div class="body-content">
         <div class="image-section">
           <div class="image">
-            <img src="assets/svg/logo.svg" alt="Descrição da imagem" />
+            <img [src]="eventImage" alt="Event image" />
           </div>
           <div class="image-buttons">
-            <button class="btn-edit">Edit</button>
+            <button class="btn-edit">
+              <div class="form-item file-upload">
+                <label for="file-upload" class="file-upload-label">
+                  Adicionar
+                </label>
+                <input id="file-upload" type="file" class="file-upload-input" (change)="onFileSelected($event)" />
+              </div>
+            </button>
+
+
             <button class="btn-remove">Remove</button>
           </div>
         </div>
-
         <div class="name-description">
           <div class="form-group">
             <label for="event-name">Event Name</label>
-            <input type="text" id="event-name" placeholder="Enter event name" class="input-name" />
+            <input type="text" id="event-name" placeholder="Enter event name" class="input-name"
+              [(ngModel)]="eventName" />
           </div>
           <div class="form-group">
             <label for="event-description">Event Description</label>
-            <textarea id="event-description" placeholder="Enter event description" class="input-description"></textarea>
+            <textarea id="event-description" placeholder="Enter event description" class="input-description"
+              [(ngModel)]="eventDescription"></textarea>
           </div>
-
 
           <div class="form-group">
             <label for="start-date">Start Date</label>
-            <input type="date" id="start-date" placeholder="Select start date" class="input-datetime" />
+            <input type="date" id="start-date" placeholder="Select start date" class="input-datetime"
+              [(ngModel)]="startDate" />
           </div>
           <div class="form-group">
             <label for="finish-date">Finish Date</label>
-            <input type="date" id="finish-date" placeholder="Select finish date" class="input-datetime" />
+            <input type="date" id="finish-date" placeholder="Select finish date" class="input-datetime"
+              [(ngModel)]="finishDate" />
           </div>
         </div>
       </div>
@@ -58,7 +69,7 @@
       <div class="footer-content">
         <button routerLink="/" class="btn-back">
           < Back</button>
-            <button routerLink="/create-event/address-info" class="btn-add-address">
+            <button routerLink="/create-event/address-info" (click)="onAddAddress()" class="btn-add-address">
               Add address
             </button>
       </div>

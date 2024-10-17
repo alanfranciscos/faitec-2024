@@ -79,7 +79,6 @@ export const routes: Routes = [
 
   {
     path: 'create-event',
-
     children: [
       { path: 'basic-info', component: BasicInfoComponent },
 
