@@ -107,9 +107,21 @@
     font-weight: bold;
     margin-bottom: 1.5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Título à esquerda e botões à direita */
+    align-items: center; /* Alinha os botões verticalmente com o título */
+  }
+  .content-title .buttons {
+    display: flex;
+    gap: 0.5rem; /* Diminui o espaçamento entre os botões */
   }
 
+  /* Botões ajustados */
+  .add-expense-button {
+    width: 8rem; /* Diminui a largura dos botões */
+    height: 2rem; /* Diminui a altura dos botões */
+    border-radius: 0.25rem; /* Deixa os cantos menos arredondados */
+    font-size: 0.875rem; /* Diminui o tamanho da fonte */
+  }
   /* Estilo do formulário */
   form {
     display: flex;

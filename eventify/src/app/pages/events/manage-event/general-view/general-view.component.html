@@ -56,8 +56,18 @@
     <div class="content-container">
       <div class="content-title">
         <span class="title-text">Location</span>
-        <button class="add-expense-button" style="background-color: #14ad47" routerLink="{{route}}">Edit / Add
-          info</button>
+        <div class="buttons">
+          <button class="add-expense-button" style="background-color: #14ad47" routerLink="{{route}}">Edit info</button>
+          <button class="add-expense-button" style="background-color: #ad1914" (click)="openDialog()">Delete
+            event</button>
+
+        </div>
+        <div *ngIf="showDialog">
+          <app-confirmation-dialog [message]="'Are you sure you want to proceed?'" (onConfirm)="handleConfirm()"
+            (onCancel)="handleCancel()">
+          </app-confirmation-dialog>
+        </div>
+
 
       </div>
       <form>

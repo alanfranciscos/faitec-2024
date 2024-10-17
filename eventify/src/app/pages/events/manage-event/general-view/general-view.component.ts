@@ -8,10 +8,19 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDate } from '../../../../domain/model/event/eventDate.model';
 import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
+import { ConfirmationDialogComponent } from '../../../../components/confirmation-dialog/confirmation-dialog.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [MapComponent, PrimaryInputComponent, ButtonComponent, RouterLink],
+  imports: [
+    MapComponent,
+    PrimaryInputComponent,
+    ButtonComponent,
+    RouterLink,
+    ConfirmationDialogComponent,
+    CommonModule,
+  ],
   templateUrl: './general-view.component.html',
   styleUrl: './general-view.component.scss',
 })
@@ -64,5 +73,19 @@ export class GeneralViewComponent implements OnInit {
     this.eventLocation = eventLocation;
 
     this.popUpInfo = `${eventLocation.locationName} - ${eventLocation.city}`;
+  }
+  showDialog = false;
+
+  openDialog() {
+    this.showDialog = true;
+  }
+
+  handleConfirm() {
+    this.showDialog = false;
+    // Execute ação irreversível
+  }
+
+  handleCancel() {
+    this.showDialog = false;
   }
 }

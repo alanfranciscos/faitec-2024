@@ -18,7 +18,8 @@
     <section class="content">
       <div class="header-content">
         <span class="event-title">CREATE EVENT</span>
-        <span class="event-description">Enter the event image information, name and description.</span>
+        <span class="event-description">Enter the event image information, name, description, start date and finish
+          date.</span>
       </div>
 
       <div class="body-content">
@@ -41,6 +42,16 @@
             <label for="event-description">Event Description</label>
             <textarea id="event-description" placeholder="Enter event description" class="input-description"></textarea>
           </div>
+
+
+          <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" placeholder="Select start date" class="input-datetime" />
+          </div>
+          <div class="form-group">
+            <label for="finish-date">Finish Date</label>
+            <input type="date" id="finish-date" placeholder="Select finish date" class="input-datetime" />
+          </div>
         </div>
       </div>
 
@@ -48,7 +59,7 @@
         <button routerLink="/" class="btn-back">
           < Back</button>
             <button routerLink="/create-event/address-info" class="btn-add-address">
-              Add adress
+              Add address
             </button>
       </div>
     </section>
