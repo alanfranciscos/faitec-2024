@@ -122,6 +122,21 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
+    public void updateAceptedAt(int friendId) {
+        Account account = accountService.getAccountRequest();
+        int accountId = account.getId();
+        friendDao.updateAceptedAt(friendId);
+    }
+
+    @Override
+    public void rejectFriend(int friendId) {
+        if (friendId < 0) {
+            throw new RuntimeException("ID less than 0");
+        }
+        friendDao.deleteById(friendId);
+    }
+
+    @Override
     public int create(Friend entity) {
         if(entity == null){
             return 0;

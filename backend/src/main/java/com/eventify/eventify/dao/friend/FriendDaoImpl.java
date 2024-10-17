@@ -108,13 +108,13 @@ public class FriendDaoImpl implements FriendDao {
 
     @Override
     public List<Friend> listFriendByAccountId(final int accountId, final int limit, final int offset) {
-        String sql = "SELECT * FROM friend WHERE account_id = ? or friend_id = ? LIMIT ? OFFSET ?";
-
+//        String sql = "SELECT * FROM friend WHERE account_id = ? or friend_id = ? LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NOT NULL LIMIT ? OFFSET ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
-            statement.setInt(2, accountId);
-            statement.setInt(3, limit);
-            statement.setInt(4, offset);
+//            statement.setInt(2, accountId);
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
             ResultSet resultSet = statement.executeQuery();
 
             List<Friend> friends = new ArrayList<>();
@@ -132,10 +132,12 @@ public class FriendDaoImpl implements FriendDao {
 
     @Override
     public List<Friend> listPaginatedFromUserAndNotAcepted(int accountId, int limit, int offset) {
-        String sql = "SELECT * FROM friend WHERE friend_id = ? AND acepted_at IS NULL";
+//        String sql = "SELECT * FROM friend WHERE friend_id = ? AND acepted_at IS NULL";
+//        sql += " ORDER BY sended_at DESC ";
+//        sql += " LIMIT ? OFFSET ? ;";
+        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NULL";
         sql += " ORDER BY sended_at DESC ";
         sql += " LIMIT ? OFFSET ? ;";
-
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
@@ -199,6 +201,23 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
+    public void updateAceptedAt(int friendId) {
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        String sql = "UPDATE friend SET acepted_at = ?";
+        sql += " WHERE friend_id = ? ";
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, Timestamp.from(currentDateTime.toInstant()));
+            preparedStatement.setInt(2, friendId);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public int save(Friend entity) {
 
 
@@ -256,7 +275,7 @@ public class FriendDaoImpl implements FriendDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM friend WHERE id = ? ;";
+        final String sql = "DELETE FROM friend WHERE friend_id = ? ;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

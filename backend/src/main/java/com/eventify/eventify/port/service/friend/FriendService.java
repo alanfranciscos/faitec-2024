@@ -15,4 +15,8 @@ public interface FriendService extends CrudService<Friend> {
     int createFriend(String email);
 
     boolean deleteFriend(int friendId);
+
+    void updateAceptedAt(final int friendId);
+
+    void rejectFriend(final int friendId);
 }
