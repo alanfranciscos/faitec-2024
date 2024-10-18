@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToRemoveAdsComponent } from './to-remove-ads.component';
+import { ContactUsComponent } from './contact-us.component';
 
-describe('ToRemoveAdsComponent', () => {
-  let component: ToRemoveAdsComponent;
-  let fixture: ComponentFixture<ToRemoveAdsComponent>;
+describe('ContactUsComponent', () => {
+  let component: ContactUsComponent;
+  let fixture: ComponentFixture<ContactUsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToRemoveAdsComponent]
+      imports: [ContactUsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ToRemoveAdsComponent);
+    fixture = TestBed.createComponent(ContactUsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

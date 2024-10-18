@@ -2,41 +2,41 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 50px;
-  gap: 20px;
-  background-color: #14AD47; /* Cor de fundo aplicada */
-  color: white; /* Torna o texto branco para contraste */
+  padding: 3.125rem;
+  gap: 1.25rem;
+  background-color: #14AD47;
+  color: white;
 }
 
 .about-text {
   flex: 1;
-  padding-right: 20px;
+  padding-right: 1.25rem;
 }
 
 .title {
-  font-size: 2.5rem; /* Aumenta o tamanho do título */
+  font-size: 2.5rem;
   font-weight: bold;
-  color: white; /* Torna o título branco para maior destaque */
+  color: white;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .content {
-  font-size: 1.2rem; /* Aumenta ligeiramente o tamanho do texto */
-  color: white; /* Texto branco para contraste com o fundo */
-  margin-bottom: 20px; /* Adiciona espaçamento entre os parágrafos */
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 1.25rem;
 }
 
 .about-image {
   flex: 1;
-  text-align: right; /* Centraliza a imagem no lado direito */
+  text-align: right;
 }
 
 .about-image img {
-  width: 100%; /* Garante que a imagem ocupe toda a largura disponível */
-  height: 600px; /* Define a altura da imagem */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra suave para destacar a imagem */
-  object-fit: cover; /* Corta a parte de cima e de baixo da imagem */
-  object-position: center; /* Centraliza a imagem dentro do container */
+  width: 100%;
+  height: 37.5rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+  object-position: center;
 }

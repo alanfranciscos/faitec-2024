@@ -1,30 +1,27 @@
 .footer {
   background-color: #14AD47;
   color: white;
-  padding: 40px 20px;
+  padding: 2.5rem 1.25rem;
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: flex-start;
   width: 100%;
-  max-width: 1200px;
-  margin-bottom: 20px;
+  padding-bottom: 1.25rem;
+  padding-left: 1.25rem;
 }
 
 .info {
   flex: 1;
-  padding: 0 20px;
+  margin-right: 2.5rem;
 }
 
 .info h4 {
   font-size: 1.8rem;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 
 .info p {
@@ -33,12 +30,11 @@
 
 .team {
   flex: 1;
-  padding: 0 20px;
 }
 
 .team h4 {
   font-size: 1.8rem;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 
 .team ul {
@@ -49,20 +45,20 @@
 .team li {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .profile-pic {
-  width: 70px;
-  height: 70px;
+  width: 4.375rem;
+  height: 4.375rem;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 15px;
-  border: 3px solid white;
+  margin-right: 0.9375rem;
+  border: 0.1875rem solid white;
 }
 
 .details {
-  flex: 1;
+  text-align: left;
 }
 
 .details strong {
@@ -72,7 +68,7 @@
 .details a {
   color: #fff;
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .details a:hover {
@@ -82,7 +78,7 @@
 .footer-bottom {
   width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .footer-bottom p {
