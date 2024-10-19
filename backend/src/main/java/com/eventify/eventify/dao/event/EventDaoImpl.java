@@ -297,21 +297,63 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public void updateImage(int id, String imagePath) {
-        final String sql = "UPDATE meetup_image SET image_data = ?, is_profile = true WHERE id = ?;";
+        final String sql = "UPDATE meetup_image SET image_data = ?, is_profile = true WHERE meetup_id = ?;";
 
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, imagePath);
-            preparedStatement.setInt(2, Integer.valueOf(id));
-            preparedStatement.execute();
+            preparedStatement.setInt(2, id);
 
+            preparedStatement.execute();
             connection.commit();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
         }
+    }
+
+    @Override
+    public int insertNullImage(int mid) {
+        String sql = "INSERT INTO meetup_image(meetup_id, image_data, is_profile) ";
+        sql += " VALUES(?, ?, ?); ";
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        int resultId = -1;
+
+        try {
+            connection.setAutoCommit(false);
+
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, mid);
+            preparedStatement.setString(2, "");
+            preparedStatement.setBoolean(3, true);
+
+            preparedStatement.execute();
+
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                final int id = resultSet.getInt(1);
+                resultId = id;
+            }
+
+            connection.commit();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+        return resultId;
     }
 
     @Override

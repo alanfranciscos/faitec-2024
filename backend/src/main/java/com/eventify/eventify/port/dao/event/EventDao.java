@@ -25,6 +25,8 @@ public interface EventDao extends ListPaginatedFromUser, TotalFromUser, Expanses
 
     void updateImage(int id, String imagePath);
 
+    int insertNullImage(int id);
+
     void updateAddress(int eventId, String local_name, String cep_address,
                        String state_address, String city_address,
                        String neighborhood_address, String number_address,
