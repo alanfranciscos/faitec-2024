@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @ToString
 public class EventExpanses {
+    private int id;
     private ZonedDateTime createdAt;
     private String about;
     private double cost;

@@ -251,7 +251,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<EventExpanses> getExpansesById(int id) {
-        String sql = "select created_at, about, cost from expanses where meetup_id = ?";
+        String sql = "select id, created_at, about, cost from expanses where meetup_id = ?";
 
         try (var preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
@@ -260,6 +260,7 @@ public class EventDaoImpl implements EventDao {
                 final List<EventExpanses> expanses = new ArrayList<>();
                 while (resultSet.next()) {
                     final EventExpanses expanse = new EventExpanses(
+                            resultSet.getInt("id"),
                             resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault()),
                             resultSet.getString("about"),
                             resultSet.getDouble("cost")

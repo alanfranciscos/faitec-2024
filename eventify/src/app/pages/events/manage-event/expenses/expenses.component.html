@@ -38,13 +38,34 @@
             <th>Description</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Manage</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let expense of eventExpanses.expanses">
+
             <td>{{ expense.description }}</td>
             <td>{{ expense.amount | currency : "USD" }}</td>
             <td>{{ expense.date }}</td>
+            <td>
+              <ul class="manage-event" style="display: flex;">
+                <li> <i class="fa-regular fa-trash-can" style="color: red; " (click)="openDialog()"></i>
+                  <div *ngIf="showDialog">
+                    <app-confirmation-dialog [message]="'Are you sure you want to proceed?'"
+                      (onConfirm)="handleConfirm(expense.id!)" (onCancel)="handleCancel()">
+                    </app-confirmation-dialog>
+                  </div>
+
+                <li> <i class="fa-solid fa-pencil" style="color: grey;" (click)="toggleEditExpenseDialog()"></i>
+                  <app-dialog *ngIf="isEditExpenseDialogOpen" (close)="toggleEditExpenseDialog()"
+                    dialog_title="Edit Expense">
+                    <app-primary-input type="text" placeholder="Insert a description" />
+                    <app-primary-input type="number" placeholder="Insert a value" />
+                    <app-primary-input type="date" placeholder="" />
+                  </app-dialog>
+                </li>
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>

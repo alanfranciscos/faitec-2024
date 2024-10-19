@@ -131,6 +131,7 @@ public class EventController {
 
         return ResponseEntity.ok(new EventExpansesResponse(
                 response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
+                eventExpanses.getId(),
                 eventExpanses.getCreatedAt(),
                 eventExpanses.getAbout(),
                 eventExpanses.getCost()
