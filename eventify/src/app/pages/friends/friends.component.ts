@@ -33,7 +33,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class FriendsComponent implements OnInit {
   constructor(private friendService: FriendService) {}
-  friendEmail!: string;
+  friendEmail: string = '';
 
   content!: FriendsHeader;
   offset = 0;
