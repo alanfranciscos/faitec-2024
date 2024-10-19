@@ -154,14 +154,20 @@ public class FriendDaoImpl implements FriendDao {
 //        String sql = "SELECT * FROM friend WHERE friend_id = ? AND acepted_at IS NULL";
 //        sql += " ORDER BY sended_at DESC ";
 //        sql += " LIMIT ? OFFSET ? ;";
-        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NULL";
+
+//        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NULL";
+//        sql += " ORDER BY sended_at DESC ";
+//        sql += " LIMIT ? OFFSET ? ;";
+
+        String sql = "SELECT * FROM friend WHERE (account_id = ? OR friend_id = ?) AND acepted_at IS NULL";
         sql += " ORDER BY sended_at DESC ";
         sql += " LIMIT ? OFFSET ? ;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
-            statement.setInt(2, limit);
-            statement.setInt(3, offset);
+            statement.setInt(2, accountId);
+            statement.setInt(3, limit);
+            statement.setInt(4, offset);
             ResultSet resultSet = statement.executeQuery();
 
             List<Friend> friends = new ArrayList<>();

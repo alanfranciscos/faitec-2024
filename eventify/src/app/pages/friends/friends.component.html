@@ -18,8 +18,12 @@
 
 
       <app-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()" dialog_title="Add Friends">
-        <app-primary-input type="text" placeholder="Insert your friend's email or nickname" /></app-dialog>
-
+        <div class="form-data">
+          <app-primary-input type="text" placeholder="Insert your friend's email or nickname"
+            [(ngModel)]="friendEmail" />
+        </div>
+        <app-button text="Add" (click)="onAddFriend()"></app-button>
+      </app-dialog>
 
 
       <div>

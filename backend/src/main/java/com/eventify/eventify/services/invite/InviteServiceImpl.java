@@ -72,12 +72,23 @@ public class InviteServiceImpl implements InviteService {
         List<Invite> friendInviteList = new ArrayList<>();
         int totalEventInvites = 0;
 
+        Account account = accountService.getAccountRequest();
+        int accountId = account.getId();
+
         for (Friend friend : friendList) {
-            Account sendedAccount = accountService.getAccountById(friend.getFriendId());
+            Account sendedAccount = new Account();
+            if(accountId == friend.getAccountId()) {
+                //sendedAccount = accountService.getAccountById(friend.getFriendId());
+                continue;
+            }
+            else {
+                sendedAccount = accountService.getAccountById(friend.getAccountId());
+            }
+
             totalEventInvites += 1;
 
             Invite invite = new Invite(
-                    friend.getId(),
+                    sendedAccount.getId(),
                     sendedAccount.getUsername(),
                     friend.getSendedAt()
             );
