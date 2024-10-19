@@ -30,9 +30,22 @@ public class ExpenseController {
         return ResponseEntity.ok().body(expense);
     }
 
+//    @PostMapping()
+//    public ResponseEntity<Expense> createEntity(@RequestBody final Expense data){
     @PostMapping()
-    public ResponseEntity<Expense> createEntity(@RequestBody final Expense data){
-        int id = expenseService.create(data);
+    public ResponseEntity<Expense> createEntity(
+        @RequestParam(value = "meetup_id", required = false) String meetup_id,
+        @RequestParam(value = "cost", required = false) String cost,
+        @RequestParam(value = "about", required = false) String about
+        ){
+
+        Expense expense = new Expense();
+        expense.setMeetup_id(Integer.valueOf(meetup_id));
+        expense.setCost(Double.parseDouble(cost));
+        expense.setAbout(about);
+
+
+        int id = expenseService.create(expense);
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

@@ -30,6 +30,7 @@ public class ExpensesDaoImpl implements ExpenseDao {
 
         PreparedStatement preparedStatement;
         ResultSet resultSet;
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
 
         try {
             connection.setAutoCommit(false);
@@ -38,7 +39,7 @@ public class ExpensesDaoImpl implements ExpenseDao {
 
             preparedStatement.setInt(1, entity.getMeetup_id());
             preparedStatement.setDouble(2, entity.getCost());
-            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreated_at().toInstant()));
+            preparedStatement.setTimestamp(3, Timestamp.from(currentDateTime.toInstant()));
             preparedStatement.setString(4, entity.getAbout());
 
             preparedStatement.execute();

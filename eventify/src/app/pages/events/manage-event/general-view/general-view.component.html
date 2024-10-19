@@ -63,8 +63,8 @@
 
         </div>
         <div *ngIf="showDialog">
-          <app-confirmation-dialog [message]="'Are you sure you want to proceed?'" (onConfirm)="handleConfirm()"
-            (onCancel)="handleCancel()">
+          <app-confirmation-dialog [message]="'Are you sure you want to proceed?'"
+            (onConfirm)="handleConfirm(organizationData.id)" (onCancel)="handleCancel()">
           </app-confirmation-dialog>
         </div>
 

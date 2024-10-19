@@ -12,6 +12,12 @@ import { DialogComponent } from '../../../../components/dialog/dialog.component'
 import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
 import { ConfirmationDialogComponent } from '../../../../components/confirmation-dialog/confirmation-dialog.component';
 import { DeleteEventExpenseService } from '../../../../services/event/delete-event-expense.service';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { FormsModule } from '@angular/forms';
+import {
+  CreateEventExpenseService,
+  ExpenseInput,
+} from '../../../../services/event/create-event-expense.service';
 
 @Component({
   selector: 'app-expenses',
@@ -22,6 +28,8 @@ import { DeleteEventExpenseService } from '../../../../services/event/delete-eve
     DialogComponent,
     PrimaryInputComponent,
     ConfirmationDialogComponent,
+    ButtonComponent,
+    FormsModule,
   ],
   standalone: true,
 })
@@ -29,8 +37,13 @@ export class ExpensesComponent implements OnInit {
   constructor(
     private router: Router,
     private eventService: EventService,
-    private deleteEventExpense: DeleteEventExpenseService
+    private deleteEventExpense: DeleteEventExpenseService,
+    private createEventExpense: CreateEventExpenseService
   ) {}
+  description: string = '';
+  expenseValue: string = '';
+  expenseDate?: Date;
+
   paymentApproach!: PaymentApproach;
   totalExpenses!: TotalExpenses;
   eventExpanses!: ExpansesResponse;
@@ -96,7 +109,7 @@ export class ExpensesComponent implements OnInit {
       this.offset,
       this.limit
     );
-    console.log(eventExpanses.expanses);
+
     this.eventExpanses = eventExpanses;
     this.eventExpanses = {
       ...eventExpanses,
@@ -105,7 +118,6 @@ export class ExpensesComponent implements OnInit {
         date: new Date(expense.date).toLocaleDateString(),
       })),
     };
-
     this.getPagesNumbers();
     this.setCurrentPageNumber();
   }
@@ -115,6 +127,24 @@ export class ExpensesComponent implements OnInit {
     });
     return expenses;
   }
+  async onCreateExpense() {
+    const url = this.router.url;
+    let eventId = url.split('/')[2];
+    eventId = eventId == null ? '-1' : eventId;
+
+    const expenseData: ExpenseInput = {
+      meetup_id: eventId,
+      cost: this.expenseValue,
+      about: this.description,
+    };
+    const response = await this.createEventExpense.createExpenseEvent(
+      expenseData
+    );
+
+    window.location.reload();
+    this.isAddExpenseDialogOpen = false;
+  }
+
   async onDeleteEventExpense(id: number) {
     try {
       await this.deleteEventExpense.deleteEventExpense(id);

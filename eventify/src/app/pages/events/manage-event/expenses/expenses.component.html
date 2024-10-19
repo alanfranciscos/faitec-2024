@@ -26,9 +26,14 @@
       <button class="add-expense-button" style="background-color: #14ad47" (click)="toggleAddExpenseDialog()">Add a new
         expense</button>
       <app-dialog *ngIf="isAddExpenseDialogOpen" (close)="toggleAddExpenseDialog()" dialog_title="Add Expense">
-        <app-primary-input type="text" placeholder="Insert a description" />
-        <app-primary-input type="number" placeholder="Insert a value" />
-        <app-primary-input type="date" placeholder="" />
+        <div class="form-group"> <app-primary-input type="text" placeholder="Insert a description"
+            [(ngModel)]="description" /></div>
+        <div class="form-group"><app-primary-input type="number" placeholder="Insert a value"
+            [(ngModel)]="expenseValue" />
+        </div>
+        <div class="form-group"> <app-primary-input type="date" placeholder="" [(ngModel)]="expenseDate" /></div>
+        <app-button text="Add" (click)="onCreateExpense()"></app-button>
+
       </app-dialog>
     </div>
     <div class="card-content">
