@@ -19,6 +19,9 @@ import java.io.IOException;
 public class GcpStorageServiceImpl implements GcpStorageService {
     private final Bucket bucket;
 
+    @Value("${spring.cloud.gcp.bucket.image.base.path}")
+    private String bucketImageStorage;
+
     public GcpStorageServiceImpl(@Value("${spring.cloud.gcp.storage.bucket}") String bucketName) {
         Storage storage = StorageOptions.getDefaultInstance().getService();
         this.bucket = storage.get(bucketName);
@@ -45,7 +48,8 @@ public class GcpStorageServiceImpl implements GcpStorageService {
 
         bucketPath = bucketPath + fileName;
         Blob blob = bucket.create(bucketPath, imageData, "image/png");
-        return blob.getSelfLink();
+        String link = this.bucketImageStorage +"/" + bucketPath;
+        return link;
     }
 
     @Override
