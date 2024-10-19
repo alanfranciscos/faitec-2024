@@ -60,6 +60,25 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
+    public Friend readByAccountIdAndFriendId(int accountId, int friendId) {
+        String sql = "SELECT * FROM friend WHERE friend_id = ? AND account_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            statement.setInt(2, friendId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return mapResultSetToFriend(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
     public List<Friend> readAll() {
         final List<Friend> friends = new ArrayList<>();
         final String sql = "SELECT * FROM friend;";
@@ -109,12 +128,12 @@ public class FriendDaoImpl implements FriendDao {
     @Override
     public List<Friend> listFriendByAccountId(final int accountId, final int limit, final int offset) {
 //        String sql = "SELECT * FROM friend WHERE account_id = ? or friend_id = ? LIMIT ? OFFSET ?";
-        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NOT NULL LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM friend WHERE account_id = ? OR friend_id = ? AND acepted_at IS NOT NULL LIMIT ? OFFSET ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
-//            statement.setInt(2, accountId);
-            statement.setInt(2, limit);
-            statement.setInt(3, offset);
+            statement.setInt(2, accountId);
+            statement.setInt(3, limit);
+            statement.setInt(4, offset);
             ResultSet resultSet = statement.executeQuery();
 
             List<Friend> friends = new ArrayList<>();
