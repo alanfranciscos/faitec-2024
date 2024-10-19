@@ -407,6 +407,23 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
+    public void updateAcceptedAt(int eventId) {
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        String sql = "UPDATE participate SET acepted_at = ?";
+        sql += " WHERE meetup_id = ? ";
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, Timestamp.from(currentDateTime.toInstant()));
+            preparedStatement.setInt(2, eventId);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public Event readById(int id) {
         String sql = "SELECT * FROM meetup WHERE id = ?";
 
@@ -550,10 +567,11 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public void updateInformation(int id, Event entity) {
-        String sql = "UPDATE meetup SET title = ?, information = ?, localName = ?, cepAddress = ?, stateAddress = ?, ";
-        sql += "cityAddress = ?, neighborhoodAddress = ?, numberAddress = ?, streetAddress = ?, complementAddress = ?, latitude = ?, ";
-        sql += "longitude = ?, dateStart = ?, dateEnd = ?, stage = ?, pixKey = ?";
-        sql += " WHERE id = ? ";
+        String sql = "UPDATE meetup SET title = ?, information = ?, local_name = ?, cep_address = ?, state_address = ?, ";
+        sql += "city_address = ?, neighborhood_address = ?, number_address = ?, street_address = ?, complement_address = ?, ";
+        sql += "date_start = ?, date_end = ?, stage = ?, pix_key = ? ";
+        sql += "WHERE id = ? ;";
+
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
@@ -567,12 +585,13 @@ public class EventDaoImpl implements EventDao {
             preparedStatement.setString(8, entity.getNumberAddress());
             preparedStatement.setString(9, entity.getStreetAddress());
             preparedStatement.setString(10, entity.getComplementAddress());
-            preparedStatement.setDouble(11, entity.getLatitude());
-            preparedStatement.setDouble(12, entity.getLongitude());
-            preparedStatement.setTimestamp(13, Timestamp.from(entity.getDateStart().toInstant()));
-            preparedStatement.setTimestamp(14, Timestamp.from(entity.getDateEnd().toInstant()));
-            preparedStatement.setString(15, entity.getStage().toString());
-            preparedStatement.setString(16, entity.getPixKey());
+//            preparedStatement.setDouble(11, entity.getLatitude());
+//            preparedStatement.setDouble(12, entity.getLongitude());
+            preparedStatement.setTimestamp(11, Timestamp.from(entity.getDateStart().toInstant()));
+            preparedStatement.setTimestamp(12, Timestamp.from(entity.getDateEnd().toInstant()));
+            preparedStatement.setString(13, entity.getStage().toString().toLowerCase());
+            preparedStatement.setString(14, entity.getPixKey());
+            preparedStatement.setInt(15, id);
             preparedStatement.execute();
             preparedStatement.close();
         } catch (Exception e) {

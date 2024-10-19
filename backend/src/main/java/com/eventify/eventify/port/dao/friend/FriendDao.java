@@ -16,4 +16,8 @@ public interface FriendDao extends ReadDao<Friend>, CrudDao<Friend> {
 
     boolean isFriend (final int accountId, final int friendId);
 
+    void updateAceptedAt(final int friendId);
+
+    Friend readByAccountIdAndFriendId(final int accountId, final int friendId);
+
 }

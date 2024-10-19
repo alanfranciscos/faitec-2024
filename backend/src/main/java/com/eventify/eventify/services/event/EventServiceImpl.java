@@ -136,6 +136,15 @@ public class EventServiceImpl implements EventService {
         }
     }
 
+    @Override
+    public void updateAceptedAt(int eventId) {
+        try {
+            eventDao.updateAcceptedAt(eventId);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update accepted at from event in database: ", e);
+        }
+    }
+
 
     @Override
     public EventDate getDateById(int id) {

@@ -40,15 +40,25 @@ public class FriendServiceImpl implements FriendService {
                 continue;
             }
             Account friendAccount = accountService.getAccountById(friend.getFriendId());
-
-            FriendHeader friendHeader = new FriendHeader(
-                    friend.getId(),
-                    friendAccount.getUsername(),
-                    friendAccount.getImageData(),
-                    friend.getAcceptedAt()
-            );
-
-            friendHeaders.add(friendHeader);
+            if(friend.getFriendId() != accountId){
+                FriendHeader friendHeader = new FriendHeader(
+                        friend.getFriendId(),
+                        friendAccount.getUsername(),
+                        friendAccount.getImageData(),
+                        friend.getAcceptedAt()
+                );
+                friendHeaders.add(friendHeader);
+            } else {
+                Friend friend1 = friendDao.readByAccountIdAndFriendId(accountId, friend.getAccountId());
+                Account friendAccount1 = accountService.getAccountById(friend1.getAccountId());
+                FriendHeader friendHeader = new FriendHeader(
+                        friend1.getAccountId(),
+                        friendAccount1.getUsername(),
+                        friendAccount1.getImageData(),
+                        friend1.getAcceptedAt()
+                );
+                friendHeaders.add(friendHeader);
+            }
         }
 
 
@@ -119,6 +129,21 @@ public class FriendServiceImpl implements FriendService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void updateAceptedAt(int friendId) {
+        Account account = accountService.getAccountRequest();
+        int accountId = account.getId();
+        friendDao.updateAceptedAt(friendId);
+    }
+
+    @Override
+    public void rejectFriend(int friendId) {
+        if (friendId < 0) {
+            throw new RuntimeException("ID less than 0");
+        }
+        friendDao.deleteById(friendId);
     }
 
     @Override

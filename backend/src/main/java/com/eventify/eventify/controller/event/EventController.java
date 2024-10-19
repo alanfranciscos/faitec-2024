@@ -2,10 +2,7 @@ package com.eventify.eventify.controller.event;
 
 import com.eventify.eventify.dto.event.*;
 import com.eventify.eventify.dto.event.participate.ListParticipantsResponse;
-import com.eventify.eventify.models.event.Event;
-import com.eventify.eventify.models.event.EventDate;
-import com.eventify.eventify.models.event.EventExpanses;
-import com.eventify.eventify.models.event.EventOrganization;
+import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.models.event.management.Management;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
@@ -296,7 +293,11 @@ public class EventController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event) {
+    public ResponseEntity<Void> updateEvent(@PathVariable final int id,
+                                            @RequestParam(value = "image", required = false) MultipartFile imageData,
+                                            @RequestBody Event event){
+        event.setId(id);
+        event.setStage(EventStageEnum.CREATED);
         eventService.updateEvent(id, event);
         return ResponseEntity.ok().build();
     }
