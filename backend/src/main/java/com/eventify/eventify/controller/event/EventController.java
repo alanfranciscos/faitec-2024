@@ -221,6 +221,11 @@ public class EventController {
             }
         }
 
+        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
+        int participateId = participateService.create(participate);
+        Management management = new Management(participateId, "create");
+        int managementId = managementService.create(management);
+
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
