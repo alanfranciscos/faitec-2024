@@ -8,7 +8,8 @@
         <div class="cards">
           <ul>
             <li *ngFor="let request of friendRequest.invite; let i = index">
-              <app-notification-card [title]="request.title" [dateNotification]="request.sendedAt">
+              <app-notification-card [title]="request.title" [dateNotification]="request.sendedAt"
+                (accept)="acceptFriendRequest(request.id)" (decline)="declineFriendRequest(request.id)">
               </app-notification-card>
             </li>
           </ul>

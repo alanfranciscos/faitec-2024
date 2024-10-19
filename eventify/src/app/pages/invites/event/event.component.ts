@@ -106,4 +106,13 @@ export class EventComponent implements OnInit {
     this.eventInvite.invite = this.formatDateFromEvent(this.eventInvite.invite);
     this.setCurrentPageNumber();
   }
+
+  acceptEventRequest(requestId: number) {
+    this.eventService.acceptRequest(requestId);
+  }
+
+  declineEventRequest(requestId: number) {
+    console.log(requestId);
+    this.eventService.declineRequest(requestId);
+  }
 }

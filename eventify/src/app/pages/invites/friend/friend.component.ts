@@ -11,6 +11,7 @@ import {
   FriendRequest,
   FriendRequestResponse,
 } from '../../../domain/model/event/friend_request.model';
+import { FriendService } from '../../../services/friend/friend.service';
 
 interface CardItensType {
   title: string;
@@ -33,7 +34,10 @@ interface CardItensType {
   styleUrl: './friend.component.scss',
 })
 export class FriendComponent implements OnInit {
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private friendService: FriendService
+  ) {}
   friendRequest!: FriendRequestResponse;
 
   offset = 0;
@@ -113,5 +117,13 @@ export class FriendComponent implements OnInit {
       this.friendRequest.invite
     );
     this.setCurrentPageNumber();
+  }
+
+  acceptFriendRequest(requestId: number) {
+    this.friendService.acceptRequest(requestId);
+  }
+
+  declineFriendRequest(requestId: number) {
+    this.friendService.declineRequest(requestId);
   }
 }

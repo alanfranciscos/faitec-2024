@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 @RestController
 @RequestMapping("api/v1/expense")
@@ -30,9 +34,22 @@ public class ExpenseController {
         return ResponseEntity.ok().body(expense);
     }
 
+//    @PostMapping()
+//    public ResponseEntity<Expense> createEntity(@RequestBody final Expense data){
     @PostMapping()
-    public ResponseEntity<Expense> createEntity(@RequestBody final Expense data){
-        int id = expenseService.create(data);
+    public ResponseEntity<Expense> createEntity(
+        @RequestParam(value = "meetup_id", required = false) String meetup_id,
+        @RequestParam(value = "cost", required = false) String cost,
+        @RequestParam(value = "about", required = false) String about
+        ){
+
+        Expense expense = new Expense();
+        expense.setMeetup_id(Integer.valueOf(meetup_id));
+        expense.setCost(Double.parseDouble(cost));
+        expense.setAbout(about);
+
+
+        int id = expenseService.create(expense);
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -41,9 +58,29 @@ public class ExpenseController {
         return ResponseEntity.created(uri).build();
     }
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Expense data){
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Expense data){
-        expenseService.update(id, data);
+    public ResponseEntity<Void> updateEntity(
+            @RequestParam(value = "id", required = false) int id,
+            @RequestParam(value = "about", required = false) String about,
+            @RequestParam(value = "cost", required = false) String cost,
+            @RequestParam(value = "created_at", required = false) String created_at
+    ){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate localDateStart = LocalDate.parse(created_at, formatter);
+
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTimeCreatedAt = localDateStart.atStartOfDay(zoneId);
+
+        Expense expense = new Expense();
+        expense.setId(id);
+        expense.setAbout(about);
+        expense.setCost(Double.parseDouble(cost));
+        expense.setCreated_at(zonedDateTimeCreatedAt);
+        expenseService.update(id, expense);
         return ResponseEntity.ok().build();
     }
 

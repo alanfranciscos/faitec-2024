@@ -6,11 +6,13 @@ import { FriendCardComponent } from '../../components/friend-card/friend-card.co
 import { HeaderComponent } from '../../components/header/header.component';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
-import { FriendService } from '../../services/friend/friend.service';
+import { Friend, FriendService } from '../../services/friend/friend.service';
 import {
   FriendsContent,
   FriendsHeader,
 } from '../../domain/model/event/friendsHeader.model';
+import { ButtonComponent } from '../../components/button/button.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-friend',
@@ -22,14 +24,17 @@ import {
     CommonModule,
     HeaderComponent,
     DialogComponent,
-
     PrimaryInputComponent,
+    ButtonComponent,
+    FormsModule,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
 })
 export class FriendsComponent implements OnInit {
   constructor(private friendService: FriendService) {}
+  friendEmail: string = '';
+
   content!: FriendsHeader;
   offset = 0;
   quantityPerPage = 10;
@@ -108,5 +113,15 @@ export class FriendsComponent implements OnInit {
 
   toggleAddFriendDialog() {
     this.isAddFriendDialogOpen = !this.isAddFriendDialogOpen;
+  }
+
+  async onAddFriend() {
+    const friendData: Friend = {
+      email: this.friendEmail,
+    };
+    const response = await this.friendService.inviteFriend(friendData);
+  }
+  onDeleteFriend() {
+    alert('funcionou');
   }
 }

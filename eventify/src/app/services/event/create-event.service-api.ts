@@ -83,9 +83,9 @@ export class CreateEventServiceApi {
     if (data.stage) {
       formData.append('stage', data.stage);
     }
-    // if (data.pix_key) {
-    //   formData.append('pix_key', data.pix_key);
-    // }
+    if (data.pix_key) {
+      formData.append('pix_key', data.pix_key);
+    }
 
     const response = await this.api.post(`/api/v1/event`, formData, {
       headers: {

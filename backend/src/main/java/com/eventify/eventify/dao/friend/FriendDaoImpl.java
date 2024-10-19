@@ -154,14 +154,20 @@ public class FriendDaoImpl implements FriendDao {
 //        String sql = "SELECT * FROM friend WHERE friend_id = ? AND acepted_at IS NULL";
 //        sql += " ORDER BY sended_at DESC ";
 //        sql += " LIMIT ? OFFSET ? ;";
-        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NULL";
+
+//        String sql = "SELECT * FROM friend WHERE account_id = ? AND acepted_at IS NULL";
+//        sql += " ORDER BY sended_at DESC ";
+//        sql += " LIMIT ? OFFSET ? ;";
+
+        String sql = "SELECT * FROM friend WHERE (account_id = ? OR friend_id = ?) AND acepted_at IS NULL";
         sql += " ORDER BY sended_at DESC ";
         sql += " LIMIT ? OFFSET ? ;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
-            statement.setInt(2, limit);
-            statement.setInt(3, offset);
+            statement.setInt(2, accountId);
+            statement.setInt(3, limit);
+            statement.setInt(4, offset);
             ResultSet resultSet = statement.executeQuery();
 
             List<Friend> friends = new ArrayList<>();
@@ -223,7 +229,8 @@ public class FriendDaoImpl implements FriendDao {
     public void updateAceptedAt(int friendId) {
         ZonedDateTime currentDateTime = ZonedDateTime.now();
         String sql = "UPDATE friend SET acepted_at = ?";
-        sql += " WHERE friend_id = ? ";
+//        sql += " WHERE friend_id = ? ";
+        sql += " WHERE account_id = ? ";
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
@@ -294,7 +301,7 @@ public class FriendDaoImpl implements FriendDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM friend WHERE friend_id = ? ;";
+        final String sql = "DELETE FROM friend WHERE account_id = ? ;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
