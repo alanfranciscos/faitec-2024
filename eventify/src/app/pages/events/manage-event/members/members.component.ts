@@ -71,7 +71,6 @@ export class MembersComponent implements OnInit {
       this.limit
     );
     this.participants = participants;
-    console.log(participants);
     this.participants = {
       ...participants,
       participants: participants.participants.map((participants) => ({

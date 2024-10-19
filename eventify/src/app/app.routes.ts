@@ -21,6 +21,7 @@ import { _BasicInfoComponent } from './pages/events/edit-event/basic-info/basic-
 import { _AddressInfoComponent } from './pages/events/edit-event/address-info/address-info.component';
 import { _PaymentInfoComponent } from './pages/events/edit-event/payment-info/payment-info.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { CreateEventComponent } from './pages/events/create-event/create-event.component';
 
 export const routes: Routes = [
   {
@@ -77,13 +78,23 @@ export const routes: Routes = [
     ],
   },
 
+  // {
+  //   path: 'create-event',
+  //   children: [
+  //     { path: 'basic-info', component: BasicInfoComponent },
+
+  //     { path: 'address-info', component: AddressInfoComponent },
+
+  //     { path: 'payment-info', component: PaymentInfoComponent },
+  //   ],
+  // },
   {
     path: 'create-event',
+    component: CreateEventComponent,
     children: [
+      { path: '', redirectTo: 'basic-info', pathMatch: 'full' }, // Redireciona para Basic Info
       { path: 'basic-info', component: BasicInfoComponent },
-
       { path: 'address-info', component: AddressInfoComponent },
-
       { path: 'payment-info', component: PaymentInfoComponent },
     ],
   },

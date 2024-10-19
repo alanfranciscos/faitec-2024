@@ -14,6 +14,10 @@ import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.management.ManagementService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -157,86 +161,36 @@ public class EventController {
         ));
     }
 
-//    @PostMapping()
-//    public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
-//                                             @RequestParam("eventname") String eventname,
-//                                             @RequestParam("eventdescription") String eventdescription,
-//                                             @RequestParam(value = "local_name", required = false) String local_name,
-//                                             @RequestParam(value = "cep_address", required = false) String cep_address,
-//                                             @RequestParam(value = "state_address", required = false) String state_address,
-//                                             @RequestParam(value = "city_address", required = false) String city_address,
-//                                             @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
-//                                             @RequestParam(value = "number_address", required = false) String number_address,
-//                                             @RequestParam(value = "street_address", required = false) String street_address,
-//                                             @RequestParam(value = "complement_address", required = false) String complement_address,
-//                                             @RequestParam("date_start") ZonedDateTime date_start,
-//                                             @RequestParam("date_end") ZonedDateTime date_end,
-//                                             @RequestParam(value = "pix_key", required = false) String pix_key
-//                                             ){
-//        int eventId = this.eventService.partiallySave(
-//                eventname,
-//                eventdescription,
-//                date_start,
-//                date_end
-//        );
-//        if (imageData != null) {
-//            try {
-//                this.eventService.updateImage(eventId, imageData);
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//
-//        if (local_name != null || cep_address != null || state_address != null ||
-//                city_address != null || neighborhood_address != null ||
-//                number_address != null || street_address != null || complement_address != null) {
-//            try {
-//                this.eventService.updateAddress(eventId, local_name, cep_address,
-//                        state_address, city_address,
-//                        neighborhood_address, number_address,
-//                        street_address, complement_address);
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//
-//        if (pix_key != null) {
-//            try {
-//                this.eventService.updatePayment(eventId, pix_key);
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//
-//        final URI uri = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(eventId)
-//                .toUri();
-//        return ResponseEntity.created(uri).build();
-//    }
-    /**
-     * @param imageData
-     * @param event { "eventname": "Festival de Música", "eventdescription": "Um
-     * festival incrível com várias bandas!", "local_name": "Praça Central",
-     * "cep_address": "12345-678", "state_address": "SP", "city_address": "São
-     * Paulo", "neighborhood_address": "Centro", "number_address": "100",
-     * "street_address": "Rua das Flores", "complement_address": "Próximo ao
-     * parque", "date_start": "2024-12-25T20:46:19.645594-03:00", "date_end":
-     * "2024-12-29T20:46:19.645594-03:00", "pix_key": "12345678940" }
-     * @return
-     */
     @PostMapping()
     public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
-            @RequestBody Event event) {
+                                             @RequestParam("eventname") String eventname,
+                                             @RequestParam("eventdescription") String eventdescription,
+                                             @RequestParam(value = "local_name", required = false) String local_name,
+                                             @RequestParam(value = "cep_address", required = false) String cep_address,
+                                             @RequestParam(value = "state_address", required = false) String state_address,
+                                             @RequestParam(value = "city_address", required = false) String city_address,
+                                             @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
+                                             @RequestParam(value = "number_address", required = false) String number_address,
+                                             @RequestParam(value = "street_address", required = false) String street_address,
+                                             @RequestParam(value = "complement_address", required = false) String complement_address,
+                                             @RequestParam("date_start") String date_start,
+                                             @RequestParam("date_end") String date_end,
+                                             @RequestParam(value = "pix_key", required = false) String pix_key
+                                             ){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate localDateStart = LocalDate.parse(date_start, formatter);
+        LocalDate localDateEnd = LocalDate.parse(date_end, formatter);
+
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTimeStart = localDateStart.atStartOfDay(zoneId);
+        ZonedDateTime zonedDateTimeEnd = localDateEnd.atStartOfDay(zoneId);
+
         int eventId = this.eventService.partiallySave(
-                event.getTitle(),
-                event.getInformation(),
-                event.getDateStart(),
-                event.getDateEnd()
+                eventname,
+                eventdescription,
+                zonedDateTimeStart,
+                zonedDateTimeEnd
         );
         if (imageData != null) {
             try {
@@ -247,32 +201,28 @@ public class EventController {
             }
         }
 
-        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null
-                || event.getCityAddress() != null || event.getNeighborhoodAddress() != null
-                || event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
+        if (local_name != null || cep_address != null || state_address != null ||
+                city_address != null || neighborhood_address != null ||
+                number_address != null || street_address != null || complement_address != null) {
             try {
-                this.eventService.updateAddress(eventId, event.getLocalName(), event.getCepAddress(),
-                        event.getStateAddress(), event.getCityAddress(),
-                        event.getNeighborhoodAddress(), event.getNumberAddress(),
-                        event.getStreetAddress(), event.getComplementAddress());
+                this.eventService.updateAddress(eventId, local_name, cep_address,
+                        state_address, city_address,
+                        neighborhood_address, number_address,
+                        street_address, complement_address);
             } catch (Exception e) {
                 this.eventService.deleteEvent(eventId);
                 throw new RuntimeException("Failed to create event", e);
             }
         }
 
-        if (event.getPixKey() != null) {
+        if (pix_key != null) {
             try {
-                this.eventService.updatePayment(eventId, event.getPixKey());
+                this.eventService.updatePayment(eventId, pix_key);
             } catch (Exception e) {
                 this.eventService.deleteEvent(eventId);
                 throw new RuntimeException("Failed to create event", e);
             }
         }
-        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
-        int participateId = participateService.create(participate);
-        Management management = new Management(participateId, "create");
-        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -281,6 +231,69 @@ public class EventController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+//    /**
+//     * @param imageData
+//     * @param event { "eventname": "Festival de Música", "eventdescription": "Um
+//     * festival incrível com várias bandas!", "local_name": "Praça Central",
+//     * "cep_address": "12345-678", "state_address": "SP", "city_address": "São
+//     * Paulo", "neighborhood_address": "Centro", "number_address": "100",
+//     * "street_address": "Rua das Flores", "complement_address": "Próximo ao
+//     * parque", "date_start": "2024-12-25T20:46:19.645594-03:00", "date_end":
+//     * "2024-12-29T20:46:19.645594-03:00", "pix_key": "12345678940" }
+//     * @return
+//     */
+//    @PostMapping()
+//    public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
+//            @RequestBody Event event) {
+//        int eventId = this.eventService.partiallySave(
+//                event.getTitle(),
+//                event.getInformation(),
+//                event.getDateStart(),
+//                event.getDateEnd()
+//        );
+//        if (imageData != null) {
+//            try {
+//                this.eventService.updateImage(eventId, imageData);
+//            } catch (Exception e) {
+//                this.eventService.deleteEvent(eventId);
+//                throw new RuntimeException("Failed to create event", e);
+//            }
+//        }
+//
+//        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null
+//                || event.getCityAddress() != null || event.getNeighborhoodAddress() != null
+//                || event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
+//            try {
+//                this.eventService.updateAddress(eventId, event.getLocalName(), event.getCepAddress(),
+//                        event.getStateAddress(), event.getCityAddress(),
+//                        event.getNeighborhoodAddress(), event.getNumberAddress(),
+//                        event.getStreetAddress(), event.getComplementAddress());
+//            } catch (Exception e) {
+//                this.eventService.deleteEvent(eventId);
+//                throw new RuntimeException("Failed to create event", e);
+//            }
+//        }
+//
+//        if (event.getPixKey() != null) {
+//            try {
+//                this.eventService.updatePayment(eventId, event.getPixKey());
+//            } catch (Exception e) {
+//                this.eventService.deleteEvent(eventId);
+//                throw new RuntimeException("Failed to create event", e);
+//            }
+//        }
+//        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
+//        int participateId = participateService.create(participate);
+//        Management management = new Management(participateId, "create");
+//        int managementId = managementService.create(management);
+//
+//        final URI uri = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(eventId)
+//                .toUri();
+//        return ResponseEntity.created(uri).build();
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEvent(@PathVariable final int id, @RequestBody final Event event) {

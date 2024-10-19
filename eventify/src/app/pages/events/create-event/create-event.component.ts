@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CreateEventService } from './create-event.service';
 
 @Component({
   selector: 'app-create-event',
   standalone: true,
-  imports: [],
-  templateUrl: './create-event.component.html',
-  styleUrl: './create-event.component.scss'
-})
-export class CreateEventComponent {
+  imports: [RouterModule],
 
-}
+  templateUrl: './create-event.component.html',
+  styleUrls: ['./create-event.component.scss'],
+})
+export class CreateEventComponent {}

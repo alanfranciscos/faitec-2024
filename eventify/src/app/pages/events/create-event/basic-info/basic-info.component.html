@@ -25,8 +25,10 @@
       <div class="body-content">
         <div class="image-section">
           <div class="image">
-            <img [src]="eventImage" alt="Event image" />
+
+            <img [src]="eventImage" alt="Event image" *ngIf="eventImage" />
           </div>
+
           <div class="image-buttons">
             <button class="btn-edit">
               <div class="form-item file-upload">
@@ -36,9 +38,7 @@
                 <input id="file-upload" type="file" class="file-upload-input" (change)="onFileSelected($event)" />
               </div>
             </button>
-
-
-            <button class="btn-remove">Remove</button>
+            <button class="btn-remove" (click)="onRemoveImage()" *ngIf="eventImage">Remove</button>
           </div>
         </div>
         <div class="name-description">
