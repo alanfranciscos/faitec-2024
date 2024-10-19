@@ -39,4 +39,12 @@ export class FriendService {
 
     return response.data;
   }
+
+  async acceptRequest(id: number) {
+    await this.api.put(`/api/v1/invite/list/friend/${id}/accept`);
+  }
+
+  async declineRequest(id: number) {
+    await this.api.put(`/api/v1/invite/list/friend/${id}/reject`);
+  }
 }

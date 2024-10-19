@@ -7,6 +7,7 @@ import com.eventify.eventify.port.dao.expense.ExpenseDao;
 
 import java.sql.*;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class ExpensesDaoImpl implements ExpenseDao {
                 expense.setId(resultSet.getInt("id"));
                 expense.setMeetup_id(resultSet.getInt("meetup_id"));
                 expense.setCost(resultSet.getDouble("cost"));
-                expense.setCreated_at(ZonedDateTime.parse(resultSet.getString("created_at")));
+                resultSet.getTimestamp("created_at").toInstant().atZone(ZoneId.systemDefault());
                 expense.setAbout(resultSet.getString("about"));
                 logger.log(Level.INFO, "Entidade com id " + id + " encotnrada.");
                 return expense;
@@ -156,14 +157,15 @@ public class ExpensesDaoImpl implements ExpenseDao {
 
     @Override
     public void updateInformation(int id, Expense entity) {
-        String sql = "UPDATE expanses SET cost = ?, about = ?";
+        String sql = "UPDATE expanses SET cost = ?, about = ?, created_at = ?";
         sql += " WHERE id = ? ";
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDouble(1, entity.getCost());
             preparedStatement.setString(2, entity.getAbout());
-            preparedStatement.setInt(3, entity.getId());
+            preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreated_at().toInstant()));
+            preparedStatement.setInt(4, entity.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (Exception e) {

@@ -228,7 +228,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM participate WHERE meetup_id = ? ;";
+        final String sql = "DELETE FROM participate WHERE id = ? ;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

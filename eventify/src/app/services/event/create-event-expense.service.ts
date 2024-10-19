@@ -6,6 +6,7 @@ export interface ExpenseInput {
   meetup_id: string;
   cost: string;
   about: string;
+  eventDate?: string;
 }
 
 @Injectable({

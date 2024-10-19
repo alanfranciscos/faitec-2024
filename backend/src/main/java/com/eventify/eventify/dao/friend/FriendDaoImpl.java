@@ -229,7 +229,8 @@ public class FriendDaoImpl implements FriendDao {
     public void updateAceptedAt(int friendId) {
         ZonedDateTime currentDateTime = ZonedDateTime.now();
         String sql = "UPDATE friend SET acepted_at = ?";
-        sql += " WHERE friend_id = ? ";
+//        sql += " WHERE friend_id = ? ";
+        sql += " WHERE account_id = ? ";
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
@@ -300,7 +301,7 @@ public class FriendDaoImpl implements FriendDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM friend WHERE friend_id = ? ;";
+        final String sql = "DELETE FROM friend WHERE account_id = ? ;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

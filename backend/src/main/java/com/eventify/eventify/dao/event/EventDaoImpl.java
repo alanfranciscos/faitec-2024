@@ -461,7 +461,7 @@ public class EventDaoImpl implements EventDao {
     public void updateAcceptedAt(int eventId) {
         ZonedDateTime currentDateTime = ZonedDateTime.now();
         String sql = "UPDATE participate SET acepted_at = ?";
-        sql += " WHERE meetup_id = ? ";
+        sql += " WHERE id = ? ";
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);

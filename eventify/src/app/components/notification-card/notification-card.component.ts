@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-notification-card',
@@ -13,4 +13,15 @@ export class NotificationCardComponent {
   @Input() description: string = 'descripcion';
   @Input() image: string = 'imagen';
   @Input() dateNotification: string = 'startData';
+
+  @Output() accept = new EventEmitter<void>();
+  @Output() decline = new EventEmitter<void>();
+
+  onAccept() {
+    this.accept.emit();
+  }
+
+  onDecline() {
+    this.decline.emit();
+  }
 }

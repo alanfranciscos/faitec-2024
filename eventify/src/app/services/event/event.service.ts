@@ -10,6 +10,7 @@ import { ExpansesResponse } from '../../domain/model/event/expense.model';
 import { EventParticipantsResponse } from '../../domain/model/event/eventparticipants.model';
 import { EventInvitationResponse } from '../../domain/model/event/invitation.model';
 import { FriendRequestResponse } from '../../domain/model/event/friend_request.model';
+import { ExpenseInput } from './create-event-expense.service';
 
 @Injectable({
   providedIn: 'root',
@@ -115,5 +116,32 @@ export class EventService {
       throw new Error('Failed to fetch event invitation');
     }
     return response.data;
+  }
+
+  async acceptRequest(id: number) {
+    console.log(id);
+    await this.api.put(`/api/v1/invite/list/event/${id}/accept`);
+  }
+
+  async declineRequest(id: number) {
+    await this.api.put(`/api/v1/invite/list/event/${id}/reject`);
+  }
+
+  async updateEventExpense(id: number, expenseData: ExpenseInput) {
+    const formData = new FormData();
+
+    formData.append('id', expenseData.meetup_id);
+    formData.append('about', expenseData.about);
+    formData.append('cost', expenseData.cost);
+    formData.append('created_at', expenseData.eventDate!);
+
+    const response = await this.api.put(`/api/v1/expense/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status != 200) {
+      throw new Error('Failed to edit event expense');
+    }
   }
 }

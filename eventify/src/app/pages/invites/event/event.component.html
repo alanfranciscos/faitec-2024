@@ -8,7 +8,8 @@
         <div class="cards">
           <ul>
             <li *ngFor="let invite of eventInvite.invite; let i = index">
-              <app-notification-card [title]="invite.title" [dateNotification]="invite.sendedAt">
+              <app-notification-card [title]="invite.title" [dateNotification]="invite.sendedAt"
+                (accept)="acceptEventRequest(invite.id)" (decline)="declineEventRequest(invite.id)">
               </app-notification-card>
             </li>
 

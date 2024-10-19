@@ -38,11 +38,12 @@ export class ExpensesComponent implements OnInit {
     private router: Router,
     private eventService: EventService,
     private deleteEventExpense: DeleteEventExpenseService,
-    private createEventExpense: CreateEventExpenseService
+    private createEventExpense: CreateEventExpenseService,
+    private updateEventExpense: EventService
   ) {}
   description: string = '';
   expenseValue: string = '';
-  expenseDate?: Date;
+  expenseDate?: string;
 
   paymentApproach!: PaymentApproach;
   totalExpenses!: TotalExpenses;
@@ -202,5 +203,18 @@ export class ExpensesComponent implements OnInit {
       this.eventExpanses.expanses
     );
     this.setCurrentPageNumber();
+  }
+  async onAddExpense() {
+    const url = this.router.url;
+    let eventId = url.split('/')[2];
+    eventId = eventId == null ? '-1' : eventId;
+
+    const expenseData: ExpenseInput = {
+      meetup_id: eventId,
+      cost: this.expenseValue,
+      about: this.description,
+      eventDate: this.expenseDate,
+    };
+    await this.eventService.updateEventExpense(Number(eventId), expenseData);
   }
 }

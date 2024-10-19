@@ -64,9 +64,14 @@
                 <li> <i class="fa-solid fa-pencil" style="color: grey;" (click)="toggleEditExpenseDialog()"></i>
                   <app-dialog *ngIf="isEditExpenseDialogOpen" (close)="toggleEditExpenseDialog()"
                     dialog_title="Edit Expense">
-                    <app-primary-input type="text" placeholder="Insert a description" />
-                    <app-primary-input type="number" placeholder="Insert a value" />
-                    <app-primary-input type="date" placeholder="" />
+
+                    <div class="form-group"> <app-primary-input type="text" placeholder="Insert a description"
+                        [(ngModel)]="description" /></div>
+                    <div class="form-group"> <app-primary-input type="number" placeholder="Insert a value"
+                        [(ngModel)]="expenseValue" /></div>
+                    <div class="form-group"><app-primary-input type="date" placeholder="" [(ngModel)]="expenseDate" />
+                    </div>
+                    <app-button text="Add" (click)="onAddExpense()"></app-button>
                   </app-dialog>
                 </li>
               </ul>
