@@ -18,16 +18,20 @@ export class BasicInfoComponent {
   eventDescription: string = '';
   startDate: string = '';
   finishDate: string = '';
-  eventImage: string | null = '/assets/svg/logo.svg';
+  eventImage: string | null | File = '/assets/svg/logo.svg';
+  showImage: string = '/assets/svg/logo.svg';
+
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      const reader = new FileReader();
+      this.eventImage = file;
 
+      const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         const imageData = e.target?.result as string; // Base64 da imagem
-        this.eventImage = imageData; // Atualiza a imagem com os dados carregados em base64
+        this.showImage = imageData;
+        // Atualiza a imagem com os dados carregados em base64
       };
 
       reader.readAsDataURL(file); // Lê o arquivo selecionado como DataURL (Base64)

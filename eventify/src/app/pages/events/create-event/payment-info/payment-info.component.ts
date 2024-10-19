@@ -3,7 +3,7 @@ import {
   EventInput,
 } from './../../../../services/event/create-event.service-api';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../../components/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { CreateEventService } from '../create-event.service';
@@ -17,7 +17,8 @@ import { CreateEventService } from '../create-event.service';
 export class PaymentInfoComponent {
   constructor(
     private createEventService: CreateEventService,
-    private createEventServiceApi: CreateEventServiceApi
+    private createEventServiceApi: CreateEventServiceApi,
+    private router: Router
   ) {}
 
   pixKey: string = '';
@@ -67,5 +68,7 @@ export class PaymentInfoComponent {
       eventInput,
       this.basicData.image
     );
+
+    this.router.navigate(['/']);
   }
 }
