@@ -39,7 +39,7 @@ public class InviteController {
     }
 
     @PutMapping("/list/friend/{id}/accept")
-    public ResponseEntity<Void> acceptInvitation(@PathVariable final int id){
+    public ResponseEntity<Void> acceptFriendInvitation(@PathVariable final int id){
         friendService.updateAceptedAt(id);
         return ResponseEntity.ok().build();
     }
@@ -50,8 +50,20 @@ public class InviteController {
      * @return
      */
     @PutMapping("/list/friend/{id}/reject")
-    public ResponseEntity<Void> rejectInvitation(@PathVariable final int id){
+    public ResponseEntity<Void> rejectFriendInvitation(@PathVariable final int id){
         friendService.rejectFriend(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/list/event/{id}/accept")
+    public ResponseEntity<Void> acceptEventInvitation(@PathVariable final int id){
+        inviteService.updateAceptedAt(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/list/event/{id}/reject")
+    public ResponseEntity<Void> rejectEventInvitation(@PathVariable final int id){
+        inviteService.rejectEvent(id);
         return ResponseEntity.ok().build();
     }
 

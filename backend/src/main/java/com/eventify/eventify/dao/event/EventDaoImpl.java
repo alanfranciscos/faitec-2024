@@ -407,6 +407,23 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
+    public void updateAcceptedAt(int eventId) {
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        String sql = "UPDATE participate SET acepted_at = ?";
+        sql += " WHERE meetup_id = ? ";
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, Timestamp.from(currentDateTime.toInstant()));
+            preparedStatement.setInt(2, eventId);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public Event readById(int id) {
         String sql = "SELECT * FROM meetup WHERE id = ?";
 

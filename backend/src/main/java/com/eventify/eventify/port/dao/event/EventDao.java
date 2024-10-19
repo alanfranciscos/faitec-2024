@@ -33,4 +33,6 @@ public interface EventDao extends ListPaginatedFromUser, TotalFromUser, Expanses
 
     int partiallySave(Event partiallyEvent);
 
+    void updateAcceptedAt(final int eventId);
+
 }

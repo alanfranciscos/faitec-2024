@@ -42,4 +42,6 @@ public interface EventService extends ExpenseForEventService {
                        String street_address, String complement_address);
 
     void updatePayment(final int eventId, final String eventPaymentResponse);
+
+    void updateAceptedAt(final int eventId);
 }

@@ -20,7 +20,6 @@ import java.util.List;
 public class InviteServiceImpl implements InviteService {
     private final ParticipateService participateService;
     private final EventService eventService;
-
     private final FriendService friendService;
     private final AccountService accountService;
 
@@ -90,5 +89,18 @@ public class InviteServiceImpl implements InviteService {
                 friendInviteList, totalEventInvites
         );
 
+    }
+
+    @Override
+    public void updateAceptedAt(int eventId) {
+        eventService.updateAceptedAt(eventId);
+    }
+
+    @Override
+    public void rejectEvent(int eventId) {
+        if (eventId < 0) {
+            throw new RuntimeException("ID less than 0");
+        }
+        participateService.delete(eventId);
     }
 }
