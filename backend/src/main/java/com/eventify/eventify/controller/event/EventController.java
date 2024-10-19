@@ -170,6 +170,8 @@ public class EventController {
                                              @RequestParam(value = "number_address", required = false) String number_address,
                                              @RequestParam(value = "street_address", required = false) String street_address,
                                              @RequestParam(value = "complement_address", required = false) String complement_address,
+                                             @RequestParam(value = "lat", required = false) String lat,
+                                             @RequestParam(value = "lng", required = false) String lng,
                                              @RequestParam("date_start") String date_start,
                                              @RequestParam("date_end") String date_end,
                                              @RequestParam(value = "pix_key", required = false) String pix_key
@@ -202,10 +204,14 @@ public class EventController {
                 city_address != null || neighborhood_address != null ||
                 number_address != null || street_address != null || complement_address != null) {
             try {
-                this.eventService.updateAddress(eventId, local_name, cep_address,
+                this.eventService.updateAddress(
+                        eventId, local_name, cep_address,
                         state_address, city_address,
                         neighborhood_address, number_address,
-                        street_address, complement_address);
+                        street_address, complement_address,
+                        Double.parseDouble(lat),
+                        Double.parseDouble(lng)
+                );
             } catch (Exception e) {
                 this.eventService.deleteEvent(eventId);
                 throw new RuntimeException("Failed to create event", e);

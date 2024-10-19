@@ -30,15 +30,11 @@ export class PaymentInfoComponent {
     this.addressData = this.createEventService.getAddressData();
     this.pixKey = this.createEventService.getPaymentData();
 
-    console.log(this.basicData);
-    console.log(this.addressData);
-    console.log(this.pixKey);
-
     let lat = null;
     let long = null;
 
     if (this.addressData?.coordinates?.lat) {
-      lat = this.addressData.coordinates;
+      lat = this.addressData.coordinates.lat;
       long = this.addressData.coordinates.lng;
     }
 
@@ -61,8 +57,6 @@ export class PaymentInfoComponent {
       stage: this.basicData.stage,
       pix_key: this.pixKey,
     };
-
-    console.log(eventInput);
 
     const response = await this.createEventServiceApi.createEvent(
       eventInput,

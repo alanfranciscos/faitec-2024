@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Failed to create user", e);
         }
 
-        boolean skip = true;
+        boolean skip = false;
         if (!skip) {
             emailService.sendConfirmationCode(email, codeGenerated, accountId);
         }

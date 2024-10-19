@@ -116,12 +116,17 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void updateAddress(int eventId, String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+    public void updateAddress(
+            int eventId, String local_name, String cep_address,
+            String state_address, String city_address, String neighborhood_address,
+            String number_address, String street_address, String complement_address,
+            double lat, double lng
+    ) {
         try {
             eventDao.updateAddress(eventId, local_name, cep_address,
                     state_address, city_address,
                     neighborhood_address, number_address,
-                    street_address, complement_address);
+                    street_address, complement_address, lat, lng);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update address in database: ", e);
         }

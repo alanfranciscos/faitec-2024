@@ -37,7 +37,6 @@ export class CreateEventServiceApi {
       formData.append('image', eventImage);
     }
 
-    console.log(data);
     if (data.eventname) {
       formData.append('eventname', data.eventname);
     }
@@ -68,11 +67,12 @@ export class CreateEventServiceApi {
     if (data.complement_address) {
       formData.append('complement_address', data.complement_address);
     }
+
     if (data.latitude && data.latitude !== undefined) {
-      formData.append('latitude', data.latitude.toString());
+      formData.append('lat', data.latitude.toString());
     }
     if (data.longitude && data.longitude !== undefined) {
-      formData.append('longitude', data.longitude.toString());
+      formData.append('lng', data.longitude.toString());
     }
     if (data.date_start) {
       formData.append('date_start', data.date_start);
@@ -86,8 +86,6 @@ export class CreateEventServiceApi {
     // if (data.pix_key) {
     //   formData.append('pix_key', data.pix_key);
     // }
-
-    console.log(formData);
 
     const response = await this.api.post(`/api/v1/event`, formData, {
       headers: {

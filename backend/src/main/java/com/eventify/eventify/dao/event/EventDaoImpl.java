@@ -357,10 +357,16 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public void updateAddress(int eventId, String local_name, String cep_address, String state_address, String city_address, String neighborhood_address, String number_address, String street_address, String complement_address) {
+    public void updateAddress(
+            int eventId, String local_name, String cep_address, String state_address,
+            String city_address, String neighborhood_address, String number_address,
+            String street_address, String complement_address,
+            double lat, double lng
+            ) {
         String sql = "UPDATE meetup SET local_name = ?, cep_address = ?, ";
-        sql += "state_address = ?, city_address = ?, neighborhood_address = ?, ";
-        sql += "number_address = ?, street_address = ?, complement_address = ? WHERE id = ?;";
+        sql += " state_address = ?, city_address = ?, neighborhood_address = ?, ";
+        sql += " number_address = ?, street_address = ?, complement_address = ?, ";
+        sql += " latitude = ?, longitude = ? WHERE id = ?;";
 
         try {
             PreparedStatement preparedStatement;
@@ -373,9 +379,11 @@ public class EventDaoImpl implements EventDao {
             preparedStatement.setString(6, number_address);
             preparedStatement.setString(7, street_address);
             preparedStatement.setString(8, complement_address);
-            preparedStatement.setInt(9, Integer.valueOf(eventId));
-            preparedStatement.execute();
+            preparedStatement.setDouble(9, lat);
+            preparedStatement.setDouble(10, lng);
+            preparedStatement.setInt(11, eventId);
 
+            preparedStatement.execute();
             connection.commit();
             preparedStatement.close();
         } catch (SQLException e) {
