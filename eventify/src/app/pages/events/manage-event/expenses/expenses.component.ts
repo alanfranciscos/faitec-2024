@@ -74,8 +74,6 @@ export class ExpensesComponent implements OnInit {
       })),
     };
 
-    console.log(eventExpanses);
-
     this.getPagesNumbers();
     this.setCurrentPageNumber();
   }

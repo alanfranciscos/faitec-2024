@@ -72,7 +72,6 @@ export class MyEventsComponent implements OnInit {
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
     this.getPagesNumbers();
-    console.log(this.content);
   }
 
   async goToPage(page: number): Promise<void> {

@@ -181,6 +181,7 @@ public class EventServiceImpl implements EventService {
         }
 
         int id = eventDao.partiallySave(event);
+        this.eventDao.insertNullImage(id);
         return id;
     }
 

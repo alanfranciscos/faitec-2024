@@ -26,7 +26,7 @@
         </div>
         <div>
           <button routerLink="/" class="btn-next">
-            Skip payment and conclue
+            Skip payment and conclude
           </button>
         </div>
       </div>
@@ -35,15 +35,15 @@
         <img src="assets/svg/pix.svg" alt="Pix image" />
         <div class="form-group">
           <label for="payment">Pix Key:</label>
-          <input type="text" id="payment" placeholder="Pix key" />
+          <input type="text" id="payment" placeholder="Pix key" [(ngModel)]="pixKey" name="pixKey" />
         </div>
       </div>
 
       <div class="footer-content">
         <button routerLink="/create-event/address-info" class="btn-back">
           < Back </button>
-            <button routerLink="/" class="btn-next">
-              Conclue
+            <button (click)="onSubmitEvent()" class="btn-next">
+              Conclude
             </button>
       </div>
     </section>
