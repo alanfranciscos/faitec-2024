@@ -199,8 +199,12 @@ public class ParticipateDaoImpl implements ParticipateDao {
             preparedStatement.setString(3, entity.getRoleParticipate().toString().toLowerCase());
             preparedStatement.setBoolean(4, entity.isActive());
             preparedStatement.setTimestamp(5, Timestamp.from(currentDateTime.toInstant()));
-//            preparedStatement.setTimestamp(6, Timestamp.from(currentDateTime.toInstant()));
-            preparedStatement.setTimestamp(6, null);
+
+            if (entity.getRoleParticipate() == RoleParticipateEnum.ORGANIZER){
+                preparedStatement.setTimestamp(6, Timestamp.from(currentDateTime.toInstant()));
+            } else {
+                preparedStatement.setTimestamp(6, null);
+            }
 
             preparedStatement.execute();
 

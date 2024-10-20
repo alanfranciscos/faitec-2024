@@ -231,7 +231,7 @@ public class EventController {
         Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
         int participateId = participateService.create(participate);
         Management management = new Management(participateId, "create");
-        int managementId = managementService.create(management);
+//        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -304,13 +304,67 @@ public class EventController {
 //        return ResponseEntity.created(uri).build();
 //    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEvent(@PathVariable final int id,
-                                            @RequestParam(value = "image", required = false) MultipartFile imageData,
-                                            @RequestBody Event event){
-        event.setId(id);
-        event.setStage(EventStageEnum.CREATED);
-        eventService.updateEvent(id, event);
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Void> updateEvent(@PathVariable final int id,
+//                                            @RequestParam(value = "image", required = false) MultipartFile imageData,
+//                                            @RequestBody Event event){
+        @PutMapping("/{id}")
+        public ResponseEntity<Void> updateEvent(@RequestParam(value = "event_id") int event_id,
+                                                @RequestParam(value = "eventname", required = false) String eventname,
+                                                @RequestParam(value = "eventdescription", required = false) String eventdescription,
+                                                @RequestParam(value = "date_start", required = false) String date_start,
+                                                @RequestParam(value = "date_end", required = false) String date_end,
+                                                @RequestParam(value = "image", required = false) MultipartFile imageData,
+                                                @RequestParam(value = "local_name", required = false) String local_name,
+                                                @RequestParam(value = "cep_address", required = false) String cep_address,
+                                                @RequestParam(value = "state_address", required = false) String state_address,
+                                                @RequestParam(value = "city_address", required = false) String city_address,
+                                                @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
+                                                @RequestParam(value = "street_address", required = false) String street_address,
+                                                @RequestParam(value = "number_address", required = false) String number_address,
+                                                @RequestParam(value = "complement_address", required = false) String complement_address,
+                                                @RequestParam(value = "pix_key", required = false) String pix_key){
+
+
+
+            if(eventname != null && eventdescription != null && date_start != null && date_end != null){
+                Event event = eventService.getEventById(event_id);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDateStart = LocalDate.parse(date_start, formatter);
+                LocalDate localDateEnd = LocalDate.parse(date_end, formatter);
+                ZoneId zoneId = ZoneId.systemDefault();
+                ZonedDateTime zonedDateTimeStart = localDateStart.atStartOfDay(zoneId);
+                ZonedDateTime zonedDateTimeEnd = localDateEnd.atStartOfDay(zoneId);
+
+                event.setId(event_id);
+                event.setTitle(eventname);
+                event.setInformation(eventdescription);
+                event.setDateStart(zonedDateTimeStart);
+                event.setDateEnd(zonedDateTimeEnd);
+                event.setLocalName(local_name);
+                event.setCepAddress(cep_address);
+                event.setStateAddress(state_address);
+                event.setCityAddress(city_address);
+                event.setNeighborhoodAddress(neighborhood_address);
+                event.setStreetAddress(street_address);
+                event.setNumberAddress(number_address);
+                event.setComplementAddress(complement_address);
+                event.setPixKey(pix_key);
+                this.eventService.updateEvent(event_id, event);
+            } else {
+                throw new RuntimeException("Nome, descrição, date de inicio ou data de fim vazios. Esses campos são obrigatorios");
+            }
+
+            if (imageData != null) {
+                try {
+                    this.eventService.updateImage(event_id, imageData);
+                } catch (Exception e) {
+                    this.eventService.deleteEvent(event_id);
+                    throw new RuntimeException("Failed to edit image event", e);
+                }
+            }
+
         return ResponseEntity.ok().build();
     }
 

@@ -14,6 +14,7 @@ public class OpenCageController {
 
     // Exemplo de requisição
     // http://localhost:8080/geocoding/location?lat=-22.2536521&lng=-45.6950728
+    // https://api.opencagedata.com/geocode/v1/json?q=-22.2536521%2C-45.6950728&key=87b230d9b8b24c5b990c82b02d1acdf7
 
     private final OpenCageService openCageService;
 
@@ -22,12 +23,15 @@ public class OpenCageController {
     }
 
     @GetMapping("/location")
-    public ResponseEntity<GeocodingDto> findLocationData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
-            GeocodingDto geocodingData = openCageService.findGeocodingData(lat, lng);
-            if(geocodingData == null){
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(geocodingData);
+    public ResponseEntity<GeocodingDto.Components> findLocationData(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
+        GeocodingDto geocodingData = openCageService.findGeocodingData(lat, lng);
+        System.out.println();
+        if(geocodingData == null){
+            return ResponseEntity.noContent().build();
+        }
+        GeocodingDto.Result result = geocodingData.getResults().get(0);
+        GeocodingDto.Components components = result.getComponents();
+        return ResponseEntity.ok(components);
         }
 }
     
