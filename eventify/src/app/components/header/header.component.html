@@ -14,11 +14,11 @@
     </div>
 
     <div class="user-profile">
-      <span class="custom-span">User name</span>
+      <span class="custom-span">{{UserName}}</span>
       <div class="dropdown" (mouseenter)="openDropdown()" (mouseleave)="closeDropdown()">
         <button class="dropdown-button" (click)="toggleDropdown()"
           style="background: unset; border: none; cursor: pointer;">
-          <img src="/assets/svg/avatar.svg" alt="Avatar" class="user-avatar" />
+          <img class="avatar-image" [src]="UserImage" alt="Avatar" class="user-avatar" />
         </button>
 
         <ul *ngIf="isOpen" class="dropdown-menu">

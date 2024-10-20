@@ -4,6 +4,7 @@ import com.eventify.eventify.dto.account.ForgotPasswordRequestDTO;
 import com.eventify.eventify.dto.account.ForgotPasswordResponseDTO;
 import com.eventify.eventify.dto.account.VerifyAccountRequestDTO;
 import com.eventify.eventify.dto.account.VerifyAccountResponseDTO;
+import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.services.account.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +64,18 @@ public class AccountController {
     public ResponseEntity<String> updateImageProfile(@PathVariable int id, @RequestParam("image") MultipartFile imageData) {
         this.accountService.updateImage(id, imageData);
         return ResponseEntity.ok("Image updated successfully");
+    }
+
+    @RequestMapping("/{id}")
+    public ResponseEntity<Account> getAccountById(@PathVariable int id) {
+        Account account = this.accountService.getAccountById(id);
+        return ResponseEntity.ok(account);
+    }
+
+    @RequestMapping()
+    public ResponseEntity<Account> getAuthAccount() {
+        Account account = accountService.getAccountRequest();
+        return ResponseEntity.ok(account);
     }
 
 }

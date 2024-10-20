@@ -109,10 +109,12 @@ export class EventComponent implements OnInit {
 
   acceptEventRequest(requestId: number) {
     this.eventService.acceptRequest(requestId);
+    window.location.reload();
   }
 
   declineEventRequest(requestId: number) {
     console.log(requestId);
     this.eventService.declineRequest(requestId);
+    window.location.reload();
   }
 }

@@ -11,6 +11,7 @@ import { EventParticipantsResponse } from '../../domain/model/event/eventpartici
 import { EventInvitationResponse } from '../../domain/model/event/invitation.model';
 import { FriendRequestResponse } from '../../domain/model/event/friend_request.model';
 import { ExpenseInput } from './create-event-expense.service';
+import { EventData } from '../../domain/model/event/eventData.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,28 @@ export class EventService {
 
     return response.data;
   }
+
+  async getEventData(eventId: number) {
+    const response = await this.api.get<EventData>(`/api/v1/event/${eventId}`);
+
+    if (response.status != 200) {
+      throw new Error('Failed to fetch event data');
+    }
+
+    return response.data;
+  }
+
+  async getEventDataImage(eventId: number) {
+    const response = await this.api.get<string>(
+      `/api/v1/event/image/${eventId}`
+    );
+    if (response.status != 200) {
+      throw new Error('Failed to fetch event image');
+    }
+
+    return response.data;
+  }
+
   async listParticipants(
     eventId: string,
     offset: number,

@@ -121,9 +121,11 @@ export class FriendComponent implements OnInit {
 
   acceptFriendRequest(requestId: number) {
     this.friendService.acceptRequest(requestId);
+    window.location.reload();
   }
 
   declineFriendRequest(requestId: number) {
     this.friendService.declineRequest(requestId);
+    window.location.reload();
   }
 }

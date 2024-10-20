@@ -216,5 +216,6 @@ export class ExpensesComponent implements OnInit {
       eventDate: this.expenseDate,
     };
     await this.eventService.updateEventExpense(Number(eventId), expenseData);
+    window.location.reload();
   }
 }

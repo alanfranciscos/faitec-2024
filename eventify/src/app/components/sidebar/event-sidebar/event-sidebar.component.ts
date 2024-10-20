@@ -3,6 +3,7 @@ import { ItemComponent } from '../item/item.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SideBarItensType } from './types';
+import { EventService } from '../../../services/event/event.service';
 
 @Component({
   selector: 'app-event-layout',
@@ -12,19 +13,30 @@ import { SideBarItensType } from './types';
   styleUrl: './event-sidebar.component.scss',
 })
 export class EventLayoutComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
-  @Input() eventName: string = 'Event Name';
-  @Input() location: string = 'Local';
-  @Input() date: string = '10/10/2010';
-  @Input() creatorUser: string = 'John Doe';
-  @Input() description: string = 'Palestras sobre inovações tecnológicas.';
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private eventService: EventService
+  ) {}
+  eventName!: string;
+  location!: string;
+  description!: string;
+  eventImage!: string;
   isCollapsed = false;
   @Output() sidebarToggle = new EventEmitter<void>();
 
   sidebarItens: Array<SideBarItensType> = [];
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const eventId = this.activatedRoute.snapshot.paramMap.get('id');
+    const eventData = await this.eventService.getEventData(Number(eventId));
+    this.eventName = eventData.eventname;
+    this.location = eventData.local_name;
+    this.description = eventData.eventdescription;
+    this.eventImage = await this.eventService.getEventDataImage(
+      Number(eventId)
+    );
+    console.log(this.eventImage);
 
     this.sidebarItens = [
       {

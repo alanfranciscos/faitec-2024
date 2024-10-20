@@ -18,6 +18,12 @@
   align-items: center;
 }
 
+.avatar-image{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 .custom-span {
   font-size: 30px;
   font-weight: 400;

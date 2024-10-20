@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserInputCredential } from '../../domain/model/user.model';
 import { ApiService } from '../api/api.service';
+import { ProfileData } from '../../domain/model/event/profileData.model';
 
 @Injectable({
   providedIn: 'root',
@@ -64,5 +65,13 @@ export class UserService {
     }
 
     return true;
+  }
+
+  async getProfileData(): Promise<ProfileData> {
+    const response = await this.api.get(`/api/v1/account`);
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch user profile');
+    }
+    return response.data;
   }
 }

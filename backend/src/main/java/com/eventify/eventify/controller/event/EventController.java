@@ -210,8 +210,9 @@ public class EventController {
                         state_address, city_address,
                         neighborhood_address, number_address,
                         street_address, complement_address,
-                        Double.parseDouble(lat),
-                        Double.parseDouble(lng)
+                        lat,lng
+//                        Double.parseDouble(lat),
+//                        Double.parseDouble(lng)
                 );
             } catch (Exception e) {
                 this.eventService.deleteEvent(eventId);
@@ -231,7 +232,7 @@ public class EventController {
         Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
         int participateId = participateService.create(participate);
         Management management = new Management(participateId, "create");
-//        int managementId = managementService.create(management);
+        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -386,4 +387,9 @@ public class EventController {
         return ResponseEntity.ok().body(event);
     }
 
+    @GetMapping("image/{id}")
+    public ResponseEntity<String> getImageEventById(@PathVariable final int id) {
+        String imageEvent = eventService.findEventImageById(id);
+        return ResponseEntity.ok().body(imageEvent);
+    }
 }

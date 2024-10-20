@@ -120,12 +120,14 @@ public class EventServiceImpl implements EventService {
             int eventId, String local_name, String cep_address,
             String state_address, String city_address, String neighborhood_address,
             String number_address, String street_address, String complement_address,
-            double lat, double lng
+//            double lat, double lng
+            String lat, String lng
     ) {
         try {
             eventDao.updateAddress(eventId, local_name, cep_address,
                     state_address, city_address,
                     neighborhood_address, number_address,
+//                    street_address, complement_address, lat, lng);
                     street_address, complement_address, lat, lng);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update address in database: ", e);
@@ -148,6 +150,11 @@ public class EventServiceImpl implements EventService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to update accepted at from event in database: ", e);
         }
+    }
+
+    @Override
+    public String findEventImageById(int id) {
+        return eventDao.getEventImageById(id);
     }
 
 

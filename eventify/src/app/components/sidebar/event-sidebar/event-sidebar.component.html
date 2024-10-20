@@ -1,7 +1,7 @@
 <aside class="container" [ngClass]="{ 'sidebar-open': !isCollapsed, 'sidebar-closed': isCollapsed }">
   <div class="event-card" [ngClass]="{ 'collapsed-card': isCollapsed }">
     <div class="event-image">
-      <img src="/assets/svg/avatar.svg" alt="Event Image" />
+      <img class="avatar-image" src="{{ eventImage }}" alt="imageEvent" />
     </div>
     <div class="event-info">
       <ul style="list-style-type: none">

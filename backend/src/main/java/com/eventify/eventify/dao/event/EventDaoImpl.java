@@ -362,7 +362,8 @@ public class EventDaoImpl implements EventDao {
             int eventId, String local_name, String cep_address, String state_address,
             String city_address, String neighborhood_address, String number_address,
             String street_address, String complement_address,
-            double lat, double lng
+//            double lat, double lng
+            String lat, String lng
             ) {
         String sql = "UPDATE meetup SET local_name = ?, cep_address = ?, ";
         sql += " state_address = ?, city_address = ?, neighborhood_address = ?, ";
@@ -380,8 +381,20 @@ public class EventDaoImpl implements EventDao {
             preparedStatement.setString(6, number_address);
             preparedStatement.setString(7, street_address);
             preparedStatement.setString(8, complement_address);
-            preparedStatement.setDouble(9, lat);
-            preparedStatement.setDouble(10, lng);
+//            preparedStatement.setDouble(9, lat);
+//            preparedStatement.setDouble(10, lng);
+            if(lat == null){
+                preparedStatement.setDouble(9, 0);
+            } else {
+                preparedStatement.setDouble(9, Double.parseDouble(lat));
+            }
+
+            if(lng == null){
+                preparedStatement.setDouble(10, 0);
+            } else {
+                preparedStatement.setDouble(10, Double.parseDouble(lng));
+            }
+
             preparedStatement.setInt(11, eventId);
 
             preparedStatement.execute();
@@ -472,6 +485,24 @@ public class EventDaoImpl implements EventDao {
         } catch (Exception e) {
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public String getEventImageById(int id) {
+        String sql = "SELECT * FROM meetup_image WHERE meetup_id = ?";
+
+        try (var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("image_data");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     @Override
