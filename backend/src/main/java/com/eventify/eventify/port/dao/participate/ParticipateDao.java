@@ -16,4 +16,6 @@ public interface ParticipateDao extends ReadDao<Participate>, CrudDao<Participat
     List<Participate> readByAccountId(int id);
 
     void deleteByEventId(final int eventId);
+
+    boolean isParticipateInThisEvent(final int eventId, final int participateId);
 }

@@ -5,9 +5,12 @@ import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.EventHeader;
 import com.eventify.eventify.models.event.participate.Participate;
 import com.eventify.eventify.models.event.participate.ParticipateHeader;
+import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.participate.ParticipateDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
+
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -91,6 +94,33 @@ public class ParticipateServiceImpl implements ParticipateService {
             }
         }
 
+    }
+
+    @Override
+    public int inviteMember(int eventId, String email) {
+        if (eventId < 0 || email == null) {
+            throw new RuntimeException("Email is requiered");
+        }
+        Account participateAccount = accountService.getAccountByEmail(email);
+        if(participateAccount == null){
+            throw new RuntimeException("Invalid email");
+        }
+        boolean isParticipateInThisEvent = participateDao.isParticipateInThisEvent(eventId, participateAccount.getId());
+        if(isParticipateInThisEvent){
+            throw new RuntimeException("Already participate");
+        }
+
+        ZonedDateTime sendedAt = ZonedDateTime.now();
+
+        Participate participate = new Participate();
+        participate.setAccountId(participateAccount.getId());
+        participate.setEventId(eventId);
+        participate.setRoleParticipate(RoleParticipateEnum.PARTICIPANT);
+        participate.setActive(true);
+        participate.setSendedAt(sendedAt);
+
+        int id = participateDao.save(participate);
+        return id;
     }
 
     @Override

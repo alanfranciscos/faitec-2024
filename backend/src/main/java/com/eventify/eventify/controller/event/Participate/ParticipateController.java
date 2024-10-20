@@ -19,20 +19,26 @@ public class ParticipateController {
     private final EventService eventService;
 
     @GetMapping()
-    public ResponseEntity<List<Participate>> getEntities(){
+    public ResponseEntity<List<Participate>> getParticipates(){
         List<Participate> participates = participateService.findAll();
         return ResponseEntity.ok().body(participates);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Participate> getEntityById(@PathVariable final int id){
+    public ResponseEntity<Participate> getParticipateById(@PathVariable final int id){
         Participate participate = participateService.findById(id);
         return ResponseEntity.ok().body(participate);
     }
 
+//    @PostMapping()
+//    public ResponseEntity<Participate> createParticipate(@RequestBody final Participate data){
     @PostMapping()
-    public ResponseEntity<Participate> createEntity(@RequestBody final Participate data){
-        int id = participateService.create(data);
+    public ResponseEntity<Participate> createParticipate(
+                                                         @RequestParam(value = "event_id", required = false) int event_id,
+                                                         @RequestParam(value = "email", required = false) String email
+    ){
+
+        int id = participateService.inviteMember(event_id, email);
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -42,13 +48,13 @@ public class ParticipateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Participate data){
+    public ResponseEntity<Void> updateParticipate(@PathVariable final int id, @RequestBody final Participate data){
         participateService.update(id, data);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Participate> deleteEntity(@PathVariable final int id){
+    public ResponseEntity<Participate> deleteParticipate(@PathVariable final int id){
         EventListResponse response = eventService.listPaginatedFromUser(6,0);
 
         participateService.deleteByUserEvents(id, response);

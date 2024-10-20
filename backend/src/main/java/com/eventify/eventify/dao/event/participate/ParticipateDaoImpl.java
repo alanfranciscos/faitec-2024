@@ -199,7 +199,8 @@ public class ParticipateDaoImpl implements ParticipateDao {
             preparedStatement.setString(3, entity.getRoleParticipate().toString().toLowerCase());
             preparedStatement.setBoolean(4, entity.isActive());
             preparedStatement.setTimestamp(5, Timestamp.from(currentDateTime.toInstant()));
-            preparedStatement.setTimestamp(6, Timestamp.from(currentDateTime.toInstant()));
+//            preparedStatement.setTimestamp(6, Timestamp.from(currentDateTime.toInstant()));
+            preparedStatement.setTimestamp(6, null);
 
             preparedStatement.execute();
 
@@ -320,6 +321,28 @@ public class ParticipateDaoImpl implements ParticipateDao {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean isParticipateInThisEvent(int eventId, int participateId) {
+        final String sql = "SELECT * FROM participate WHERE meetup_id = ? AND account_id = ? OR  meetup_id = ? AND account_id = ? ;";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, eventId);
+            statement.setInt(2, participateId);
+            statement.setInt(3, participateId);
+            statement.setInt(4, eventId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }
