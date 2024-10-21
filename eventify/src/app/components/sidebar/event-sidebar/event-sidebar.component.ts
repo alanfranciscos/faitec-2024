@@ -65,6 +65,10 @@ export class EventLayoutComponent implements OnInit {
     this.sidebarItens.forEach((item) => {
       item.isSelected = item.routerLink === activeRoute;
     });
+
+    if (!this.eventImage) {
+      this.eventImage = '/assets/svg/logo.svg';
+    }
   }
 
   ToogleSelected(event: Event, item: SideBarItensType) {
