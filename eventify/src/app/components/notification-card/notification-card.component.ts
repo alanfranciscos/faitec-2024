@@ -11,7 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class NotificationCardComponent {
   @Input() title: string = 'titulo';
   @Input() description: string = 'descripcion';
-  @Input() image: string = 'imagen';
+  @Input() image: string = '/assets/svg/logo.svg';
   @Input() dateNotification: string = 'startData';
 
   @Output() accept = new EventEmitter<void>();
