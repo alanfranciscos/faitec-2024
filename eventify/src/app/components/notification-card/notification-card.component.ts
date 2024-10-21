@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-notification-card',
@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './notification-card.component.html',
   styleUrl: './notification-card.component.scss',
 })
-export class NotificationCardComponent {
+export class NotificationCardComponent implements OnInit {
   @Input() title: string = 'titulo';
   @Input() description: string = 'descripcion';
   @Input() image: string = '/assets/svg/logo.svg';
@@ -16,6 +16,12 @@ export class NotificationCardComponent {
 
   @Output() accept = new EventEmitter<void>();
   @Output() decline = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    if (!this.image) {
+      this.image = '/assets/svg/logo.svg';
+    }
+  }
 
   onAccept() {
     this.accept.emit();

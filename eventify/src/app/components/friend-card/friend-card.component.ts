@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -8,12 +8,18 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './friend-card.component.html',
   styleUrl: './friend-card.component.scss',
 })
-export class FriendCardComponent {
+export class FriendCardComponent implements OnInit {
   @Input() name: string = 'titulo';
   @Input() type: string = 'descripcion';
-  @Input() image: string = 'image';
+  @Input() image: string = '/assets/svg/logo.svg';
   @Input() dateStartFriendship: string = 'startData';
   @Output() decline = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    if (!this.image) {
+      this.image = '/assets/svg/logo.svg';
+    }
+  }
 
   onDecline() {
     this.decline.emit();
