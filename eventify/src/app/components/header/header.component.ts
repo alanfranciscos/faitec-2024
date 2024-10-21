@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
     const userData = await this.userService.getProfileData();
     this.UserName = await userData.username;
     this.UserImage = await userData.imageData;
-    console.log('image: ' + userData.imageData);
   }
 
   toggleDropdown() {

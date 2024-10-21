@@ -134,7 +134,12 @@ public class ParticipateServiceImpl implements ParticipateService {
 
     @Override
     public List<Participate> findAll() {
-        List<Participate> participates = participateDao.readAll();
+        return List.of();
+    }
+
+    @Override
+    public List<Participate> findAlByEventId(int eventId) {
+        List<Participate> participates = participateDao.readAllByEventId(eventId);
         return participates;
     }
 

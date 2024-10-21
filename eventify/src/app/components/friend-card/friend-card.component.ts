@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -13,4 +13,9 @@ export class FriendCardComponent {
   @Input() type: string = 'descripcion';
   @Input() image: string = 'image';
   @Input() dateStartFriendship: string = 'startData';
+  @Output() decline = new EventEmitter<void>();
+
+  onDecline() {
+    this.decline.emit();
+  }
 }

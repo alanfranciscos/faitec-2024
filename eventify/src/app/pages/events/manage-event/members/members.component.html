@@ -13,7 +13,11 @@
           Add a new member
         </button>
         <app-dialog *ngIf="isAddExpenseDialogOpen" (close)="toggleAddMemberDialog()" dialog_title="Add a member">
-          <app-primary-input type="text" placeholder="Insert your friend's email or nickname" /></app-dialog>
+          <div class="form-data"> <app-primary-input type="text" placeholder="Insert your friend's email"
+              [(ngModel)]="memberEmail" /></div>
+          <app-button text="Add" (click)="onAddMember()"></app-button>
+
+        </app-dialog>
 
       </div>
       <div>

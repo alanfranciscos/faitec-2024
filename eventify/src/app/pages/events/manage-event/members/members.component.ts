@@ -12,6 +12,8 @@ import {
   EventParticipants,
   EventParticipantsResponse,
 } from '../../../../domain/model/event/eventparticipants.model';
+import { ButtonComponent } from '../../../../components/button/button.component';
+import { FormsModule } from '@angular/forms';
 
 interface CardItensType {
   name: string;
@@ -31,16 +33,21 @@ interface CardItensType {
     MemberCardComponent,
     DialogComponent,
     PrimaryInputComponent,
+    ButtonComponent,
+    FormsModule,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',
 })
 export class MembersComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router) {}
+
+  memberEmail!: string;
+
   participants!: EventParticipantsResponse;
   offset = 0;
   quantityPerPage = 1;
-  limit = 1;
+  limit = 10;
   currentPage: number = 1;
 
   pages: Array<number> = [];
@@ -139,5 +146,15 @@ export class MembersComponent implements OnInit {
       this.participants.participants
     );
     this.setCurrentPageNumber();
+  }
+  async onAddMember() {
+    const url = this.router.url;
+    let eventId = url.split('/')[2];
+    eventId = eventId == null ? '-1' : eventId;
+    const memberEmail = this.memberEmail;
+    // console.log(eventId, memberEmail);
+    await this.eventService.inviteMember(eventId, memberEmail);
+
+    // window.location.reload();
   }
 }

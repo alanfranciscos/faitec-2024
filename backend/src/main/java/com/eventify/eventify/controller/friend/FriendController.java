@@ -57,8 +57,9 @@ public class FriendController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Friend> deleteFriend(@PathVariable final int id){
-        final boolean response = friendService.deleteFriend(id);
-        return response ? ResponseEntity.noContent().build() : ResponseEntity.badRequest().build();
+        friendService.deleteFriend(id);
+//        return response ? ResponseEntity.noContent().build() : ResponseEntity.badRequest().build();
+        return ResponseEntity.ok().build();
     }
 
 }

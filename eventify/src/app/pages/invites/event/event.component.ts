@@ -113,7 +113,6 @@ export class EventComponent implements OnInit {
   }
 
   declineEventRequest(requestId: number) {
-    console.log(requestId);
     this.eventService.declineRequest(requestId);
     window.location.reload();
   }

@@ -108,27 +108,27 @@ public class FriendServiceImpl implements FriendService {
         return id;
     }
     @Override
-    public boolean deleteFriend(int friendId) {
+    public void deleteFriend(int friendId) {
 
         if (friendId < 0) {
             throw new RuntimeException("ID less than 0");
         }
-
-        Account account = accountService.getAccountRequest();
-        int accountId = account.getId();
-
-        List<Friend> friends = friendDao.listFriendByAccountId(accountId, 10, 0);
-
-        List<FriendHeader> friendHeaders = new ArrayList<>();
-
-        for (Friend friend : friends) {
-            if (friend.getAcceptedAt() == null || friend.getId() != friendId) {
-                continue;
-            }
-            friendDao.deleteById(friendId);
-            return true;
-        }
-        return false;
+        friendDao.deleteById(friendId);
+//        Account account = accountService.getAccountRequest();
+//        int accountId = account.getId();
+//
+//        List<Friend> friends = friendDao.listFriendByAccountId(accountId, 10, 0);
+//
+//        List<FriendHeader> friendHeaders = new ArrayList<>();
+//
+//        for (Friend friend : friends) {
+//            if (friend.getAcceptedAt() == null || friend.getId() != friendId) {
+//                continue;
+//            }
+//            friendDao.deleteById(friendId);
+//            return true;
+//        }
+//        return false;
     }
 
     @Override

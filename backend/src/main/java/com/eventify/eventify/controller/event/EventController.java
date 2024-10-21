@@ -241,74 +241,7 @@ public class EventController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
-//    /**
-//     * @param imageData
-//     * @param event { "eventname": "Festival de Música", "eventdescription": "Um
-//     * festival incrível com várias bandas!", "local_name": "Praça Central",
-//     * "cep_address": "12345-678", "state_address": "SP", "city_address": "São
-//     * Paulo", "neighborhood_address": "Centro", "number_address": "100",
-//     * "street_address": "Rua das Flores", "complement_address": "Próximo ao
-//     * parque", "date_start": "2024-12-25T20:46:19.645594-03:00", "date_end":
-//     * "2024-12-29T20:46:19.645594-03:00", "pix_key": "12345678940" }
-//     * @return
-//     */
-//    @PostMapping()
-//    public ResponseEntity<Event> createEvent(@RequestParam(value = "image", required = false) MultipartFile imageData,
-//            @RequestBody Event event) {
-//        int eventId = this.eventService.partiallySave(
-//                event.getTitle(),
-//                event.getInformation(),
-//                event.getDateStart(),
-//                event.getDateEnd()
-//        );
-//        if (imageData != null) {
-//            try {
-//                this.eventService.updateImage(eventId, imageData);
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//
-//        if (event.getLocalName() != null || event.getCepAddress() != null || event.getStateAddress() != null
-//                || event.getCityAddress() != null || event.getNeighborhoodAddress() != null
-//                || event.getNumberAddress() != null || event.getStreetAddress() != null || event.getComplementAddress() != null) {
-//            try {
-//                this.eventService.updateAddress(eventId, event.getLocalName(), event.getCepAddress(),
-//                        event.getStateAddress(), event.getCityAddress(),
-//                        event.getNeighborhoodAddress(), event.getNumberAddress(),
-//                        event.getStreetAddress(), event.getComplementAddress());
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//
-//        if (event.getPixKey() != null) {
-//            try {
-//                this.eventService.updatePayment(eventId, event.getPixKey());
-//            } catch (Exception e) {
-//                this.eventService.deleteEvent(eventId);
-//                throw new RuntimeException("Failed to create event", e);
-//            }
-//        }
-//        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
-//        int participateId = participateService.create(participate);
-//        Management management = new Management(participateId, "create");
-//        int managementId = managementService.create(management);
-//
-//        final URI uri = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(eventId)
-//                .toUri();
-//        return ResponseEntity.created(uri).build();
-//    }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Void> updateEvent(@PathVariable final int id,
-//                                            @RequestParam(value = "image", required = false) MultipartFile imageData,
-//                                            @RequestBody Event event){
         @PutMapping("/{id}")
         public ResponseEntity<Void> updateEvent(@RequestParam(value = "event_id") int event_id,
                                                 @RequestParam(value = "eventname", required = false) String eventname,

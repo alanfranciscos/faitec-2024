@@ -28,7 +28,6 @@ export class PaymentInfoComponent {
   async onSubmitEvent() {
     this.basicData = this.createEventService.getBasicInfoData();
     this.addressData = this.createEventService.getAddressData();
-    this.pixKey = this.createEventService.getPaymentData();
 
     let lat = null;
     let long = null;

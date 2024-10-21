@@ -40,6 +40,10 @@ export class FriendService {
     return response.data;
   }
 
+  async deleteFriend(id: number) {
+    await this.api.delete(`/api/v1/friend/${id}`);
+  }
+
   async acceptRequest(id: number) {
     await this.api.put(`/api/v1/invite/list/friend/${id}/accept`);
   }

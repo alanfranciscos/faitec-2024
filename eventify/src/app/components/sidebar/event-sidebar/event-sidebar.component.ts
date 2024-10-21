@@ -36,7 +36,6 @@ export class EventLayoutComponent implements OnInit {
     this.eventImage = await this.eventService.getEventDataImage(
       Number(eventId)
     );
-    console.log(this.eventImage);
 
     this.sidebarItens = [
       {

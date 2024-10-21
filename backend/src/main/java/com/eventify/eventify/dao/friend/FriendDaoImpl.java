@@ -301,11 +301,12 @@ public class FriendDaoImpl implements FriendDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM friend WHERE account_id = ? ;";
+        final String sql = "DELETE FROM friend WHERE account_id = ? or friend_id = ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id);
             preparedStatement.execute();
             preparedStatement.close();
 

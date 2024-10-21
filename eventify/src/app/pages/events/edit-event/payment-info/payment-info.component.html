@@ -21,13 +21,13 @@
           <span class="event-description">
             Enter the pix key here if you want other members to make payments,
             otherwise you can now complete your event.<br />
-            Note: This information can be changed if you wish.
+
           </span>
         </div>
         <div>
-          <button routerLink="/" class="btn-next">
-            Skip payment and conclue
-          </button>
+          <!-- <button routerLink="/" class="btn-next">
+            Skip payment and conclude
+          </button> -->
         </div>
       </div>
 
@@ -35,15 +35,15 @@
         <img src="assets/svg/pix.svg" alt="Pix image" />
         <div class="form-group">
           <label for="payment">Pix Key:</label>
-          <input type="text" id="payment" placeholder="Pix key" />
+          <input type="text" id="payment" placeholder="Pix key" [value]='eventData.pix_key' />
         </div>
       </div>
 
       <div class="footer-content">
-        <button routerLink="/edit-event/address-info" class="btn-back">
+        <button routerLink="{{backRoute}}" class="btn-back">
           < Back </button>
-            <button routerLink="/" class="btn-next">
-              Conclue
+            <button class="btn-next" (click)="onSubmitEvent() " routerLink="{{nextRoute}}">
+              Conclude
             </button>
       </div>
     </section>

@@ -25,7 +25,7 @@
       <div class="body-content">
         <div class="image-section">
           <div class="image">
-            <img src="assets/svg/logo.svg" alt="Descrição da imagem" />
+            <img [src]="eventImage" alt="Descrição da imagem" />
           </div>
           <div class="image-buttons">
             <button class="btn-edit">Edit</button>
@@ -36,19 +36,23 @@
         <div class="name-description">
           <div class="form-group">
             <label for="event-name">Event Name</label>
-            <input type="text" id="event-name" placeholder="Enter event name" class="input-name" />
+            <input type="text" id="event-name" placeholder="Enter event name" class="input-name"
+              [(ngModel)]="eventData.eventname" />
           </div>
           <div class="form-group">
             <label for="event-description">Event Description</label>
-            <textarea id="event-description" placeholder="Enter event description" class="input-description"></textarea>
+            <textarea id="event-description" placeholder="Enter event description" class="input-description"
+              [(ngModel)]="eventData.eventdescription"></textarea>
           </div>
           <div class="form-group">
             <label for="start-date">Start Date</label>
-            <input type="date" id="start-date" placeholder="Select start date" class="input-datetime" />
+            <input type="date" id="start-date" placeholder="Select start date" class="input-datetime"
+              [(ngModel)]="parsedEventStartData" />
           </div>
           <div class="form-group">
             <label for="finish-date">Finish Date</label>
-            <input type="date" id="finish-date" placeholder="Select finish date" class="input-datetime" />
+            <input type="date" id="finish-date" placeholder="Select finish date" class="input-datetime"
+              [(ngModel)]="parsedEventFinishData" />
           </div>
 
 
@@ -59,7 +63,7 @@
       <div class="footer-content">
         <button routerLink="{{backRoute}}" class="btn-back">
           < Back</button>
-            <button routerLink="{{nextRoute}}" class="btn-add-address">
+            <button routerLink="{{nextRoute}}" class="btn-add-address" (click)=" onAddAddress()">
               Add adress
             </button>
       </div>

@@ -9,7 +9,7 @@ INSERT INTO account (username, email, image_data, is_verified) VALUES
 ('user8', 'user8@example.com', NULL, FALSE),
 ('user9', 'user9@example.com', NULL, TRUE),
 ('user10', 'user10@example.com', NULL, FALSE),
-('johndoe', 'johndoe@example.com', 'https://www.googleapis.com/storage/v1/b/eventify-images/o/users%2F12%2F1.png', TRUE);
+('johndoe', 'johndoe@example.com', 'https://storage.cloud.google.com/eventify-images/users/12/1.png', TRUE);
 
 INSERT INTO account_password (account_id, user_password, created_at, active, staging, verification_code, code_valid_until) VALUES
 (1, '$2a$12$NT184t2tjpjm1JCQ2zpEXu/wQhKklLXSkmaJiPlw06iae4gGXYCnq', NOW(), TRUE, FALSE, 'verification_code_1', NOW() + INTERVAL '1 day'),

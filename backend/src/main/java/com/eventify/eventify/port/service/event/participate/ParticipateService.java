@@ -18,4 +18,5 @@ public interface ParticipateService extends CrudService<Participate> {
 
     int inviteMember(final int eventId, String email);
 
+    List<Participate> findAlByEventId(int eventId);
 }

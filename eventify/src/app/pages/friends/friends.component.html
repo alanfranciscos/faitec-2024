@@ -31,7 +31,7 @@
 
             <li *ngFor="let item of content.friends; let i = index">
               <app-friend-card [name]="item.username" [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image">
+                [image]="item.image" (decline)="onDeleteFriend(item.id)">
               </app-friend-card>
             </li>
 

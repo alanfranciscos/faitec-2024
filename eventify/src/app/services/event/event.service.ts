@@ -142,7 +142,6 @@ export class EventService {
   }
 
   async acceptRequest(id: number) {
-    console.log(id);
     await this.api.put(`/api/v1/invite/list/event/${id}/accept`);
   }
 
@@ -165,6 +164,18 @@ export class EventService {
     });
     if (response.status != 200) {
       throw new Error('Failed to edit event expense');
+    }
+  }
+
+  async inviteMember(id: string, email: string): Promise<void> {
+    const formData = new FormData();
+
+    formData.append('event_id', id);
+    formData.append('email', email);
+    const response = await this.api.post(`/api/v1/participate`, formData);
+
+    if (response.status != 201) {
+      throw new Error('Failed to add a new member');
     }
   }
 }

@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,12 +97,19 @@ public class ParticipateDaoImpl implements ParticipateDao {
 
     @Override
     public List<Participate> readAll() {
+        return List.of();
+    }
+
+    @Override
+    public List<Participate> readAllByEventId(final int id) {
         final List<Participate> participates = new ArrayList<>();
-        final String sql = "SELECT * FROM participate;";
+        final String sql = "SELECT * FROM participate WHERE meetup_id = ? AND acepted_at IS NOT NULL AND active = true;";
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+
         try {
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 final Participate participate = new Participate();
@@ -109,11 +117,15 @@ public class ParticipateDaoImpl implements ParticipateDao {
                 participate.setId(resultSet.getInt("id"));
                 participate.setAccountId(resultSet.getInt("account_id"));
                 participate.setEventId(resultSet.getInt("meetup_id"));
-                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
-
+//                participate.setRoleParticipate(RoleParticipateEnum.valueOf(resultSet.getString("role_participant")));
+                if(Objects.equals(RoleParticipateEnum.ORGANIZER.toString(), resultSet.getString("role_participant"))){
+                    participate.setRoleParticipate(RoleParticipateEnum.ORGANIZER);
+                } else {
+                    participate.setRoleParticipate(RoleParticipateEnum.PARTICIPANT);
+                }
                 participate.setActive(resultSet.getBoolean("active"));
-                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sended_at")));
-                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("accepted_at")));
+//                participate.setSendedAt(ZonedDateTime.parse(resultSet.getString("sended_at")));
+//                participate.setAcceptedAt(ZonedDateTime.parse(resultSet.getString("accepted_at")));
 
                 participates.add(participate);
             }
@@ -132,7 +144,7 @@ public class ParticipateDaoImpl implements ParticipateDao {
 
     @Override
     public List<Participate> listByEventId(int eventId, int limit, int offset) {
-        String sql = "SELECT * FROM participate WHERE meetup_id = ? ";
+        String sql = "SELECT * FROM participate WHERE meetup_id = ? AND acepted_at IS NOT NULL AND active = true ";
         sql += " LIMIT ? OFFSET ?;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

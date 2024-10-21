@@ -18,13 +18,13 @@ public class ParticipateController {
     private final ParticipateService participateService;
     private final EventService eventService;
 
-    @GetMapping()
-    public ResponseEntity<List<Participate>> getParticipates(){
-        List<Participate> participates = participateService.findAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Participate>> getParticipates(@PathVariable final int id){
+        List<Participate> participates = participateService.findAlByEventId(id);
         return ResponseEntity.ok().body(participates);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/participate/{id}")
     public ResponseEntity<Participate> getParticipateById(@PathVariable final int id){
         Participate participate = participateService.findById(id);
         return ResponseEntity.ok().body(participate);
@@ -34,11 +34,10 @@ public class ParticipateController {
 //    public ResponseEntity<Participate> createParticipate(@RequestBody final Participate data){
     @PostMapping()
     public ResponseEntity<Participate> createParticipate(
-                                                         @RequestParam(value = "event_id", required = false) int event_id,
+                                                         @RequestParam(value = "event_id", required = false) String event_id,
                                                          @RequestParam(value = "email", required = false) String email
     ){
-
-        int id = participateService.inviteMember(event_id, email);
+        int id = participateService.inviteMember(Integer.parseInt(event_id), email);
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

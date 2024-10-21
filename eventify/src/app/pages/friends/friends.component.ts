@@ -121,7 +121,9 @@ export class FriendsComponent implements OnInit {
     };
     const response = await this.friendService.inviteFriend(friendData);
   }
-  onDeleteFriend() {
-    alert('funcionou');
+
+  async onDeleteFriend(requestId: number) {
+    await this.friendService.deleteFriend(requestId);
+    window.location.reload();
   }
 }

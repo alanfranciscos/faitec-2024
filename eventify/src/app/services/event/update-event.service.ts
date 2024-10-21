@@ -1,38 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
-
-export interface EventInput {
-  id?: string;
-  eventname: string;
-  eventdescription: string;
-  local_name: string;
-  cep_address: string;
-  state_address: string;
-  city_address: string;
-  neighborhood_address: string;
-  number_address: string;
-  street_address: string;
-  complement_address: string;
-  latitude: number;
-  longitude: number;
-  date_start: string;
-  date_end: string;
-  stage: string;
-  pix_key: string;
-}
+import { EventInput } from './create-event.service-api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CreateEventServiceApi {
+export class UpdateEventService {
   constructor(private apiService: ApiService) {}
   api = this.apiService.getApi();
 
-  async createEvent(
+  async updateEvent(
     data: EventInput,
     eventImage: File | null
   ): Promise<String> {
     const formData = new FormData();
+    if (data.id) {
+      formData.append('event_id', data.id);
+    }
+
     if (eventImage) {
       formData.append('image', eventImage);
     }
@@ -87,7 +72,7 @@ export class CreateEventServiceApi {
       formData.append('pix_key', data.pix_key);
     }
 
-    const response = await this.api.post(`/api/v1/event`, formData, {
+    const response = await this.api.put(`/api/v1/event/${data.id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -95,7 +80,7 @@ export class CreateEventServiceApi {
 
     const locationHeader = response.headers['location'];
 
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       throw new Error('Failed to create event');
     }
     return locationHeader;
