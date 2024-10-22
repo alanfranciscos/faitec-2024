@@ -80,4 +80,19 @@ public interface AccountService {
      */
     void deleteAccount(int id);
 
+    /**
+     * Método para atualizar informações da conta
+     * @param id
+     * @param account
+     */
+    void updateAccount(int id, Account account);
+
+    /**
+     * Método para atualização do password
+     * @param id
+     * @param password
+     * @param confirmedPassword
+     */
+    void updatePassword(int id, String password, String confirmedPassword);
+
 }

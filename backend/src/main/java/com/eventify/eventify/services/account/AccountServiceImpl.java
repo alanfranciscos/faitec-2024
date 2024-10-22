@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -174,6 +176,44 @@ public class AccountServiceImpl implements AccountService {
             accountDao.deleteById(id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete account", e);
+
+        }
+    }
+
+    @Override
+    public void updateAccount(int id, Account account) {
+        try {
+            accountDao.updateAccount(id, account);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update account", e);
+
+        }
+    }
+
+    @Override
+    public void updatePassword(int id, String password, String confirmedPassword) {
+        try {
+            if(password.equals(confirmedPassword)){
+//                try {
+//                    MessageDigest md = MessageDigest.getInstance("MD5");
+//
+//                    byte[] hashBytes = md.digest(password.getBytes());
+//
+//                    StringBuilder hexString = new StringBuilder();
+//                    for (byte b : hashBytes) {
+//                        String hex = String.format("%02x", b);
+//                        hexString.append(hex);
+//                    }
+//                    accountDao.updatePassword(id, hexString.toString());
+//                } catch (NoSuchAlgorithmException e) {
+//                    throw new RuntimeException("Erro ao calcular hash MD5", e);
+//                }
+                accountDao.updatePassword(id, password);
+            } else {
+                throw new RuntimeException("Failed to update password");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update password", e);
 
         }
     }

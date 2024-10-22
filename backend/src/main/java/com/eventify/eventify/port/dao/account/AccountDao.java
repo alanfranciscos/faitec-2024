@@ -14,4 +14,8 @@ public interface AccountDao extends
 
     void updateImage(int id, String imagePath);
 
+    void updateAccount(final int id, Account account);
+
+    void updatePassword(final int id, String password);
+
 }

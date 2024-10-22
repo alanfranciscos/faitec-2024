@@ -192,4 +192,39 @@ public class AccountDaoImpl implements AccountDao {
             throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
         }
     }
+
+    @Override
+    public void updateAccount(int id, Account account) {
+        final String sql = "UPDATE account SET username = ?, email = ? WHERE id = ?;";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, account.getUsername());
+            preparedStatement.setString(2, account.getEmail());
+            preparedStatement.setInt(3, Integer.valueOf(id));
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar a imagem: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updatePassword(int id, String password) {
+        final String sql = "UPDATE account_password SET user_password = ? WHERE id = ?;";
+
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, Integer.valueOf(id));
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar a senha: " + e.getMessage());
+        }
+    }
 }
