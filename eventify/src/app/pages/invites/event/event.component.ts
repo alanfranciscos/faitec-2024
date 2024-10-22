@@ -10,6 +10,8 @@ import {
   EventInvitationResponse,
 } from '../../../domain/model/event/invitation.model';
 import { StatusRequestComponent } from '../../../components/status-request/status-request.component';
+import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 interface CardItensType {
   title: string;
@@ -27,12 +29,13 @@ interface CardItensType {
     CommonModule,
     HeaderComponent,
     StatusRequestComponent,
+    ConfirmationDialogComponent,
   ],
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss',
 })
 export class EventComponent implements OnInit {
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService, private router: Router) {}
   eventInvite!: EventInvitationResponse;
 
   offset = 0;
@@ -41,6 +44,7 @@ export class EventComponent implements OnInit {
   currentPage: number = 1;
 
   isLoading = false;
+  inviteId = 0;
 
   pages: Array<number> = [];
   setCurrentPageNumber(): void {
@@ -116,8 +120,24 @@ export class EventComponent implements OnInit {
     window.location.reload();
   }
 
-  declineEventRequest(requestId: number) {
-    this.eventService.declineRequest(requestId);
+  declineEventRequest() {
+    this.eventService.declineRequest(this.inviteId);
     window.location.reload();
+  }
+  showDialog = false;
+
+  openDialog(id: number) {
+    this.showDialog = true;
+    this.inviteId = id;
+  }
+
+  async handleConfirm(id: number) {
+    this.showDialog = false;
+    this.declineEventRequest();
+    this.router.navigate(['/invite/friend']);
+  }
+
+  handleCancel() {
+    this.showDialog = false;
   }
 }

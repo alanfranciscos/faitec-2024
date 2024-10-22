@@ -14,6 +14,8 @@ import {
 import { ButtonComponent } from '../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
 import { StatusRequestComponent } from '../../components/status-request/status-request.component';
+import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friend',
@@ -29,12 +31,13 @@ import { StatusRequestComponent } from '../../components/status-request/status-r
     ButtonComponent,
     FormsModule,
     StatusRequestComponent,
+    ConfirmationDialogComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
 })
 export class FriendsComponent implements OnInit {
-  constructor(private friendService: FriendService) {}
+  constructor(private friendService: FriendService, private router: Router) {}
   friendEmail: string = '';
 
   content!: FriendsHeader;
@@ -43,7 +46,7 @@ export class FriendsComponent implements OnInit {
   limit = 10;
   currentPage: number = 1;
   pages: Array<number> = [];
-
+  friendId = 0;
   isLoading = true;
 
   setCurrentPageNumber(): void {
@@ -77,6 +80,7 @@ export class FriendsComponent implements OnInit {
       this.limit
     );
     this.content.friends = this.formatDateFromEvent(this.content.friends);
+
     this.getPagesNumbers();
     this.setCurrentPageNumber();
     this.isLoading = false;
@@ -135,8 +139,24 @@ export class FriendsComponent implements OnInit {
     const response = await this.friendService.inviteFriend(friendData);
   }
 
-  async onDeleteFriend(requestId: number) {
-    await this.friendService.deleteFriend(requestId);
+  async onDeleteFriend() {
+    await this.friendService.deleteFriend(this.friendId);
     window.location.reload();
+  }
+  showDialog = false;
+
+  openDialog(id: number) {
+    this.friendId = id;
+    this.showDialog = true;
+  }
+
+  async handleConfirm(id: number) {
+    this.showDialog = false;
+    this.onDeleteFriend();
+    this.router.navigate(['/friends']);
+  }
+
+  handleCancel() {
+    this.showDialog = false;
   }
 }

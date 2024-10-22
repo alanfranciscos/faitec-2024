@@ -53,6 +53,11 @@
   </div>
 
   <div class="content">
+    <div *ngIf="showDialog">
+      <app-confirmation-dialog [message]="'Are you sure you want to proceed?'"
+        (onConfirm)="handleConfirm(organizationData.id)" (onCancel)="handleCancel()">
+      </app-confirmation-dialog>
+    </div>
     <div class="content-container">
       <div class="content-title">
         <span class="title-text">Location</span>
@@ -62,11 +67,7 @@
             event</button>
 
         </div>
-        <div *ngIf="showDialog">
-          <app-confirmation-dialog [message]="'Are you sure you want to proceed?'"
-            (onConfirm)="handleConfirm(organizationData.id)" (onCancel)="handleCancel()">
-          </app-confirmation-dialog>
-        </div>
+
 
 
       </div>

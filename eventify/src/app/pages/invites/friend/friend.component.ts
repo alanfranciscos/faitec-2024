@@ -13,6 +13,8 @@ import {
 } from '../../../domain/model/event/friend_request.model';
 import { FriendService } from '../../../services/friend/friend.service';
 import { StatusRequestComponent } from '../../../components/status-request/status-request.component';
+import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
 
 interface CardItensType {
   title: string;
@@ -30,6 +32,7 @@ interface CardItensType {
     CommonModule,
     HeaderComponent,
     StatusRequestComponent,
+    ConfirmationDialogComponent,
   ],
 
   templateUrl: './friend.component.html',
@@ -38,7 +41,8 @@ interface CardItensType {
 export class FriendComponent implements OnInit {
   constructor(
     private eventService: EventService,
-    private friendService: FriendService
+    private friendService: FriendService,
+    private router: Router
   ) {}
   friendRequest!: FriendRequestResponse;
 
@@ -46,7 +50,7 @@ export class FriendComponent implements OnInit {
   quantityPerPage = 10;
   limit = 10;
   currentPage: number = 1;
-
+  inviteId = 0;
   isLoading = false;
 
   pages: Array<number> = [];
@@ -128,8 +132,23 @@ export class FriendComponent implements OnInit {
     window.location.reload();
   }
 
-  declineFriendRequest(requestId: number) {
-    this.friendService.declineRequest(requestId);
+  declineFriendRequest() {
+    this.friendService.declineRequest(this.inviteId);
     window.location.reload();
+  }
+  showDialog = false;
+  openDialog(id: number) {
+    this.showDialog = true;
+    this.inviteId = id;
+  }
+
+  async handleConfirm(id: number) {
+    this.showDialog = false;
+    this.declineFriendRequest();
+    this.router.navigate(['/invite/friend']);
+  }
+
+  handleCancel() {
+    this.showDialog = false;
   }
 }

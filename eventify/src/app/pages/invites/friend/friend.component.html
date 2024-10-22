@@ -14,9 +14,14 @@
           <ul>
             <li *ngFor="let request of friendRequest.invite; let i = index">
               <app-notification-card [title]="request.title" [dateNotification]="request.sendedAt"
-                (accept)="acceptFriendRequest(request.id)" (decline)="declineFriendRequest(request.id)">
+                (accept)="acceptFriendRequest(request.id)" (decline)="openDialog(request.id)">
               </app-notification-card>
             </li>
+            <div *ngIf="showDialog">
+              <app-confirmation-dialog [message]="'Are you sure you want to proceed?'"
+                (onConfirm)="declineFriendRequest()" (onCancel)="handleCancel()">
+              </app-confirmation-dialog>
+            </div>
           </ul>
         </div>}
       </div>

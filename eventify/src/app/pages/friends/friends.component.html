@@ -32,10 +32,14 @@
           <ul>
             <li *ngFor="let item of content.friends; let i = index">
               <app-friend-card [name]="item.username" [dateStartFriendship]="item.dateStartFriendship"
-                [image]="item.image" (decline)="onDeleteFriend(item.id)">
+                [image]="item.image" (decline)="openDialog(item.id)">
               </app-friend-card>
             </li>
-
+            <div *ngIf="showDialog">
+              <app-confirmation-dialog [message]="'Are you sure you want to proceed?'" (onConfirm)="onDeleteFriend()"
+                (onCancel)="handleCancel()">
+              </app-confirmation-dialog>
+            </div>
           </ul>
         </div>
       </div>
