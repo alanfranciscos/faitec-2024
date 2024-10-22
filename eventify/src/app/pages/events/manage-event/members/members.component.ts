@@ -14,6 +14,7 @@ import {
 } from '../../../../domain/model/event/eventparticipants.model';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
+import { DeleteEventService } from '../../../../services/event/delete-event.service';
 
 interface CardItensType {
   name: string;
@@ -40,7 +41,11 @@ interface CardItensType {
   styleUrl: './members.component.scss',
 })
 export class MembersComponent implements OnInit {
-  constructor(private eventService: EventService, private router: Router) {}
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    private deleteEventService: DeleteEventService
+  ) {}
 
   memberEmail!: string;
 
@@ -157,4 +162,10 @@ export class MembersComponent implements OnInit {
 
     // window.location.reload();
   }
+
+  async onDecline(id: number) {
+    await this.deleteEventService.deleteEventMember(id);
+    window.location.reload();
+  }
+  // implementei mas ta bugado
 }

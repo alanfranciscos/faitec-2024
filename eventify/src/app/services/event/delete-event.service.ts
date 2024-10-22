@@ -17,4 +17,14 @@ export class DeleteEventService {
 
     return response.data;
   }
+
+  async deleteEventMember(id: number): Promise<null> {
+    const response = await this.api.delete(`/api/v1/participate/${id}`);
+
+    if (response.status != 204) {
+      throw new Error('Failed to delete event member');
+    }
+
+    return response.data;
+  }
 }

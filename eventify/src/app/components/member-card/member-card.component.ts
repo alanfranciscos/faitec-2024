@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Data } from '@angular/router';
 
 @Component({
@@ -13,10 +13,15 @@ export class MemberCardComponent implements OnInit {
   @Input() roleParticipate!: string;
   @Input() image?: string;
   @Input() aceptedAt!: string;
+  @Output() decline = new EventEmitter<void>();
 
   ngOnInit(): void {
     if (!this.image) {
       this.image = '/assets/svg/logo.svg';
     }
+  }
+
+  onDecline() {
+    this.decline.emit();
   }
 }

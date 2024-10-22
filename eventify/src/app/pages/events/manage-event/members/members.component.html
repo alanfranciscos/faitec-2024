@@ -25,7 +25,7 @@
           <ul>
             <li *ngFor="let participant of participants.participants; let i = index">
               <app-member-card [name]="participant.name" [roleParticipate]="participant.roleParticipate"
-                [aceptedAt]="participant.aceptedAt">
+                [aceptedAt]="participant.aceptedAt" (decline)="onDecline(participant.id)">
               </app-member-card>
             </li>
           </ul>
