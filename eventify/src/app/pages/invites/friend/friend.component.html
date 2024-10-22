@@ -5,6 +5,11 @@
         textTooltip="This is your notifications screen where you can view your event invitations and friend requests, and accept or decline them."
         tooltipPosition="right"></app-header>
       <div>
+        @if(friendRequest.invite === undefined || friendRequest.invite.length === 0 || isLoading) {
+        <div style="width: 100%; height: 30rem;">
+          <app-status-request [isLoading]="isLoading" [isEmpty]="friendRequest.invite.length == 0"></app-status-request>
+        </div>
+        } @else {
         <div class="cards">
           <ul>
             <li *ngFor="let request of friendRequest.invite; let i = index">
@@ -13,7 +18,7 @@
               </app-notification-card>
             </li>
           </ul>
-        </div>
+        </div>}
       </div>
       <div class="pagination">
         <button class="pagination__arrow" (click)="previousPage()"><i class="fas fa-arrow-left"></i>

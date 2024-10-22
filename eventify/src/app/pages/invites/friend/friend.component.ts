@@ -12,6 +12,7 @@ import {
   FriendRequestResponse,
 } from '../../../domain/model/event/friend_request.model';
 import { FriendService } from '../../../services/friend/friend.service';
+import { StatusRequestComponent } from '../../../components/status-request/status-request.component';
 
 interface CardItensType {
   title: string;
@@ -28,6 +29,7 @@ interface CardItensType {
     NotificationCardComponent,
     CommonModule,
     HeaderComponent,
+    StatusRequestComponent,
   ],
 
   templateUrl: './friend.component.html',
@@ -44,6 +46,8 @@ export class FriendComponent implements OnInit {
   quantityPerPage = 10;
   limit = 10;
   currentPage: number = 1;
+
+  isLoading = false;
 
   pages: Array<number> = [];
   setCurrentPageNumber(): void {

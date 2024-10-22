@@ -9,6 +9,7 @@ import {
   EventInvitation,
   EventInvitationResponse,
 } from '../../../domain/model/event/invitation.model';
+import { StatusRequestComponent } from '../../../components/status-request/status-request.component';
 
 interface CardItensType {
   title: string;
@@ -25,6 +26,7 @@ interface CardItensType {
     NotificationCardComponent,
     CommonModule,
     HeaderComponent,
+    StatusRequestComponent,
   ],
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss',
@@ -37,6 +39,8 @@ export class EventComponent implements OnInit {
   quantityPerPage = 10;
   limit = 10;
   currentPage: number = 1;
+
+  isLoading = false;
 
   pages: Array<number> = [];
   setCurrentPageNumber(): void {
