@@ -9,13 +9,25 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 85%;
+}
+
+.pagination-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 33rem;
+  width: 100%;
 }
 
 .utilities {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   width: 100%;
 }
 
@@ -57,7 +69,6 @@
 
 .cards-container {
   width: 100%;
-  margin-top: 3rem;
 }
 
 .cards {
@@ -102,10 +113,4 @@
   height: 2rem;
   border-radius: 0.625rem;
   background: #14ad47;
-}
-
-@media screen and (min-width: 1910px) {
-  .cards-container {
-    margin-top: 6rem;
-  }
 }

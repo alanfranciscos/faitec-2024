@@ -1,0 +1,9 @@
+@if (isLoading) {
+<div class="container-loading">
+  <div class="content-loading"></div>
+</div>
+} @else if(isEmpty) {
+<div class="container-empty">
+  <img data-testid="sem-dados" src="assets/svg/no_data.svg" alt="sem-dados" />
+</div>
+}

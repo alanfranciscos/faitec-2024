@@ -9,6 +9,7 @@ import {
   EventHeader,
 } from '../../../domain/model/event/eventHeader.model';
 import { EventService } from '../../../services/event/event.service';
+import { StatusRequestComponent } from '../../../components/status-request/status-request.component';
 
 @Component({
   selector: 'app-my-events',
@@ -19,6 +20,8 @@ import { EventService } from '../../../services/event/event.service';
     ButtonComponent,
     CardComponent,
     HeaderComponent,
+    StatusRequestComponent,
+    ButtonComponent,
   ],
   templateUrl: './my-events.component.html',
   styleUrls: ['./my-events.component.scss'],
@@ -36,6 +39,8 @@ export class MyEventsComponent implements OnInit {
   offset = 0;
   quantityPerPage = 6;
   limit = 6;
+
+  isloading = true;
 
   currentPage: number = 1;
 
@@ -72,16 +77,20 @@ export class MyEventsComponent implements OnInit {
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
     this.getPagesNumbers();
+    this.isloading = false;
   }
 
   async goToPage(page: number): Promise<void> {
+    this.isloading = true;
     this.offset = page * this.limit - this.limit;
     this.content = await this.eventService.listEvents(this.offset, this.limit);
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
+    this.isloading = false;
   }
 
   async nextPage(): Promise<void> {
+    this.isloading = true;
     if (this.currentPage === this.pages.length) {
       return;
     }
@@ -89,9 +98,11 @@ export class MyEventsComponent implements OnInit {
     this.content = await this.eventService.listEvents(this.offset, this.limit);
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
+    this.isloading = false;
   }
 
   async previousPage(): Promise<void> {
+    this.isloading = true;
     if (this.currentPage === 1) {
       return;
     }
@@ -99,5 +110,6 @@ export class MyEventsComponent implements OnInit {
     this.content = await this.eventService.listEvents(this.offset, this.limit);
     this.content.events = this.formatDateFromEvent(this.content.events);
     this.setCurrentPageNumber();
+    this.isloading = false;
   }
 }
