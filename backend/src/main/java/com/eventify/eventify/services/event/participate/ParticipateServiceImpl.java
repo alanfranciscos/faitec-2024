@@ -85,15 +85,8 @@ public class ParticipateServiceImpl implements ParticipateService {
     }
 
     @Override
-    public void deleteByUserEvents(int eventId, EventListResponse response) {
-        for (EventHeader event : response.events()) {
-            if (event.getId() != eventId) {
-                continue;
-            } else {
-                participateDao.deleteByEventId(eventId);
-            }
-        }
-
+    public void deleteByUserEvents(int eventId, int userId) {
+        participateDao.deleteByEventId(eventId, userId);
     }
 
     @Override

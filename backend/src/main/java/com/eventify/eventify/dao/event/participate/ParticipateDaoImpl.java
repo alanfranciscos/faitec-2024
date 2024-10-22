@@ -322,14 +322,15 @@ public class ParticipateDaoImpl implements ParticipateDao {
     }
 
     @Override
-    public void deleteByEventId(int eventId) {
-        logger.log(Level.INFO, "Preparando para remover a participante com id " + eventId);
+    public void deleteByEventId(int eventId, int accountId) {
+        logger.log(Level.INFO, "Preparando para remover a participante com id " + accountId);
 
-        final String sql = "DELETE FROM participate WHERE meetup_id = ? ;";
+        final String sql = "DELETE FROM participate WHERE id = ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, eventId);
+//            preparedStatement.setInt(1, eventId);
+            preparedStatement.setInt(1, accountId);
             preparedStatement.execute();
             preparedStatement.close();
 

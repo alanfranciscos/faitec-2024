@@ -204,7 +204,7 @@ export class ExpensesComponent implements OnInit {
     );
     this.setCurrentPageNumber();
   }
-  async onAddExpense() {
+  async onEditExpense(expanse_id: number) {
     const url = this.router.url;
     let eventId = url.split('/')[2];
     eventId = eventId == null ? '-1' : eventId;
@@ -215,7 +215,8 @@ export class ExpensesComponent implements OnInit {
       about: this.description,
       eventDate: this.expenseDate,
     };
-    await this.eventService.updateEventExpense(Number(eventId), expenseData);
+
+    await this.eventService.updateEventExpense(expanse_id, expenseData);
     window.location.reload();
   }
 }

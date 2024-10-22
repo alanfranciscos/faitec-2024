@@ -71,7 +71,7 @@
                         [(ngModel)]="expenseValue" /></div>
                     <div class="form-group"><app-primary-input type="date" placeholder="" [(ngModel)]="expenseDate" />
                     </div>
-                    <app-button text="Add" (click)="onAddExpense()"></app-button>
+                    <app-button text="Add" (click)="onEditExpense(expense.id)"></app-button>
                   </app-dialog>
                 </li>
               </ul>

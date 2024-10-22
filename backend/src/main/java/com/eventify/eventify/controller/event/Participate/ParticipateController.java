@@ -52,11 +52,9 @@ public class ParticipateController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Participate> deleteParticipate(@PathVariable final int id){
-        EventListResponse response = eventService.listPaginatedFromUser(6,0);
-
-        participateService.deleteByUserEvents(id, response);
+    @DeleteMapping("/{eventId}/{userId}")
+    public ResponseEntity<Participate> deleteParticipate(@PathVariable final int eventId, @PathVariable final int userId){
+        participateService.deleteByUserEvents(eventId, userId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -152,7 +152,6 @@ export class EventService {
   async updateEventExpense(id: number, expenseData: ExpenseInput) {
     const formData = new FormData();
 
-    formData.append('id', expenseData.meetup_id);
     formData.append('about', expenseData.about);
     formData.append('cost', expenseData.cost);
     formData.append('created_at', expenseData.eventDate!);

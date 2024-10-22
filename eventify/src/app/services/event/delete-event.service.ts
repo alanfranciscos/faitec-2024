@@ -9,7 +9,7 @@ export class DeleteEventService {
   api = this.apiService.getApi();
 
   async deleteEvent(id: number): Promise<null> {
-    const response = await this.api.delete(`/api/v1/participate/${id}`);
+    const response = await this.api.delete(`/api/v1/event/${id}`);
 
     if (response.status != 204) {
       throw new Error('Failed to delete event expense');
@@ -18,8 +18,8 @@ export class DeleteEventService {
     return response.data;
   }
 
-  async deleteEventMember(id: number): Promise<null> {
-    const response = await this.api.delete(`/api/v1/participate/${id}`);
+  async deleteEventMember(eventId: number, userId: number): Promise<null> {
+    const response = await this.api.delete(`/api/v1/participate/${eventId}/${userId}`);
 
     if (response.status != 204) {
       throw new Error('Failed to delete event member');

@@ -14,7 +14,7 @@ public interface ParticipateService extends CrudService<Participate> {
 
     List<Participate> readAllParticipations(int eventId);
 
-    void deleteByUserEvents(final int id, EventListResponse response);
+    void deleteByUserEvents(final int id, final int userId);
 
     int inviteMember(final int eventId, String email);
 

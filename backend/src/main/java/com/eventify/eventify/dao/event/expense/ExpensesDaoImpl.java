@@ -165,11 +165,11 @@ public class ExpensesDaoImpl implements ExpenseDao {
             preparedStatement.setDouble(1, entity.getCost());
             preparedStatement.setString(2, entity.getAbout());
             preparedStatement.setTimestamp(3, Timestamp.from(entity.getCreated_at().toInstant()));
-            preparedStatement.setInt(4, entity.getId());
+            preparedStatement.setInt(4, id);
             preparedStatement.execute();
             preparedStatement.close();
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e.getMessage());
         }
     }
 //    @Override

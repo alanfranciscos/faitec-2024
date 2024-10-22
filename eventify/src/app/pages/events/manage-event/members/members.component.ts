@@ -163,8 +163,14 @@ export class MembersComponent implements OnInit {
     // window.location.reload();
   }
 
-  async onDecline(id: number) {
-    await this.deleteEventService.deleteEventMember(id);
+  async onDecline(userId: number) {
+    const url = this.router.url;
+    let eventId = url.split('/')[2];
+    eventId = eventId == null ? '-1' : eventId;
+    console.log("EVENT ID: " + eventId)
+    console.log(this.participants);
+    // console.log("USER ID: " + userId)
+    await this.deleteEventService.deleteEventMember(Number(eventId), userId);
     window.location.reload();
   }
   // implementei mas ta bugado

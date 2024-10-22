@@ -62,16 +62,14 @@ public class ExpenseController {
 //    public ResponseEntity<Void> updateEntity(@PathVariable final int id, @RequestBody final Expense data){
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEntity(
-            @RequestParam(value = "id", required = false) int id,
+            @PathVariable int id,
             @RequestParam(value = "about", required = false) String about,
             @RequestParam(value = "cost", required = false) String cost,
             @RequestParam(value = "created_at", required = false) String created_at
     ){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         LocalDate localDateStart = LocalDate.parse(created_at, formatter);
-
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTimeCreatedAt = localDateStart.atStartOfDay(zoneId);
 
