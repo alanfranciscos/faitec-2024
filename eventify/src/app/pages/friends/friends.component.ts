@@ -13,6 +13,7 @@ import {
 } from '../../domain/model/event/friendsHeader.model';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
+import { StatusRequestComponent } from '../../components/status-request/status-request.component';
 
 @Component({
   selector: 'app-friend',
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     PrimaryInputComponent,
     ButtonComponent,
     FormsModule,
+    StatusRequestComponent,
   ],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.scss',
@@ -41,6 +43,9 @@ export class FriendsComponent implements OnInit {
   limit = 10;
   currentPage: number = 1;
   pages: Array<number> = [];
+
+  isLoading = true;
+
   setCurrentPageNumber(): void {
     this.currentPage = this.limit / this.offset;
     this.currentPage = !Number.isFinite(this.currentPage)
@@ -74,8 +79,10 @@ export class FriendsComponent implements OnInit {
     this.content.friends = this.formatDateFromEvent(this.content.friends);
     this.getPagesNumbers();
     this.setCurrentPageNumber();
+    this.isLoading = false;
   }
   async goToPage(page: number): Promise<void> {
+    this.isLoading = true;
     this.offset = page * this.limit - this.limit;
     this.content = await this.friendService.listFriends(
       this.offset,
@@ -83,8 +90,11 @@ export class FriendsComponent implements OnInit {
     );
     this.content.friends = this.formatDateFromEvent(this.content.friends);
     this.setCurrentPageNumber();
+
+    this.isLoading = false;
   }
   async nextPage(): Promise<void> {
+    this.isLoading = true;
     if (this.currentPage === this.pages.length) {
       return;
     }
@@ -95,8 +105,10 @@ export class FriendsComponent implements OnInit {
     );
     this.content.friends = this.formatDateFromEvent(this.content.friends);
     this.setCurrentPageNumber();
+    this.isLoading = false;
   }
   async previousPage(): Promise<void> {
+    this.isLoading = true;
     if (this.currentPage === 1) {
       return;
     }
@@ -107,6 +119,7 @@ export class FriendsComponent implements OnInit {
     );
     this.content.friends = this.formatDateFromEvent(this.content.friends);
     this.setCurrentPageNumber();
+    this.isLoading = false;
   }
 
   isAddFriendDialogOpen = false;

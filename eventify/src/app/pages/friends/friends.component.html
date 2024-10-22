@@ -5,17 +5,15 @@
       tooltipPosition="right"></app-header>
     <content>
       <div class="search-container">
-        <div class="search">
+        <div></div>
+        <!-- <div class="search">
           <input type="text" id="search" placeholder="Search for a friend" style="display: flex; align-self: center" />
           <button class="search-button">
             <i class="fas fa-search"></i>
           </button>
-        </div>
-        <button class="add-friend-button" style="background-color: #14ad47" (click)="toggleAddFriendDialog()">
-          Add a new friend
-        </button>
+        </div> -->
+        <app-button (click)="toggleAddFriendDialog()" text="Add a new Friend" [isDisabled]="isLoading"> </app-button>
       </div>
-
 
       <app-dialog *ngIf="isAddFriendDialogOpen" (close)="toggleAddFriendDialog()" dialog_title="Add Friends">
         <div class="form-data">
@@ -24,11 +22,14 @@
         <app-button text="Add" (click)="onAddFriend()"></app-button>
       </app-dialog>
 
-
+      @if(content.friends === undefined || content.friends.length === 0 || isLoading) {
+      <div style="width: 100%; height: 30rem;">
+        <app-status-request [isLoading]="isLoading" [isEmpty]="content.friends.length == 0"></app-status-request>
+      </div>
+      } @else {
       <div>
         <div class="cards">
           <ul>
-
             <li *ngFor="let item of content.friends; let i = index">
               <app-friend-card [name]="item.username" [dateStartFriendship]="item.dateStartFriendship"
                 [image]="item.image" (decline)="onDeleteFriend(item.id)">
@@ -51,6 +52,7 @@
         <button class=" pagination__arrow" (click)="nextPage()"><span>Next</span> <i class="fas fa-arrow-right">
           </i></button>
       </div>
+      }
     </content>
   </div>
 </main>
