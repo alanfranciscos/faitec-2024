@@ -5,6 +5,7 @@ import { LandingPageFooterComponent } from './footer/footer.component';
 import { LandingPageAboutComponent } from './about/about.component';
 import { LandingPageUsageComponent } from './usage/usage.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ProjectObjectiveComponent } from './project-objective/project-objective.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -16,6 +17,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     LandingPageAboutComponent,
     LandingPageUsageComponent,
     ContactUsComponent,
+    ProjectObjectiveComponent,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',

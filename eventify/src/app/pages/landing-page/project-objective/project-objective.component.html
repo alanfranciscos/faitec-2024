@@ -1,0 +1,13 @@
+<div id="objective" class="objective-section">
+  <div class="objective-image">
+    <img src="../../../../assets/img/objective.jpg" alt="Imagem representativa do objetivo">
+  </div>
+  <div class="objective-text">
+    <span class="title">{{ title }}</span>
+    <p class="content">{{ generalObjective }}</p>
+    <ul class="specific-objectives">
+      <li *ngFor="let objective of specificObjectives" class="specific-objective">{{ objective }}</li>
+    </ul>
+  </div>
+
+</div>
