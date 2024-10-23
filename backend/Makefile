@@ -19,3 +19,7 @@ run-application:
 	docker-compose -f docker-compose-run-application.yaml stop
 	docker-compose -f docker-compose-run-application.yaml build --force-rm
 	docker-compose -f docker-compose-run-application.yaml up
+
+push-img-base-dev:
+	docker tag backend-api:latest us-east1-docker.pkg.dev/symmetric-lore-437617-v9/eventify-backend/backend-api:latest
+	docker push us-east1-docker.pkg.dev/symmetric-lore-437617-v9/eventify-backend/backend-api:latest
