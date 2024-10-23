@@ -93,6 +93,6 @@ public interface AccountService {
      * @param password
      * @param confirmedPassword
      */
-    void updatePassword(int id, String password, String confirmedPassword);
+    void updatePassword(int id, String password);
 
 }

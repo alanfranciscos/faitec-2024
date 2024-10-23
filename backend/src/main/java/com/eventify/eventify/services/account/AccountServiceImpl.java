@@ -192,14 +192,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void updatePassword(int id, String password, String confirmedPassword) {
+    public void updatePassword(int id, String password) {
         try {
-            if(password.equals(confirmedPassword)){
-                String passwordHashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-                accountDao.updatePassword(id, passwordHashed);
-            } else {
-                throw new RuntimeException("Failed to update password");
-            }
+            String passwordHashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            accountDao.updatePassword(id, passwordHashed);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update password", e);
 
