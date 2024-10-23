@@ -50,11 +50,11 @@ export class ExpensesComponent implements OnInit {
   eventExpanses!: ExpansesResponse;
 
   offset = 0;
-  quantityPerPage = 1;
-  limit = 1;
+  quantityPerPage = 10;
+  limit = 10;
   currentPage: number = 1;
-
   pages: Array<number> = [];
+  
   setCurrentPageNumber(): void {
     this.currentPage = this.limit / this.offset;
     this.currentPage = !Number.isFinite(this.currentPage)
@@ -98,15 +98,15 @@ export class ExpensesComponent implements OnInit {
   eventId = '';
   async ngOnInit() {
     const url = this.router.url;
-    let eventId = url.split('/')[2];
-    eventId = eventId == null ? '-1' : eventId;
+    this.eventId = url.split('/')[2];
+    this.eventId == null ? '-1' : this.eventId;
 
-    const totalExpenses = await this.eventService.getTotalExpenses(eventId);
+    const totalExpenses = await this.eventService.getTotalExpenses(this.eventId);
     this.totalExpenses = totalExpenses;
-    const paymentApproach = await this.eventService.getPaymentApproach(eventId);
+    const paymentApproach = await this.eventService.getPaymentApproach(this.eventId);
     this.paymentApproach = paymentApproach;
     const eventExpanses = await this.eventService.getEventExpanses(
-      eventId,
+      this.eventId,
       this.offset,
       this.limit
     );

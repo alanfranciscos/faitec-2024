@@ -19,7 +19,7 @@ public interface EventDao extends ListPaginatedFromUser, TotalFromUser, Expanses
 
     EventDate getDateById(final int id);
 
-    List<EventExpanses> getExpansesById(final int id);
+    List<EventExpanses> getExpansesById(final int id, final int limit, final int offset);
 
     int getTotalParticipantsForPagination(final int eventId);
 

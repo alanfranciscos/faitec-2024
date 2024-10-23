@@ -72,7 +72,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventExpanses> getExpansesById(int id) {
+    public List<EventExpanses> getExpansesById(int id, int limit, int offset) {
         Account account = accountService.getAccountRequest();
 
         boolean hasAccess = eventDao.hasAccessToEvent(id, account.getId());
@@ -80,7 +80,7 @@ public class EventServiceImpl implements EventService {
             throw new IllegalArgumentException("User does not have access to event");
         }
 
-        List<EventExpanses> response = eventDao.getExpansesById(id);
+        List<EventExpanses> response = eventDao.getExpansesById(id, limit, offset);
         return response;
     }
 

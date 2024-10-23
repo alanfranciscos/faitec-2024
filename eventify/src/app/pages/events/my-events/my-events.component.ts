@@ -39,12 +39,10 @@ export class MyEventsComponent implements OnInit {
   offset = 0;
   quantityPerPage = 6;
   limit = 6;
+  currentPage: number = 1;
+  pages: Array<number> = [];
 
   isloading = true;
-
-  currentPage: number = 1;
-
-  pages: Array<number> = [];
 
   setCurrentPageNumber(): void {
     this.currentPage = this.limit / this.offset;

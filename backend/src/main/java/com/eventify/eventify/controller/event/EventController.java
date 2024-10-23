@@ -123,10 +123,12 @@ public class EventController {
 
     @GetMapping("/{id}/expanses")
     public ResponseEntity<EventExpansesResponse> getExpanses(
-            @PathVariable int id
+            @PathVariable int id,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "0") int offset
     ) {
         List<EventExpanses> response = eventService
-                .getExpansesById(id);
+                .getExpansesById(id, limit, offset);
         int totalExpenses = eventService.getTotalExpensesForPagination(id);
 
         return ResponseEntity.ok(new EventExpansesResponse(

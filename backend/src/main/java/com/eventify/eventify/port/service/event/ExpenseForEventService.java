@@ -8,7 +8,7 @@ public interface ExpenseForEventService {
 
     double totalExpanses(final int eventId);
 
-    List<EventExpanses> getExpansesById(final int id);
+    List<EventExpanses> getExpansesById(final int id, final int limit, final int offset);
 
     int getTotalExpensesForPagination(final int eventId);
 

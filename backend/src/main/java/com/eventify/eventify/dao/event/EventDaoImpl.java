@@ -250,11 +250,14 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public List<EventExpanses> getExpansesById(int id) {
-        String sql = "select id, created_at, about, cost from expanses where meetup_id = ?";
+    public List<EventExpanses> getExpansesById(int id, int limit, int offset) {
+        String sql = "select id, created_at, about, cost from expanses where meetup_id = ? LIMIT ? OFFSET  ?";
 
         try (var preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
+
 
             try (var resultSet = preparedStatement.executeQuery()) {
                 final List<EventExpanses> expanses = new ArrayList<>();
