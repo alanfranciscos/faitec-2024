@@ -95,9 +95,10 @@ public class EventDaoImpl implements EventDao {
         String sql = "SELECT count(1) total";
         sql += " FROM meetup M ";
         sql += " INNER JOIN participate P on P.meetup_id = M.id ";
-        sql += " INNER JOIN  meetup_image MI on MI.meetup_id = M.id ";
+        sql += " LEFT JOIN meetup_image MI on MI.meetup_id = M.id ";
         sql += " WHERE account_id = ? ";
-        sql += " AND MI.is_profile = true ";
+        sql += " AND P.active = true ";
+        sql += " AND P.acepted_at IS NOT NULL ;";
 
         try (var preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, accountId);
