@@ -1,8 +1,8 @@
-
 /* Container principal para centralizar o card */
 .card-container {
   display: flex;
   justify-content: center;
+  padding: 1rem; /* Adiciona um padding ao redor do contêiner */
 }
 
 /* Estilos do card */
@@ -14,8 +14,10 @@
   border-radius: 0.8rem;
   padding: 0.8rem;
   width: 100%;
+  max-width: screen;
   background-color: #fff;
   box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
+  margin: 1rem; /* Adiciona uma margem em torno do card */
 }
 
 /* Estilo da imagem */
@@ -51,11 +53,11 @@
 
 /* Ações do card (Ícones) */
 .card-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-left: 2rem;
+  display: flex; /* Mantenha como flex */
+  flex-direction: row; /* Altere para row */
+  align-items: center; /* Alinhe os itens ao centro verticalmente */
+  gap: 1rem; /* Espaçamento entre os ícones */
+  margin-left: 2rem; /* Margem à esquerda */
 }
 
 .status {
