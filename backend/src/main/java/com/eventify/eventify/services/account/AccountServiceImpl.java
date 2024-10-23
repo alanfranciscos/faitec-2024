@@ -1,5 +1,6 @@
 package com.eventify.eventify.services.account;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.account.password.AccountPasswordHistory;
 import com.eventify.eventify.port.dao.account.AccountDao;
@@ -194,21 +195,8 @@ public class AccountServiceImpl implements AccountService {
     public void updatePassword(int id, String password, String confirmedPassword) {
         try {
             if(password.equals(confirmedPassword)){
-//                try {
-//                    MessageDigest md = MessageDigest.getInstance("MD5");
-//
-//                    byte[] hashBytes = md.digest(password.getBytes());
-//
-//                    StringBuilder hexString = new StringBuilder();
-//                    for (byte b : hashBytes) {
-//                        String hex = String.format("%02x", b);
-//                        hexString.append(hex);
-//                    }
-//                    accountDao.updatePassword(id, hexString.toString());
-//                } catch (NoSuchAlgorithmException e) {
-//                    throw new RuntimeException("Erro ao calcular hash MD5", e);
-//                }
-                accountDao.updatePassword(id, password);
+                String passwordHashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+                accountDao.updatePassword(id, passwordHashed);
             } else {
                 throw new RuntimeException("Failed to update password");
             }
@@ -222,12 +210,14 @@ public class AccountServiceImpl implements AccountService {
     public void updateImage(int id, MultipartFile imageData) {
         String imageUrl = "";
 
-        try {
-            String fileName = "1.png";
-            String bucketPath = "users/" + id + "/";
-            imageUrl = gcpStorageService.uploadImage(imageData, fileName, bucketPath);
-        } catch (IOException e) {
-            throw new RuntimeException("Bucket error: ", e);
+        if(imageData != null){
+            try {
+                String fileName = "1.png";
+                String bucketPath = "users/" + id + "/";
+                imageUrl = gcpStorageService.uploadImage(imageData, fileName, bucketPath);
+            } catch (IOException e) {
+                throw new RuntimeException("Bucket error: ", e);
+            }
         }
 
         try {

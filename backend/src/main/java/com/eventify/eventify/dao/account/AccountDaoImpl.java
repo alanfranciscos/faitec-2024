@@ -184,8 +184,6 @@ public class AccountDaoImpl implements AccountDao {
             preparedStatement.setString(1, imagePath);
             preparedStatement.setInt(2, Integer.valueOf(id));
             preparedStatement.execute();
-
-            connection.commit();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace(); // Adiciona rastreamento da pilha
@@ -195,14 +193,13 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public void updateAccount(int id, Account account) {
-        final String sql = "UPDATE account SET username = ?, email = ? WHERE id = ?;";
+        final String sql = "UPDATE account SET username = ? WHERE id = ?;";
 
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.getUsername());
-            preparedStatement.setString(2, account.getEmail());
-            preparedStatement.setInt(3, Integer.valueOf(id));
+            preparedStatement.setInt(2, id);
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException e) {

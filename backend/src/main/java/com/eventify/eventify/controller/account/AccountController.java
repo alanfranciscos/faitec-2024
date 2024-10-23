@@ -78,28 +78,23 @@ public class AccountController {
         return ResponseEntity.ok(account);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<Void> updatAccount(@RequestParam(value = "image", required = false) MultipartFile imageData,
                                              @RequestParam(value = "username", required = false) String username,
-                                             @RequestParam(value = "email", required = false) String email,
                                              @RequestParam(value = "password", required = false) String password,
                                              @RequestParam(value = "confirmedPassword", required = false) String confirmedPassword){
 
         Account account = accountService.getAccountRequest();
         int accountId = account.getId();
 
-        if(!username.isBlank() || !email.isBlank()){
+        if(!username.isBlank()) {
             Account updatedAccount = new Account();
             updatedAccount.setUsername(username);
-            updatedAccount.setEmail(email);
             accountService.updateAccount(accountId, updatedAccount);
         }
 
-        if(imageData==null){
-            System.out.println("Sem imagem");
-        } else {
-            accountService.updateImage(accountId, imageData);
-        }
+        accountService.updateImage(accountId, imageData);
+
 
         if(!password.isBlank() && !confirmedPassword.isBlank()){
             accountService.updatePassword(accountId, password, confirmedPassword);
