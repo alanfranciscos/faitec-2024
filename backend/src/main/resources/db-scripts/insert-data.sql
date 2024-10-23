@@ -1,15 +1,15 @@
 INSERT INTO account (username, email, image_data, is_verified) VALUES
-('user1', 'user1@example.com', NULL, TRUE),
-('user2', 'user2@example.com', NULL, TRUE),
-('user3', 'user3@example.com', NULL, FALSE),
-('user4', 'user4@example.com', NULL, TRUE),
-('user5', 'user5@example.com', NULL, FALSE),
-('user6', 'user6@example.com', NULL, TRUE),
-('user7', 'user7@example.com', NULL, TRUE),
-('user8', 'user8@example.com', NULL, FALSE),
-('user9', 'user9@example.com', NULL, TRUE),
-('user10', 'user10@example.com', NULL, FALSE),
-('johndoe', 'johndoe@example.com', 'https://storage.cloud.google.com/eventify-images/users/12/1.png', TRUE);
+('Ana Silva', 'ana.silva@example.com', NULL, TRUE),
+('Bruno Santos', 'bruno.santos@example.com', NULL, TRUE),
+('Carlos Morais', 'carlos.morais@example.com', NULL, FALSE),
+('Daniela Ferreira', 'daniela.ferreira@example.com', NULL, TRUE),
+('Eduardo Pereira', 'eduardo.pereira@example.com', NULL, FALSE),
+('Fernanda Rocha', 'fernanda.rocha@example.com', NULL, TRUE),
+('Gabriel Lima', 'gabriel.lima@example.com', NULL, TRUE),
+('Helena Costa', 'helena.costa@example.com', NULL, FALSE),
+('Igor Nascimento', 'igor.nascimento@example.com', NULL, TRUE),
+('Juliana Martins', 'juliana.martins@example.com', NULL, FALSE),
+('Joao Silva', 'joao@example.com', 'https://storage.cloud.google.com/eventify-images/users/12/1.png', TRUE);
 
 INSERT INTO account_password (account_id, user_password, created_at, active, staging, verification_code, code_valid_until) VALUES
 (1, '$2a$12$NT184t2tjpjm1JCQ2zpEXu/wQhKklLXSkmaJiPlw06iae4gGXYCnq', NOW(), TRUE, FALSE, 'verification_code_1', NOW() + INTERVAL '1 day'),
@@ -44,16 +44,16 @@ INSERT INTO friend (account_id, friend_id, sended_at, acepted_at) VALUES
 (7, 11, NOW(), NOW() + INTERVAL '1 hour');
 
 INSERT INTO meetup (title, information, created_at, local_name, cep_address, state_address, city_address, neighborhood_address, number_address, street_address, complement_address, latitude, longitude, date_start, date_end, stage, pix_key) VALUES
-('Meetup 1', 'Information 1', NOW(), 'o nome do local', '12345-678', 'State 1', 'City 1', 'Neighborhood 1', '10', 'Street 1', 'complemento', -23.5505, -46.6333, NOW() + INTERVAL '1 day', NOW() + INTERVAL '2 days', 'created', 'pix_key_1'),
-('Meetup 2', 'Information 2', NOW(), 'o nome do local', '12345-679', 'State 2', 'City 2', 'Neighborhood 2', '20', 'Street 2', 'complemento', -23.5515, -46.6343, NOW() + INTERVAL '2 days', NOW() + INTERVAL '3 days', 'started', 'pix_key_2'),
-('Meetup 3', 'Information 3', NOW(), 'o nome do local', '12345-680', 'State 3', 'City 3', 'Neighborhood 3', '30', 'Street 3', 'complemento', -23.5525, -46.6353, NOW() + INTERVAL '3 days', NOW() + INTERVAL '4 days', 'finished', 'pix_key_3'),
-('Meetup 4', 'Information 4', NOW(), 'o nome do local', '12345-681', 'State 4', 'City 4', 'Neighborhood 4', '40', 'Street 4', 'complemento', -23.5535, -46.6363, NOW() + INTERVAL '4 days', NOW() + INTERVAL '5 days', 'canceled', 'pix_key_4'),
-('Meetup 5', 'Information 5', NOW(), 'o nome do local', '12345-682', 'State 5', 'City 5', 'Neighborhood 5', '50', 'Street 5', 'complemento', -23.5545, -46.6373, NOW() + INTERVAL '5 days', NOW() + INTERVAL '6 days', 'created', 'pix_key_5'),
-('Meetup 6', 'Information 6', NOW(), 'o nome do local', '12345-683', 'State 6', 'City 6', 'Neighborhood 6', '60', 'Street 6', 'complemento', -23.5555, -46.6383, NOW() + INTERVAL '6 days', NOW() + INTERVAL '7 days', 'started', 'pix_key_6'),
-('Meetup 7', 'Information 7', NOW(), 'o nome do local', '12345-684', 'State 7', 'City 7', 'Neighborhood 7', '70', 'Street 7', 'complemento', -23.5565, -46.6393, NOW() + INTERVAL '7 days', NOW() + INTERVAL '8 days', 'finished', 'pix_key_7'),
-('Meetup 8', 'Information 8', NOW(), 'o nome do local', '12345-685', 'State 8', 'City 8', 'Neighborhood 8', '80', 'Street 8', 'complemento', -23.5575, -46.6403, NOW() + INTERVAL '8 days', NOW() + INTERVAL '9 days', 'canceled', 'pix_key_8'),
-('Meetup 9', 'Information 9', NOW(), 'o nome do local', '12345-686', 'State 9', 'City 9', 'Neighborhood 9', '90', 'Street 9', 'complemento', -23.5585, -46.6413, NOW() + INTERVAL '9 days', NOW() + INTERVAL '10 days', 'created', 'pix_key_9'),
-('Meetup 10', 'Information 10', NOW(), 'o nome do local', '12345-687', 'State 10', 'City 10', 'Neighborhood 10', '100', 'Street 10', 'complemento', -23.5595, -46.6423, NOW() + INTERVAL '10 days', NOW() + INTERVAL '11 days', 'started', 'pix_key_10');
+('Churrasco na Praça', 'Venha se divertir com um delicioso churrasco!', NOW(), 'Parque do Ibirapuera', '12345-678', 'São Paulo', 'São Paulo', 'Vila Mariana', '10', 'Avenida Pedro Álvares Cabral', 'complemento', -23.5875, -46.6579, NOW() + INTERVAL '1 day', NOW() + INTERVAL '2 days', 'created', 'pix_key_1'),
+('Virada de Ano', 'Celebre a virada do ano com a gente!', NOW(), 'Praça da Sé', '12345-679', 'São Paulo', 'São Paulo', 'Sé', '20', 'Praça da Sé', 'complemento', -23.5505, -46.6342, NOW() + INTERVAL '2 days', NOW() + INTERVAL '3 days', 'started', 'pix_key_2'),
+('Festival de Música', 'Um dia de muita música e diversão!', NOW(), 'Anhangabaú', '12345-680', 'São Paulo', 'São Paulo', 'Centro', '30', 'Avenida São João', 'complemento', -23.5500, -46.6345, NOW() + INTERVAL '3 days', NOW() + INTERVAL '4 days', 'finished', 'pix_key_3'),
+('Feira Gastronômica', 'Aproveite sabores do mundo todo!', NOW(), 'Rua dos Três Irmãos', '12345-681', 'São Paulo', 'São Paulo', 'Vila Madalena', '40', 'Rua dos Três Irmãos', 'complemento', -23.5502, -46.6944, NOW() + INTERVAL '4 days', NOW() + INTERVAL '5 days', 'canceled', 'pix_key_4'),
+('Cine ao Ar Livre', 'Venha assistir a um filme sob as estrelas!', NOW(), 'Praça Charles Miller', '12345-682', 'São Paulo', 'São Paulo', 'Pacaembu', '50', 'Praça Charles Miller', 'complemento', -23.5490, -46.6515, NOW() + INTERVAL '5 days', NOW() + INTERVAL '6 days', 'created', 'pix_key_5'),
+('Show de Rock', 'Uma noite de muito rock e diversão!', NOW(), 'Teatro Municipal', '12345-683', 'São Paulo', 'São Paulo', 'Centro', '60', 'Praça Ramos de Azevedo', 'complemento', -23.5502, -46.6341, NOW() + INTERVAL '6 days', NOW() + INTERVAL '7 days', 'started', 'pix_key_6'),
+('Piquenique na Vila', 'Traga seu lanche e venha se divertir!', NOW(), 'Praça do Pôr do Sol', '12345-684', 'São Paulo', 'São Paulo', 'Alto de Pinheiros', '70', 'Rua Diógenes Ribeiro de Lima', 'complemento', -23.5640, -46.6930, NOW() + INTERVAL '7 days', NOW() + INTERVAL '8 days', 'finished', 'pix_key_7'),
+('Festa Junina', 'Venha dançar e se divertir com as nossas tradições!', NOW(), 'Escola de Samba', '12345-685', 'São Paulo', 'São Paulo', 'Itaim Bibi', '80', 'Rua do Rocio', 'complemento', -23.5910, -46.6880, NOW() + INTERVAL '8 days', NOW() + INTERVAL '9 days', 'canceled', 'pix_key_8'),
+('Caminhada Ecológica', 'Vamos juntos cuidar do meio ambiente!', NOW(), 'Parque da Água Branca', '12345-686', 'São Paulo', 'São Paulo', 'Água Branca', '90', 'Rua Doutor Francisco Dória', 'complemento', -23.5480, -46.6650, NOW() + INTERVAL '9 days', NOW() + INTERVAL '10 days', 'created', 'pix_key_9'),
+('Festival de Dança', 'Um dia para celebrar a dança!', NOW(), 'Centro Cultural', '12345-687', 'São Paulo', 'São Paulo', 'Sé', '100', 'Avenida São João', 'complemento', -23.5500, -46.6340, NOW() + INTERVAL '10 days', NOW() + INTERVAL '11 days', 'started', 'pix_key_10');
 
 INSERT INTO meetup_image (meetup_id, image_data, is_profile) VALUES
 (1,  'https://storage.cloud.google.com/eventify-images/events/1/1.png',true),
@@ -102,17 +102,28 @@ INSERT INTO management (participate_id, managment_at, type_action) VALUES
 (10, NOW(), 'create');
 
 INSERT INTO expanses (meetup_id, cost, created_at, about) VALUES
-(1, 100.00, NOW(), 'Expense for meetup 1'),
-(1, 300.00, NOW(), 'Expense 2 for meetup 1'),
-(2, 150.00, NOW(), 'Expense for meetup 2'),
-(3, 200.00, NOW(), 'Expense for meetup 3'),
-(4, 250.00, NOW(), 'Expense for meetup 4'),
-(5, 300.00, NOW(), 'Expense for meetup 5'),
-(6, 350.00, NOW(), 'Expense for meetup 6'),
-(7, 400.00, NOW(), 'Expense for meetup 7'),
-(8, 450.00, NOW(), 'Expense for meetup 8'),
-(9, 500.00, NOW(), 'Expense for meetup 9'),
-(10, 550.00, NOW(), 'Expense for meetup 10');
+(1, 150.75, NOW(), 'Custo de alimentos e bebidas para o churrasco, incluindo carnes, acompanhamentos e refrigerantes.'),
+(1, 200.50, NOW(), 'Despesas com locação de mesas, cadeiras e utensílios para o evento.'),
+(1, 75.25, NOW(), 'Despesas com decoração e toalhas para as mesas.'),
+(2, 250.00, NOW(), 'Custo de fogos de artifício e decoração para a virada de ano.'),
+(2, 100.99, NOW(), 'Despesas com segurança para o evento na praça.'),
+(2, 70.45, NOW(), 'Custo de banheiros químicos para os participantes.'),
+(3, 300.30, NOW(), 'Contratação de bandas e equipamentos de som para o festival de música.'),
+(3, 120.60, NOW(), 'Despesas com publicidade e divulgação do evento.'),
+(4, 180.80, NOW(), 'Despesas com alimentos de diferentes países para a feira gastronômica.'),
+(4, 220.20, NOW(), 'Custo de aluguel de mesas e cadeiras para os expositores.'),
+(5, 220.55, NOW(), 'Custo de aluguel de telões e projetores para o cine ao ar livre.'),
+(5, 80.75, NOW(), 'Despesas com pipoca e bebidas para os espectadores.'),
+(6, 400.40, NOW(), 'Pagamento para as bandas e técnicos de som do show de rock.'),
+(6, 150.85, NOW(), 'Custo de segurança para o evento e controle de acesso.'),
+(7, 100.10, NOW(), 'Custo de alimentos e bebidas para o piquenique.'),
+(7, 50.25, NOW(), 'Despesas com atividades recreativas para crianças.'),
+(8, 350.90, NOW(), 'Despesas com decoração e animação da festa junina.'),
+(8, 100.50, NOW(), 'Custo de alimentos típicos e bebidas.'),
+(9, 200.65, NOW(), 'Custo de materiais para a caminhada ecológica, incluindo lixeiras e água.'),
+(9, 50.80, NOW(), 'Despesas com camisetas para os participantes.'),
+(10, 300.99, NOW(), 'Contratação de dançarinos e aluguel de espaço para o festival de dança.'),
+(10, 150.10, NOW(), 'Custo de materiais para as oficinas de dança durante o evento.');
 
 INSERT INTO payment (account_id, expanse_id, paid_at, value_pay, about, type_payment) VALUES
 (1, 1, NOW(), 100.00, 'Payment for expense 1', 'credit_card'),
