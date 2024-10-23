@@ -28,8 +28,10 @@
             <img [src]="eventImage" alt="Descrição da imagem" />
           </div>
           <div class="image-buttons">
-            <button class="btn-edit">Edit</button>
-            <button class="btn-remove">Remove</button>
+            <input id="file-upload" type="file" class="file-upload-input" (change)="onFileSelected($event)"
+              style="display: none;" />
+            <label for="file-upload" class="btn-edit">Edit</label>
+            <button class="btn-remove" (click)="onRemoveImage()">Remove</button>
           </div>
         </div>
 

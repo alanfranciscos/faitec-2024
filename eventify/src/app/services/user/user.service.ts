@@ -74,4 +74,19 @@ export class UserService {
     }
     return response.data;
   }
+
+  async updateProfileData(name: string, password: string, image: File | null) {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('password', password);
+    if (image) {
+      formData.append('image', image);
+    }
+
+    const response = await this.api.put(`/api/v1/account`, { formData });
+    if (response.status !== 200) {
+      throw new Error('Failed to update user profile');
+    }
+    return response.data;
+  }
 }

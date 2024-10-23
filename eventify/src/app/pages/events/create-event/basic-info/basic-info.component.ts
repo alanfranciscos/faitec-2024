@@ -29,24 +29,25 @@ export class BasicInfoComponent {
 
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
-        const imageData = e.target?.result as string; // Base64 da imagem
+        const imageData = e.target?.result as string;
         this.showImage = imageData;
-        // Atualiza a imagem com os dados carregados em base64
       };
 
-      reader.readAsDataURL(file); // Lê o arquivo selecionado como DataURL (Base64)
+      reader.readAsDataURL(file);
     }
   }
   onRemoveImage() {
     this.eventImage = '/assets/svg/logo.svg';
+    this.showImage = '/assets/svg/logo.svg';
   }
+
   onAddAddress() {
     const eventBasicData = {
       name: this.eventName,
       description: this.eventDescription,
       startDate: this.startDate,
       finishDate: this.finishDate,
-      image: this.eventImage, // A imagem está em base64
+      image: this.eventImage,
     };
 
     this.createEventService.setBasicInfoData(eventBasicData);

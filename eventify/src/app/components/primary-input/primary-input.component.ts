@@ -28,7 +28,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() inputName: string = '';
 
-  value: string | File | null = '';
+  @Input() value: string | File | null = '';
   onChange: any = () => {};
   onTouched: any = () => {};
 
