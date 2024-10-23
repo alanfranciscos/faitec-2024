@@ -35,7 +35,7 @@
         <img src="assets/svg/pix.svg" alt="Pix image" />
         <div class="form-group">
           <label for="payment">Pix Key:</label>
-          <input type="text" id="payment" placeholder="Pix key" [value]='eventData.pix_key' />
+          <input type="text" id="payment" placeholder="Pix key" [(ngModel)]="pixKey" />
         </div>
       </div>
 
@@ -43,6 +43,8 @@
         <button routerLink="{{backRoute}}" class="btn-back">
           < Back </button>
             <button class="btn-next" (click)="onSubmitEvent() " routerLink="{{nextRoute}}">
+              <!-- <button class="btn-next" (click)="onSubmitEvent() "> -->
+
               Conclude
             </button>
       </div>
