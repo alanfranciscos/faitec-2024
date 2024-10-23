@@ -14,6 +14,7 @@
         </div>
       </div>
 
+      @if(showEmail) {
       <div class="form-row email row">
         <div class="form-item email-input">
           <app-primary-input formControlName="email" inputName="email" type="email" label="Email:"
@@ -21,6 +22,7 @@
           </app-primary-input>
         </div>
       </div>
+      }
 
       <div class="form-row password row">
         <div class="form-item password-input">
@@ -50,10 +52,10 @@
 
       <div class="form-row button row">
         <div class="form-item">
-          <app-button [isPrimary]="false" text="{{ cancelButton.text }}" (click)="(cancelButton.onClick)">
+          <app-button [isPrimary]="false" text="{{ cancelButton.text }}" routerLink="{{ cancelButton.route }}">
           </app-button>
         </div>
-        <div class="form-item">
+        <div class=" form-item">
           <!-- <app-button class="primary-button" text="Register" type="submit" routerLink="{{ route }}  [isDisabled]="!registerForm.valid"" -->
           <app-button class="primary-button" text="Register" type="submit" (clicked)="register()">
           </app-button>

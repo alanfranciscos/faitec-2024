@@ -10,5 +10,5 @@ export interface UserInputCredential {
   name: string;
   email: string;
   password: string;
-  profileImage: File | null;
+  profileImage: File | null | string;
 }

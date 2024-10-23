@@ -21,7 +21,7 @@ interface RegisterForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
-  profileImage: FormControl<File | null>;
+  profileImage: FormControl<File | null | string>;
 }
 @Component({
   selector: 'app-profile',
@@ -39,6 +39,8 @@ interface RegisterForm {
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  @Input() showEmail: boolean = true;
+
   @Input() title: string = '';
   @Input() route?: string;
 
@@ -51,7 +53,7 @@ export class ProfileComponent implements OnInit {
 
   @Input() cancelButton: CancelButton = {
     text: 'Cancelar',
-    onClick: () => null,
+    route: '/',
   };
 
   @Output() saveInformations = new EventEmitter<UserInputCredential>();
@@ -63,7 +65,7 @@ export class ProfileComponent implements OnInit {
     this.registerForm = new FormGroup<RegisterForm>(
       {
         name: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl(null),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
@@ -80,6 +82,8 @@ export class ProfileComponent implements OnInit {
     this.registerForm.get('password')?.valueChanges.subscribe((value) => {
       this.updatePasswordStrength(value);
     });
+
+    this.registerForm.patchValue({ profileImage: this.userImage });
   }
 
   ngOnInit() {}
@@ -131,6 +135,8 @@ export class ProfileComponent implements OnInit {
         password: this.registerForm.get('password')?.value || '',
         profileImage: this.registerForm.get('profileImage')?.value || null,
       };
+
+      console.log(data);
 
       this.saveInformations.emit(data);
     }

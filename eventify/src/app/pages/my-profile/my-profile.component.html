@@ -1,2 +1,3 @@
-<app-profile title="Edit my profile data" route="/">
+<app-profile title="Edit my profile data" [userEmail]="userEmail" [showEmail]="false" [userName]="userName"
+  [userImage]="image" (saveInformations)="saveInformations($event)" [cancelButton]="cancelButton">
 </app-profile>
