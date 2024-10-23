@@ -6,11 +6,12 @@ import { EventData } from '../../../../domain/model/event/eventData.model';
 import { EditEventService } from '../edit-event.service';
 import { EventInput } from '../../../../services/event/create-event.service-api';
 import { UpdateEventService } from '../../../../services/event/update-event.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-info',
   standalone: true,
-  imports: [RouterLink, HeaderComponent],
+  imports: [RouterLink, HeaderComponent, FormsModule],
   templateUrl: './payment-info.component.html',
   styleUrl: './payment-info.component.scss',
 })
