@@ -51,7 +51,7 @@ export class MembersComponent implements OnInit {
 
   participants!: EventParticipantsResponse;
   offset = 0;
-  quantityPerPage = 1;
+  quantityPerPage = 10;
   limit = 10;
   currentPage: number = 1;
 
@@ -75,10 +75,10 @@ export class MembersComponent implements OnInit {
   eventId = '';
   async ngOnInit(): Promise<void> {
     const url = this.router.url;
-    let eventId = url.split('/')[2];
-    eventId = eventId == null ? '-1' : eventId;
+    this.eventId = url.split('/')[2];
+    this.eventId = this.eventId == null ? '-1' : this.eventId;
     const participants = await this.eventService.listParticipants(
-      eventId,
+      this.eventId,
       this.offset,
       this.limit
     );
@@ -167,7 +167,7 @@ export class MembersComponent implements OnInit {
     const url = this.router.url;
     let eventId = url.split('/')[2];
     eventId = eventId == null ? '-1' : eventId;
-    console.log("EVENT ID: " + eventId)
+    console.log('EVENT ID: ' + eventId);
     console.log(this.participants);
     // console.log("USER ID: " + userId)
     await this.deleteEventService.deleteEventMember(Number(eventId), userId);
