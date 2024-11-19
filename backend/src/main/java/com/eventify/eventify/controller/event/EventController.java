@@ -188,53 +188,25 @@ public class EventController {
         ZonedDateTime zonedDateTimeStart = localDateStart.atStartOfDay(zoneId);
         ZonedDateTime zonedDateTimeEnd = localDateEnd.atStartOfDay(zoneId);
 
-        int eventId = this.eventService.partiallySave(
+
+        int eventId = this.eventService.createEvent(
                 eventname,
                 eventdescription,
                 zonedDateTimeStart,
-                zonedDateTimeEnd
+                zonedDateTimeEnd,
+                imageData,
+                local_name,
+                cep_address,
+                state_address,
+                city_address,
+                neighborhood_address,
+                number_address,
+                street_address,
+                complement_address,
+                lat,
+                lng,
+                pix_key
         );
-        if (imageData != null) {
-            try {
-                this.eventService.updateImage(eventId, imageData);
-            } catch (Exception e) {
-                this.eventService.deleteEvent(eventId);
-                throw new RuntimeException("Failed to create event", e);
-            }
-        }
-
-        if (local_name != null || cep_address != null || state_address != null ||
-                city_address != null || neighborhood_address != null ||
-                number_address != null || street_address != null || complement_address != null) {
-            try {
-                this.eventService.updateAddress(
-                        eventId, local_name, cep_address,
-                        state_address, city_address,
-                        neighborhood_address, number_address,
-                        street_address, complement_address,
-                        lat,lng
-//                        Double.parseDouble(lat),
-//                        Double.parseDouble(lng)
-                );
-            } catch (Exception e) {
-                this.eventService.deleteEvent(eventId);
-                throw new RuntimeException("Failed to create event", e);
-            }
-        }
-
-        if (pix_key != null) {
-            try {
-                this.eventService.updatePayment(eventId, pix_key);
-            } catch (Exception e) {
-                this.eventService.deleteEvent(eventId);
-                throw new RuntimeException("Failed to create event", e);
-            }
-        }
-
-        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
-        int participateId = participateService.create(participate);
-        Management management = new Management(participateId, "create");
-        int managementId = managementService.create(management);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

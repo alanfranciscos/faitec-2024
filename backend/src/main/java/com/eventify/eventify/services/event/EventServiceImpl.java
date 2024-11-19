@@ -6,10 +6,16 @@ import com.eventify.eventify.dto.event.EventPaymentResponse;
 import com.eventify.eventify.models.account.Account;
 import com.eventify.eventify.models.event.*;
 import com.eventify.eventify.models.event.expense.Expense;
+import com.eventify.eventify.models.event.management.Management;
+import com.eventify.eventify.models.event.participate.Participate;
+import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.dao.event.EventDao;
 import com.eventify.eventify.port.service.account.AccountService;
 import com.eventify.eventify.port.service.event.EventService;
+import com.eventify.eventify.port.service.event.management.ManagementService;
+import com.eventify.eventify.port.service.event.participate.ParticipateService;
 import com.eventify.eventify.port.service.gcp.GcpStorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,16 +24,21 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EventServiceImpl implements EventService {
 
     private final EventDao eventDao;
     private final AccountService accountService;
     private final GcpStorageService gcpStorageService;
+    private final ParticipateService participateService;
+    private final ManagementService managementService;
 
-    public EventServiceImpl(EventDao eventDao, AccountService accountService, GcpStorageService gcpStorageService) {
+    public EventServiceImpl(EventDao eventDao, AccountService accountService, GcpStorageService gcpStorageService, ParticipateService participateService, ManagementService managementService) {
         this.eventDao = eventDao;
         this.accountService = accountService;
         this.gcpStorageService = gcpStorageService;
+        this.participateService = participateService;
+        this.managementService = managementService;
     }
 
     @Override
@@ -186,15 +197,77 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public int partiallySave(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
-        Event event = new Event(eventName, eventDescription, date_start, date_end);
-
-        if (event == null) {
-            throw new RuntimeException();
+        if(eventName == null || eventDescription == null || date_start == null || date_end == null){
+            throw new IllegalArgumentException("Invalid arguments");
         }
+        Event event = new Event(eventName, eventDescription, date_start, date_end);
 
         int id = eventDao.partiallySave(event);
         this.eventDao.insertNullImage(id);
         return id;
+    }
+
+    @Override
+    public int createEvent(String eventName,
+                           String eventDescription,
+                           ZonedDateTime date_start,
+                           ZonedDateTime date_end,
+                           MultipartFile imageData,
+                           String local_name,
+                           String cep_address,
+                           String state_address,
+                           String city_address,
+                           String neighborhood_address,
+                           String number_address,
+                           String street_address,
+                           String complement_address,
+                           String lat,
+                           String lng,
+                           String pix_key
+    ) {
+        int eventId = this.partiallySave(eventName, eventDescription, date_start, date_end);
+
+        if (imageData != null) {
+            try {
+                this.updateImage(eventId, imageData);
+            } catch (Exception e) {
+                this.deleteEvent(eventId);
+                throw new RuntimeException("Failed to create event", e);
+            }
+        }
+
+        if (local_name != null || cep_address != null || state_address != null ||
+                city_address != null || neighborhood_address != null ||
+                number_address != null || street_address != null || complement_address != null) {
+            try {
+                this.updateAddress(
+                        eventId, local_name, cep_address,
+                        state_address, city_address,
+                        neighborhood_address, number_address,
+                        street_address, complement_address,
+                        lat,lng
+                );
+            } catch (Exception e) {
+                this.deleteEvent(eventId);
+                throw new RuntimeException("Failed to create event", e);
+            }
+        }
+
+        if (pix_key != null) {
+            try {
+                this.updatePayment(eventId, pix_key);
+            } catch (Exception e) {
+                this.deleteEvent(eventId);
+                throw new RuntimeException("Failed to create event", e);
+            }
+        }
+
+        Participate participate = new Participate(eventId, RoleParticipateEnum.ORGANIZER, true);
+        int participateId = this.participateService.create(participate);
+        Management management = new Management(participateId, "create");
+        managementService.create(management);
+
+        return eventId;
     }
 
     @Override
