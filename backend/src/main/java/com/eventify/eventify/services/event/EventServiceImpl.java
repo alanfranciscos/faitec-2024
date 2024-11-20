@@ -197,7 +197,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public int partiallySave(String eventName, String eventDescription, ZonedDateTime date_start, ZonedDateTime date_end) {
-        if(eventName == null || eventDescription == null || date_start == null || date_end == null){
+        if (eventName == null || eventDescription == null || date_start == null || date_end == null) {
             throw new IllegalArgumentException("Invalid arguments");
         }
         Event event = new Event(eventName, eventDescription, date_start, date_end);
@@ -245,7 +245,7 @@ public class EventServiceImpl implements EventService {
                         state_address, city_address,
                         neighborhood_address, number_address,
                         street_address, complement_address,
-                        lat,lng
+                        lat, lng
                 );
             } catch (Exception e) {
                 this.deleteEvent(eventId);
@@ -270,13 +270,90 @@ public class EventServiceImpl implements EventService {
         return eventId;
     }
 
+    //TODO -> Refactor this method
     @Override
-    public void updateEvent(int id, Event entity) {
-        Event event = getEventById(id);
+    public void updateEvent(int id,
+                            String eventName,
+                            String eventDescription,
+                            ZonedDateTime date_start,
+                            ZonedDateTime date_end,
+                            MultipartFile imageData,
+                            String local_name,
+                            String cep_address,
+                            String state_address,
+                            String city_address,
+                            String neighborhood_address,
+                            String number_address,
+                            String street_address,
+                            String complement_address,
+                            String lat,
+                            String lng,
+                            String pix_key) {
+
+        if(eventName == null || eventDescription == null || date_start == null || date_end == null) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+
+        Event event = this.getEventById(id);
         if (event == null) {
             return;
         }
-        eventDao.updateInformation(id, entity);
+
+        if(eventName != null) {
+            event.setTitle(eventName);
+        }
+        if(eventDescription != null) {
+            event.setInformation(eventDescription);
+        }
+        if(date_start != null) {
+            event.setDateStart(date_start);
+        }
+        if(date_end != null) {
+            event.setDateEnd(date_end);
+        }
+        if(local_name != null) {
+            event.setLocalName(local_name);
+        }
+        if(cep_address != null) {
+            event.setCepAddress(cep_address);
+        }
+        if(state_address != null) {
+            event.setStateAddress(state_address);
+        }
+        if(city_address != null) {
+            event.setCityAddress(city_address);
+        }
+        if(neighborhood_address != null) {
+            event.setNeighborhoodAddress(neighborhood_address);
+        }
+        if(number_address != null) {
+            event.setNumberAddress(number_address);
+        }
+        if(street_address != null) {
+            event.setStreetAddress(street_address);
+        }
+        if(complement_address != null) {
+            event.setComplementAddress(complement_address);
+        }
+        if(lat != null) {
+            event.setLatitude(Double.parseDouble(lat));
+        }
+        if(lng != null) {
+            event.setLongitude(Double.parseDouble(lng));
+        }
+        if(pix_key != null) {
+            event.setPixKey(pix_key);
+        }
+
+        if (imageData != null) {
+            try {
+                this.updateImage(id, imageData);
+            } catch (Exception e) {
+                this.deleteEvent(id);
+                throw new RuntimeException("Failed to edit image event", e);
+            }
+        }
+        eventDao.updateInformation(id, event);
     }
 
     @Override
@@ -296,7 +373,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event findById(int id) {
-        if(id < 0){
+        if (id < 0) {
             return null;
         }
         Event event = eventDao.readById(id);

@@ -271,4 +271,127 @@ public class EventServiceTest {
         // ASSERT
         assertEquals("User does not have access to event", exception.getMessage());
     }
+
+    @Test
+    public void testUpdateEvent_validInformations_Succsess() {
+        // FIXTURE
+        String eventName = "Event Name";
+        String eventDescription = "Event Description";
+        ZonedDateTime dateStart = ZonedDateTime.now();
+        ZonedDateTime dateEnd = ZonedDateTime.now().plusDays(1);
+        MultipartFile imageData = mock(MultipartFile.class);
+        String localName = "Local Name";
+        String cepAddress = "12345";
+        String stateAddress = "State";
+        String cityAddress = "City";
+        String neighborhoodAddress = "Neighborhood";
+        String numberAddress = "123";
+        String streetAddress = "Street";
+        String complementAddress = "Complement";
+        String lat = "0.0";
+        String lng = "0.0";
+        String pixKey = "PIX_VALUE_TEST";
+
+        Event event = new Event(
+                1,
+                eventName,
+                eventDescription,
+                ZonedDateTime.now(),
+                localName,
+                cepAddress,
+                stateAddress,
+                cityAddress,
+                neighborhoodAddress,
+                numberAddress,
+                streetAddress,
+                complementAddress,
+                0.0,
+                0.0,
+                dateStart,
+                dateEnd,
+                EventStageEnum.CREATED,
+                pixKey
+        );
+
+        when(accountService.getAccountRequest()).thenReturn(account);
+        when(eventDao.hasAccessToEvent(1, account.getId())).thenReturn(true);
+        when(eventDao.readById(1)).thenReturn(event);
+
+        // EXERCISE
+        eventService.updateEvent(
+                1,
+                eventName, eventDescription, dateStart, dateEnd, imageData, localName, cepAddress, stateAddress,
+                cityAddress, neighborhoodAddress, numberAddress, streetAddress, complementAddress, lat, lng, pixKey
+        );
+    }
+
+    @Test
+    public void testUpdateEvent_invalidInformations_error() {
+        // FIXTURE
+        String eventName = null;
+        String eventDescription = "Event Description";
+        ZonedDateTime dateStart = ZonedDateTime.now();
+        ZonedDateTime dateEnd = ZonedDateTime.now().plusDays(1);
+        MultipartFile imageData = mock(MultipartFile.class);
+        String localName = "Local Name";
+        String cepAddress = "12345";
+        String stateAddress = "State";
+        String cityAddress = "City";
+        String neighborhoodAddress = "Neighborhood";
+        String numberAddress = "123";
+        String streetAddress = "Street";
+        String complementAddress = "Complement";
+        String lat = "0.0";
+        String lng = "0.0";
+        String pixKey = "PIX_VALUE_TEST";
+
+        Event event = new Event(
+                1,
+                eventName,
+                eventDescription,
+                ZonedDateTime.now(),
+                localName,
+                cepAddress,
+                stateAddress,
+                cityAddress,
+                neighborhoodAddress,
+                numberAddress,
+                streetAddress,
+                complementAddress,
+                0.0,
+                0.0,
+                dateStart,
+                dateEnd,
+                EventStageEnum.CREATED,
+                pixKey
+        );
+
+        when(accountService.getAccountRequest()).thenReturn(account);
+        when(eventDao.hasAccessToEvent(1, account.getId())).thenReturn(true);
+        when(eventDao.readById(1)).thenReturn(event);
+
+        // EXERCISE
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            eventService.updateEvent(
+                    1,
+                    eventName, eventDescription, dateStart, dateEnd, imageData, localName, cepAddress, stateAddress,
+                    cityAddress, neighborhoodAddress, numberAddress, streetAddress, complementAddress, lat, lng, pixKey
+            );
+        });
+
+        //ASSERT
+        assertEquals("Invalid arguments", exception.getMessage());
+    }
+
+    @Test
+    public void testDeleteEvent_validInformations_succsess() {
+        // FIXTURE
+        int eventId = 1;
+
+        when(accountService.getAccountRequest()).thenReturn(account);
+        when(eventDao.hasAccessToEvent(1, account.getId())).thenReturn(true);
+
+        // EXERCISE
+        eventService.deleteEvent(eventId);
+    }
 }

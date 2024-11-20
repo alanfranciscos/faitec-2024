@@ -43,7 +43,24 @@ public interface EventService extends ExpenseForEventService {
             String pix_key
     );
 
-    void updateEvent(final int id, final Event event);
+    void updateEvent(final int id,
+                     String eventName,
+                     String eventDescription,
+                     ZonedDateTime date_start,
+                     ZonedDateTime date_end,
+                     MultipartFile imageData,
+                     String local_name,
+                     String cep_address,
+                     String state_address,
+                     String city_address,
+                     String neighborhood_address,
+                     String number_address,
+                     String street_address,
+                     String complement_address,
+                     String lat,
+                     String lng,
+                     String pix_key
+    );
 
     void deleteEvent(final int id);
 

@@ -10,12 +10,14 @@ import com.eventify.eventify.models.event.participate.RoleParticipateEnum;
 import com.eventify.eventify.port.service.event.EventService;
 import com.eventify.eventify.port.service.event.management.ManagementService;
 import com.eventify.eventify.port.service.event.participate.ParticipateService;
+
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -133,11 +135,11 @@ public class EventController {
 
         return ResponseEntity.ok(new EventExpansesResponse(
                 response.stream().map(eventExpanses -> new EventExpansesResponse.Expanse(
-                eventExpanses.getId(),
-                eventExpanses.getCreatedAt(),
-                eventExpanses.getAbout(),
-                eventExpanses.getCost()
-        )).toList(), totalExpenses
+                        eventExpanses.getId(),
+                        eventExpanses.getCreatedAt(),
+                        eventExpanses.getAbout(),
+                        eventExpanses.getCost()
+                )).toList(), totalExpenses
         ));
     }
 
@@ -153,11 +155,11 @@ public class EventController {
 
         return ResponseEntity.ok(new ListParticipantsResponse(
                 response.stream().map(participateHeader -> new ListParticipantsResponse.Participant(
-                participateHeader.getId(),
-                participateHeader.getName(),
-                participateHeader.getSendedAt(),
-                participateHeader.getRoleParticipate().toString()
-        )).toList(), totalParticipants
+                        participateHeader.getId(),
+                        participateHeader.getName(),
+                        participateHeader.getSendedAt(),
+                        participateHeader.getRoleParticipate().toString()
+                )).toList(), totalParticipants
         ));
     }
 
@@ -178,7 +180,7 @@ public class EventController {
                                              @RequestParam("date_start") String date_start,
                                              @RequestParam("date_end") String date_end,
                                              @RequestParam(value = "pix_key", required = false) String pix_key
-                                             ){
+    ) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate localDateStart = LocalDate.parse(date_start, formatter);
@@ -216,62 +218,51 @@ public class EventController {
         return ResponseEntity.created(uri).build();
     }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<Void> updateEvent(@RequestParam(value = "event_id") int event_id,
-                                                @RequestParam(value = "eventname", required = false) String eventname,
-                                                @RequestParam(value = "eventdescription", required = false) String eventdescription,
-                                                @RequestParam(value = "date_start", required = false) String date_start,
-                                                @RequestParam(value = "date_end", required = false) String date_end,
-                                                @RequestParam(value = "image", required = false) MultipartFile imageData,
-                                                @RequestParam(value = "local_name", required = false) String local_name,
-                                                @RequestParam(value = "cep_address", required = false) String cep_address,
-                                                @RequestParam(value = "state_address", required = false) String state_address,
-                                                @RequestParam(value = "city_address", required = false) String city_address,
-                                                @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
-                                                @RequestParam(value = "street_address", required = false) String street_address,
-                                                @RequestParam(value = "number_address", required = false) String number_address,
-                                                @RequestParam(value = "complement_address", required = false) String complement_address,
-                                                @RequestParam(value = "pix_key", required = false) String pix_key){
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateEvent(@RequestParam(value = "event_id") int event_id,
+                                            @RequestParam(value = "eventname", required = false) String eventname,
+                                            @RequestParam(value = "eventdescription", required = false) String eventdescription,
+                                            @RequestParam(value = "date_start", required = false) String date_start,
+                                            @RequestParam(value = "date_end", required = false) String date_end,
+                                            @RequestParam(value = "image", required = false) MultipartFile imageData,
+                                            @RequestParam(value = "local_name", required = false) String local_name,
+                                            @RequestParam(value = "cep_address", required = false) String cep_address,
+                                            @RequestParam(value = "state_address", required = false) String state_address,
+                                            @RequestParam(value = "city_address", required = false) String city_address,
+                                            @RequestParam(value = "neighborhood_address", required = false) String neighborhood_address,
+                                            @RequestParam(value = "street_address", required = false) String street_address,
+                                            @RequestParam(value = "number_address", required = false) String number_address,
+                                            @RequestParam(value = "lat", required = false) String lat,
+                                            @RequestParam(value = "lng", required = false) String lng,
+                                            @RequestParam(value = "complement_address", required = false) String complement_address,
+                                            @RequestParam(value = "pix_key", required = false) String pix_key) {
 
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDateStart = LocalDate.parse(date_start, formatter);
+        LocalDate localDateEnd = LocalDate.parse(date_end, formatter);
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTimeStart = localDateStart.atStartOfDay(zoneId);
+        ZonedDateTime zonedDateTimeEnd = localDateEnd.atStartOfDay(zoneId);
 
-            if(eventname != null && eventdescription != null && date_start != null && date_end != null){
-                Event event = eventService.getEventById(event_id);
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate localDateStart = LocalDate.parse(date_start, formatter);
-                LocalDate localDateEnd = LocalDate.parse(date_end, formatter);
-                ZoneId zoneId = ZoneId.systemDefault();
-                ZonedDateTime zonedDateTimeStart = localDateStart.atStartOfDay(zoneId);
-                ZonedDateTime zonedDateTimeEnd = localDateEnd.atStartOfDay(zoneId);
-
-                event.setId(event_id);
-                event.setTitle(eventname);
-                event.setInformation(eventdescription);
-                event.setDateStart(zonedDateTimeStart);
-                event.setDateEnd(zonedDateTimeEnd);
-                event.setLocalName(local_name);
-                event.setCepAddress(cep_address);
-                event.setStateAddress(state_address);
-                event.setCityAddress(city_address);
-                event.setNeighborhoodAddress(neighborhood_address);
-                event.setStreetAddress(street_address);
-                event.setNumberAddress(number_address);
-                event.setComplementAddress(complement_address);
-                event.setPixKey(pix_key);
-                this.eventService.updateEvent(event_id, event);
-            } else {
-                throw new RuntimeException("Nome, descrição, date de inicio ou data de fim vazios. Esses campos são obrigatorios");
-            }
-
-            if (imageData != null) {
-                try {
-                    this.eventService.updateImage(event_id, imageData);
-                } catch (Exception e) {
-                    this.eventService.deleteEvent(event_id);
-                    throw new RuntimeException("Failed to edit image event", e);
-                }
-            }
+        this.eventService.updateEvent(event_id,
+                eventname,
+                eventdescription,
+                zonedDateTimeStart,
+                zonedDateTimeEnd,
+                imageData,
+                local_name,
+                cep_address,
+                state_address,
+                city_address,
+                neighborhood_address,
+                number_address,
+                street_address,
+                complement_address,
+                lat,
+                lng,
+                pix_key
+        );
 
         return ResponseEntity.ok().build();
     }
