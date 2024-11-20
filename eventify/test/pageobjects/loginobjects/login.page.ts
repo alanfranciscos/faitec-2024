@@ -1,4 +1,4 @@
-import { $ } from '@wdio/globals'
+import { $, browser } from '@wdio/globals'
 import Page from '../page';
 
 /**
@@ -24,6 +24,38 @@ class LoginPage extends Page {
         return $('#create-event-btn'); // Substitua pelo seletor correto do seu HTML
     }
 
+    public get inputEventName () {
+        return $('#event-name');
+    }
+
+    public get inputEventDescription () {
+        return $('#event-description');
+    }
+
+    public get inputEventStartDate () {
+        return $('#start-date');
+    }
+
+    public get inputEventFinishDate () {
+        return $('#finish-date');
+    }
+
+    public get btnAddAddress () {
+        return $('#add-address-btn');
+    }
+
+    public get btnAddPaymentAddress () {
+        return $('#add-payment-btn-address');
+    }
+
+    public get btnCreateEventConclude () {
+        return $('#event-create-conclude-btn');
+    }
+
+    public get logoutBtn() {
+        return $('#logout-btn');
+    }
+   
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
@@ -32,6 +64,27 @@ class LoginPage extends Page {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
+        await browser.waitUntil(() => this.btnCreateEvent.isDisplayed(), {
+            timeout: 5000,
+            timeoutMsg: 'Botão "Create Event" não ficou visível após o login.',
+        });
+        await this.btnCreateEvent.click();
+    }
+
+    public async fillEventFields(eventName: string, eventDescription: string, startDate: string, finishDate: string) {
+        await this.inputEventName.setValue(eventName);
+        await this.inputEventDescription.setValue(eventDescription);
+        await this.inputEventStartDate.setValue(startDate);
+        await this.inputEventFinishDate.setValue(finishDate);
+
+        await this.btnAddAddress.click();
+        await this.btnAddPaymentAddress.click();
+        await this.btnCreateEventConclude.click();
+
+        // await browser.waitUntil(() => this.myEventsTitle.isDisplayed(), {
+        //     timeout: 5000,
+        //     timeoutMsg: 'Título "My Events" não ficou visível após criar o evento.',
+        // });
     }
 
     /**
