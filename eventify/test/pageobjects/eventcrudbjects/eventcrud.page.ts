@@ -4,7 +4,7 @@ import Page from '../page';
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class LoginPage extends Page {
+class EventCrudPage extends Page {
     /**
      * define selectors using getter methods
      */
@@ -55,7 +55,27 @@ class LoginPage extends Page {
     public get logoutBtn() {
         return $('#logout-btn');
     }
+
+    public get firstEvent() {
+        return $('(//app-card)[1]');
+    }
+
+    public get btnEditEvent(){
+        return $('#edit-info-btn');
+    }
    
+    public get editInfoAddAddressBtn () {
+        return $('#edit-info-add-address-btn');
+    }
+    
+    public get btnEditPaymentAddress () {
+        return $('button[ng-reflect-router-link="/event/1/edit-event/payment-in"]');
+    }
+
+    public get btnEditEventConclude () {
+        return $('button[ng-reflect-router-link="/event/1"]');
+    }
+
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
@@ -81,10 +101,23 @@ class LoginPage extends Page {
         await this.btnAddPaymentAddress.click();
         await this.btnCreateEventConclude.click();
 
-        // await browser.waitUntil(() => this.myEventsTitle.isDisplayed(), {
-        //     timeout: 5000,
-        //     timeoutMsg: 'Título "My Events" não ficou visível após criar o evento.',
-        // });
+    }
+
+    public async selectEventToEdit() {
+        await this.firstEvent.click();
+        await this.btnEditEvent.click();
+    }
+
+    public async fillEventFieldsToEdit(eventName: string, eventDescription: string, startDate: string, finishDate: string) {
+        await this.inputEventName.setValue(eventName);
+        await this.inputEventDescription.setValue(eventDescription);
+        await this.inputEventStartDate.setValue(startDate);
+        await this.inputEventFinishDate.setValue(finishDate);
+
+        await this.editInfoAddAddressBtn.click();
+        await this.btnEditPaymentAddress.click();
+        await this.btnEditEventConclude.click();
+
     }
 
     /**
@@ -95,4 +128,4 @@ class LoginPage extends Page {
     }
 }
 
-export default new LoginPage();
+export default new EventCrudPage();
