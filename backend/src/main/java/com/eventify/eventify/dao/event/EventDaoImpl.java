@@ -637,7 +637,7 @@ public class EventDaoImpl implements EventDao {
     public void deleteById(int id) {
         logger.log(Level.INFO, "Preparando para remover a entidade com id " + id);
 
-        final String sql = "DELETE FROM meetup WHERE id = ? ;";
+        final String sql = "DELETE FROM participate WHERE id = ? ;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

@@ -56,12 +56,32 @@ class EventCrudPage extends Page {
         return $('#logout-btn');
     }
 
+    public get homeBtn() {
+        return $('//button[span="Home"]');
+    }
+
     public get firstEvent() {
         return $('(//app-card)[1]');
     }
 
+    public get secondEvent() {
+        return $('(//app-card)[2]');
+    }
+
+    public get fourEvent() {
+        return $('(//app-card)[4]');
+    }
+
     public get btnEditEvent(){
         return $('#edit-info-btn');
+    }
+
+    public get btnDeleteEvent(){
+        return $('//button[contains(@class, "add-expense-button") and contains(text(), "Delete event")]');
+    }
+
+    public get confirmDeletEvent(){
+        return $('//button[contains(@class, "confirm-button") and text()="Yes"]');
     }
    
     public get editInfoAddAddressBtn () {
@@ -73,7 +93,7 @@ class EventCrudPage extends Page {
     }
 
     public get btnEditEventConclude () {
-        return $('button[ng-reflect-router-link="/event/1"]');
+        return $('//button[contains(@class, "btn-next") and normalize-space(text())="Conclude"]');
     }
 
     /**
@@ -84,14 +104,10 @@ class EventCrudPage extends Page {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
-        await browser.waitUntil(() => this.btnCreateEvent.isDisplayed(), {
-            timeout: 5000,
-            timeoutMsg: 'Botão "Create Event" não ficou visível após o login.',
-        });
-        await this.btnCreateEvent.click();
     }
 
     public async fillEventFields(eventName: string, eventDescription: string, startDate: string, finishDate: string) {
+        await this.btnCreateEvent.click();
         await this.inputEventName.setValue(eventName);
         await this.inputEventDescription.setValue(eventDescription);
         await this.inputEventStartDate.setValue(startDate);
@@ -118,6 +134,24 @@ class EventCrudPage extends Page {
         await this.btnEditPaymentAddress.click();
         await this.btnEditEventConclude.click();
 
+    }
+
+    public async selectEventToDelete() {
+        await this.secondEvent.click();
+        await this.btnDeleteEvent.click();
+        await this.confirmDeletEvent.click();
+    }
+
+    public async selectEventFour() {
+        await this.fourEvent.click();
+    }
+    
+    public async logout() {
+        await this.logoutBtn.click();
+    }
+
+    public async clickHomeButton() {
+        await this.homeBtn.click();
     }
 
     /**
